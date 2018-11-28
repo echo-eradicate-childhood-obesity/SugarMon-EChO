@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "232423510205",
+    "firebase_url": "https://sugarmon-5e94f.firebaseio.com",
+    "project_id": "sugarmon-5e94f",
+    "storage_bucket": "sugarmon-5e94f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232423510205:android:5efdc09153077d0c",
+        "android_client_info": {
+          "package_name": "SugarMon.ECho"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232423510205-9npnkn4jrh9sb6i82i3s734vvjjgo1cg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDlWGvs7t3OHn57aJiMaRkdtd1z-l5iuU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
