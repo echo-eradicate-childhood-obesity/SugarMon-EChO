@@ -38,7 +38,7 @@ public class SugarDisk : MonoBehaviour {
 
     public void OpenSugarDisk()
     {
-        //this.GetComponent<Button>().sprite = Resources.Load<Sprite>("Images/Sugar Disk White");
+        
         newSugars.Clear();
         sugarDiskImage.transform.localPosition = diskPosition;
         wallStatus = true;
@@ -105,6 +105,7 @@ public class SugarDisk : MonoBehaviour {
     public void CloseSugarDisk()
     {
         wallStatus = false;
+        this.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Sugar Disk White");
         GameObject.Find("Canvas").transform.FindChild("Background").gameObject.SetActive(false);
     }
 }
