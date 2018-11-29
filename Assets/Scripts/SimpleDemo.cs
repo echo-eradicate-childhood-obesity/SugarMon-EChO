@@ -14,6 +14,7 @@ public class SimpleDemo : MonoBehaviour {
 
 	private IScanner BarcodeScanner;
 	public RawImage Image;
+    private bool inDB;
     private static List<string> usdaList = new List<string>();
 
     // Disable Screen Rotation on that screen
@@ -24,6 +25,8 @@ public class SimpleDemo : MonoBehaviour {
 	}
 
 	void Start () {
+
+        
 
         //Read USDA Database
         TextAsset usdatxt = (TextAsset)Resources.Load("NoDupeDatabase");
@@ -71,7 +74,8 @@ public class SimpleDemo : MonoBehaviour {
 
 	public void ClickStart()
 	{
-		if (BarcodeScanner == null)
+        inDB = false;
+        if (BarcodeScanner == null)
 		{
 			Log.Warning("No valid camera - Click Start");
 			return;
@@ -82,23 +86,21 @@ public class SimpleDemo : MonoBehaviour {
 
             BarcodeScanner.Stop();
             barCodeValue = barCodeValue.Remove(0, 1);
-            //barCodeValue = "00000000000".Remove(0, 1);
+            //barCodeValue = "0000000000000000000".Remove(0, 1);
             foreach (string p in usdaList)
             {
                 if (p.Contains(barCodeValue))
                 {
-
+                    inDB = true;
                     //GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("evaporated cane crystals, cane sugar, syrup, cane juice, cane molasses");
                     //Debug.Log(p.ToLower());
                     GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(p);
                     break;
                 }
+            }
+            if (!inDB) {
+                GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found");
 
-                //Not in database
-                //else
-                //{
-                //    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().CreateSugarMonster("Not Found");
-                //}
             }
             Debug.Log(barCodeValue);
             //#if UNITY_ANDROID || UNITY_IOS
