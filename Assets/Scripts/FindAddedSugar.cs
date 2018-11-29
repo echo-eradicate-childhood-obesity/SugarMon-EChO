@@ -34,9 +34,10 @@ public class FindAddedSugar : MonoBehaviour
     protected List<string> ingredients;
 
     private GameObject disk;
-    private GameObject mask;
     private GameObject scannButton;
     public GameObject scanFrame;
+
+    private int numCount;
 
     [HideInInspector]
     public int familyIndex, deckNumIndex, nameIndex, repoNumIndex;
@@ -56,9 +57,15 @@ public class FindAddedSugar : MonoBehaviour
     }
     void Start() {
 
-        sugarInWall = new List<string>();
+        //Load player's data
+        numCount = PlayerPrefs.GetInt("count");
+        for (int i = 1; i <= PlayerPrefs.GetInt("count"); i++)
+        {
+            sugarInWall.Add(PlayerPrefs.GetString("num_" + i));
+        }
+
+
         disk = GameObject.Find("SugarDisk");
-        //mask = GameObject.Find("Mask");
 
         scannButton = GameObject.Find("ScanButton");
         //BarcodeScanner = new Scanner();
@@ -79,6 +86,7 @@ public class FindAddedSugar : MonoBehaviour
 
         //Debug.Log(usdacontent);
 
+        
         //Save data in a list of lists
         for (int i = 0; i < db.Count; i++)
         {
@@ -172,7 +180,7 @@ public class FindAddedSugar : MonoBehaviour
                 scannedAddedSugars.Add(char.ToUpper(r[0]) + r.Substring(1));
             }
         }
-        
+
 
         //foreach (string i in ingredients[testnum])
         //{
@@ -184,7 +192,15 @@ public class FindAddedSugar : MonoBehaviour
         //}
         foreach (string s in scannedAddedSugars)
         {
-            if (!allScanned.Contains(s)) allScanned.Add(s);
+            if (!allScanned.Contains(s))
+            {
+                allScanned.Add(s);
+                numCount++;
+                //playerprefAs.set array
+                PlayerPrefs.SetString("num_" + numCount, s.ToLower());
+                //playerprefs.set array.length() as new highscore
+                PlayerPrefs.SetInt("count", numCount);
+            }
         }
         //foreach (string s in scannedAddedSugars) Debug.Log(s);
 
@@ -197,7 +213,6 @@ public class FindAddedSugar : MonoBehaviour
             //Change image of monster
             scannedAddedSugars.Add("No Added Sugar");
             CreateSugarMonster(scannedAddedSugars[currentNumMonster]);
-            //mask.SetActive(false);
             scanFrame.SetActive(false);
         }
         //Include added sugar
@@ -205,7 +220,6 @@ public class FindAddedSugar : MonoBehaviour
         {
             //UnityEditor.Events.UnityEventTools.AddPersistentListener(GameObject.Find("ScanButton").GetComponent<Button>().onClick, displayMonsters);
             //UnityEditor.Events.UnityEventTools.RemovePersistentListener(GameObject.Find("ScanButton").GetComponent<Button>().onClick, AllTypeOfSugars);
-            //mask.SetActive(false);
             scanFrame.SetActive(false);
 
 
@@ -221,24 +235,36 @@ public class FindAddedSugar : MonoBehaviour
     }
     public void DisplayMonsters()
     {
-        //GameObject.Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster]));
-        currentNumMonster++;
-        //Debug.Log(currentNumMonster + ": " + scannedAddedSugars.Count);
-        if (currentNumMonster == scannedAddedSugars.Count)
-        {
-            GameObject.Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster - 1]));
-            //UnityEditor.Events.UnityEventTools.AddPersistentListener(GameObject.Find("ScanButton").GetComponent<Button>().onClick, AllTypeOfSugars);
-            //UnityEditor.Events.UnityEventTools.RemovePersistentListener(GameObject.Find("ScanButton").GetComponent<Button>().onClick, displayMonsters);
-            //mask.SetActive(true);
-            scanFrame.SetActive(true);
-            scannButton.SetActive(true);
-        }
-        else
-        {
-            monster.name = scannedAddedSugars[currentNumMonster];
-            this.GetComponentInChildren<Text>().text = scannedAddedSugars[currentNumMonster];
-            //Audio.Play();
-        }
+        
+
+        //if(currentNumMonster == 0)
+        //{
+        //    GameObject.Destroy(GameObject.Find("Not Found"));
+        //    scanFrame.SetActive(true);
+        //    scannButton.SetActive(true);
+        //}
+        //else
+        //{
+            //GameObject.Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster]));
+            currentNumMonster++;
+            //Debug.Log(currentNumMonster + ": " + scannedAddedSugars.Count);
+            if (currentNumMonster == scannedAddedSugars.Count)
+            {
+                GameObject.Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster - 1]));
+                //UnityEditor.Events.UnityEventTools.AddPersistentListener(GameObject.Find("ScanButton").GetComponent<Button>().onClick, AllTypeOfSugars);
+                //UnityEditor.Events.UnityEventTools.RemovePersistentListener(GameObject.Find("ScanButton").GetComponent<Button>().onClick, displayMonsters);
+                scanFrame.SetActive(true);
+                scannButton.SetActive(true);
+            }
+            else
+            {
+                monster.name = scannedAddedSugars[currentNumMonster];
+                this.GetComponentInChildren<Text>().text = scannedAddedSugars[currentNumMonster];
+                //Audio.Play();
+            }
+        //}
+
+        
     }
 
 
@@ -246,14 +272,16 @@ public class FindAddedSugar : MonoBehaviour
     public void CreateSugarMonster(string sugarName)
     {
         
-        if (!this.GetComponent<AudioSource>().isActiveAndEnabled)
-        {
-            this.GetComponent<AudioSource>().enabled = true;
-            this.GetComponent<AudioSource>().clip = newSugarSound;
-        }
+        //if (!this.GetComponent<AudioSource>().isActiveAndEnabled)
+        //{
+        //    this.GetComponent<AudioSource>().enabled = true;
+        //    this.GetComponent<AudioSource>().clip = newSugarSound;
+        //}
 
         GameObject stage = GameObject.Find("RawImage");
         monster = Instantiate(Resources.Load("Prefabs/Monster"), stage.transform) as GameObject;
+
+
         monster.name = sugarName;
 
         //Audio.Play();
@@ -262,7 +290,14 @@ public class FindAddedSugar : MonoBehaviour
 
         //UnityEditor.Events.UnityEventTools.AddPersistentListener(this.GetComponentInChildren<Button>().onClick, DisplayMonsters);
         this.GetComponentInChildren<Button>().onClick.AddListener(() => DisplayMonsters());
-        monster.transform.localScale = new Vector3(20, 25, 0);
+        //monster.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+        //Debug.Log(sugarName);
+        //if (sugarName == "Not Found")
+        //{
+        //    monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Not Found Card");
+        //    currentNumMonster = 0;
+
+        //}
         if (sugarName == "No Added Sugar")
         {
             monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NoAddedSugar");
@@ -272,7 +307,8 @@ public class FindAddedSugar : MonoBehaviour
 
 
             if (!sugarInWall.Contains(sugarName.ToLower()))
-            {
+            {                
+                
                 monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NewAddedSugar");
                 GameObject.Find("SugarDisk").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/SugarDexButtonNotification");
             }

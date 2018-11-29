@@ -20,6 +20,7 @@ public class SugarDisk : MonoBehaviour {
 
     private List<string> sugarFromMain, newSugars;
     public List<string> allCollectedSugars;
+    private int numCount;
     // Use this for initialization
     void Start () {
         diskPosition = sugarDiskImage.transform.localPosition;
@@ -27,8 +28,14 @@ public class SugarDisk : MonoBehaviour {
         wallStatus = false;
         foundSugar = GameObject.Find("Canvas");
         cv = GameObject.Find("Canvas");
-        allCollectedSugars = new List<string>();
-        newSugars = new List<string>();  
+        //allCollectedSugars = new List<string>();
+        newSugars = new List<string>();
+
+        for (int i = 1; i <= PlayerPrefs.GetInt("count"); i++)
+        {
+            allCollectedSugars.Add(PlayerPrefs.GetString("num_" + i));
+        }
+        
     }
 	
 	// Update is called once per frame
@@ -38,7 +45,7 @@ public class SugarDisk : MonoBehaviour {
 
     public void OpenSugarDisk()
     {
-        
+        //foreach (string s in allCollectedSugars) Debug.Log("Player: " + s);
         newSugars.Clear();
         sugarDiskImage.transform.localPosition = diskPosition;
         wallStatus = true;
@@ -52,11 +59,15 @@ public class SugarDisk : MonoBehaviour {
         //foreach (string s in sugarFromMain) Debug.Log(s);
         foreach (string ni in sugarFromMain)
         {
-            if (!allCollectedSugars.Contains(ni) && ni.ToLower() != "no added sugar") newSugars.Add(ni);
+            if (!allCollectedSugars.Contains(ni) && ni.ToLower() != "no added sugar")
+            {
+                newSugars.Add(ni);
+                
+            }
         }
-        allCollectedSugars = sugarFromMain;
 
-        
+        allCollectedSugars = sugarFromMain;
+                
         foreach (List<string> s in foundSugar.GetComponent<FindAddedSugar>().dbList)
         {
             foreach(string ss in newSugars)
@@ -107,5 +118,11 @@ public class SugarDisk : MonoBehaviour {
         wallStatus = false;
         this.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Sugar Disk White");
         GameObject.Find("Canvas").transform.FindChild("Background").gameObject.SetActive(false);
+    }
+
+
+    public void ResetData()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }

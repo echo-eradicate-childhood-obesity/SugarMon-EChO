@@ -81,20 +81,26 @@ public class SimpleDemo : MonoBehaviour {
 		BarcodeScanner.Scan((barCodeType, barCodeValue) => {
 
             BarcodeScanner.Stop();
-            //barCodeValue = barCodeValue.Remove(0, 1);
-            barCodeValue = "5050000000000".Remove(0, 1);
+            barCodeValue = barCodeValue.Remove(0, 1);
+            //barCodeValue = "00000000000".Remove(0, 1);
             foreach (string p in usdaList)
             {
                 if (p.Contains(barCodeValue))
                 {
-                    
-                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("evaporated cane crystals, cane sugar, syrup, cane juice, cane molasses");
+
+                    //GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("evaporated cane crystals, cane sugar, syrup, cane juice, cane molasses");
                     //Debug.Log(p.ToLower());
+                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(p);
                     break;
                 }
-                //else Debug.Log("Not Found");
+
+                //Not in database
+                //else
+                //{
+                //    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().CreateSugarMonster("Not Found");
+                //}
             }
-            //Debug.Log(barCodeValue);
+            Debug.Log(barCodeValue);
             //#if UNITY_ANDROID || UNITY_IOS
             //    Handheld.Vibrate();
             //#endif
