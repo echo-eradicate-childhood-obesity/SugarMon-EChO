@@ -6,22 +6,33 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Wizcorp.Utils.Logger;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
 
 public class SimpleDemo : MonoBehaviour {
 
 	private IScanner BarcodeScanner;
 	public RawImage Image;
+    private static List<string> usdaList = new List<string>();
 
-	// Disable Screen Rotation on that screen
-	void Awake()
+    // Disable Screen Rotation on that screen
+    void Awake()
 	{
 		Screen.autorotateToPortrait = false;
 		Screen.autorotateToPortraitUpsideDown = false;
 	}
 
 	void Start () {
-		// Create a basic scanner
-		BarcodeScanner = new Scanner();
+
+        //Read USDA Database
+        TextAsset usdatxt = (TextAsset)Resources.Load("NoDupeDatabase");
+        string usdaContent = Encoding.UTF7.GetString(usdatxt.bytes);
+        usdaList = usdaContent.Split(new char[] { '\n' }).ToList();
+        usdaList = usdaList.ConvertAll(item => item.ToLower().Trim());
+
+        // Create a basic scanner
+        BarcodeScanner = new Scanner();
 		BarcodeScanner.Camera.Play();
 
 		// Display the camera texture through a RawImage
@@ -62,22 +73,32 @@ public class SimpleDemo : MonoBehaviour {
 	{
 		if (BarcodeScanner == null)
 		{
-			//Log.Warning("No valid camera - Click Start");
+			Log.Warning("No valid camera - Click Start");
 			return;
 		}
 
 		// Start Scanning
 		BarcodeScanner.Scan((barCodeType, barCodeValue) => {
 
-			BarcodeScanner.Stop();
-
-            Debug.Log("Found: " + barCodeType + " / " + barCodeValue);
+            BarcodeScanner.Stop();
+            //barCodeValue = barCodeValue.Remove(0, 1);
+            barCodeValue = "5050000000000".Remove(0, 1);
+            foreach (string p in usdaList)
+            {
+                if (p.Contains(barCodeValue))
+                {
+                    
+                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("evaporated cane crystals, cane sugar, syrup, cane juice, cane molasses");
+                    //Debug.Log(p.ToLower());
+                    break;
+                }
+                //else Debug.Log("Not Found");
+            }
             //Debug.Log(barCodeValue);
             //#if UNITY_ANDROID || UNITY_IOS
             //    Handheld.Vibrate();
             //#endif
         });
-        //GameObject.Find("Canvas").GetComponent<FindAddedSugar>().CreateSugarMonster();
         
     }
 

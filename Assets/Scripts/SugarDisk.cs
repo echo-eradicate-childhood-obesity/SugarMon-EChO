@@ -18,9 +18,8 @@ public class SugarDisk : MonoBehaviour {
     private GameObject cv;
     private GameObject[] allTypesOfSugars;
 
-    private List<string> allCollectedSugars, sugarFromMain, newSugars;
-    
-
+    private List<string> sugarFromMain, newSugars;
+    public List<string> allCollectedSugars;
     // Use this for initialization
     void Start () {
         diskPosition = sugarDiskImage.transform.localPosition;
@@ -29,8 +28,7 @@ public class SugarDisk : MonoBehaviour {
         foundSugar = GameObject.Find("Canvas");
         cv = GameObject.Find("Canvas");
         allCollectedSugars = new List<string>();
-        newSugars = new List<string>();
-        
+        newSugars = new List<string>();  
     }
 	
 	// Update is called once per frame
@@ -40,6 +38,7 @@ public class SugarDisk : MonoBehaviour {
 
     public void OpenSugarDisk()
     {
+        //this.GetComponent<Button>().sprite = Resources.Load<Sprite>("Images/Sugar Disk White");
         newSugars.Clear();
         sugarDiskImage.transform.localPosition = diskPosition;
         wallStatus = true;
@@ -50,6 +49,7 @@ public class SugarDisk : MonoBehaviour {
 
         sugarFromMain = foundSugar.GetComponent<FindAddedSugar>().allScanned;
 
+        //foreach (string s in sugarFromMain) Debug.Log(s);
         foreach (string ni in sugarFromMain)
         {
             if (!allCollectedSugars.Contains(ni) && ni.ToLower() != "no added sugar") newSugars.Add(ni);
@@ -61,15 +61,17 @@ public class SugarDisk : MonoBehaviour {
         {
             foreach(string ss in newSugars)
             {
-
                 if (s[cv.GetComponent<FindAddedSugar>().nameIndex].ToLower() == ss.ToLower())
                 {
                     var sc = content.transform.Find(s[cv.GetComponent<FindAddedSugar>().deckNumIndex]);
                     //Debug.Log(cv.GetComponent<FindAddedSugar>().deckNumIndex);
-                    sc.name = ss;
-                    sc.transform.Find("Name").GetComponent<Text>().text = ss;
-                    sc.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
-                    //Debug.Log(content.transform.Find(s[1]).transform.Find("Name").gameobject.GetComponent<Text>());
+                    if (sc != null)
+                    {
+                        sc.name = ss;
+                        sc.transform.Find("Name").GetComponent<Text>().text = ss;
+                        sc.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
+                        //Debug.Log(content.transform.Find(s[1]).transform.Find("Name").gameobject.GetComponent<Text>());
+                    }
                 }
             }
             

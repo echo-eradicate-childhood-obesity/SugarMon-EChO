@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -249,6 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foundMonsterNumber: 0
   sugarDiskImage: {fileID: 1648266998}
+  allCollectedSugars: []
 --- !u!1 &261512712
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,7 +539,7 @@ Prefab:
     - target: {fileID: 114652206635684938, guid: ce5f97c73a772a1468cc0edd59a417ef,
         type: 2}
       propertyPath: m_FontData.m_FontSize
-      value: 30
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 114652206635684938, guid: ce5f97c73a772a1468cc0edd59a417ef,
         type: 2}
@@ -548,12 +549,12 @@ Prefab:
     - target: {fileID: 224851206333083232, guid: ce5f97c73a772a1468cc0edd59a417ef,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -14
+      value: 47
       objectReference: {fileID: 0}
     - target: {fileID: 224851206333083232, guid: ce5f97c73a772a1468cc0edd59a417ef,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 193.8
+      value: 291
       objectReference: {fileID: 0}
     - target: {fileID: 114652206635684938, guid: ce5f97c73a772a1468cc0edd59a417ef,
         type: 2}
@@ -563,17 +564,17 @@ Prefab:
     - target: {fileID: 114652206635684938, guid: ce5f97c73a772a1468cc0edd59a417ef,
         type: 2}
       propertyPath: m_Text
-      value: ' TOTAL: 248'
+      value: ' TOTAL: 247'
       objectReference: {fileID: 0}
     - target: {fileID: 224851206333083232, guid: ce5f97c73a772a1468cc0edd59a417ef,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 41.9
+      value: 65.7
       objectReference: {fileID: 0}
     - target: {fileID: 224851206333083232, guid: ce5f97c73a772a1468cc0edd59a417ef,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -2
+      value: -19
       objectReference: {fileID: 0}
     - target: {fileID: 114411291753007506, guid: ce5f97c73a772a1468cc0edd59a417ef,
         type: 2}
@@ -603,12 +604,12 @@ Prefab:
     - target: {fileID: 224090367053719638, guid: ce5f97c73a772a1468cc0edd59a417ef,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -2
+      value: -19
       objectReference: {fileID: 0}
     - target: {fileID: 114937505888787312, guid: ce5f97c73a772a1468cc0edd59a417ef,
         type: 2}
       propertyPath: m_FontData.m_FontSize
-      value: 30
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 114937505888787312, guid: ce5f97c73a772a1468cc0edd59a417ef,
         type: 2}
@@ -618,12 +619,77 @@ Prefab:
     - target: {fileID: 224090367053719638, guid: ce5f97c73a772a1468cc0edd59a417ef,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 41.9
+      value: 65.7
       objectReference: {fileID: 0}
     - target: {fileID: 224090367053719638, guid: ce5f97c73a772a1468cc0edd59a417ef,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 269.4
+      value: 291
+      objectReference: {fileID: 0}
+    - target: {fileID: 114313443243081606, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.4392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 114313443243081606, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.7490196
+      objectReference: {fileID: 0}
+    - target: {fileID: 114313443243081606, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.96862745
+      objectReference: {fileID: 0}
+    - target: {fileID: 114354553719603946, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.4392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 114354553719603946, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.7490196
+      objectReference: {fileID: 0}
+    - target: {fileID: 114354553719603946, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.96862745
+      objectReference: {fileID: 0}
+    - target: {fileID: 114454124038331182, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114454124038331182, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114454124038331182, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114454124038331182, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224989725617950956, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.00014105698
+      objectReference: {fileID: 0}
+    - target: {fileID: 224736422815262506, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0.000000059604645
+      objectReference: {fileID: 0}
+    - target: {fileID: 224090367053719638, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 36
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce5f97c73a772a1468cc0edd59a417ef, type: 2}
@@ -766,7 +832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &612003627
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1038,7 +1104,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1051750653}
   - component: {fileID: 1051750652}
-  - component: {fileID: 1051750651}
   - component: {fileID: 1051750654}
   - component: {fileID: 1051750655}
   m_Layer: 0
@@ -1048,13 +1113,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1051750651
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1051750650}
-  m_Enabled: 1
 --- !u!20 &1051750652
 Camera:
   m_ObjectHideFlags: 0
@@ -1126,264 +1184,11 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1051750650}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dae97d156c817734cb465bf9317c38c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 
-  S_UPC: 
-  GTP: 
-  AddedSugar:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  jsonstring: 
-  count: 0
 --- !u!1 &1220177288
 GameObject:
   m_ObjectHideFlags: 0
@@ -1417,8 +1222,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0.0000076293945, y: 0}
-  m_SizeDelta: {x: 323.8, y: 213.6}
+  m_AnchoredPosition: {x: 0, y: 15}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1220177290
 MonoBehaviour:
@@ -1523,6 +1328,8 @@ GameObject:
   - component: {fileID: 1325306018}
   - component: {fileID: 1325306017}
   - component: {fileID: 1325306021}
+  - component: {fileID: 1325306023}
+  - component: {fileID: 1325306022}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1621,6 +1428,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b07c35e8931ad34eb9855e8f87c5b17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newSugarSound: {fileID: 8300000, guid: d6670eb403dbab648aa008e04abd42ff, type: 3}
+  foundSugarSound: {fileID: 0}
+  noSugarSound: {fileID: 0}
+  Audio: {fileID: 1325306022}
   familyIndex: 0
   deckNumIndex: 0
   nameIndex: 0
@@ -1628,6 +1439,108 @@ MonoBehaviour:
   sugarInWall: []
   scannedAddedSugars: []
   allScanned: []
+--- !u!82 &1325306022
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1325306016}
+  m_Enabled: 0
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!81 &1325306023
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1325306016}
+  m_Enabled: 1
 --- !u!1 &1633522405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,8 +1588,8 @@ MonoBehaviour:
   m_Script: {fileID: -1254083943, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AspectMode: 3
-  m_AspectRatio: 1.625
+  m_AspectMode: 4
+  m_AspectRatio: 1
 --- !u!114 &1633522408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1790,8 +1703,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1325306021}
-        m_MethodName: AllTypeOfSugars
+      - m_Target: {fileID: 1051750654}
+        m_MethodName: ClickStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
