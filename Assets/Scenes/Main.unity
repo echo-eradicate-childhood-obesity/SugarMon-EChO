@@ -771,6 +771,51 @@ Prefab:
       propertyPath: numberToGenerate
       value: 247
       objectReference: {fileID: 0}
+    - target: {fileID: 114674954679816622, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_ScrollSensitivity
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 114674954679816622, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_Elasticity
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114674954679816622, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_DecelerationRate
+      value: 0.135
+      objectReference: {fileID: 0}
+    - target: {fileID: 114960435971854784, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224457514915444004, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 1501.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 224457514915444004, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 38.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 224844020209375912, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: -32.19995
+      objectReference: {fileID: 0}
+    - target: {fileID: 224457514915444004, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224844020209375912, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce5f97c73a772a1468cc0edd59a417ef, type: 2}
   m_IsPrefabAsset: 0

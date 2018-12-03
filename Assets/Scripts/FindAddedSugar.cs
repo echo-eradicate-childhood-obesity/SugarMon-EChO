@@ -309,7 +309,9 @@ public class FindAddedSugar : MonoBehaviour
                 //UnityEditor.Events.UnityEventTools.RemovePersistentListener(GameObject.Find("ScanButton").GetComponent<Button>().onClick, displayMonsters);
                 scanFrame.SetActive(true);
                 scannButton.SetActive(true);
+
                 //GameObject.Find("Main Camera").GetComponent<SimpleDemo>().ClickStart();
+                //GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 2 seconds for next scan
             }
             else
             {
@@ -349,6 +351,8 @@ public class FindAddedSugar : MonoBehaviour
 
         GameObject stage = GameObject.Find("RawImage");
         monster = Instantiate(Resources.Load("Prefabs/Monster"), stage.transform) as GameObject;
+        monster.transform.localPosition = new Vector3(0, 0, 0);
+        monster.transform.rotation = GameObject.Find("Main Camera").transform.rotation;
 
 
         monster.name = sugarName;
@@ -379,7 +383,6 @@ public class FindAddedSugar : MonoBehaviour
             //Find new added sugar
             if (!sugarInWall.Contains(sugarName.ToLower()))
             {
-                //Debug.Log(sugarName.ToLower());
                 #if UNITY_ANDROID || UNITY_IOS
                     Handheld.Vibrate();
                 #endif
