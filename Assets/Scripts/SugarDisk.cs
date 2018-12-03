@@ -78,7 +78,7 @@ public class SugarDisk : MonoBehaviour {
                     if (sc != null)
                     {
                         sc.name = ss;
-                        sc.transform.Find("Name").GetComponent<Text>().text = ss;
+                        sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
                         sc.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
                     }
                 }

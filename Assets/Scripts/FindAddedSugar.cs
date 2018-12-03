@@ -311,7 +311,7 @@ public class FindAddedSugar : MonoBehaviour
                 scannButton.SetActive(true);
 
                 //GameObject.Find("Main Camera").GetComponent<SimpleDemo>().ClickStart();
-                //GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 2 seconds for next scan
+                //GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 3 seconds for next scan
             }
             else
             {
