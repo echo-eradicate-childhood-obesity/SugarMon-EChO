@@ -24,9 +24,8 @@ public class SimpleDemo : MonoBehaviour {
 		Screen.autorotateToPortraitUpsideDown = false;
 	}
 
-	void Start () {
+    void Start () {
 
-        
 
         //Read USDA Database
         TextAsset usdatxt = (TextAsset)Resources.Load("NoDupeDatabase");
@@ -36,28 +35,30 @@ public class SimpleDemo : MonoBehaviour {
 
         // Create a basic scanner
         BarcodeScanner = new Scanner();
-		BarcodeScanner.Camera.Play();
+        BarcodeScanner.Camera.Play();
 
-		// Display the camera texture through a RawImage
-		BarcodeScanner.OnReady += (sender, arg) => {
-			// Set Orientation & Texture
-			Image.transform.localEulerAngles = BarcodeScanner.Camera.GetEulerAngles();
-			Image.transform.localScale = BarcodeScanner.Camera.GetScale();
-			Image.texture = BarcodeScanner.Camera.Texture;
+        // Display the camera texture through a RawImage
+        BarcodeScanner.OnReady += (sender, arg) => {
+            // Set Orientation & Texture
+            Image.transform.localEulerAngles = BarcodeScanner.Camera.GetEulerAngles();
+            Image.transform.localScale = BarcodeScanner.Camera.GetScale();
+            Image.texture = BarcodeScanner.Camera.Texture;
 
-			// Keep Image Aspect Ratio
-			//var rect = Image.GetComponent<RectTransform>();
+            // Keep Image Aspect Ratio
+            //var rect = Image.GetComponent<RectTransform>();
             //var newHeight = rect.sizeDelta.x * BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
             //rect.sizeDelta = new Vector2(rect.sizeDelta.x, newHeight);
             //rect.sizeDelta = new Vector2(Screen.width, Screen.height);
         };
 
-		// Track status of the scanner
-		//BarcodeScanner.StatusChanged += (sender, arg) => {
-		//	Debug.Log("Status: " + BarcodeScanner.Status);
-		//};
+        // Track status of the scanner
+        //BarcodeScanner.StatusChanged += (sender, arg) => {
+        //  Debug.Log("Status: " + BarcodeScanner.Status);
+        //};
+
 	}
 
+   
 	/// <summary>
 	/// The Update method from unity need to be propagated to the scanner
 	/// </summary>

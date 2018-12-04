@@ -136,6 +136,7 @@ public class FindAddedSugar : MonoBehaviour
                         sc.name = ss;
                         sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
 
+                        sc.transform.Find("Image").GetComponentInChildren<Text>().text = "";
                         sc.transform.Find("Image").GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
                         sc.transform.Find("Image").GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
                         sc.transform.Find("Image").GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
@@ -358,9 +359,18 @@ public class FindAddedSugar : MonoBehaviour
 
         GameObject stage = GameObject.Find("RawImage");
         monster = Instantiate(Resources.Load("Prefabs/Monster"), stage.transform) as GameObject;
-        monster.transform.localPosition = new Vector3(0, 110, 0);
-        monster.transform.rotation = GameObject.Find("Main Camera").transform.rotation;
 
+        monster.transform.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
+        monster.transform.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+        monster.transform.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+        monster.transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,10);
+        //monster.transform.GetComponent<RectTransform>().position = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        //monster.transform.GetComponents<RectTransform>().
+        //monster.transform.localPosition = new Vector3(0, 110, 0);
+        //monster.transform.rotation = GameObject.Find("Canvas").transform.rotation;
+        monster.transform.rotation = GameObject.Find("Main Camera").transform.rotation;
+        //monster.transform.rotation = Quaternion.LookRotation(new Vector3(0,0,0));
+        //monster.transform.rotation = Quaternion.identity;
 
         monster.name = sugarName;
 

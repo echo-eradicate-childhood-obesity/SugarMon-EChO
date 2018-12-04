@@ -18,9 +18,10 @@ namespace BarcodeScanner.Webcam
 
 		public UnityWebcam(ScannerSettings settings)
 		{
-			// Create Webcam Texture
-			Webcam = new WebCamTexture(settings.WebcamDefaultDeviceName);
-			Webcam.requestedWidth = settings.WebcamRequestedWidth;
+            // Create Webcam Texture
+            //Webcam = new WebCamTexture(settings.WebcamDefaultDeviceName);
+            Webcam = new WebCamTexture();
+            Webcam.requestedWidth = settings.WebcamRequestedWidth;
 			Webcam.requestedHeight = settings.WebcamRequestedHeight;
 			Webcam.filterMode = settings.WebcamFilterMode;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class SplashScreen : MonoBehaviour
 {
@@ -16,13 +17,25 @@ public class SplashScreen : MonoBehaviour
 
     IEnumerator Start()
     {
-        
+
         SplashImage.canvasRenderer.SetAlpha(0.1f);
         FadeIn();
         yield return new WaitForSeconds(TimeTillFadeOut);
         FadeOut();
         yield return new WaitForSeconds(TimeTillNextScene);
-        SceneManager.LoadScene(NextScene);
+
+        yield return Application.RequestUserAuthorization(UserAuthorization.WebCam);
+        //if (!Application.HasUserAuthorization(UserAuthorization.Microphone))
+        //{
+        //    throw new Exception("This Webcam library can't work without the webcam authorization");
+        //}
+        if (Application.HasUserAuthorization(UserAuthorization.WebCam)){
+            SceneManager.LoadScene(NextScene);
+        }
+
+
+
+
     }
 
     void FadeIn()
