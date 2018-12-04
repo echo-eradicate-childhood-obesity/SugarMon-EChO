@@ -79,6 +79,14 @@ public class SugarDisk : MonoBehaviour {
                     {
                         sc.name = ss;
                         sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
+
+                        //placing and resizing the monster image in sugardex
+                        sc.transform.Find("Image").GetComponent<RectTransform>().anchorMin = new Vector2(0.5f,0.5f);
+                        sc.transform.Find("Image").GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+                        sc.transform.Find("Image").GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+                        sc.transform.Find("Image").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
+                        sc.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new Vector2(150, 150);
+
                         sc.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
                     }
                 }
