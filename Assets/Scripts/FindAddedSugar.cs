@@ -303,6 +303,8 @@ public class FindAddedSugar : MonoBehaviour
         if (scannedAddedSugars.Contains("Not Found"))
         {
             GameObject.Destroy(GameObject.Find("Not Found"));
+            GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 3 seconds for next scan
+
             scanFrame.SetActive(true);
             scannButton.SetActive(true);
         }
