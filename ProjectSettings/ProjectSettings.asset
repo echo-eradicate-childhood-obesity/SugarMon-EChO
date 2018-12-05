@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: comoc
+  companyName: EChO
   productName: SugAR Mon
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -157,10 +157,10 @@ PlayerSettings:
     Android: com.EChO.SugarMon
     Standalone: unity.comoc.UnityArUco
     Tizen: com.Company.ProductName
-    iOS: com.Company.ProductName
+    iOS: com.EChO.SugARMon
     tvOS: com.Company.ProductName
   buildNumber:
-    iOS: 0
+    iOS: 1
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0

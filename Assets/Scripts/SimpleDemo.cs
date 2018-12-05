@@ -10,21 +10,23 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-public class SimpleDemo : MonoBehaviour {
+public class SimpleDemo : MonoBehaviour
+{
 
-	private IScanner BarcodeScanner;
-	public RawImage Image;
+    private IScanner BarcodeScanner;
+    public RawImage Image;
     private bool inDB;
     private static List<string> usdaList = new List<string>();
 
     // Disable Screen Rotation on that screen
     void Awake()
-	{
-		Screen.autorotateToPortrait = false;
-		Screen.autorotateToPortraitUpsideDown = false;
-	}
+    {
+        Screen.autorotateToPortrait = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+    }
 
-    void Start () {
+    void Start()
+    {
 
 
         //Read USDA Database
@@ -55,35 +57,36 @@ public class SimpleDemo : MonoBehaviour {
         //BarcodeScanner.StatusChanged += (sender, arg) => {
         //  Debug.Log("Status: " + BarcodeScanner.Status);
         //};
+        Invoke("ClickStart", 1f);
 
-	}
+    }
 
-   
-	/// <summary>
-	/// The Update method from unity need to be propagated to the scanner
-	/// </summary>
-	void Update()
-	{
-		if (BarcodeScanner == null)
-		{
-			return;
-		}
-		BarcodeScanner.Update();
-	}
 
-	#region UI Buttons
+    /// <summary>
+    /// The Update method from unity need to be propagated to the scanner
+    /// </summary>
+    void Update()
+    {
+        if (BarcodeScanner == null)
+        {
+            return;
+        }
+        BarcodeScanner.Update();
+    }
 
-	public void ClickStart()
-	{
+    #region UI Buttons
+
+    public void ClickStart()
+    {
         inDB = false;
         if (BarcodeScanner == null)
-		{
-			Log.Warning("No valid camera - Click Start");
-			return;
-		}
+        {
+            Log.Warning("No valid camera - Click Start");
+            return;
+        }
 
-		// Start Scanning
-		BarcodeScanner.Scan((barCodeType, barCodeValue) => {
+        // Start Scanning
+        BarcodeScanner.Scan((barCodeType, barCodeValue) => {
 
             BarcodeScanner.Stop();
             barCodeValue = barCodeValue.Remove(0, 1);
@@ -103,28 +106,28 @@ public class SimpleDemo : MonoBehaviour {
             //    Handheld.Vibrate();
             //#endif
         });
-        
+
     }
 
-	/// <summary>
-	/// This coroutine is used because of a bug with unity (http://forum.unity3d.com/threads/closing-scene-with-active-webcamtexture-crashes-on-android-solved.363566/)
-	/// Trying to stop the camera in OnDestroy provoke random crash on Android
-	/// </summary>
-	/// <param name="callback"></param>
-	/// <returns></returns>
-	public IEnumerator StopCamera(Action callback)
-	{
-		// Stop Scanning
-		Image = null;
-		BarcodeScanner.Destroy();
-		BarcodeScanner = null;
+    /// <summary>
+    /// This coroutine is used because of a bug with unity (http://forum.unity3d.com/threads/closing-scene-with-active-webcamtexture-crashes-on-android-solved.363566/)
+    /// Trying to stop the camera in OnDestroy provoke random crash on Android
+    /// </summary>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    public IEnumerator StopCamera(Action callback)
+    {
+        // Stop Scanning
+        Image = null;
+        BarcodeScanner.Destroy();
+        BarcodeScanner = null;
 
-		// Wait a bit
-		yield return new WaitForSeconds(0.1f);
+        // Wait a bit
+        yield return new WaitForSeconds(0.1f);
 
-		callback.Invoke();
-	}
+        callback.Invoke();
+    }
 
 
-	#endregion
+    #endregion
 }
