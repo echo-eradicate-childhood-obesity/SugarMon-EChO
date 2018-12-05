@@ -5,12 +5,11 @@ using System.Linq;
 using UnityEngine.UI;
 
 public class SugarDisk : MonoBehaviour {
-    private bool wallStatus;
     private GameObject foundSugar;
-    private bool firstGenerate = true;
 
     [HideInInspector]
     public int foundMonsterNumber;
+
 
     private Transform content;
     public GameObject sugarDiskImage;
@@ -26,7 +25,6 @@ public class SugarDisk : MonoBehaviour {
 
         diskPosition = sugarDiskImage.transform.localPosition;
         foundMonsterNumber = 0;
-        wallStatus = false;
         foundSugar = GameObject.Find("Canvas");
         cv = GameObject.Find("Canvas");
         //allCollectedSugars = new List<string>();
@@ -46,8 +44,7 @@ public class SugarDisk : MonoBehaviour {
 
         newSugars.Clear();
         sugarDiskImage.transform.localPosition = diskPosition;
-        wallStatus = true;
-        foundSugar.transform.FindChild("Background").gameObject.SetActive(true);
+        foundSugar.transform.Find("Background").gameObject.SetActive(true);
         content = GameObject.Find("Background").transform.Find("Scroll View/Viewport/Content");
         GameObject.Find("Background").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "FOUND: " + foundSugar.GetComponent<FindAddedSugar>().allScanned.Count;
 
@@ -63,11 +60,6 @@ public class SugarDisk : MonoBehaviour {
   
             }
         }
-
-        //allCollectedSugars = sugarFromMain;
-
-        
-
         foreach (List<string> s in foundSugar.GetComponent<FindAddedSugar>().dbList)
         {
             foreach(string ss in newSugars)
@@ -93,37 +85,11 @@ public class SugarDisk : MonoBehaviour {
             }
             
         }
-
-        //foreach (string s in foundSugar.GetComponent<FindAddedSugar>().scannedAddedSugars)
-        //{
-        //    //Debug.Log(s);
-        //    //GameObject.Find(s).SetActive(true);
-
-        //    //Active types of added sugar that have already been found
-        //    //GameObject.Find("DiskImage").transform.FindChild("Syrup").gameObject.SetActive(true);
-        //    //var x = GameObject.Find("DiskImage").transform.Find(s).gameObject;
-        //    //Debug.Log(x.name);
-        //}
-
-
-        //Retrieve found added sugars from AllTypeOfSugars() in FindAddedSugar script
-        //foreach (string s in foundSugar.GetComponent<FindAddedSugar>().scannedAddedSugars)
-        //{
-        //    if (!sugarInWall.Contains(s)) sugarInWall.Add(s);
-        //}
-
-
-        //foreach (string s in sugarInWall)
-        //{
-        //    Debug.Log(s);
-        //}
-        //Debug.Log(sugarInWall.Count);
     }
     public void CloseSugarDisk()
     {
-        wallStatus = false;
         this.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Sugar Disk White");
-        GameObject.Find("Canvas").transform.FindChild("Background").gameObject.SetActive(false);
+        GameObject.Find("Canvas").transform.Find("Background").gameObject.SetActive(false);
     }
 
 

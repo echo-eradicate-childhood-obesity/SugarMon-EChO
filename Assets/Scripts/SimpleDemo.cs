@@ -101,10 +101,6 @@ public class SimpleDemo : MonoBehaviour
             }
             if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found");
 
-            //Debug.Log(barCodeValue);
-            //#if UNITY_ANDROID || UNITY_IOS
-            //    Handheld.Vibrate();
-            //#endif
         });
 
     }
