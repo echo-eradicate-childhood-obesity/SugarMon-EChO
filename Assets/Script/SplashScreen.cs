@@ -9,6 +9,7 @@ public class SplashScreen : MonoBehaviour
 {
 
     public Image SplashImage;
+    public Text SplashText;
     public string NextScene;
     public float TimeToFadeIn;
     public float TimeTillFadeOut;
@@ -19,6 +20,7 @@ public class SplashScreen : MonoBehaviour
     {
 
         SplashImage.canvasRenderer.SetAlpha(0.1f);
+        SplashText.canvasRenderer.SetAlpha(0.1f);
         FadeIn();
         yield return new WaitForSeconds(TimeTillFadeOut);
         FadeOut();
@@ -41,9 +43,12 @@ public class SplashScreen : MonoBehaviour
     void FadeIn()
     {
         SplashImage.CrossFadeAlpha(1.0f, TimeToFadeIn, false);
+        SplashText.CrossFadeAlpha(1.0f, TimeToFadeIn, false);
+
     }
     void FadeOut()
     {
         SplashImage.CrossFadeAlpha(0.0f, TimeToFadeOut, false);
+        SplashText.CrossFadeAlpha(0.0f, TimeToFadeOut, false);
     }
 }
