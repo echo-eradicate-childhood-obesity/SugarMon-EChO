@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
                BuildableName = "SugARMon.app"
-               BlueprintName = "SugAR Mons"
-               ReferencedContainer = "container:SugAR Mons.xcodeproj">
+               BlueprintName = "Sugar Mons"
+               ReferencedContainer = "container:Sugar Mons.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5623C57217FDCB0800090B9E"
                BuildableName = "SugARMon.xctest"
-               BlueprintName = "SugAR Mons Tests"
-               ReferencedContainer = "container:SugAR Mons.xcodeproj">
+               BlueprintName = "Sugar Mons Tests"
+               ReferencedContainer = "container:Sugar Mons.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,8 +44,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
             BuildableName = "SugARMon.app"
-            BlueprintName = "SugAR Mons"
-            ReferencedContainer = "container:SugAR Mons.xcodeproj">
+            BlueprintName = "Sugar Mons"
+            ReferencedContainer = "container:Sugar Mons.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <CommandLineArguments>
@@ -76,8 +76,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
             BuildableName = "SugARMon.app"
-            BlueprintName = "SugAR Mons"
-            ReferencedContainer = "container:SugAR Mons.xcodeproj">
+            BlueprintName = "Sugar Mons"
+            ReferencedContainer = "container:Sugar Mons.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,8 +95,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
             BuildableName = "SugARMon.app"
-            BlueprintName = "SugAR Mons"
-            ReferencedContainer = "container:SugAR Mons.xcodeproj">
+            BlueprintName = "Sugar Mons"
+            ReferencedContainer = "container:Sugar Mons.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
