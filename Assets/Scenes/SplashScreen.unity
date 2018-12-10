@@ -155,11 +155,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SplashImage: {fileID: 1424689196}
+  SplashText: {fileID: 225235745}
   NextScene: Main
   TimeToFadeIn: 1
-  TimeTillFadeOut: 2
-  TimeToFadeOut: 0.7
-  TimeTillNextScene: 1.2
+  TimeTillFadeOut: 2.5
+  TimeToFadeOut: 1
+  TimeTillNextScene: 0
 --- !u!1 &225235743
 GameObject:
   m_ObjectHideFlags: 0
