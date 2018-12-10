@@ -41,6 +41,7 @@ public class SugarDisk : MonoBehaviour {
     public void OpenSugarDisk()
     {
 
+        GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = false;
         newSugars.Clear();
         sugarDiskImage.transform.localPosition = diskPosition;
         foundSugar.transform.Find("Background").gameObject.SetActive(true);
@@ -77,7 +78,7 @@ public class SugarDisk : MonoBehaviour {
                         sc.transform.Find("Image").GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
                         sc.transform.Find("Image").GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
                         sc.transform.Find("Image").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
-                        sc.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new Vector2(150, 150);
+                        sc.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
 
                         sc.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
                     }
@@ -88,6 +89,7 @@ public class SugarDisk : MonoBehaviour {
     }
     public void CloseSugarDisk()
     {
+        GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = true;
         this.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Sugar Disk White");
         GameObject.Find("Canvas").transform.Find("Background").gameObject.SetActive(false);
     }
