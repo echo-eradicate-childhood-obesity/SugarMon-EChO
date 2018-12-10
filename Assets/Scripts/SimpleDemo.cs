@@ -12,7 +12,6 @@ using System.Linq;
 
 public class SimpleDemo : MonoBehaviour
 {
-
     private IScanner BarcodeScanner;
     public RawImage Image;
     private bool inDB;
@@ -27,8 +26,6 @@ public class SimpleDemo : MonoBehaviour
 
     void Start()
     {
-
-
         //Read USDA Database
         TextAsset usdatxt = (TextAsset)Resources.Load("NoDupeDatabase");
         string usdaContent = Encoding.UTF7.GetString(usdatxt.bytes);
@@ -52,12 +49,13 @@ public class SimpleDemo : MonoBehaviour
             //rect.sizeDelta = new Vector2(rect.sizeDelta.x, newHeight);
             //rect.sizeDelta = new Vector2(Screen.width, Screen.height);
         };
-
+        
         // Track status of the scanner
         //BarcodeScanner.StatusChanged += (sender, arg) => {
         //  Debug.Log("Status: " + BarcodeScanner.Status);
         //};
         Invoke("ClickStart", 1f);
+
 
     }
 

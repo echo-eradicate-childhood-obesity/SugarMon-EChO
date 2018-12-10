@@ -21,6 +21,7 @@ public class FindAddedSugar : MonoBehaviour
     public List<List<string>> dbList = new List<List<string>>();
     public AudioClip newSugarSound, foundSugarSound, noSugarSound;
 
+    public GameObject movingMonster;
     public AudioSource Audio;
 
     private int currentNumMonster = 0;
@@ -44,8 +45,6 @@ public class FindAddedSugar : MonoBehaviour
     private GameObject monster;
 
     // Use this for initialization
-
-
     void Awake()
     {
         Screen.autorotateToPortrait = false;
@@ -53,8 +52,6 @@ public class FindAddedSugar : MonoBehaviour
     }
     void Start()
     {
-
-
         //Load player's data
         numCount = PlayerPrefs.GetInt("count");
         for (int i = 1; i <= PlayerPrefs.GetInt("count"); i++)
@@ -63,16 +60,8 @@ public class FindAddedSugar : MonoBehaviour
         }
 
         scannButton = GameObject.Find("ScanButton");
-        //BarcodeScanner = new Scanner();
-        //BarcodeScanner.Camera.Play();
         upcs = new List<string>();
         ingredients = new List<string>();
-
-        //Read Sugar Repository
-        //TextAsset txt = (TextAsset)Resources.Load("The Added Sugar Repository", typeof(TextAsset));
-        //string content = txt.text;
-        //repository = content.Split(new char[] { '\n' }).ToList();
-        //repository = repository.ConvertAll(item => Regex.Replace(item, @"\(.*?\)", "").ToLower().Trim());    //Remove product name in parentheses after added sugar names
 
         //Read Database 
         TextAsset dbtxt = (TextAsset)Resources.Load("Database", typeof(TextAsset));
@@ -124,7 +113,6 @@ public class FindAddedSugar : MonoBehaviour
                 if (s[nameIndex].ToLower() == ss.ToLower())
                 {
                     var sc = GameObject.Find("Background").transform.Find("Scroll View/Viewport/Content").transform.Find(s[deckNumIndex]);
-                    //Debug.Log(cv.GetComponent<FindAddedSugar>().deckNumIndex);
                     if (sc != null)
                     {
                         sc.name = ss;
@@ -137,20 +125,14 @@ public class FindAddedSugar : MonoBehaviour
                         sc.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new Vector2(150, 150);
 
                         sc.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
-                        //Debug.Log(content.transform.Find(s[1]).transform.Find("Name").gameobject.GetComponent<Text>());
                     }
                 }
             }
 
         }
-        //GameObject.Find("Background").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "FOUND: " + GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars.Count;
         GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars = GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars.Distinct().ToList();
-        //allScanned = GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars;
         GameObject.Find("Background").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "FOUND: " + GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars.Count;
         GameObject.Find("SugarDisk").GetComponent<SugarDisk>().CloseSugarDisk();
-
-
-
     }
 
 
