@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-               BuildableName = "SugARMon.app"
-               BlueprintName = "Sugar Mons"
-               ReferencedContainer = "container:Sugar Mons.xcodeproj">
+               BuildableName = "SugAR-Mons.app"
+               BlueprintName = "Unity-iPhone"
+               ReferencedContainer = "container:Unity-iPhone.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5623C57217FDCB0800090B9E"
-               BuildableName = "SugARMon.xctest"
-               BlueprintName = "Sugar Mons Tests"
-               ReferencedContainer = "container:Sugar Mons.xcodeproj">
+               BuildableName = "SugAR-Mons.xctest"
+               BlueprintName = "Unity-iPhone Tests"
+               ReferencedContainer = "container:Unity-iPhone.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "SugARMon.app"
-            BlueprintName = "Sugar Mons"
-            ReferencedContainer = "container:Sugar Mons.xcodeproj">
+            BuildableName = "SugAR-Mons.app"
+            BlueprintName = "Unity-iPhone"
+            ReferencedContainer = "container:Unity-iPhone.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <CommandLineArguments>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "SugARMon.app"
-            BlueprintName = "Sugar Mons"
-            ReferencedContainer = "container:Sugar Mons.xcodeproj">
+            BuildableName = "SugAR-Mons.app"
+            BlueprintName = "Unity-iPhone"
+            ReferencedContainer = "container:Unity-iPhone.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "SugARMon.app"
-            BlueprintName = "Sugar Mons"
-            ReferencedContainer = "container:Sugar Mons.xcodeproj">
+            BuildableName = "SugAR-Mons.app"
+            BlueprintName = "Unity-iPhone"
+            ReferencedContainer = "container:Unity-iPhone.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
