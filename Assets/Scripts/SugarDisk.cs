@@ -40,7 +40,6 @@ public class SugarDisk : MonoBehaviour {
 
     public void OpenSugarDisk()
     {
-
         GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = false;
         newSugars.Clear();
         sugarDiskImage.transform.localPosition = diskPosition;

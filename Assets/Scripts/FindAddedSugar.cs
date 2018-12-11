@@ -118,13 +118,15 @@ public class FindAddedSugar : MonoBehaviour
                         sc.name = ss;
                         sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
 
-                        sc.transform.Find("Image").GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
-                        sc.transform.Find("Image").GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
-                        sc.transform.Find("Image").GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-                        sc.transform.Find("Image").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
-                        sc.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
+                        var sci = sc.transform.Find("Image");
+                        sci.GetComponentInChildren<Text>().text = "";
+                        sci.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
+                        sci.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+                        sci.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+                        sci.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
+                        sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
 
-                        sc.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
+                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
                     }
                 }
             }
@@ -212,11 +214,37 @@ public class FindAddedSugar : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator AnimatorSugarCardToDex(string s)
+    {
+        //Animation - Card To Dex
+        var anim = Instantiate(Resources.Load("Prefabs/Monster"), GameObject.Find("Canvas").transform) as GameObject;
+        anim.name = "Animation";
+        anim.GetComponent<Image>().sprite = monster.GetComponent<Image>().sprite;
+        anim.AddComponent<Animator>();
+        anim.GetComponent<Animator>().runtimeAnimatorController = Resources.Load("Animations/Monster") as RuntimeAnimatorController;
+
+        if (s == "Sugar")
+        {
+            GameObject.Find("Canvas").transform.Find("Animation/Sugar Name").GetComponent<Text>().text = scannedAddedSugars[currentNumMonster];
+            anim.GetComponent<Animator>().Play("SugarCardToDex");
+        }
+        else if (s == "NotFound")
+        {
+            anim.GetComponent<Animator>().Play("NotFoundCard");
+        }
+
+
+        yield return new WaitForSeconds(1f);
+        Destroy(anim);
+    }
+
     public void DisplayMonsters()
     {
 
         if (scannedAddedSugars.Contains("Not Found"))
         {
+            StartCoroutine("AnimatorSugarCardToDex", "NotFound");
             GameObject.Destroy(GameObject.Find("Not Found"));
             GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 3 seconds for next scan
 
@@ -225,6 +253,7 @@ public class FindAddedSugar : MonoBehaviour
         }
         else
         {
+            StartCoroutine("AnimatorSugarCardToDex", "Sugar");
             currentNumMonster++;
             if (currentNumMonster == scannedAddedSugars.Count)
             {
