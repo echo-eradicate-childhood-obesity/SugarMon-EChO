@@ -10,8 +10,6 @@ public class SugarDisk : MonoBehaviour {
     [HideInInspector]
     public int foundMonsterNumber;
 
-
-    private Transform content;
     public GameObject sugarDiskImage;
     private Vector3 diskPosition;
     private GameObject cv;
@@ -43,9 +41,8 @@ public class SugarDisk : MonoBehaviour {
         GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = false;
         newSugars.Clear();
         sugarDiskImage.transform.localPosition = diskPosition;
-        foundSugar.transform.Find("Background").gameObject.SetActive(true);
-        content = GameObject.Find("Background").transform.Find("Scroll View/Viewport/Content");
-        GameObject.Find("Background").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "FOUND: " + foundSugar.GetComponent<FindAddedSugar>().allScanned.Count;
+        foundSugar.transform.Find("FamilyBackground").gameObject.SetActive(true);
+        GameObject.Find("FamilyBackground").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "FOUND: " + foundSugar.GetComponent<FindAddedSugar>().allScanned.Count;
 
 
         sugarFromMain = foundSugar.GetComponent<FindAddedSugar>().allScanned;
@@ -65,7 +62,7 @@ public class SugarDisk : MonoBehaviour {
             {
                 if (s[cv.GetComponent<FindAddedSugar>().nameIndex].ToLower() == ss.ToLower())
                 {
-                    var sc = content.transform.Find(s[cv.GetComponent<FindAddedSugar>().deckNumIndex]);
+                    var sc = GameObject.Find(s[cv.GetComponent<FindAddedSugar>().deckNumIndex]);
                     if (sc != null)
                     {
                         sc.name = ss;
@@ -90,7 +87,7 @@ public class SugarDisk : MonoBehaviour {
     {
         GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = true;
         this.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Sugar Disk White");
-        GameObject.Find("Canvas").transform.Find("Background").gameObject.SetActive(false);
+        GameObject.Find("Canvas").transform.Find("FamilyBackground").gameObject.SetActive(false);
     }
 
 
