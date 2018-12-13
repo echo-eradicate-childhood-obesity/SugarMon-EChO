@@ -87,17 +87,24 @@ public class SimpleDemo : MonoBehaviour
         BarcodeScanner.Scan((barCodeType, barCodeValue) => {
 
             BarcodeScanner.Stop();
-            barCodeValue = barCodeValue.Remove(0, 1);
-            foreach (string p in usdaList)
+            if (!barCodeType.Contains("UPC"))
             {
-                if (p.Contains(barCodeValue))
-                {
-                    inDB = true;
-                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(p.ToLower());
-                    break;
-                }
+                Invoke("ClickStart", 1f);
             }
-            if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found");
+            else if(barCodeType.Contains("UPC"))
+            {
+                barCodeValue = barCodeValue.Remove(0, 1);
+                foreach (string p in usdaList)
+                {
+                    if (p.Contains(barCodeValue))
+                    {
+                        inDB = true;
+                        GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(p.ToLower());
+                        break;
+                    }
+                }
+                if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found");
+            }
 
         });
 
