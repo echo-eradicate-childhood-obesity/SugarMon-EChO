@@ -52,7 +52,7 @@ public class PopulateFamilyPanels : MonoBehaviour {
         for (int i = 0; i < families.Count; i++)
         {
             newTitle = (GameObject)Instantiate(Title, transform);
-            newTitle.name = families[i] + "Title";
+            newTitle.name = families[i] + " Title";
 
             //Convert hex code to RGB color and assign to titles
             if (ColorUtility.TryParseHtmlString(titleColor[i], out col))

@@ -122,6 +122,7 @@ public class FindAddedSugar : MonoBehaviour
         fms.RemoveAt(0);  
         repository.RemoveAt(0);
         familyNum = fms.Count;
+        
 
         //Initiative sugar disk
         for (int i = 1; i <= PlayerPrefs.GetInt("count"); i++)
