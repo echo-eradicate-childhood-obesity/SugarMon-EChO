@@ -16,16 +16,30 @@ public class SimpleDemo : MonoBehaviour
     public RawImage Image;
     private bool inDB;
     private static List<string> usdaList = new List<string>();
+    [HideInInspector]
+    public int tutorialStage;
 
     // Disable Screen Rotation on that screen
     void Awake()
     {
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
+        tutorialStage = PlayerPrefs.GetInt("TutorialStage");
+        
+        
+        
+
     }
 
     void Start()
     {
+        if (tutorialStage == 0)
+        {
+            //first stage
+            Debug.Log("Stage " + (tutorialStage + 1)+ " has complete!");
+            tutorialStage++;
+            PlayerPrefs.SetInt("TutorialStage", tutorialStage);            
+        }
         //Read USDA Database
         TextAsset usdatxt = (TextAsset)Resources.Load("NoDupeDatabase");
         string usdaContent = Encoding.UTF7.GetString(usdatxt.bytes);

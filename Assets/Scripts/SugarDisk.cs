@@ -42,7 +42,7 @@ public class SugarDisk : MonoBehaviour {
         newSugars.Clear();
         sugarDiskImage.transform.localPosition = diskPosition;
         foundSugar.transform.Find("FamilyBackground").gameObject.SetActive(true);
-        GameObject.Find("FamilyBackground").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "FOUND: " + foundSugar.GetComponent<FindAddedSugar>().allScanned.Count;
+        GameObject.Find("FamilyBackground").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "Found: " + foundSugar.GetComponent<FindAddedSugar>().allScanned.Count;
 
 
         sugarFromMain = foundSugar.GetComponent<FindAddedSugar>().allScanned;

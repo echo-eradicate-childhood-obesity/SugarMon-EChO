@@ -57,7 +57,7 @@ public class FindAddedSugar : MonoBehaviour
 
     private GameObject monster;
 
-    
+    private int ts;
 
     // Use this for initialization
     void Awake()
@@ -67,6 +67,8 @@ public class FindAddedSugar : MonoBehaviour
     }
     void Start()
     {
+        ts = GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage;
+
         //Load player's data
         numCount = PlayerPrefs.GetInt("count");
         for (int i = 1; i <= PlayerPrefs.GetInt("count"); i++)
@@ -74,7 +76,6 @@ public class FindAddedSugar : MonoBehaviour
             sugarInWall.Add(PlayerPrefs.GetString("num_" + i));
         }
 
-        scannButton = GameObject.Find("ScanButton");
         upcs = new List<string>();
         ingredients = new List<string>();
 
@@ -210,13 +211,11 @@ public class FindAddedSugar : MonoBehaviour
         if (ingredientFromDB == "Not Found")
         {
             scanFrame.SetActive(false);
-            scannButton.SetActive(false);
             scannedAddedSugars.Add("No Added Sugar");
             CreateSugarMonster("Not Found");
         }
         else
         {
-            scannButton.SetActive(false);
             currentNumMonster = 0;
             scannedAddedSugars.Clear();
 
@@ -232,7 +231,7 @@ public class FindAddedSugar : MonoBehaviour
                         numCount++;
                         //playerprefAs.set array
                         PlayerPrefs.SetString("num_" + numCount, r.ToLower());
-                        //playerprefs.set array.length() as new highscore
+                        //playerprefs.set array.length()
                         PlayerPrefs.SetInt("count", numCount);
                     }
                 }
@@ -267,6 +266,10 @@ public class FindAddedSugar : MonoBehaviour
             GameObject.Find("Canvas").transform.Find("Animation/Sugar Name").GetComponent<Text>().text = scannedAddedSugars[currentNumMonster];
             anim.GetComponent<Animator>().Play("SugarCardToDex");
         }
+        else if(s == "NoAddedSugar")
+        {
+            anim.GetComponent<Animator>().Play("SugarCardToDex");
+        }
         else if (s == "NotFound")
         {
             anim.GetComponent<Animator>().Play("NotFoundCard");
@@ -287,17 +290,25 @@ public class FindAddedSugar : MonoBehaviour
             GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 3 seconds for next scan
 
             scanFrame.SetActive(true);
-            scannButton.SetActive(true);
         }
         else
         {
-            StartCoroutine("AnimatorSugarCardToDex", "Sugar");
+            if(scannedAddedSugars[currentNumMonster] != "No Added Sugar") StartCoroutine("AnimatorSugarCardToDex", "Sugar");
+            else StartCoroutine("AnimatorSugarCardToDex", "NoAddedSugar");
+
             currentNumMonster++;
             if (currentNumMonster == scannedAddedSugars.Count)
             {
+                if (ts == 2 && scannedAddedSugars[currentNumMonster - 1] != "No Added Sugar")
+                {
+                    //third stage
+                    Debug.Log("Stage " + (ts + 1) + " has complete!");
+                    ts++;
+                    PlayerPrefs.SetInt("TutorialStage", ts);
+                }
+
                 GameObject.Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster - 1]));
                 scanFrame.SetActive(true);
-                scannButton.SetActive(true);
 
                 GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 3 seconds for next scan
             }
@@ -336,6 +347,13 @@ public class FindAddedSugar : MonoBehaviour
         //    this.GetComponent<AudioSource>().enabled = true;
         //    this.GetComponent<AudioSource>().clip = newSugarSound;
         //}
+        if (ts == 1)
+        {
+            //second stage
+            Debug.Log("Stage " + (ts + 1) + " has complete!");
+            ts++;
+            PlayerPrefs.SetInt("TutorialStage", ts);
+        }
 
         GameObject stage = GameObject.Find("Canvas");
         monster = Instantiate(Resources.Load("Prefabs/Monster"), stage.transform) as GameObject;
