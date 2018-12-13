@@ -36,13 +36,28 @@ public class FindAddedSugar : MonoBehaviour
 
     private int numCount;
 
-    [HideInInspector]
-    public int familyIndex, deckNumIndex, nameIndex, repoNumIndex;
+
+    //need to follow the title in Database.txt
+    [Header("Column names")]
+    [Tooltip("In put must be exactly the same with the titles in Database.txt")]
+    public string numberInAppColumn = "Number in the App";
+    public string sugarNameColumn = "Added Sugar List Name";
+    public string numberInRepositoryColumn = "Number in Added Sugar Repository";
+    public string monsterFamilyColumn = "MonstersFamily";
+
 
     [HideInInspector]
-    public List<string> sugarInWall, scannedAddedSugars = new List<string>(), allScanned = new List<string>();
+    public int familyIndex, deckNumIndex, nameIndex, repoNumIndex, familyNum;
+
+    [HideInInspector]
+    public List<string> sugarInWall, fms = new List<string>(), scannedAddedSugars = new List<string>(), allScanned = new List<string>();
+
+    [HideInInspector]
+    public Dictionary<string, int> familyDictionary;
 
     private GameObject monster;
+
+    
 
     // Use this for initialization
     void Awake()
@@ -75,20 +90,38 @@ public class FindAddedSugar : MonoBehaviour
             dbList[i] = dbList[i].ConvertAll(item => item.Trim());
         }
 
-
-        familyIndex = dbList[0].IndexOf("MonstersFamily");
-        deckNumIndex = dbList[0].IndexOf("Number in the App");
-        nameIndex = dbList[0].IndexOf("Added Sugar List Name");
-        repoNumIndex = dbList[0].IndexOf("Number in Added Sugar Repository");  //use only when you need sugar number in sugar repository
-
+        familyIndex = dbList[0].IndexOf(monsterFamilyColumn);
+        deckNumIndex = dbList[0].IndexOf(numberInAppColumn);
+        nameIndex = dbList[0].IndexOf(sugarNameColumn);
+        repoNumIndex = dbList[0].IndexOf(numberInRepositoryColumn);  //use only when you need the sugar index in sugar repository
 
 
+        //Find out how many different families and how many type of sugar they contain 
+        //Save in familyDictionary [family name, count]
+        //Save all types of added sugar in the repository variable
+        familyDictionary = new Dictionary<string, int>();
         repository = new List<string>();
-        foreach (List<string> s in dbList)
+        foreach (List<string> item in dbList)
         {
-            repository.Add(s[nameIndex].ToLower());
+            repository.Add(item[nameIndex].ToLower());
+            if (!familyDictionary.ContainsKey(item[familyIndex]))
+            {
+                familyDictionary.Add(item[familyIndex], 1);
+            }
+            else
+            {
+                int count = 0;
+                familyDictionary.TryGetValue(item[familyIndex], out count);
+                familyDictionary.Remove(item[familyIndex]);
+                familyDictionary.Add(item[familyIndex], count + 1);
+            }
         }
+        fms = familyDictionary.Keys.ToList();
 
+        //Remove title
+        fms.RemoveAt(0);  
+        repository.RemoveAt(0);
+        familyNum = fms.Count;
 
         //Initiative sugar disk
         for (int i = 1; i <= PlayerPrefs.GetInt("count"); i++)
@@ -101,21 +134,24 @@ public class FindAddedSugar : MonoBehaviour
         //Remove duplicates
         allScanned.Distinct().ToList();
 
-        GameObject.Find("Canvas").transform.Find("Background").gameObject.SetActive(true);
-        GameObject.Find("Content").GetComponent<PopulateGrid>().Populate();
+        
 
+        GameObject.Find("Canvas").transform.Find("FamilyBackground").gameObject.SetActive(true);
+        GameObject.Find("FamilyContent").GetComponent<PopulateFamilyPanels>().PopulateFamilies();
 
-        //Change gameobject name and image in the scene
+        //Test Family Background
+
         foreach (List<string> s in dbList)
         {
             foreach (string ss in GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars)
             {
                 if (s[nameIndex].ToLower() == ss.ToLower())
                 {
-                    var sc = GameObject.Find("Background").transform.Find("Scroll View/Viewport/Content").transform.Find(s[deckNumIndex]);
+                    var sc = GameObject.Find(s[deckNumIndex]);
                     if (sc != null)
                     {
                         sc.name = ss;
+                        
                         sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
 
                         var sci = sc.transform.Find("Image");
@@ -132,8 +168,9 @@ public class FindAddedSugar : MonoBehaviour
             }
 
         }
+
         GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars = GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars.Distinct().ToList();
-        GameObject.Find("Background").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "FOUND: " + GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars.Count;
+        GameObject.Find("FamilyBackground").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "Found: " + GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars.Count;
         GameObject.Find("SugarDisk").GetComponent<SugarDisk>().CloseSugarDisk();
     }
 
