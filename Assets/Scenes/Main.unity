@@ -503,6 +503,16 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114652206635684938, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_Text
+      value: ' Total: 247'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114937505888787312, guid: ce5f97c73a772a1468cc0edd59a417ef,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Found: '
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114451934486163632, guid: ce5f97c73a772a1468cc0edd59a417ef, type: 2}
     - {fileID: 114459203620296606, guid: ce5f97c73a772a1468cc0edd59a417ef, type: 2}
