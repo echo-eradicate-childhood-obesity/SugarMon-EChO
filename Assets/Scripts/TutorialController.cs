@@ -21,7 +21,8 @@ public class TutorialController : MonoBehaviour {
         //Touch touch = Input.GetTouch(0);
 
         //if (Input.GetKeyDown(KeyCode.A) || touch.phase == TouchPhase.Ended)
-        if(Input.GetKeyDown(KeyCode.A))
+        //if(Input.GetKeyDown(KeyCode.A))
+        if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || Input.GetKeyDown(KeyCode.A))
         {
             //First stage of tutorial
             if (GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage == 0)
@@ -79,8 +80,8 @@ public class TutorialController : MonoBehaviour {
                     {
                         tree.GetComponentInChildren<Text>().text = "Click the checkmark to add it to your SugarDex!";
                     }
-                    this.GetComponent<RectTransform>().sizeDelta = new Vector2(1000, 1840);
-                    this.GetComponent<RectTransform>().localPosition = new Vector2(0, 14);
+                    this.GetComponent<RectTransform>().sizeDelta = new Vector2(1000, 2071);
+                    this.GetComponent<RectTransform>().localPosition = new Vector2(0, 60);
                 }
                 pic++;
             }

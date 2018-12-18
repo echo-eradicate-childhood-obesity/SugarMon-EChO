@@ -18,9 +18,10 @@ public class TutorialDisplay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //Touch touch = Input.GetTouch(0);
-        if (Input.GetKeyDown(KeyCode.A) && isPressed)
-        //if(touch.phase == TouchPhase.Ended && isPressed)
+
+        //if (Input.GetKeyDown(KeyCode.A) && isPressed)
+        //if(Input.GetTouch(0).phase == TouchPhase.Ended && isPressed)
+        if (((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || Input.GetKeyDown(KeyCode.A))&& isPressed)
         {
             ButtonClick();
         }
@@ -73,8 +74,8 @@ public class TutorialDisplay : MonoBehaviour {
                 mask.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
                 mask.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
                 mask.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-                mask.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -65);
-                mask.GetComponent<RectTransform>().sizeDelta = new Vector2(1050, 1980);
+                mask.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -68);
+                mask.GetComponent<RectTransform>().sizeDelta = new Vector2(1050, 2084);
                 mask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/0-3");
                 tree.GetComponentInChildren<Text>().text = "Start by aiming a food or beverage barcode at the center of the square.";
 
