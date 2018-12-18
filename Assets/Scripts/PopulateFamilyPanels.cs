@@ -15,7 +15,7 @@ public class PopulateFamilyPanels : MonoBehaviour {
 
     public TitleColor[] colors;
 
-    private List<string> titleColor;
+    public List<string> titleColor;
     public GameObject Cell, Panel, Title;
     // Use this for initialization
 

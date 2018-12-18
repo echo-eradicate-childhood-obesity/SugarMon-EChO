@@ -18,9 +18,9 @@ public class TutorialDisplay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Touch touch = Input.GetTouch(0);
-        //if (Input.GetKeyDown(KeyCode.A) && isPressed)
-        if(touch.phase == TouchPhase.Ended && isPressed)
+        //Touch touch = Input.GetTouch(0);
+        if (Input.GetKeyDown(KeyCode.A) && isPressed)
+        //if(touch.phase == TouchPhase.Ended && isPressed)
         {
             ButtonClick();
         }

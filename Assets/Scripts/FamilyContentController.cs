@@ -8,7 +8,6 @@ public class FamilyContentController : MonoBehaviour {
 
     public GameObject familyContentObject;
     private List<string> familyNames;
-    int test;
     
     void Start()
     {

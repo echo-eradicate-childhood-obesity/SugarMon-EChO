@@ -163,6 +163,7 @@ public class FindAddedSugar : MonoBehaviour
                         sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
 
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
+                        
                     }
                 }
             }

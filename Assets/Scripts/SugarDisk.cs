@@ -18,6 +18,8 @@ public class SugarDisk : MonoBehaviour {
     private List<string> sugarFromMain, newSugars;
     public List<string> allCollectedSugars;
     private int numCount;
+
+    private Transform sci;
     // Use this for initialization
     void Start () {
 
@@ -64,7 +66,7 @@ public class SugarDisk : MonoBehaviour {
                 if (s[cv.GetComponent<FindAddedSugar>().nameIndex].ToLower() == ss.ToLower())
                 {
                     var sc = GameObject.Find(s[cv.GetComponent<FindAddedSugar>().deckNumIndex]);
-                    var sci = sc.transform.Find("Image");
+                    sci = sc.transform.Find("Image");
 
                     if (sc != null)
                     {
@@ -81,24 +83,8 @@ public class SugarDisk : MonoBehaviour {
                         sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
 
-                        //Change monster color
-                        Debug.Log(s[cv.GetComponent<FindAddedSugar>().familyIndex]);
-                        if(s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Dextrin Monsters") sci.GetComponent<Image>().color = new Color32(255, 0, 0, 100);
+
                         
-                        else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Cane Monsters") sci.GetComponent<Image>().color = new Color32(0, 255, 0, 100);
-
-                        else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "OSE Monsters") sci.GetComponent<Image>().color = new Color32(0, 0, 225, 100);
-
-                        else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Syrup Monsters") sci.GetComponent<Image>().color = new Color32(255, 255, 225, 100);
-
-                        else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Concentrate Monsters") sci.GetComponent<Image>().color = new Color32(0, 0, 0, 100);
-
-                        else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Sugar Monsters") sci.GetComponent<Image>().color = new Color32(255, 0, 200, 100);
-
-                        else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Dextrin Monsters") sci.GetComponent<Image>().color = new Color32(255, 255, 0, 100);
-
-                        else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Other Monsters") sci.GetComponent<Image>().color = new Color32(255, 120, 0, 100);
-
                     }
                 }
             }
@@ -109,7 +95,7 @@ public class SugarDisk : MonoBehaviour {
     {
         GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = true;
         this.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Sugar Disk White");
-        GameObject.Find("Canvas").transform.Find("FamilyBackground").gameObject.SetActive(false);
+        sugarDiskImage.gameObject.SetActive(false);
     }
 
 
@@ -117,4 +103,14 @@ public class SugarDisk : MonoBehaviour {
     {
         PlayerPrefs.DeleteAll();
     }
+
+    public void TransferHexToRGB(string titleColor)
+    {
+        Color col;
+        if (ColorUtility.TryParseHtmlString(titleColor, out col))
+        {
+            sci.GetComponent<Image>().color = col;
+        }
+    }
+    
 }
