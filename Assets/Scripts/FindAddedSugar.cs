@@ -67,8 +67,6 @@ public class FindAddedSugar : MonoBehaviour
     }
     void Start()
     {
-        ts = GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage;
-
         //Load player's data
         numCount = PlayerPrefs.GetInt("count");
         for (int i = 1; i <= PlayerPrefs.GetInt("count"); i++)
@@ -207,6 +205,8 @@ public class FindAddedSugar : MonoBehaviour
     public void AllTypeOfSugars(string ingredientFromDB)
     {
 
+        GameObject.Find("SugarDisk").GetComponent<Button>().enabled = false;
+
         //Barcode not in database
         if (ingredientFromDB == "Not Found")
         {
@@ -282,7 +282,7 @@ public class FindAddedSugar : MonoBehaviour
 
     public void DisplayMonsters()
     {
-
+        ts = GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage;
         if (scannedAddedSugars.Contains("Not Found"))
         {
             StartCoroutine("AnimatorSugarCardToDex", "NotFound");
@@ -290,6 +290,7 @@ public class FindAddedSugar : MonoBehaviour
             GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 3 seconds for next scan
 
             scanFrame.SetActive(true);
+            GameObject.Find("SugarDisk").GetComponent<Button>().enabled = true;
         }
         else
         {
@@ -299,17 +300,31 @@ public class FindAddedSugar : MonoBehaviour
             currentNumMonster++;
             if (currentNumMonster == scannedAddedSugars.Count)
             {
-                if (ts == 2 && scannedAddedSugars[currentNumMonster - 1] != "No Added Sugar")
+                if (GameObject.Find("SugarDisk").GetComponent<Image>().sprite.name == "SugarDexButtonNotification")
                 {
-                    //third stage
-                    Debug.Log("Stage " + (ts + 1) + " has complete!");
-                    ts++;
-                    PlayerPrefs.SetInt("TutorialStage", ts);
-                }
+                    //Third stage of tutorial
+                    if (ts == 2 && !scannedAddedSugars.Contains("No Added Sugar"))
+                    {
+                        TutorialController.initMask();
+                        GameObject magicTree = GameObject.Find("Magic Tree"), tutorialMask = GameObject.Find("Tutorial Mask");
+                        magicTree.GetComponentInChildren<Text>().text = "Check out your collection of Sugar Monsters in the SugarDex!";
+                        GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "2-1" };
+                        tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
 
+                        tutorialMask.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+                        tutorialMask.GetComponent<RectTransform>().anchorMax = new Vector2(1, 0);
+                        tutorialMask.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0);
+                        tutorialMask.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0);
+                        tutorialMask.GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
+                        tutorialMask.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 1950);
+
+                        ts++;
+                        PlayerPrefs.SetInt("TutorialStage", ts);
+                    }
+                }
                 GameObject.Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster - 1]));
                 scanFrame.SetActive(true);
-
+                GameObject.Find("SugarDisk").GetComponent<Button>().enabled = true;
                 GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 3 seconds for next scan
             }
             else
@@ -347,19 +362,34 @@ public class FindAddedSugar : MonoBehaviour
         //    this.GetComponent<AudioSource>().enabled = true;
         //    this.GetComponent<AudioSource>().clip = newSugarSound;
         //}
-        if (ts == 1)
-        {
-            //second stage
-            Debug.Log("Stage " + (ts + 1) + " has complete!");
-            ts++;
-            PlayerPrefs.SetInt("TutorialStage", ts);
-        }
 
+        ts = GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage;
         GameObject stage = GameObject.Find("Canvas");
         monster = Instantiate(Resources.Load("Prefabs/Monster"), stage.transform) as GameObject;
 
         monster.name = sugarName;
 
+        if (ts == 1)
+        {
+            TutorialController.initMask();
+            GameObject magicTree = GameObject.Find("Magic Tree"), tutorialMask = GameObject.Find("Tutorial Mask");
+            GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "1-1", "1-2" };
+            tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
+            if(sugarName == "No Added Sugar")
+            {
+                magicTree.GetComponentInChildren<Text>().text = "Yay! Looks like you found a healthy food with 0 Sugar Monsters!";
+            }
+            else if(sugarName == "Not Found")
+            {
+                magicTree.GetComponentInChildren<Text>().text = "I’m still growing so check back again in the future!";
+            }
+            else
+            {
+                magicTree.GetComponentInChildren<Text>().text = "Wow! Looks like you found a Sugar Monster!";
+            }
+            ts++;
+            PlayerPrefs.SetInt("TutorialStage", ts);
+        }
         //Audio.Play();
 
         GameObject.Find("Canvas").transform.Find(sugarName).GetComponentInChildren<Button>().onClick.AddListener(() => DisplayMonsters());
@@ -378,9 +408,9 @@ public class FindAddedSugar : MonoBehaviour
             //Find new added sugar
             if (!sugarInWall.Contains(sugarName.ToLower()))
             {
-#if UNITY_ANDROID || UNITY_IOS
-                Handheld.Vibrate();
-#endif
+                #if UNITY_ANDROID || UNITY_IOS
+                    Handheld.Vibrate();
+                #endif
                 monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NewAddedSugar");
                 GameObject.Find("SugarDisk").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/SugarDexButtonNotification");
             }

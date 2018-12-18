@@ -21,6 +21,7 @@ public class SugarDisk : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        Transform sugarDiskImage = GameObject.Find("Canvas").transform.Find("FamilyBackground");
         diskPosition = sugarDiskImage.transform.localPosition;
         foundMonsterNumber = 0;
         foundSugar = GameObject.Find("Canvas");

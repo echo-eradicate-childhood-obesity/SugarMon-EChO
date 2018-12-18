@@ -22,8 +22,8 @@ namespace BarcodeScanner.Webcam
             //Webcam = new WebCamTexture(settings.WebcamDefaultDeviceName);
             Webcam = new WebCamTexture();
             Webcam.requestedWidth = settings.WebcamRequestedWidth;
-			Webcam.requestedHeight = settings.WebcamRequestedHeight;
-			Webcam.filterMode = settings.WebcamFilterMode;
+            Webcam.requestedHeight = settings.WebcamRequestedHeight;
+            Webcam.filterMode = settings.WebcamFilterMode;
 
 			// Get size
 			Width = 0;

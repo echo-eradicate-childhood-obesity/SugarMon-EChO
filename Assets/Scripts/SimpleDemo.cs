@@ -25,10 +25,6 @@ public class SimpleDemo : MonoBehaviour
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
         tutorialStage = PlayerPrefs.GetInt("TutorialStage");
-        
-        
-        
-
     }
 
     void Start()
@@ -36,10 +32,13 @@ public class SimpleDemo : MonoBehaviour
         if (tutorialStage == 0)
         {
             //first stage
-            Debug.Log("Stage " + (tutorialStage + 1)+ " has complete!");
-            tutorialStage++;
-            PlayerPrefs.SetInt("TutorialStage", tutorialStage);            
+            TutorialController.initMask();
+            GameObject magicTree = GameObject.Find("Magic Tree"), tutorialMask = GameObject.Find("Tutorial Mask");
+            magicTree.GetComponentInChildren<Text>().text = "Hi friend, I am the Magic Tree. I am here to help you grow healthier.";
+            GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "0-1", "0-2", "0-3" };
+            tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
         }
+
         //Read USDA Database
         TextAsset usdatxt = (TextAsset)Resources.Load("NoDupeDatabase");
         string usdaContent = Encoding.UTF7.GetString(usdatxt.bytes);
@@ -63,13 +62,15 @@ public class SimpleDemo : MonoBehaviour
             //rect.sizeDelta = new Vector2(rect.sizeDelta.x, newHeight);
             //rect.sizeDelta = new Vector2(Screen.width, Screen.height);
         };
-        
+
         // Track status of the scanner
         //BarcodeScanner.StatusChanged += (sender, arg) => {
         //  Debug.Log("Status: " + BarcodeScanner.Status);
         //};
-        Invoke("ClickStart", 1f);
 
+
+        //Invoke("ClickStart", 1f);
+        if (tutorialStage != 0) Invoke("ClickStart", 1f);
 
     }
 
@@ -101,11 +102,11 @@ public class SimpleDemo : MonoBehaviour
         BarcodeScanner.Scan((barCodeType, barCodeValue) => {
 
             BarcodeScanner.Stop();
-            if (!barCodeType.Contains("UPC"))
+            if (barCodeType.Contains("QR_CODE") || barCodeType.Contains("DATA_MATRIX") || barCodeType.Contains("AZTEC") || barCodeType.Contains("PDF_417"))
             {
                 Invoke("ClickStart", 1f);
             }
-            else if(barCodeType.Contains("UPC"))
+            else
             {
                 barCodeValue = barCodeValue.Remove(0, 1);
                 foreach (string p in usdaList)
