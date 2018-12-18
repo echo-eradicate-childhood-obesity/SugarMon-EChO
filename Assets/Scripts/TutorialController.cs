@@ -49,7 +49,7 @@ public class TutorialController : MonoBehaviour {
                         tree.GetComponentInChildren<Text>().text = "Start by aiming a food or beverage barcode at the center of the square.";
 
                         //Modify mask position
-                        this.GetComponent<RectTransform>().sizeDelta = new Vector2(1040, 1980);
+                        this.GetComponent<RectTransform>().sizeDelta = new Vector2(1040, 2080);
                         this.GetComponent<RectTransform>().localPosition = new Vector2(0, -65);
                     }
                 }

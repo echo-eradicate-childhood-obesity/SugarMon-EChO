@@ -19,6 +19,7 @@ public class SugarDisk : MonoBehaviour {
     public List<string> allCollectedSugars;
     private int numCount;
 
+    private List<string> monsterColor;
     private Transform sci;
     // Use this for initialization
     void Start () {
@@ -84,7 +85,14 @@ public class SugarDisk : MonoBehaviour {
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
 
 
-                        
+                        //Change Monster color
+                        //if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Dextrin Monsters") TransferHexToRGB(monsterColor[0]);
+                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Cane Monsters") TransferHexToRGB(monsterColor[1]);
+                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "OSE Monsters") TransferHexToRGB(monsterColor[2]);
+                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Syrup Monsters") TransferHexToRGB(monsterColor[3]);
+                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Concentrate Monsters") TransferHexToRGB(monsterColor[4]);
+                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Sugar Monsters") TransferHexToRGB(monsterColor[5]);
+                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Other Monsters") TransferHexToRGB(monsterColor[6]);
                     }
                 }
             }
