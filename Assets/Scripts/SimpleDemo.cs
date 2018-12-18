@@ -19,6 +19,8 @@ public class SimpleDemo : MonoBehaviour
     [HideInInspector]
     public int tutorialStage;
 
+    private List<string> excludedCodeType = new List<string>() { "QR_CODE", "DATA_MATRIX", "AZTEC", "PDF_417" };
+
     // Disable Screen Rotation on that screen
     void Awake()
     {
@@ -102,7 +104,7 @@ public class SimpleDemo : MonoBehaviour
         BarcodeScanner.Scan((barCodeType, barCodeValue) => {
 
             BarcodeScanner.Stop();
-            if (barCodeType.Contains("QR_CODE") || barCodeType.Contains("DATA_MATRIX") || barCodeType.Contains("AZTEC") || barCodeType.Contains("PDF_417"))
+            if (excludedCodeType.Any(barCodeType.Contains))  //need test
             {
                 Invoke("ClickStart", 1f);
             }

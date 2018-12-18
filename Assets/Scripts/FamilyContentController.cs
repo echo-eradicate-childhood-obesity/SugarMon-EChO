@@ -16,8 +16,6 @@ public class FamilyContentController : MonoBehaviour {
     }
     public void FamilyContentPosition()
     {
-        //PlayerPrefs.SetInt("TutorialStep", test);
-        PlayerPrefs.DeleteKey("TutorialStage");
         familyNames = GameObject.Find("Canvas").GetComponent<FindAddedSugar>().fms;
         GameObject tle = GameObject.Find(this.name + " Monsters Title");
         float titleHeight = tle.GetComponent<RectTransform>().rect.height;

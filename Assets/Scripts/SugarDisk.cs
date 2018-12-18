@@ -64,20 +64,41 @@ public class SugarDisk : MonoBehaviour {
                 if (s[cv.GetComponent<FindAddedSugar>().nameIndex].ToLower() == ss.ToLower())
                 {
                     var sc = GameObject.Find(s[cv.GetComponent<FindAddedSugar>().deckNumIndex]);
+                    var sci = sc.transform.Find("Image");
+
                     if (sc != null)
                     {
                         sc.name = ss;
                         sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
                         sc.transform.Find("Image").GetComponentInChildren<Text>().text = "";
                         
+                        
                         //placing and resizing the monster image in sugardex
-                        sc.transform.Find("Image").GetComponent<RectTransform>().anchorMin = new Vector2(0.5f,0.5f);
-                        sc.transform.Find("Image").GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
-                        sc.transform.Find("Image").GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-                        sc.transform.Find("Image").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
-                        sc.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
+                        sci.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f,0.5f);
+                        sci.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+                        sci.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+                        sci.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
+                        sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
+                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
 
-                        sc.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
+                        //Change monster color
+                        Debug.Log(s[cv.GetComponent<FindAddedSugar>().familyIndex]);
+                        if(s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Dextrin Monsters") sci.GetComponent<Image>().color = new Color32(255, 0, 0, 100);
+                        
+                        else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Cane Monsters") sci.GetComponent<Image>().color = new Color32(0, 255, 0, 100);
+
+                        else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "OSE Monsters") sci.GetComponent<Image>().color = new Color32(0, 0, 225, 100);
+
+                        else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Syrup Monsters") sci.GetComponent<Image>().color = new Color32(255, 255, 225, 100);
+
+                        else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Concentrate Monsters") sci.GetComponent<Image>().color = new Color32(0, 0, 0, 100);
+
+                        else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Sugar Monsters") sci.GetComponent<Image>().color = new Color32(255, 0, 200, 100);
+
+                        else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Dextrin Monsters") sci.GetComponent<Image>().color = new Color32(255, 255, 0, 100);
+
+                        else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Other Monsters") sci.GetComponent<Image>().color = new Color32(255, 120, 0, 100);
+
                     }
                 }
             }
