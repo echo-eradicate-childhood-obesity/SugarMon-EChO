@@ -301,7 +301,7 @@ public class FindAddedSugar : MonoBehaviour
             currentNumMonster++;
             if (currentNumMonster == scannedAddedSugars.Count)
             {
-                if (GameObject.Find("SugarDisk").GetComponent<Image>().sprite.name == "SugarDexButtonNotification")
+                if (GameObject.Find("SugarDisk").transform.Find("RedDot").gameObject.activeSelf)
                 {
                     //Third stage of tutorial
                     if (ts == 2 && !scannedAddedSugars.Contains("No Added Sugar"))
@@ -338,7 +338,7 @@ public class FindAddedSugar : MonoBehaviour
                     Handheld.Vibrate();
 #endif
                     monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NewAddedSugar");
-                    GameObject.Find("SugarDisk").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/SugarDexButtonNotification");
+                    GameObject.Find("SugarDisk").transform.Find("RedDot").gameObject.SetActive(true);
                 }
                 else monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/CollectedAddedSugar");
 
@@ -415,7 +415,7 @@ public class FindAddedSugar : MonoBehaviour
                     Handheld.Vibrate();
                 #endif
                 monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NewAddedSugar");
-                GameObject.Find("SugarDisk").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/SugarDexButtonNotification");
+                GameObject.Find("SugarDisk").transform.Find("RedDot").gameObject.SetActive(true);
             }
             else monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/CollectedAddedSugar");
 

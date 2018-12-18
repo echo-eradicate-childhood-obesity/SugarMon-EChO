@@ -102,7 +102,7 @@ public class SugarDisk : MonoBehaviour {
     public void CloseSugarDisk()
     {
         GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = true;
-        this.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Sugar Disk White");
+        GameObject.Find("SugarDisk").transform.Find("RedDot").gameObject.SetActive(false);
         sugarDiskImage.gameObject.SetActive(false);
     }
 
