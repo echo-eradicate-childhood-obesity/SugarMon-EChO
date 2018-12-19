@@ -206,7 +206,6 @@ public class FindAddedSugar : MonoBehaviour
         if (ingredientFromDB == "Not Found")
         {
             scanFrame.SetActive(false);
-            scannedAddedSugars.Add("No Added Sugar");
             CreateSugarMonster("Not Found");
         }
         else
