@@ -49,16 +49,17 @@ public class PopulateFamilyPanels : MonoBehaviour {
             }
         }
 
+
+        GameObject.Find("SugarDisk").GetComponent<SugarDisk>().monsterColor = titleColor;
+
         for (int i = 0; i < families.Count; i++)
         {
             newTitle = (GameObject)Instantiate(Title, transform);
             newTitle.name = families[i] + " Title";
 
             //Convert hex code to RGB color and assign to titles
-            if (ColorUtility.TryParseHtmlString(titleColor[i], out col))
-            {
-                newTitle.GetComponent<Image>().color = col;
-            }
+            ColorUtility.TryParseHtmlString(titleColor[i], out col);
+            newTitle.GetComponent<Image>().color = col;
 
             newTitle.GetComponentInChildren<Text>().text = families[i];
             newPanel = (GameObject)Instantiate(Panel, transform);

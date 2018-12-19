@@ -122,7 +122,6 @@ public class FindAddedSugar : MonoBehaviour
         repository.RemoveAt(0);
         familyNum = fms.Count;
         
-
         //Initiative sugar disk
         for (int i = 1; i <= PlayerPrefs.GetInt("count"); i++)
         {
@@ -130,17 +129,13 @@ public class FindAddedSugar : MonoBehaviour
             allScanned.Add(PlayerPrefs.GetString("num_" + i));
         }
 
-
         //Remove duplicates
         allScanned.Distinct().ToList();
-
-        
-
+      
         GameObject.Find("Canvas").transform.Find("FamilyBackground").gameObject.SetActive(true);
         GameObject.Find("FamilyContent").GetComponent<PopulateFamilyPanels>().PopulateFamilies();
 
-        //Test Family Background
-
+        //Family Background
         foreach (List<string> s in dbList)
         {
             foreach (string ss in GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars)
@@ -163,7 +158,6 @@ public class FindAddedSugar : MonoBehaviour
                         sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
 
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
-                        
                     }
                 }
             }
@@ -220,9 +214,14 @@ public class FindAddedSugar : MonoBehaviour
             currentNumMonster = 0;
             scannedAddedSugars.Clear();
 
+            //Split ingredient string to each individual ingredient
+            ingredientFromDB = Regex.Replace(ingredientFromDB, "[^a-zA-Z0-9_., ]+", "", RegexOptions.Compiled);
+            List<string> dbIngredientList = ingredientFromDB.Split(',').ToList();
+            dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim().ToLower());
+
             foreach (string r in repository)
             {
-                if (ingredientFromDB.Contains(r.ToLower()))
+                if (dbIngredientList.Contains(r.ToLower()))
                 {
                     scannedAddedSugars.Add(char.ToUpper(r[0]) + r.Substring(1));
                     if (!allScanned.Contains(r.ToLower()))

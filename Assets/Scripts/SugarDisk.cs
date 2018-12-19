@@ -19,7 +19,7 @@ public class SugarDisk : MonoBehaviour {
     public List<string> allCollectedSugars;
     private int numCount;
 
-    private List<string> monsterColor;
+    public List<string> monsterColor;
     private Transform sci;
     // Use this for initialization
     void Start () {
@@ -31,8 +31,6 @@ public class SugarDisk : MonoBehaviour {
         cv = GameObject.Find("Canvas");
         newSugars = new List<string>();
 
-        
-        
     }
 	
 	// Update is called once per frame
@@ -60,6 +58,7 @@ public class SugarDisk : MonoBehaviour {
   
             }
         }
+
         foreach (List<string> s in foundSugar.GetComponent<FindAddedSugar>().dbList)
         {
             foreach(string ss in newSugars)
@@ -93,6 +92,7 @@ public class SugarDisk : MonoBehaviour {
                         //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Concentrate Monsters") TransferHexToRGB(monsterColor[4]);
                         //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Sugar Monsters") TransferHexToRGB(monsterColor[5]);
                         //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Other Monsters") TransferHexToRGB(monsterColor[6]);
+
                     }
                 }
             }
@@ -115,10 +115,8 @@ public class SugarDisk : MonoBehaviour {
     public void TransferHexToRGB(string titleColor)
     {
         Color col;
-        if (ColorUtility.TryParseHtmlString(titleColor, out col))
-        {
-            sci.GetComponent<Image>().color = col;
-        }
+        ColorUtility.TryParseHtmlString(titleColor, out col);
+        sci.GetComponent<Image>().color = col;
     }
     
 }

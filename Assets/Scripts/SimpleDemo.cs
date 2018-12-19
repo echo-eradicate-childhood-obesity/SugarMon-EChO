@@ -31,6 +31,7 @@ public class SimpleDemo : MonoBehaviour
 
     void Start()
     {
+
         if (tutorialStage == 0)
         {
             //first stage
