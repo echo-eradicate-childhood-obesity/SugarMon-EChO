@@ -121,6 +121,10 @@ public class SimpleDemo : MonoBehaviour
                         break;
                     }
                 }
+                //Debug.Log(usdaList.Count);
+                //var i = SearchController.BinarySearch(usdaList, long.Parse(barCodeValue), 80000, 79000);
+                //Debug.Log(i);
+
                 if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found");
             }
 
@@ -149,4 +153,6 @@ public class SimpleDemo : MonoBehaviour
 
 
     #endregion
+
+    
 }

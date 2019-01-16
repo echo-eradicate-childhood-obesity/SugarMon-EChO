@@ -25,7 +25,7 @@ namespace BarcodeScanner.Scanner
 		public IWebcam Camera { get; private set; }
 		public IParser Parser { get; private set; }
 		public ScannerSettings Settings { get; private set; }
-
+        
 		//
 		private ScannerStatus status;
 		public ScannerStatus Status {
