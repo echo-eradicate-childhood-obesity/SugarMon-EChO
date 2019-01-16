@@ -286,11 +286,11 @@ public class FindAddedSugar : MonoBehaviour
 
 
         //test image
-        if (monster == null)
-        {
-            monster = Instantiate(monsterpfb);
+        //if (monster == null)
+        //{
+        //    monster = Instantiate(monsterpfb);
             
-        }
+        //}
 
 
         anim.GetComponent<Image>().sprite = monster.GetComponent<Image>().sprite;
