@@ -13,93 +13,97 @@ public class SugarDisk : MonoBehaviour {
     public GameObject sugarDiskImage;
     private Vector3 diskPosition;
     private GameObject cv;
+    private GameObject[] allTypesOfSugars;
 
     private List<string> sugarFromMain, newSugars;
     public List<string> allCollectedSugars;
+    private int numCount;
+
+    public List<string> monsterColor;
+    private Transform sci;
     // Use this for initialization
     void Start () {
+
+        Transform sugarDiskImage = GameObject.Find("Canvas").transform.Find("FamilyBackground");
         diskPosition = sugarDiskImage.transform.localPosition;
         foundMonsterNumber = 0;
         foundSugar = GameObject.Find("Canvas");
         cv = GameObject.Find("Canvas");
         newSugars = new List<string>();
+
     }
-
-
 	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
     public void OpenSugarDisk()
     {
         GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = false;
         newSugars.Clear();
         sugarDiskImage.transform.localPosition = diskPosition;
         foundSugar.transform.Find("FamilyBackground").gameObject.SetActive(true);
-        GameObject.Find("FamilyBackground").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "FOUND: " + foundSugar.GetComponent<FindAddedSugar>().allScanned.Count;
+        GameObject.Find("FamilyBackground").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "Found: " + foundSugar.GetComponent<FindAddedSugar>().allScanned.Count;
+
+
         sugarFromMain = foundSugar.GetComponent<FindAddedSugar>().allScanned;
 
-        foreach (string ni in sugarFromMain.Where(ni=>ni.ToLower()!= "no added sugar"))//using where to reduce the iteration
+        foreach (string ni in sugarFromMain)
         {
-            if (!allCollectedSugars.Contains(ni) /*&& ni.ToLower() != "no added sugar"*/)
+            if (!allCollectedSugars.Contains(ni) && ni.ToLower() != "no added sugar")
             {
                 newSugars.Add(ni);
                 allCollectedSugars.Add(ni.ToLower());
+  
             }
         }
+
         foreach (List<string> s in foundSugar.GetComponent<FindAddedSugar>().dbList)
         {
-
-            var nameIndex = cv.GetComponent<FindAddedSugar>().nameIndex;//get ref once here use in the where linq
-            foreach (string ss in newSugars.Where(ss=>ss.ToLower()==s[nameIndex]))
+            foreach(string ss in newSugars)
             {
-                #region RemoveIf useing where linq
-                //if (s[cv.GetComponent<FindAddedSugar>().nameIndex].ToLower() == ss.ToLower())
-                //{
-                //    var sc = GameObject.Find(s[cv.GetComponent<FindAddedSugar>().deckNumIndex]);
-                //    if (sc != null)
-                //    {
-                //        sc.name = ss;
-                //        sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
-                //        sc.transform.Find("Image").GetComponentInChildren<Text>().text = "";
-
-                //        //placing and resizing the monster image in sugardex
-                //        sc.transform.Find("Image").GetComponent<RectTransform>().anchorMin = new Vector2(0.5f,0.5f);
-                //        sc.transform.Find("Image").GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
-                //        sc.transform.Find("Image").GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-                //        sc.transform.Find("Image").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
-                //        sc.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
-
-                //        sc.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
-                //    }
-                //} 
-                #endregion
-                var sc = GameObject.Find(s[cv.GetComponent<FindAddedSugar>().deckNumIndex]);
-                if (sc != null)
+                if (s[cv.GetComponent<FindAddedSugar>().nameIndex].ToLower() == ss.ToLower())
                 {
-                    sc.name = ss;
-                    sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
-                    sc.transform.Find("Image").GetComponentInChildren<Text>().text = "";
-                    //placing and resizing the monster image in sugardex
-                    #region refator
-                    //sc.transform.Find("Image").GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
-                    //sc.transform.Find("Image").GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
-                    //sc.transform.Find("Image").GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-                    //sc.transform.Find("Image").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
-                    //sc.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150); 
-                    #endregion
-                    var scRT = transform.Find("Image").GetComponent<RectTransform>();
-                    //in findaddedsugar.cs the same implement, so use an static method.
-                    UIController.MonsterIMGInst(scRT);
+                    var sc = GameObject.Find(s[cv.GetComponent<FindAddedSugar>().deckNumIndex]);
+                    sci = sc.transform.Find("Image");
 
-                    sc.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
+                    if (sc != null)
+                    {
+                        sc.name = ss;
+                        sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
+                        sc.transform.Find("Image").GetComponentInChildren<Text>().text = "";
+                        
+                        
+                        //placing and resizing the monster image in sugardex
+                        sci.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f,0.5f);
+                        sci.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+                        sci.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+                        sci.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
+                        sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
+                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
+
+
+                        //Change Monster color
+                        //if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Dextrin Monsters") TransferHexToRGB(monsterColor[0]);
+                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Cane Monsters") TransferHexToRGB(monsterColor[1]);
+                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "OSE Monsters") TransferHexToRGB(monsterColor[2]);
+                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Syrup Monsters") TransferHexToRGB(monsterColor[3]);
+                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Concentrate Monsters") TransferHexToRGB(monsterColor[4]);
+                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Sugar Monsters") TransferHexToRGB(monsterColor[5]);
+                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Other Monsters") TransferHexToRGB(monsterColor[6]);
+
+                    }
                 }
             }
+            
         }
     }
-
     public void CloseSugarDisk()
     {
         GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = true;
-        this.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Sugar Disk White");
-        GameObject.Find("Canvas").transform.Find("FamilyBackground").gameObject.SetActive(false);
+        GameObject.Find("SugarDisk").transform.Find("RedDot").gameObject.SetActive(false);
+        sugarDiskImage.gameObject.SetActive(false);
     }
 
 
@@ -108,5 +112,11 @@ public class SugarDisk : MonoBehaviour {
         PlayerPrefs.DeleteAll();
     }
 
+    public void TransferHexToRGB(string titleColor)
+    {
+        Color col;
+        ColorUtility.TryParseHtmlString(titleColor, out col);
+        sci.GetComponent<Image>().color = col;
+    }
     
 }
