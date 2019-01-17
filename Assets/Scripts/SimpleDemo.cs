@@ -112,14 +112,25 @@ public class SimpleDemo : MonoBehaviour
             else
             {
                 barCodeValue = barCodeValue.Remove(0, 1);
-                foreach (string p in usdaList)
+                #region old searching method
+                //foreach (string p in usdaList)
+                //{
+                //    if (p.Contains(barCodeValue))
+                //    {
+                //        inDB = true;
+                //        GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(p.ToLower());
+                //        break;
+                //    }
+                //} 
+
+                #endregion
+                //var i = SearchController.BinarySearch(usdaList, long.Parse(barCodeValue), usdaList.Count, 0);
+                var i = SearchController.BinarySearch(usdaList, long.Parse(barCodeValue), 159021, 0);//make the up edge as the "safe" index "159021"
+                if (i != -1)
                 {
-                    if (p.Contains(barCodeValue))
-                    {
-                        inDB = true;
-                        GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(p.ToLower());
-                        break;
-                    }
+                    inDB = true;
+                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(usdaList[i].ToLower());
+                    Debug.Log(barCodeValue);
                 }
                 if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found");
             }
