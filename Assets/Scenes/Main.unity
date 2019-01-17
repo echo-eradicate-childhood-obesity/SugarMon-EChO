@@ -1184,7 +1184,7 @@ MonoBehaviour:
   scannedAddedSugars: []
   allScanned: []
   ______: 0
-  monsterpfb: {fileID: 1294566002219780, guid: 6001450756d0ba547aab771bd6c1f940, type: 2}
+  monsterpfb: {fileID: 0}
   testimg: {fileID: 21300000, guid: 879124fdfc0229244a0536088fdca721, type: 3}
 --- !u!82 &1325306022
 AudioSource:
