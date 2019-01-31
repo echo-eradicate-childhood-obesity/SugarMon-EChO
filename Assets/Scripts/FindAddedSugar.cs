@@ -475,28 +475,28 @@ public class FindAddedSugar : MonoBehaviour
         monster.name = sugarName;
 
 
-        if (ts == 1)
-        {
-            TutorialController.initMask();
-            GameObject magicTree = GameObject.Find("Magic Tree"), tutorialMask = GameObject.Find("Tutorial Mask");
-            GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "1-1", "1-2" };
-            tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
+        //if (ts == 1)
+        //{
+        //    TutorialController.initMask();
+        //    GameObject magicTree = GameObject.Find("Magic Tree"), tutorialMask = GameObject.Find("Tutorial Mask");
+        //    GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "1-1", "1-2" };
+        //    tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
 
-            if (sugarName == "No Added Sugar")
-            {
-                magicTree.GetComponentInChildren<Text>().text = "Yay! Looks like you found a healthy food with 0 Sugar Monsters!";
-            }
-            else if (sugarName == "Not Found")
-            {
-                magicTree.GetComponentInChildren<Text>().text = "I’m still growing so check back again in the future!";
-            }
-            else
-            {
-                magicTree.GetComponentInChildren<Text>().text = "Wow! Looks like you found a Sugar Monster!";
-            }
-            ts++;
-            PlayerPrefs.SetInt("TutorialStage", ts);
-        }
+        //    if (sugarName == "No Added Sugar")
+        //    {
+        //        magicTree.GetComponentInChildren<Text>().text = "Yay! Looks like you found a healthy food with 0 Sugar Monsters!";
+        //    }
+        //    else if (sugarName == "Not Found")
+        //    {
+        //        magicTree.GetComponentInChildren<Text>().text = "I’m still growing so check back again in the future!";
+        //    }
+        //    else
+        //    {
+        //        magicTree.GetComponentInChildren<Text>().text = "Wow! Looks like you found a Sugar Monster!";
+        //    }
+        //    ts++;
+        //    PlayerPrefs.SetInt("TutorialStage", ts);
+        //}
         //Audio.Play();
 
         //GameObject.Find("Canvas").transform.Find(sugarName).GetComponentInChildren<Button>().onClick.AddListener(() => DisplayMonsters());
@@ -528,6 +528,31 @@ public class FindAddedSugar : MonoBehaviour
             if (!sugarInWall.Contains(sugarName.ToLower())) sugarInWall.Add(sugarName.ToLower());
 
         }
-        DisplayMonsters();
+        if (ts == 1)
+        {
+            TutorialController.initMask();
+            GameObject magicTree = GameObject.Find("Magic Tree"), tutorialMask = GameObject.Find("Tutorial Mask");
+            GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "1-1", "1-2" };
+            tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
+
+            if (sugarName == "No Added Sugar")
+            {
+                magicTree.GetComponentInChildren<Text>().text = "Yay! Looks like you found a healthy food with 0 Sugar Monsters!";
+            }
+            else if (sugarName == "Not Found")
+            {
+                magicTree.GetComponentInChildren<Text>().text = "I’m still growing so check back again in the future!";
+            }
+            else
+            {
+                magicTree.GetComponentInChildren<Text>().text = "Wow! Looks like you found a Sugar Monster!";
+            }
+            ts++;
+            PlayerPrefs.SetInt("TutorialStage", ts);
+        }
+        else
+        {
+            DisplayMonsters();
+        }
     }
 }

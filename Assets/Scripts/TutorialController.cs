@@ -68,6 +68,7 @@ public class TutorialController : MonoBehaviour {
                     Debug.Log("Destroy");
                     Destroy(gameObject);
                     Destroy(tree);
+                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().DisplayMonsters();
                 }
                 else
                 {
