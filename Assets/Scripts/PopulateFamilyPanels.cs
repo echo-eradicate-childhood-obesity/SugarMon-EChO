@@ -35,7 +35,6 @@ public class PopulateFamilyPanels : MonoBehaviour {
         Dictionary<string, int> fd = GameObject.Find("Canvas").GetComponent<FindAddedSugar>().familyDictionary;
         int cell = 0;
         Color col;
-
         if (colors.Count() == 0)
         {
             titleColor = new List<string>() { "#FCD7B0", "#DD7E6B", "#D5A6BD", "#D8C2EF", "#B6D7A8", "#A2C4C9", "#9FC5E8" };

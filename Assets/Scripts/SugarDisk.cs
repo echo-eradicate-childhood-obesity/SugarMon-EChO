@@ -5,7 +5,11 @@ using System.Linq;
 using UnityEngine.UI;
 
 public class SugarDisk : MonoBehaviour {
+
     private GameObject foundSugar;
+
+    //singleton ref
+    UIManager um;
 
     [HideInInspector]
     public int foundMonsterNumber;
@@ -20,8 +24,10 @@ public class SugarDisk : MonoBehaviour {
     private int numCount;
 
     public List<string> monsterColor;
-    private Transform sci;
+    //change to local
+    //private Transform sci;
     // Use this for initialization
+
     void Start () {
 
         Transform sugarDiskImage = GameObject.Find("Canvas").transform.Find("FamilyBackground");
@@ -31,6 +37,7 @@ public class SugarDisk : MonoBehaviour {
         cv = GameObject.Find("Canvas");
         newSugars = new List<string>();
 
+        um = UIManager.Instance;
     }
 	
 	// Update is called once per frame
@@ -66,7 +73,7 @@ public class SugarDisk : MonoBehaviour {
                 if (s[cv.GetComponent<FindAddedSugar>().nameIndex].ToLower() == ss.ToLower())
                 {
                     var sc = GameObject.Find(s[cv.GetComponent<FindAddedSugar>().deckNumIndex]);
-                    sci = sc.transform.Find("Image");
+                    var sci = sc.transform.Find("Image");
 
                     if (sc != null)
                     {
@@ -81,8 +88,8 @@ public class SugarDisk : MonoBehaviour {
                         sci.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
                         sci.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
                         sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
-                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
 
+                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[cv.GetComponent<FindAddedSugar>().familyIndex]);
 
                         //Change Monster color
                         //if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Dextrin Monsters") TransferHexToRGB(monsterColor[0]);
@@ -104,6 +111,8 @@ public class SugarDisk : MonoBehaviour {
         GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = true;
         GameObject.Find("SugarDisk").transform.Find("RedDot").gameObject.SetActive(false);
         sugarDiskImage.gameObject.SetActive(false);
+
+        um.DisAllUp("Notification");
     }
 
 
@@ -112,11 +121,11 @@ public class SugarDisk : MonoBehaviour {
         PlayerPrefs.DeleteAll();
     }
 
-    public void TransferHexToRGB(string titleColor)
-    {
-        Color col;
-        ColorUtility.TryParseHtmlString(titleColor, out col);
-        sci.GetComponent<Image>().color = col;
-    }
+    //public void TransferHexToRGB(string titleColor)
+    //{
+    //    Color col;
+    //    ColorUtility.TryParseHtmlString(titleColor, out col);
+    //    sci.GetComponent<Image>().color = col;
+    //}
     
 }

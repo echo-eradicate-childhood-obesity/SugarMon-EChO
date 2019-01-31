@@ -14,6 +14,8 @@ using System.Text;
 
 public class FindAddedSugar : MonoBehaviour
 {
+    //ref of singleton 
+    UIManager um;
 
     //private IScanner BarcodeScanner;
     private static List<string> repository = new List<string>();
@@ -64,9 +66,12 @@ public class FindAddedSugar : MonoBehaviour
     {
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
+        
     }
     void Start()
     {
+        //get singleton ref
+        um = UIManager.Instance;
         //Load player's data
         numCount = PlayerPrefs.GetInt("count");
         for (int i = 1; i <= PlayerPrefs.GetInt("count"); i++)
@@ -81,19 +86,16 @@ public class FindAddedSugar : MonoBehaviour
         TextAsset dbtxt = (TextAsset)Resources.Load("Database", typeof(TextAsset));
         string dbContent = Encoding.UTF7.GetString(dbtxt.bytes);
         db = dbContent.Split(new char[] { '\n' }).ToList();
-
         //Save data in a list of lists
         for (int i = 0; i < db.Count; i++)
         {
             dbList.Add(db[i].Split(new char[] { '\t' }).ToList());
             dbList[i] = dbList[i].ConvertAll(item => item.Trim());
         }
-
         familyIndex = dbList[0].IndexOf(monsterFamilyColumn);
         deckNumIndex = dbList[0].IndexOf(numberInAppColumn);
         nameIndex = dbList[0].IndexOf(sugarNameColumn);
         repoNumIndex = dbList[0].IndexOf(numberInRepositoryColumn);  //use only when you need the sugar index in sugar repository
-
 
         //Find out how many different families and how many type of sugar they contain 
         //Save in familyDictionary [family name, count]
@@ -157,7 +159,8 @@ public class FindAddedSugar : MonoBehaviour
                         sci.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
                         sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
 
-                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/monster");
+                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[familyIndex]);
+
                     }
                 }
             }
@@ -214,7 +217,7 @@ public class FindAddedSugar : MonoBehaviour
             scannedAddedSugars.Clear();
 
             //Split ingredient string to each individual ingredient
-            ingredientFromDB = Regex.Replace(ingredientFromDB, "[^a-zA-Z0-9_., ]+", "", RegexOptions.Compiled);
+            ingredientFromDB = Regex.Replace(ingredientFromDB, "[^a-zA-Z0-9_., ]+", ""/*, RegexOptions.Compiled*/);
             List<string> dbIngredientList = ingredientFromDB.Split(',').ToList();
             dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim().ToLower());
 
@@ -222,10 +225,23 @@ public class FindAddedSugar : MonoBehaviour
             {
                 if (dbIngredientList.Contains(r.ToLower()))
                 {
+                    dbIngredientList.IndexOf(r.ToLower());
                     scannedAddedSugars.Add(char.ToUpper(r[0]) + r.Substring(1));
                     if (!allScanned.Contains(r.ToLower()))
                     {
                         allScanned.Add(r.ToLower());
+
+
+                        //this is the newly add indicator showing func.
+                        foreach (List<string> sl in dbList)
+                        {
+                            if (sl[nameIndex].ToLower() == r.ToLower())
+                            {
+                                Info info = new Info(sl[familyIndex]);
+                                um.IndicateController(info,"Notification");
+                            }
+                        }
+                        
 
                         numCount++;
                         //playerprefAs.set array
@@ -483,7 +499,7 @@ public class FindAddedSugar : MonoBehaviour
         }
         //Audio.Play();
 
-        GameObject.Find("Canvas").transform.Find(sugarName).GetComponentInChildren<Button>().onClick.AddListener(() => DisplayMonsters());
+        //GameObject.Find("Canvas").transform.Find(sugarName).GetComponentInChildren<Button>().onClick.AddListener(() => DisplayMonsters());
 
         if (sugarName == "No Added Sugar")
         {
