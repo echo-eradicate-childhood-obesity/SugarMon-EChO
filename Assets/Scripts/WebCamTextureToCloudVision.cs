@@ -284,10 +284,10 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 
                         callback(result);
                         yield break;
-                        StopCoroutine("Capture");
-                        AnnotateImageResponses responses = JsonUtility.FromJson<AnnotateImageResponses>(www.text);
-						// SendMessage, BroadcastMessage or someting like that.
-						Sample_OnAnnotateImageResponses(responses);
+      //                  StopCoroutine("Capture");
+      //                  AnnotateImageResponses responses = JsonUtility.FromJson<AnnotateImageResponses>(www.text);
+						//// SendMessage, BroadcastMessage or someting like that.
+						//Sample_OnAnnotateImageResponses(responses);
 					} else {
 						Debug.Log("Error: " + www.error);
 					}

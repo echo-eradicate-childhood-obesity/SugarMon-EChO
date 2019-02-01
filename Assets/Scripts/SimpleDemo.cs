@@ -16,16 +16,32 @@ public class SimpleDemo : MonoBehaviour
     public RawImage Image;
     private bool inDB;
     private static List<string> usdaList = new List<string>();
+    [HideInInspector]
+    public int tutorialStage;
+
+    private List<string> excludedCodeType = new List<string>() { "QR_CODE", "DATA_MATRIX", "AZTEC", "PDF_417" };
 
     // Disable Screen Rotation on that screen
     void Awake()
     {
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
+        tutorialStage = PlayerPrefs.GetInt("TutorialStage");
     }
 
     void Start()
     {
+
+        if (tutorialStage == 0)
+        {
+            //first stage
+            TutorialController.initMask();
+            GameObject magicTree = GameObject.Find("Magic Tree"), tutorialMask = GameObject.Find("Tutorial Mask");
+            magicTree.GetComponentInChildren<Text>().text = "Hi friend, I am the Magic Tree. I am here to help you grow healthier.";
+            GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "0-1", "0-2", "0-3" };
+            tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
+        }
+
         //Read USDA Database
         TextAsset usdatxt = (TextAsset)Resources.Load("NoDupeDatabase");
         string usdaContent = Encoding.UTF7.GetString(usdatxt.bytes);
@@ -43,19 +59,21 @@ public class SimpleDemo : MonoBehaviour
             Image.transform.localScale = BarcodeScanner.Camera.GetScale();
             Image.texture = BarcodeScanner.Camera.Texture;
 
-            // Keep Image Aspect Ratio
+            //Keep Image Aspect Ratio
             //var rect = Image.GetComponent<RectTransform>();
             //var newHeight = rect.sizeDelta.x * BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
             //rect.sizeDelta = new Vector2(rect.sizeDelta.x, newHeight);
             //rect.sizeDelta = new Vector2(Screen.width, Screen.height);
         };
-        
+
         // Track status of the scanner
         //BarcodeScanner.StatusChanged += (sender, arg) => {
         //  Debug.Log("Status: " + BarcodeScanner.Status);
         //};
-        Invoke("ClickStart", 1f);
 
+
+        //Invoke("ClickStart", 1f);
+        if (tutorialStage != 0) Invoke("ClickStart", 1f);
 
     }
 
@@ -87,17 +105,35 @@ public class SimpleDemo : MonoBehaviour
         BarcodeScanner.Scan((barCodeType, barCodeValue) => {
 
             BarcodeScanner.Stop();
-            barCodeValue = barCodeValue.Remove(0, 1);
-            foreach (string p in usdaList)
+            if (excludedCodeType.Any(barCodeType.Contains))  //need test
             {
-                if (p.Contains(barCodeValue))
+                Invoke("ClickStart", 1f);
+            }
+            else
+            {
+                //barCodeValue = barCodeValue.Remove(0, 1);
+                #region old searching method
+                //foreach (string p in usdaList)
+                //{
+                //    if (p.Contains(barCodeValue))
+                //    {
+                //        inDB = true;
+                //        GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(p.ToLower());
+                //        break;
+                //    }
+                //} 
+
+                #endregion
+                //var i = SearchController.BinarySearch(usdaList, long.Parse(barCodeValue), usdaList.Count, 0);
+                //var i = SearchController.BinarySearch(usdaList, 250240, 159021, 0);//make the up edge as the "safe" index "159021"
+                var i = SearchController.BinarySearch(usdaList, long.Parse(barCodeValue), 159021, 0);//make the up edge as the "safe" index "159021"
+                if (i != -1)
                 {
                     inDB = true;
-                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(p.ToLower());
-                    break;
+                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(usdaList[i].ToLower());
                 }
+                if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found");
             }
-            if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found");
 
         });
 
@@ -124,4 +160,6 @@ public class SimpleDemo : MonoBehaviour
 
 
     #endregion
+
+    
 }
