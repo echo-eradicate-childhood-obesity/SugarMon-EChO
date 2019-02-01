@@ -59,7 +59,7 @@ public class SimpleDemo : MonoBehaviour
             Image.transform.localScale = BarcodeScanner.Camera.GetScale();
             Image.texture = BarcodeScanner.Camera.Texture;
 
-            // Keep Image Aspect Ratio
+            //Keep Image Aspect Ratio
             //var rect = Image.GetComponent<RectTransform>();
             //var newHeight = rect.sizeDelta.x * BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
             //rect.sizeDelta = new Vector2(rect.sizeDelta.x, newHeight);
