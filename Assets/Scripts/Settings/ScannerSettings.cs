@@ -33,10 +33,10 @@ namespace BarcodeScanner
 			ParserTryHarder = false;
 			
 			WebcamDefaultDeviceName = (WebCamTexture.devices.Length > 0) ? WebCamTexture.devices.First().name : "";
-            WebcamRequestedWidth = 512;
-            WebcamRequestedHeight = 512;
-            //WebcamRequestedWidth = 800;
-            //WebcamRequestedHeight =800;
+            //WebcamRequestedWidth = 512;
+            //WebcamRequestedHeight = 512;
+            WebcamRequestedWidth = 768;
+            WebcamRequestedHeight = 768;
             WebcamFilterMode = FilterMode.Bilinear;
 
 			// Device dependent settings
