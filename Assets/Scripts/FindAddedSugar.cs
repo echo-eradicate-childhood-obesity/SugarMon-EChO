@@ -158,6 +158,7 @@ public class FindAddedSugar : MonoBehaviour
                         sci.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
                         sci.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
                         sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
+                        sci.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
 
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[familyIndex]);
 
@@ -277,6 +278,7 @@ public class FindAddedSugar : MonoBehaviour
         anim.AddComponent<Animator>();
         anim.GetComponent<Animator>().runtimeAnimatorController = Resources.Load("Animations/Monster") as RuntimeAnimatorController;
 
+
         if (s == "Sugar")
         {
             GameObject.Find("Canvas").transform.Find("Animation/Sugar Name").GetComponent<Text>().text = scannedAddedSugars[currentNumMonster];
@@ -288,11 +290,12 @@ public class FindAddedSugar : MonoBehaviour
             else
             {
                 GameObject.Find(scannedAddedSugars[currentNumMonster]).GetComponentInChildren<Text>().text = scannedAddedSugars[currentNumMonster + 1];
+                
             }
+            ChangeNextCardText();
             anim.GetComponent<Animator>().Play("SugarCardToDex");
             yield return new WaitForSeconds(1f);
             Destroy(anim);
-            ChangeNextCardText();
         }
         else if (s == "NoAddedSugar")
         {

@@ -88,6 +88,7 @@ public class SugarDisk : MonoBehaviour {
                         sci.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
                         sci.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
                         sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
+                        sci.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
 
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[cv.GetComponent<FindAddedSugar>().familyIndex]);
 
