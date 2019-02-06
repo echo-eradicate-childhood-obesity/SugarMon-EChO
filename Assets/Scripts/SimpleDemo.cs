@@ -19,6 +19,8 @@ public class SimpleDemo : MonoBehaviour
     [HideInInspector]
     public int tutorialStage;
 
+    private bool isAndroid;
+
     private List<string> excludedCodeType = new List<string>() { "QR_CODE", "DATA_MATRIX", "AZTEC", "PDF_417" };
 
     // Disable Screen Rotation on that screen
@@ -75,6 +77,11 @@ public class SimpleDemo : MonoBehaviour
         //Invoke("ClickStart", 1f);
         if (tutorialStage != 0) Invoke("ClickStart", 1f);
 
+        isAndroid = false;
+        //When on Android platform
+        #if UNITY_ANDROID
+            isAndroid = true;
+        #endif
     }
 
 
@@ -88,6 +95,12 @@ public class SimpleDemo : MonoBehaviour
             return;
         }
         BarcodeScanner.Update();
+
+        if (isAndroid&& Input.GetButtonDown("Cancel"))
+        {
+            AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+            activity.Call<bool>("moveTaskToBack",true);
+        }
     }
 
     #region UI Buttons
