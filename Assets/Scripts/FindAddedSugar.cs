@@ -218,8 +218,14 @@ public class FindAddedSugar : MonoBehaviour
             scannedAddedSugars.Clear();
 
             //Split ingredient string to each individual ingredient
-            ingredientFromDB = Regex.Replace(ingredientFromDB, "[^a-zA-Z0-9_., ]+", ""/*, RegexOptions.Compiled*/);
-            List<string> dbIngredientList = ingredientFromDB.Split(',').ToList();
+            //ingredientFromDB = Regex.Replace(ingredientFromDB, "[^a-zA-Z0-9_., ]+", ""/*, RegexOptions.Compiled*/);
+            //List<string> dbIngredientList = ingredientFromDB.Split(',').ToList();
+            //dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim().ToLower());
+
+
+            //Split by ";" and then by ","
+            List<string> splittedIngredientString = ingredientFromDB.Split(';').ToList();
+            List<string> dbIngredientList = splittedIngredientString.Count == 3 ? splittedIngredientString[2].Split(',').ToList() : new List<string>() { "None" };
             dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim().ToLower());
 
             foreach (string r in repository)

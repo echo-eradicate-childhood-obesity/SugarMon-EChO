@@ -16,6 +16,7 @@ public class SimpleDemo : MonoBehaviour
     public RawImage Image;
     private bool inDB;
     private static List<string> usdaList = new List<string>();
+    private static List<string> dbProductList = new List<string>();
     [HideInInspector]
     public int tutorialStage;
 
@@ -49,6 +50,12 @@ public class SimpleDemo : MonoBehaviour
         string usdaContent = Encoding.UTF7.GetString(usdatxt.bytes);
         usdaList = usdaContent.Split(new char[] { '\n' }).ToList();
         usdaList = usdaList.ConvertAll(item => item.ToLower().Trim());
+
+        //Read Perfact's Database
+        TextAsset PerfactDatabase = (TextAsset)Resources.Load("DBfromPerfact");
+        string encodedContent = Encoding.UTF8.GetString(PerfactDatabase.bytes);
+        dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
+        dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim());
 
         // Create a basic scanner
         BarcodeScanner = new Scanner();
@@ -116,7 +123,6 @@ public class SimpleDemo : MonoBehaviour
 
         // Start Scanning
         BarcodeScanner.Scan((barCodeType, barCodeValue) => {
-
             BarcodeScanner.Stop();
             if (excludedCodeType.Any(barCodeType.Contains))  //need test
             {
@@ -139,11 +145,13 @@ public class SimpleDemo : MonoBehaviour
                 #endregion
                 //var i = SearchController.BinarySearch(usdaList, long.Parse(barCodeValue), usdaList.Count, 0);
                 //var i = SearchController.BinarySearch(usdaList, 250240, 159021, 0);//make the up edge as the "safe" index "159021"
-                var i = SearchController.BinarySearch(usdaList, long.Parse(barCodeValue), 159021, 0);//make the up edge as the "safe" index "159021"
+                //var i = SearchController.BinarySearch(usdaList, long.Parse(barCodeValue), 159021, 0);//make the up edge as the "safe" index "159021"
+                var i = SearchController.BinarySearch(dbProductList, long.Parse(barCodeValue), dbProductList.Count - 1, 0);
                 if (i != -1)
                 {
                     inDB = true;
-                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(usdaList[i].ToLower());
+                    //GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(usdaList[i].ToLower());
+                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(dbProductList[i].ToLower());
                 }
                 if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found");
             }
