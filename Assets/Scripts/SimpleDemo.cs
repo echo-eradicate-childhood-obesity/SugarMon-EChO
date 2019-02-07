@@ -57,7 +57,7 @@ public class SimpleDemo : MonoBehaviour
         string encodedContent = Encoding.UTF8.GetString(PerfactDatabase.bytes);
         dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
         dbProductList = dbProductList.ConvertAll(item => Regex.Replace(item, @",+", ","));
-        dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim().Replace("\"", "").TrimEnd(','));
+        dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim().Replace("\"", "").Replace(';', ',').TrimEnd(','));
 
         // Create a basic scanner
         BarcodeScanner = new Scanner();
@@ -126,8 +126,7 @@ public class SimpleDemo : MonoBehaviour
         // Start Scanning
         BarcodeScanner.Scan((barCodeType, barCodeValue) => {
             BarcodeScanner.Stop();
-            Debug.Log(barCodeType);
-            Debug.Log(barCodeValue);
+            
             GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
             
             if (excludedCodeType.Any(barCodeType.Contains))  //need test
@@ -152,8 +151,9 @@ public class SimpleDemo : MonoBehaviour
                 //var i = SearchController.BinarySearch(usdaList, long.Parse(barCodeValue), usdaList.Count, 0);
                 //var i = SearchController.BinarySearch(usdaList, 250240, 159021, 0);//make the up edge as the "safe" index "159021"
                 //var i = SearchController.BinarySearch(usdaList, long.Parse(barCodeValue), 159021, 0);//make the up edge as the "safe" index "159021"
+
                 var i = SearchController.BinarySearch(dbProductList, long.Parse(barCodeValue), dbProductList.Count - 1, 0);
-                Debug.Log("i:" + i);
+                
                 if (i != -1)
                 {
                     inDB = true;

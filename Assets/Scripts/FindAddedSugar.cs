@@ -223,7 +223,8 @@ public class FindAddedSugar : MonoBehaviour
             //dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim().ToLower());
 
             List<string> dbIngredientList = ingredientFromDB.Split(',').ToList();
-            
+            foreach (string s in dbIngredientList) Debug.Log(s);
+
             foreach (string r in repository)
             {
                 if (dbIngredientList.Contains(r.ToLower()))
