@@ -222,12 +222,8 @@ public class FindAddedSugar : MonoBehaviour
             //List<string> dbIngredientList = ingredientFromDB.Split(',').ToList();
             //dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim().ToLower());
 
-
-            //Split by ";" and then by ","
-            List<string> splittedIngredientString = ingredientFromDB.Split(';').ToList();
-            List<string> dbIngredientList = splittedIngredientString.Count == 3 ? splittedIngredientString[2].Split(',').ToList() : new List<string>() { "None" };
-            dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim().ToLower());
-
+            List<string> dbIngredientList = ingredientFromDB.Split(',').ToList();
+            
             foreach (string r in repository)
             {
                 if (dbIngredientList.Contains(r.ToLower()))
