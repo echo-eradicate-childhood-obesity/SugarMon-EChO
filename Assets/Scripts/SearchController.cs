@@ -24,7 +24,7 @@ public class SearchController  {
             long currentEleInt;//current int in the element
             //here, if the barcode value(decimal wise), it will reach the scientific notation part in database
             //in that part, regex could not find the right code, need one more step to convert the number to decimal.
-            currentEleInt = long.Parse(Regex.Match(sList[i], @"\d+").Value); ;//get current int
+            long.TryParse(Regex.Match(sList[i], @"\d+").Value, out currentEleInt);
 
             if (inputcode > currentEleInt)
             {

@@ -47,18 +47,18 @@ public class SimpleDemo : MonoBehaviour
         }
 
         //Read USDA Database
-        TextAsset usdatxt = (TextAsset)Resources.Load("NoDupeDatabase");
-        string usdaContent = Encoding.UTF7.GetString(usdatxt.bytes);
-        usdaList = usdaContent.Split(new char[] { '\n' }).ToList();
-        usdaList = usdaList.ConvertAll(item => item.ToLower().Trim());
+        //TextAsset usdatxt = (TextAsset)Resources.Load("NoDupeDatabase");
+        //string usdaContent = Encoding.UTF7.GetString(usdatxt.bytes);
+        //usdaList = usdaContent.Split(new char[] { '\n' }).ToList();
+        //usdaList = usdaList.ConvertAll(item => item.ToLower().Trim());
 
-        //Read Perfact's Database
-        TextAsset PerfactDatabase = (TextAsset)Resources.Load("DBfromPerfact");
-        string encodedContent = Encoding.UTF8.GetString(PerfactDatabase.bytes);
+        //Read new USDA sorted Database
+        TextAsset PerfactDatabase = (TextAsset)Resources.Load("USDA");
+        string encodedContent = Encoding.UTF7.GetString(PerfactDatabase.bytes);
         dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
         dbProductList = dbProductList.ConvertAll(item => Regex.Replace(item, @",+", ","));
-        dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim().Replace("\"", "").Replace(';', ',').TrimEnd(','));
-
+        dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim().Replace("\"", "").Replace(';', ',').Replace("*", "").Replace(".", ",").TrimEnd(','));
+        
         // Create a basic scanner
         BarcodeScanner = new Scanner();
         BarcodeScanner.Camera.Play();
