@@ -57,8 +57,8 @@ public class SimpleDemo : MonoBehaviour
         string encodedContent = Encoding.UTF7.GetString(PerfactDatabase.bytes);
         dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
         dbProductList = dbProductList.ConvertAll(item => Regex.Replace(item, @",+", ","));
-        dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim().Replace("\"", "").Replace(';', ',').Replace("*", "").Replace(".", ",").TrimEnd(','));
-        
+        dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim().Replace("\"*", "").Replace("[;.]", ",").TrimEnd(','));
+
         // Create a basic scanner
         BarcodeScanner = new Scanner();
         BarcodeScanner.Camera.Play();

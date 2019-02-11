@@ -37,7 +37,7 @@ public class PopulateFamilyPanels : MonoBehaviour {
         Color col;
         if (colors.Count() == 0)
         {
-            titleColor = new List<string>() { "#FCD7B0", "#DD7E6B", "#D5A6BD", "#D8C2EF", "#B6D7A8", "#A2C4C9", "#9FC5E8" };
+            titleColor = new List<string>() { "#DD7E6B", "#B6D7A8", "#FCD7B0", "#D5A6BD", "#9FC5E8", "#A2C4C9", "#D8C2EF" };
         }
         else
         {
