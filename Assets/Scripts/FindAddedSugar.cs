@@ -222,6 +222,8 @@ public class FindAddedSugar : MonoBehaviour
             //List<string> dbIngredientList = ingredientFromDB.Split(',').ToList();
             //dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim().ToLower());
 
+            ingredientFromDB = Regex.Replace(ingredientFromDB, "[^a-zA-Z0-9_., ]+", "");
+            ingredientFromDB = ingredientFromDB.Replace('.', ',');
             List<string> dbIngredientList = ingredientFromDB.Split(',').ToList();
             dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim());
 
