@@ -33,12 +33,12 @@ namespace BarcodeScanner
 			ParserTryHarder = false;
 			
 			WebcamDefaultDeviceName = (WebCamTexture.devices.Length > 0) ? WebCamTexture.devices.First().name : "";
-            //WebcamRequestedWidth = 512;
-            //WebcamRequestedHeight = 512;
-            WebcamRequestedWidth = 768;
-            WebcamRequestedHeight = 768;
+            WebcamRequestedWidth = 512;
+            WebcamRequestedHeight = 512;
+            //this is not the super high res, but cause delay at least at laptop side.
+            //WebcamRequestedWidth = 1920;
+            //WebcamRequestedHeight = 1080;
             WebcamFilterMode = FilterMode.Bilinear;
-
 			// Device dependent settings
 
 			// Disable background thread for webgl : Thread not supported
