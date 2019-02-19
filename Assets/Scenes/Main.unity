@@ -967,7 +967,7 @@ GameObject:
   - component: {fileID: 232478625}
   - component: {fileID: 232478624}
   m_Layer: 5
-  m_Name: Syrup
+  m_Name: OSE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1052,7 +1052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.84705883, g: 0.7607843, b: 0.9372549, a: 1}
+  m_Color: {r: 0.8352941, g: 0.6509804, b: 0.7411765, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1274,7 +1274,7 @@ GameObject:
   - component: {fileID: 539244891}
   - component: {fileID: 539244890}
   m_Layer: 5
-  m_Name: Other
+  m_Name: Syrup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1359,7 +1359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.62352943, g: 0.77254903, b: 0.9098039, a: 1}
+  m_Color: {r: 0.84705883, g: 0.7607843, b: 0.9372549, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1726,7 +1726,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Concentrates
+  m_Text: Others
 --- !u!222 &857211512
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2229,7 +2229,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Syrups
+  m_Text: OSEs
 --- !u!222 &1012232825
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3117,20 +3117,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colors:
-  - name: Dextrin Monsters
-    HexCode: '#FCD7B0'
   - name: Cane Monsters
     HexCode: '#DD7E6B'
-  - name: OSE Monsters
-    HexCode: '#D5A6BD'
-  - name: Syrup Monsters
-    HexCode: '#D8C2EF'
   - name: Concentrate Monsters
     HexCode: '#B6D7A8'
-  - name: Sugar Monsters
-    HexCode: '#A2C4C9'
+  - name: Dextrin Monsters
+    HexCode: '#FCD7B0'
+  - name: OSE Monsters
+    HexCode: '#D5A6BD'
   - name: Other Monsters
     HexCode: '#9FC5E8'
+  - name: Sugar Monsters
+    HexCode: '#A2C4C9'
+  - name: Syrup Monsters
+    HexCode: '#D8C2EF'
   titleColor: []
   Cell: {fileID: 1797911274733296, guid: 54ff7dbdca1ed4bcbbd4a9539dc85b31, type: 2}
   Panel: {fileID: 1357523383139488, guid: 21fd3794e9ab64641a5e2292e8190dfc, type: 2}
@@ -3354,7 +3354,7 @@ GameObject:
   - component: {fileID: 1448375046}
   - component: {fileID: 1448375045}
   m_Layer: 5
-  m_Name: Concentrate
+  m_Name: Other
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3439,7 +3439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7137255, g: 0.84313726, b: 0.65882355, a: 1}
+  m_Color: {r: 0.62352943, g: 0.77254903, b: 0.9098039, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3641,7 +3641,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Dextrins
+  m_Text: Canes
 --- !u!222 &1557268794
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3664,7 +3664,7 @@ GameObject:
   - component: {fileID: 1564541861}
   - component: {fileID: 1564541860}
   m_Layer: 5
-  m_Name: Dextrin
+  m_Name: Cane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3749,7 +3749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9882353, g: 0.84313726, b: 0.6901961, a: 1}
+  m_Color: {r: 0.8666667, g: 0.49411765, b: 0.41960785, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4187,7 +4187,7 @@ GameObject:
   - component: {fileID: 1689952358}
   - component: {fileID: 1689952357}
   m_Layer: 5
-  m_Name: Cane
+  m_Name: Concentrate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4272,7 +4272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8666667, g: 0.49411765, b: 0.41960785, a: 1}
+  m_Color: {r: 0.7137255, g: 0.84313726, b: 0.65882355, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4487,7 +4487,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Others
+  m_Text: Syrups
 --- !u!222 &1736311380
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4645,7 +4645,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Canes
+  m_Text: Concentrates
 --- !u!222 &1779803605
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4850,7 +4850,7 @@ GameObject:
   - component: {fileID: 1952935487}
   - component: {fileID: 1952935486}
   m_Layer: 5
-  m_Name: OSE
+  m_Name: Dextrin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4935,7 +4935,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8352941, g: 0.6509804, b: 0.7411765, a: 1}
+  m_Color: {r: 0.9882353, g: 0.84313726, b: 0.6901961, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5028,7 +5028,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: OSEs
+  m_Text: Dextrins
 --- !u!222 &1962165907
 CanvasRenderer:
   m_ObjectHideFlags: 0
