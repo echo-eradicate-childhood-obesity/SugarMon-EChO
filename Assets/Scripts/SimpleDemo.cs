@@ -127,7 +127,7 @@ public class SimpleDemo : MonoBehaviour
         BarcodeScanner.Scan((barCodeType, barCodeValue) => {
             BarcodeScanner.Stop();
             
-            //GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
+            GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
             
             if (excludedCodeType.Any(barCodeType.Contains))  //need test
             {

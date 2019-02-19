@@ -7,11 +7,9 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 	public string url = "https://vision.googleapis.com/v1/images:annotate?key=";
 	public string apiKey = "";
 	public float captureIntervalSeconds = 5.0f;
-    //public int requestedWidth = 640;
-    //public int requestedHeight = 480;
-    public int requestedWidth = 1280;
-    public int requestedHeight = 720;
-    public FeatureType featureType = FeatureType.FACE_DETECTION;
+	public int requestedWidth = 640;
+	public int requestedHeight = 480;
+	public FeatureType featureType = FeatureType.FACE_DETECTION;
 	public int maxResults = 10;
 
 	WebCamTexture webcamTexture;
@@ -221,7 +219,7 @@ public class WebCamTextureToCloudVision : MonoBehaviour {
 				}
 			}
 			webcamTexture.Play();
-            //StartCoroutine("Capture");
+			//StartCoroutine("Capture");
 		}	
 	}
 	
