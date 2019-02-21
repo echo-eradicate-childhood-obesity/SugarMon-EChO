@@ -78,7 +78,16 @@ public class SugarDisk : MonoBehaviour {
                     if (sc != null)
                     {
                         sc.name = ss;
-                        sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
+                        List<string> sugarWords = ss.Split(' ').ToList();
+                        if (sugarWords[0].ToCharArray().Count() > 12)
+                        {
+                            string text = char.ToUpper(ss[0]) + ss.Substring(1);
+                            text = text.Insert(12, "- ");
+                            sc.transform.Find("Name").GetComponent<Text>().text = text;
+
+                        }
+                        else sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
+
                         sc.transform.Find("Image").GetComponentInChildren<Text>().text = "";
                         
                         

@@ -148,8 +148,16 @@ public class FindAddedSugar : MonoBehaviour
                     if (sc != null)
                     {
                         sc.name = ss;
+                        List<string> sugarWords = ss.Split(' ').ToList();
+                        if (sugarWords[0].ToCharArray().Count() > 12)
+                        {
+                            string text = char.ToUpper(ss[0]) + ss.Substring(1);
+                            text = text.Insert(12, "- ");
+                            sc.transform.Find("Name").GetComponent<Text>().text = text;
 
-                        sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
+                        }
+                        else sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
+
 
                         var sci = sc.transform.Find("Image");
                         sci.GetComponentInChildren<Text>().text = "";

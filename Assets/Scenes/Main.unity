@@ -2321,6 +2321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1051750653}
   - component: {fileID: 1051750652}
+  - component: {fileID: 1051750655}
   - component: {fileID: 1051750654}
   - component: {fileID: 1051750651}
   m_Layer: 0
@@ -2415,6 +2416,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Image: {fileID: 1633522408}
   tutorialStage: 0
+--- !u!114 &1051750655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1051750650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 927066d69e945534d9e418957eac82fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  test: 1
+  upcNumText: {fileID: 690513164}
+  resetButton: {fileID: 474457265}
 --- !u!1 &1109879995
 GameObject:
   m_ObjectHideFlags: 0
@@ -2493,8 +2508,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1489339444}
   m_HandleRect: {fileID: 1489339443}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3078,7 +3093,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000056795845}
+  m_AnchoredPosition: {x: 0, y: 0.0000042285074}
   m_SizeDelta: {x: -883.00006, y: 25}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1337665287
@@ -3097,9 +3112,9 @@ MonoBehaviour:
     m_Left: 0
     m_Right: 0
     m_Top: 25
-    m_Bottom: 0
+    m_Bottom: 25
   m_ChildAlignment: 1
-  m_Spacing: 0
+  m_Spacing: 40
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
