@@ -23,6 +23,8 @@ public class SugarDisk : MonoBehaviour {
     public List<string> allCollectedSugars;
     private int numCount;
 
+    private List<string> newMonsterFamilyDesign = new List<string>() { "Dextrin Monsters", "Cane Monsters" };
+
     public List<string> monsterColor;
     //change to local
     //private Transform sci;
@@ -100,15 +102,7 @@ public class SugarDisk : MonoBehaviour {
                         sci.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
 
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[cv.GetComponent<FindAddedSugar>().familyIndex]);
-
-                        //Change Monster color
-                        //if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Dextrin Monsters") TransferHexToRGB(monsterColor[0]);
-                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Cane Monsters") TransferHexToRGB(monsterColor[1]);
-                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "OSE Monsters") TransferHexToRGB(monsterColor[2]);
-                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Syrup Monsters") TransferHexToRGB(monsterColor[3]);
-                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Concentrate Monsters") TransferHexToRGB(monsterColor[4]);
-                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Sugar Monsters") TransferHexToRGB(monsterColor[5]);
-                        //else if (s[cv.GetComponent<FindAddedSugar>().familyIndex] == "Other Monsters") TransferHexToRGB(monsterColor[6]);
+                        sci.GetComponent<Image>().sprite = newMonsterFamilyDesign.Contains(s[cv.GetComponent<FindAddedSugar>().familyIndex]) ? Resources.Load<Sprite>("Images/Monsters/" + s[cv.GetComponent<FindAddedSugar>().familyIndex] + "/" + sc.name) : Resources.Load<Sprite>("Images/Monsters/" + s[cv.GetComponent<FindAddedSugar>().familyIndex]);
 
                     }
                 }

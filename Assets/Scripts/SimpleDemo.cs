@@ -15,6 +15,7 @@ public class SimpleDemo : MonoBehaviour
 {
     private IScanner BarcodeScanner;
     public RawImage Image;
+    public bool superBarCode = false;
     private bool inDB;
     private static List<string> usdaList = new List<string>();
     private static List<string> dbProductList = new List<string>();
@@ -153,11 +154,16 @@ public class SimpleDemo : MonoBehaviour
                 //var i = SearchController.BinarySearch(usdaList, long.Parse(barCodeValue), 159021, 0);//make the up edge as the "safe" index "159021"
 
                 var i = SearchController.BinarySearch(dbProductList, long.Parse(barCodeValue), dbProductList.Count - 1, 0);
-                
+
+
+                bool test = GameObject.Find("Main Camera").GetComponent<TestController>().test;
+
+                //test
                 if (i != -1)
                 {
                     inDB = true;
-                    //GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(usdaList[i].ToLower());
+
+                    if (test == true && barCodeValue == "044000030414") superBarCode = true;
                     GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(dbProductList[i].ToLower());
                 }
                 if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found");

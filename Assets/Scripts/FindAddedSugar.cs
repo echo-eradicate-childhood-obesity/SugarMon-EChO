@@ -18,7 +18,7 @@ public class FindAddedSugar : MonoBehaviour
     UIManager um;
 
     //private IScanner BarcodeScanner;
-    private static List<string> repository = new List<string>();
+    public static List<string> repository = new List<string>();
     private static List<string> db = new List<string>();
     public List<List<string>> dbList = new List<List<string>>();
     public AudioClip newSugarSound, foundSugarSound, noSugarSound;
@@ -37,6 +37,7 @@ public class FindAddedSugar : MonoBehaviour
     public GameObject scanFrame;
 
     private int numCount;
+    private List<string> newMonsterFamilyDesign = new List<string>() { "Dextrin Monsters", "Cane Monsters" };
 
 
     //need to follow the title in Database.txt
@@ -168,8 +169,7 @@ public class FindAddedSugar : MonoBehaviour
                         sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
                         sci.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
 
-                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[familyIndex]);
-
+                        sci.GetComponent<Image>().sprite = newMonsterFamilyDesign.Contains(s[familyIndex])? Resources.Load<Sprite>("Images/Monsters/" + s[familyIndex] + "/" + sc.name):Resources.Load<Sprite>("Images/Monsters/" + s[familyIndex]);
                     }
                 }
             }
@@ -234,6 +234,14 @@ public class FindAddedSugar : MonoBehaviour
             ingredientFromDB = ingredientFromDB.Replace('.', ',').Replace(';', ',');
             List<string> dbIngredientList = ingredientFromDB.Split(',').ToList();
             dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim());
+
+
+
+            if (GameObject.Find("Main Camera").GetComponent<SimpleDemo>().superBarCode)
+            {
+                dbIngredientList = repository;  //this line of code is for getting all sugar to test
+                GameObject.Find("Main Camera").GetComponent<SimpleDemo>().superBarCode = false;
+            }
 
             foreach (string r in repository)
             {
