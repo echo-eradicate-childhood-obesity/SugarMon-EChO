@@ -9,7 +9,7 @@ public class TestController : MonoBehaviour {
     public bool test;
     public GameObject upcNumText, resetButton;
     // Use this for initialization
-    void Update () {
+    void Awake () {
         if (test)
         {
             upcNumText.SetActive(true);

@@ -178,6 +178,7 @@ public class FindAddedSugar : MonoBehaviour
 
         GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars = GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars.Distinct().ToList();
         GameObject.Find("FamilyBackground").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "Found: " + GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars.Count;
+        GameObject.Find("FamilyBackground").transform.Find("TopBar/Total Count").GetComponent<Text>().text = "Total: " + repository.Count;
         GameObject.Find("SugarDisk").GetComponent<SugarDisk>().CloseSugarDisk();
     }
 
