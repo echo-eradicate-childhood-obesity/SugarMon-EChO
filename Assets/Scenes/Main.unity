@@ -2415,6 +2415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Image: {fileID: 1633522408}
+  superBarCode: 0
   tutorialStage: 0
 --- !u!114 &1051750655
 MonoBehaviour:
@@ -4581,7 +4582,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ' Total: 247'
+  m_Text: ' Total: '
 --- !u!222 &1775962957
 CanvasRenderer:
   m_ObjectHideFlags: 0
