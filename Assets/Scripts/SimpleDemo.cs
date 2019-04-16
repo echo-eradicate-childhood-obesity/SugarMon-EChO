@@ -15,6 +15,7 @@ public class SimpleDemo : MonoBehaviour
 {
     private IScanner BarcodeScanner;
     public RawImage Image;
+    public GameObject canvas;
     public bool superBarCode = false;
     private bool inDB;
     private static List<string> usdaList = new List<string>();
@@ -135,28 +136,9 @@ public class SimpleDemo : MonoBehaviour
                 Invoke("ClickStart", 1f);
             }
             else
-            {
-                //barCodeValue = barCodeValue.Remove(0, 1);
-                #region old searching method
-                //foreach (string p in usdaList)
-                //{
-                //    if (p.Contains(barCodeValue))
-                //    {
-                //        inDB = true;
-                //        GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(p.ToLower());
-                //        break;
-                //    }
-                //} 
-
-                #endregion
-                //var i = SearchController.BinarySearch(usdaList, long.Parse(barCodeValue), usdaList.Count, 0);
-                //var i = SearchController.BinarySearch(usdaList, 250240, 159021, 0);//make the up edge as the "safe" index "159021"
-                //var i = SearchController.BinarySearch(usdaList, long.Parse(barCodeValue), 159021, 0);//make the up edge as the "safe" index "159021"
-
+            { 
                 var i = SearchController.BinarySearch(dbProductList, long.Parse(barCodeValue), dbProductList.Count - 1, 0);
-
-
-                bool test = GameObject.Find("Main Camera").GetComponent<TestController>().test;
+                bool test = this.GetComponent<TestController>().test;
 
                 //test
                 if (i != -1)
@@ -164,9 +146,9 @@ public class SimpleDemo : MonoBehaviour
                     inDB = true;
 
                     if (test == true && barCodeValue == "044000030414") superBarCode = true;
-                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(dbProductList[i].ToLower());
+                    canvas.GetComponent<FindAddedSugar>().AllTypeOfSugars(dbProductList[i].ToLower());
                 }
-                if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found");
+                if (!inDB && GameObject.Find("Not Found") == null) canvas.GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found");
             }
 
         });

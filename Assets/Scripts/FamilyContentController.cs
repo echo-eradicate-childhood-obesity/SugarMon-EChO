@@ -8,6 +8,7 @@ public class FamilyContentController : MonoBehaviour {
 
     public GameObject familyContentObject;
     private List<string> familyNames;
+    public GameObject canvas;
     
     void Start()
     {

@@ -17,6 +17,7 @@ public class PopulateFamilyPanels : MonoBehaviour {
 
     public List<string> titleColor;
     public GameObject Cell, Panel, Title;
+    public GameObject canvas, sugarDex;
     // Use this for initialization
 
     void Start () {
@@ -31,8 +32,8 @@ public class PopulateFamilyPanels : MonoBehaviour {
     public void PopulateFamilies()
     {
         GameObject newCell, newPanel, newTitle;
-        List<string> families = GameObject.Find("Canvas").GetComponent<FindAddedSugar>().fms;
-        Dictionary<string, int> fd = GameObject.Find("Canvas").GetComponent<FindAddedSugar>().familyDictionary;
+        List<string> families = canvas.GetComponent<FindAddedSugar>().fms;
+        Dictionary<string, int> fd = canvas.GetComponent<FindAddedSugar>().familyDictionary;
         int cell = 0;
         Color col;
         if (colors[0] == null)
@@ -49,7 +50,7 @@ public class PopulateFamilyPanels : MonoBehaviour {
         }
 
 
-        GameObject.Find("SugarDisk").GetComponent<SugarDisk>().monsterColor = titleColor;
+        sugarDex.GetComponent<SugarDisk>().monsterColor = titleColor;
 
         for (int i = 0; i < families.Count; i++)
         {

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SugarDisk : MonoBehaviour {
 
-    private GameObject foundSugar;
+    public GameObject canvas, familyBackground, mainCam, redDot;
 
     //singleton ref
     UIManager um;
@@ -14,16 +14,11 @@ public class SugarDisk : MonoBehaviour {
     [HideInInspector]
     public int foundMonsterNumber;
 
-    public GameObject sugarDiskImage;
     private Vector3 diskPosition;
-    private GameObject cv;
     private GameObject[] allTypesOfSugars;
 
     private List<string> sugarFromMain, newSugars;
     public List<string> allCollectedSugars;
-    private int numCount;
-
-    private List<string> newMonsterFamilyDesign = new List<string>() { "Dextrin Monsters", "Cane Monsters" };
 
     public List<string> monsterColor;
     //change to local
@@ -32,11 +27,8 @@ public class SugarDisk : MonoBehaviour {
 
     void Start () {
 
-        Transform sugarDiskImage = GameObject.Find("Canvas").transform.Find("FamilyBackground");
-        diskPosition = sugarDiskImage.transform.localPosition;
+        diskPosition = familyBackground.transform.localPosition;
         foundMonsterNumber = 0;
-        foundSugar = GameObject.Find("Canvas");
-        cv = GameObject.Find("Canvas");
         newSugars = new List<string>();
 
         um = UIManager.Instance;
@@ -49,14 +41,14 @@ public class SugarDisk : MonoBehaviour {
 
     public void OpenSugarDisk()
     {
-        GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = false;
+        mainCam.GetComponent<SimpleDemo>().enabled = false;
         newSugars.Clear();
-        sugarDiskImage.transform.localPosition = diskPosition;
-        foundSugar.transform.Find("FamilyBackground").gameObject.SetActive(true);
-        GameObject.Find("FamilyBackground").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "Found: " + foundSugar.GetComponent<FindAddedSugar>().allScanned.Count;
+        familyBackground.transform.localPosition = diskPosition;
+        familyBackground.gameObject.SetActive(true);
+        familyBackground.transform.Find("TopBar/Found Count").GetComponent<Text>().text = "Found: " + canvas.GetComponent<FindAddedSugar>().allScanned.Count;
 
 
-        sugarFromMain = foundSugar.GetComponent<FindAddedSugar>().allScanned;
+        sugarFromMain = canvas.GetComponent<FindAddedSugar>().allScanned;
 
         foreach (string ni in sugarFromMain)
         {
@@ -68,13 +60,13 @@ public class SugarDisk : MonoBehaviour {
             }
         }
 
-        foreach (List<string> s in foundSugar.GetComponent<FindAddedSugar>().dbList)
+        foreach (List<string> s in canvas.GetComponent<FindAddedSugar>().dbList)
         {
             foreach(string ss in newSugars)
             {
-                if (s[cv.GetComponent<FindAddedSugar>().nameIndex].ToLower() == ss.ToLower())
+                if (s[canvas.GetComponent<FindAddedSugar>().nameIndex].ToLower() == ss.ToLower())
                 {
-                    var sc = GameObject.Find(s[cv.GetComponent<FindAddedSugar>().deckNumIndex]);
+                    var sc = GameObject.Find(s[canvas.GetComponent<FindAddedSugar>().deckNumIndex]);
                     var sci = sc.transform.Find("Image");
 
                     if (sc != null)
@@ -101,8 +93,7 @@ public class SugarDisk : MonoBehaviour {
                         sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
                         sci.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
 
-                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[cv.GetComponent<FindAddedSugar>().familyIndex]);
-                        sci.GetComponent<Image>().sprite = newMonsterFamilyDesign.Contains(s[cv.GetComponent<FindAddedSugar>().familyIndex]) ? Resources.Load<Sprite>("Images/Monsters/" + s[cv.GetComponent<FindAddedSugar>().familyIndex] + "/" + sc.name) : Resources.Load<Sprite>("Images/Monsters/" + s[cv.GetComponent<FindAddedSugar>().familyIndex]);
+                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex] + "/" + sc.name);
 
                     }
                 }
@@ -112,9 +103,9 @@ public class SugarDisk : MonoBehaviour {
     }
     public void CloseSugarDisk()
     {
-        GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = true;
-        GameObject.Find("SugarDisk").transform.Find("RedDot").gameObject.SetActive(false);
-        sugarDiskImage.gameObject.SetActive(false);
+        mainCam.GetComponent<SimpleDemo>().enabled = true;
+        redDot.gameObject.SetActive(false);
+        familyBackground.gameObject.SetActive(false);
 
         um.DisAllUp("Notification");
     }
@@ -124,12 +115,5 @@ public class SugarDisk : MonoBehaviour {
     {
         PlayerPrefs.DeleteAll();
     }
-
-    //public void TransferHexToRGB(string titleColor)
-    //{
-    //    Color col;
-    //    ColorUtility.TryParseHtmlString(titleColor, out col);
-    //    sci.GetComponent<Image>().color = col;
-    //}
     
 }
