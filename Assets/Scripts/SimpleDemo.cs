@@ -10,18 +10,20 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Text.RegularExpressions;
-
+using System.Threading.Tasks;
 public class SimpleDemo : MonoBehaviour
 {
+
     private IScanner BarcodeScanner;
     public RawImage Image;
-    public GameObject canvas;
-    public bool superBarCode = false;
+
     private bool inDB;
-    private static List<string> usdaList = new List<string>();
     private static List<string> dbProductList = new List<string>();
     [HideInInspector]
     public int tutorialStage;
+
+    [HideInInspector]
+    public bool superBarCode = false;
 
     private bool isAndroid;
 
@@ -37,7 +39,6 @@ public class SimpleDemo : MonoBehaviour
 
     void Start()
     {
-
         if (tutorialStage == 0)
         {
             //first stage
@@ -48,19 +49,23 @@ public class SimpleDemo : MonoBehaviour
             tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
         }
 
-        //Read USDA Database
-        //TextAsset usdatxt = (TextAsset)Resources.Load("NoDupeDatabase");
-        //string usdaContent = Encoding.UTF7.GetString(usdatxt.bytes);
-        //usdaList = usdaContent.Split(new char[] { '\n' }).ToList();
-        //usdaList = usdaList.ConvertAll(item => item.ToLower().Trim());
-
         //Read new USDA sorted Database
+#if UNITY_EDITOR
         TextAsset PerfactDatabase = (TextAsset)Resources.Load("USDA");
         string encodedContent = Encoding.UTF7.GetString(PerfactDatabase.bytes);
         dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
         dbProductList = dbProductList.ConvertAll(item => Regex.Replace(item, @",+", ","));
         dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim().Replace("\"*", "").Replace("[;.]", ",").TrimEnd(','));
 
+#else
+        Task.Run(()=>{
+            TextAsset PerfactDatabase = (TextAsset)Resources.Load("USDA");
+            string encodedContent = Encoding.UTF7.GetString(PerfactDatabase.bytes);
+            dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
+            dbProductList = dbProductList.ConvertAll(item => Regex.Replace(item, @",+", ","));
+            dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim().Replace("\"*", "").Replace("[;.]", ",").TrimEnd(','));
+        });
+#endif
         // Create a basic scanner
         BarcodeScanner = new Scanner();
         BarcodeScanner.Camera.Play();
@@ -85,14 +90,13 @@ public class SimpleDemo : MonoBehaviour
         //};
 
 
-        //Invoke("ClickStart", 1f);
         if (tutorialStage != 0) Invoke("ClickStart", 1f);
 
         isAndroid = false;
         //When on Android platform
-        #if UNITY_ANDROID
+#if UNITY_ANDROID
             isAndroid = true;
-        #endif
+#endif
     }
 
 
@@ -114,7 +118,7 @@ public class SimpleDemo : MonoBehaviour
         }
     }
 
-    #region UI Buttons
+#region UI Buttons
 
     public void ClickStart()
     {
@@ -136,9 +140,10 @@ public class SimpleDemo : MonoBehaviour
                 Invoke("ClickStart", 1f);
             }
             else
-            { 
+            {
                 var i = SearchController.BinarySearch(dbProductList, long.Parse(barCodeValue), dbProductList.Count - 1, 0);
-                bool test = this.GetComponent<TestController>().test;
+
+                bool test = GameObject.Find("Main Camera").GetComponent<TestController>().test;
 
                 //test
                 if (i != -1)
@@ -146,9 +151,9 @@ public class SimpleDemo : MonoBehaviour
                     inDB = true;
 
                     if (test == true && barCodeValue == "044000030414") superBarCode = true;
-                    canvas.GetComponent<FindAddedSugar>().AllTypeOfSugars(dbProductList[i].ToLower());
+                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(dbProductList[i].ToLower(), barCodeValue);
                 }
-                if (!inDB && GameObject.Find("Not Found") == null) canvas.GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found");
+                if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found", barCodeValue);
             }
 
         });
@@ -175,7 +180,7 @@ public class SimpleDemo : MonoBehaviour
     }
 
 
-    #endregion
+#endregion
 
     
 }
