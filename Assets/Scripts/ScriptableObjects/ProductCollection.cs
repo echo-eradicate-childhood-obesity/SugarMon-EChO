@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class ProductCollection 
@@ -65,6 +66,27 @@ public class ProductCollection
             }
         }
         Debug.Log("save done");
+    }
+
+    public void BinarySave()
+    {
+        FileStream fs = new FileStream(Application.persistentDataPath + "test.dat", FileMode.Append);
+        BinaryFormatter formatter = new BinaryFormatter();
+        try
+        {
+            formatter.Serialize(fs, products);
+        }
+        catch (Exception e) { Debug.Log(e.Message); }
+        finally { fs.Close(); }
+    }
+
+    public void BinaryLoader()
+    {
+        FileStream fs = new FileStream(Application.persistentDataPath + "test.dat", FileMode.Open);
+        BinaryFormatter formatter = new BinaryFormatter();
+        try { products = (List<ProductInfo>)formatter.Deserialize(fs); }
+        catch (Exception e) { Debug.Log(e.Message); }
+        finally { fs.Close(); }
     }
 
     public List<ProductInfo> Load()

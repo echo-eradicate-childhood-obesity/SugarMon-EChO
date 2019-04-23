@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4323,6 +4323,7 @@ GameObject:
   - component: {fileID: 545924523}
   - component: {fileID: 545924522}
   - component: {fileID: 545924521}
+  - component: {fileID: 545924524}
   m_Layer: 5
   m_Name: GreenCartBack
   m_TagString: Untagged
@@ -4384,6 +4385,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ff8bfc22d4b79ac459d4bcafea2e3cef, type: 3}
   - {fileID: 21300000, guid: f1c23f0315efc5a409579c4151e1cc5c, type: 3}
   containerHeight: 0
+  key: vFerKutGj4abyOYYuSJfPIdQyYlKDrUedQn6O7lw
+  text: {fileID: 4900000, guid: b2865eac8d4393e4abe3da1732b9fb25, type: 3}
+  delimiter: 59
+  testtextbox: {fileID: 0}
 --- !u!114 &545924522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4420,6 +4425,17 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 545924519}
   m_CullTransparentMesh: 0
+--- !u!114 &545924524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 545924519}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3d02d0ba953447b8e84daa63111123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &576778318
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7362,6 +7378,7 @@ MonoBehaviour:
   - Cate4
   Orders:
   - Open
+  targetGo: {fileID: 0}
 --- !u!95 &937579191
 Animator:
   serializedVersion: 3
@@ -8297,7 +8314,6 @@ MonoBehaviour:
   - {fileID: 455981425}
   - {fileID: 1754791144}
   - {fileID: 935545736}
-  greenCartBack: {fileID: 545924519}
   familyUIList:
   - {fileID: 1564541859}
   - {fileID: 1689952356}

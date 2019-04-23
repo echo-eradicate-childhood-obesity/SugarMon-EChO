@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using UnityEngine;
-
-public class GreenCartController : MonoBehaviour {
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
+public class GreenCartController : MonoBehaviour
+{
 
     private static GreenCartController instance;
     public static GreenCartController Instance { get { return instance; } }
@@ -18,12 +22,20 @@ public class GreenCartController : MonoBehaviour {
     public List<GameObject> CONTAINERS { get { return Containers; } }
     [SerializeField]
     List<Sprite> cateImg;//0:food,1:drink,2:snack,3:uncate,4:sauce,5:not cate but a check mark
-    public List<Sprite> CateImg { get => cateImg; }
+    public List<Sprite> CateImg { get { return cateImg; } }
     [SerializeField]
     float containerHeight;
     int position;
     int incre;
 
+    [SerializeField]
+    string key;
+    //where the request file/properity is here
+    IRequester requester;
+    [SerializeField]
+    TextAsset text;
+    [SerializeField]
+    char delimiter;
     bool down;
     //variable be used to fast scrolling. function not implemented yet, so variable not in use
     //float downTimer;
@@ -33,22 +45,25 @@ public class GreenCartController : MonoBehaviour {
     Vector3 lastPos;
 
     Vector3 lastTouchPos;
+
+    public GameObject testtextbox;
 #if UNITY_EDITOR
-    int[] ints = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }; 
+    int[] ints = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
 #endif
     float totalDisRollingDis;
 
 
     private List<Category> currentCates = new List<Category>();
-    public List<Category> CurrentCates { get { return currentCates; } set {currentCates=value; } }
+    public List<Category> CurrentCates { get { return currentCates; } set { currentCates = value; } }
 
 
     private List<ProductInfo> curSelectedPI = new List<ProductInfo>();
-    public List<ProductInfo> CurSelectedPI{ get { return curSelectedPI; }}
+    public List<ProductInfo> CurSelectedPI { get { return curSelectedPI; } }
 
 
     private void Awake()
     {
+
         if (instance != null)
         {
             Destroy(this);
@@ -59,23 +74,175 @@ public class GreenCartController : MonoBehaviour {
         down = false;
         totalDisRollingDis = 0;
         containerHeight = 200f;
-
         try
         {
             pc.products = pc.Load();
+            ///*pc.products = */pc.BinaryLoader();
         }
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
             Debug.Log(ex.StackTrace);
         }
-        
+        //creat the requester. no need for await, use this for the build. it is faster 
+        //when in editor use this. but use Async method in build will be faster
+#if UNITY_EDITOR
+        StartCoroutine("InitRequester");
+#else
+        StartAsync(); 
+#endif
     }
 
+    private async Task StartAsync()
+    {
+        await Task.Run(() =>
+        {
+            List<string[]> strList = new List<string[]>();
+            var textAssetArr = text.text.Split('\n');
+            foreach (var line in textAssetArr)
+            {
+                var contentArr = line.Split(delimiter);
+                strList.Add(contentArr);
+            }
+            requester = new USDARequester(strList, 1);
+
+        });
+        //await SendRequest("123");
+    }
+
+    System.Collections.IEnumerator InitRequester()
+    {
+
+        List<string[]> strList = new List<string[]>();
+        var textAssetArr = text.text.Split('\n');
+        foreach (var line in textAssetArr)
+        {
+            var contentArr = line.Split(delimiter);
+            strList.Add(contentArr);
+        }
+        requester = new USDARequester(strList, 1);
+
+        yield return null;
+    }
+    public async Task<string> SendRequest(string upc)
+    {
+        var ndbno = await requester.LookNDBAsync(upc);
+        if (ndbno != -1)
+        {
+            string url = $@"https://api.nal.usda.gov/ndb/V2/reports?ndbno={ndbno}&format=json&api_key={key}&location=Denver+CO";
+            #region foldthis
+            //using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
+            //{
+            //    try
+            //    {
+            //        string str = await client.GetStringAsync(url);
+            //        //Console.WriteLine("reqeust got");
+            //        JObject jjson = await DeserializerObjectAsync<JObject>(str);
+            //        //JObject jjson = JsonConvert.DeserializeObject<JObject>(str);
+            //        //structure of usda resopnd json
+            //        /*
+            //         * SelectToken will get the object we want. If it show as list then use First or other keyword accordingly
+            //         * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
+            //         * food is the object we are looking for. SelectToken("food")
+            //         * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
+            //         * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
+            //         * 
+            //         */
+            //        string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
+            //        return newStr;
+            //    }
+            //    catch (HttpRequestException e)
+            //    {
+
+            //        Console.WriteLine(e.Message);
+            //        return "no ndb";
+            //    }
+
+            //} 
+            #endregion
+            return await Task.Run(async () =>
+            {
+                using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
+                {
+                    try
+                    {
+                        string str = await client.GetStringAsync(url);
+                        JObject jjson = await DeserializerObjectAsync<JObject>(str);
+                        //structure of usda resopnd json
+                        /*
+                         * SelectToken will get the object we want. If it show as list then use First or other keyword accordingly
+                         * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
+                         * food is the object we are looking for. SelectToken("food")
+                         * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
+                         * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
+                         */
+                        string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
+                        return newStr;
+                    }
+                    catch (HttpRequestException e)
+                    {
+
+                        Console.WriteLine(e.Message);
+                        return "no ndb";
+                    }
+
+                }
+            });
+            //return await Client(url);
+        }
+        else
+        {
+            Console.WriteLine("upc incorrect");
+            return "no ndb";
+        }
+    }
+
+    //private async Task<string> Client(string url)
+    //{
+    //    using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
+    //    {
+    //        try
+    //        {
+    //            string str = await client.GetStringAsync(url);
+    //            JObject jjson = await DeserializerObjectAsync<JObject>(str);
+    //            //structure of usda resopnd json
+    //            /*
+    //             * SelectToken will get the object we want. If it show as list then use First or other keyword accordingly
+    //             * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
+    //             * food is the object we are looking for. SelectToken("food")
+    //             * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
+    //             * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
+    //             */
+    //            string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
+    //            return newStr;
+    //        }
+    //        catch (HttpRequestException e)
+    //        {
+
+    //            Console.WriteLine(e.Message);
+    //            return "no ndb";
+    //        }
+
+    //    }
+    //}
+
+    private async Task<JObject> DeserializerObjectAsync<JObject>(string str)
+    {
+
+        Task<JObject> t = Task.Run(() =>
+        {
+            JObject output;
+            output = JsonConvert.DeserializeObject<JObject>(str);
+            return output;
+        });
+        return await t;
+
+    }
     public void Update()
     {
         //drag test
         RollingAction();
+
     }
 
     private void RollingAction()
@@ -179,7 +346,7 @@ public class GreenCartController : MonoBehaviour {
                 lastTouchPos = touch.position;
             }
         }
-        
+
 #if UNITY_EDITOR
         #region mouseaction
         //action to drag test
@@ -188,7 +355,7 @@ public class GreenCartController : MonoBehaviour {
         //{
         if (down)
         {
-            NewRolling(currentPos,lastPos);
+            NewRolling(currentPos, lastPos);
         }
         //}
         lastPos = Input.mousePosition;
@@ -197,7 +364,7 @@ public class GreenCartController : MonoBehaviour {
 #endif
     }
 
-    private void NewRolling(Vector3 currentPos,Vector3 lastPos)
+    private void NewRolling(Vector3 currentPos, Vector3 lastPos)
     {
         var offSet = lastPos.y - currentPos.y;
         try

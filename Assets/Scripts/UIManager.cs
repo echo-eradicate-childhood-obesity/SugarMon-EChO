@@ -30,8 +30,6 @@ public class UIManager : MonoBehaviour {
     }
     public List<GameObject> CateBtn;
 
-    public GameObject greenCartBack;
-
     [SerializeField]
     List<GameObject> familyUIList;
     // Use this for initialization
@@ -53,8 +51,8 @@ public class UIManager : MonoBehaviour {
 
     private void InitCateBtn()
     {
-        //var cav = GameObject.Find("GreenCartBack");
-        var cavRect = greenCartBack.GetComponent<RectTransform>().rect;
+        var cav = GameObject.Find("GreenCartBack");
+        var cavRect = cav.GetComponent<RectTransform>().rect;
         var catebtnWidth = cavRect.width / (CateBtn.Count);
         var pos = -(catebtnWidth * CateBtn.Count / 2);
         foreach (GameObject go in CateBtn)

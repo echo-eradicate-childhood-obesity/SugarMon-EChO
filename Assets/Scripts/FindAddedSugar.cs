@@ -1,16 +1,11 @@
-﻿using BarcodeScanner;
-using BarcodeScanner.Scanner;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine.UI;
-using Wizcorp.Utils.Logger;
-using System.IO;
 using System.Text;
-using System;
-
+using System.Threading.Tasks;
 
 
 public class FindAddedSugar : MonoBehaviour
@@ -259,9 +254,9 @@ public class FindAddedSugar : MonoBehaviour
             if (scannedAddedSugars.Count == 0)
             {
                 //add green cart code here
-                GreenCartController.Instance.PCAdd(bcv);
-                GreenCartController.Instance.PC.PCSave();
-
+                //GreenCartController.Instance.PCAdd(bcv);
+                //GreenCartController.Instance.PC.PCSave();
+                RequesetAsync(bcv);
                 //Change image of monster
                 scannedAddedSugars.Add("No Added Sugar");
                 CreateSugarMonster(scannedAddedSugars[currentNumMonster]);
@@ -277,6 +272,12 @@ public class FindAddedSugar : MonoBehaviour
         }
     }
 
+    private static async Task RequesetAsync(string bcv)
+    {
+        string name = await GreenCartController.Instance.SendRequest(bcv);
+        GreenCartController.Instance.PCAdd(name);
+        GreenCartController.Instance.PC.PCSave();
+    }
     private IEnumerator AnimatorSugarCardToDex(string s)
     {
         //Animation - Card To Dex

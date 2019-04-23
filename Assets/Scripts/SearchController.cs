@@ -17,7 +17,6 @@ public class SearchController  {
         {
             return -1;
         }
-        #region this cause stack overflow
         else
         {
             int i = (up + low) / 2;//half the index
@@ -41,7 +40,38 @@ public class SearchController  {
         }
 
     }
-    #endregion
+
+    public static int BinarySearch(List<string[]> sList, long inputcode, int up, int low, int targetPos)
+    {
+        //int localhigh, locallow;
+        //localhigh = up;
+        //locallow = low;
+        if (sList == null || (low > up))
+        {
+            return -1;
+        }
+        else
+        {
+            int i = (up + low) / 2;//half the index
+            long currentEleInt;//current int in the element
+            //here, if the barcode value(decimal wise), it will reach the scientific notation part in database
+            //in that part, regex could not find the right code, need one more step to convert the number to decimal.
+            long.TryParse(Regex.Match(sList[i][targetPos], @"\d+").Value, out currentEleInt);
+
+            if (inputcode > currentEleInt)
+            {
+                return BinarySearch(sList, inputcode, up, i + 1, targetPos);
+            }
+            else if (inputcode < currentEleInt)
+            {
+                return BinarySearch(sList, inputcode, i - 1, low, targetPos);
+            }
+            else
+            {
+                return int.Parse(sList[i][0]);
+            }
+        }
+    }
 }
 
 

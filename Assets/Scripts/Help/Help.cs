@@ -18,6 +18,7 @@ public struct NotifyInfo
     public float RollingDis { get; set; }
     public Category Ct { get; set; }
 }
+[System.Serializable]
 public class ProductInfo
 {
     string name;

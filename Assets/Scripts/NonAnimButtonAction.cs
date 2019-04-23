@@ -6,6 +6,9 @@ public class NonAnimButtonAction : MonoBehaviour,IButtonAction {
     public List<string> Gos;
     public List<string> Orders;
 
+    [SerializeField]
+    GameObject targetGo;
+
     public void Action(GameObject go)
     {
         foreach (ProductInfo pi in GreenCartController.Instance.CurSelectedPI)
