@@ -18,7 +18,7 @@ public class SugarDisk : MonoBehaviour {
     public GameObject summonSystem;
     public GameObject sugarDiskImage;
     private Vector3 diskPosition;
-    private GameObject cv;
+    public GameObject canvas;
     private GameObject[] allTypesOfSugars;
     public GameObject addButtonOnSugarCard;
 
@@ -41,7 +41,6 @@ public class SugarDisk : MonoBehaviour {
         diskPosition = sugarDiskImage.transform.localPosition;
         foundMonsterNumber = 0;
         foundSugar = GameObject.Find("Canvas");
-        cv = GameObject.Find("Canvas");
         newSugars = new List<string>();
 
         um = UIManager.Instance;
@@ -63,7 +62,7 @@ public class SugarDisk : MonoBehaviour {
         }
         else
         {
-            UpdateCounterOfEachSugar();
+            //UpdateCounterOfEachSugar();
         }
         
     }
@@ -82,11 +81,11 @@ public class SugarDisk : MonoBehaviour {
 
         newSugars.Clear();
         sugarDiskImage.transform.localPosition = diskPosition;
-        foundSugar.transform.Find("FamilyBackground").gameObject.SetActive(true);
-        GameObject.Find("FamilyBackground").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "Found: " + foundSugar.GetComponent<FindAddedSugar>().allScanned.Count;
+        canvas.transform.Find("FamilyBackground").gameObject.SetActive(true);
+        GameObject.Find("FamilyBackground").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "Found: " + canvas.GetComponent<FindAddedSugar>().allScanned.Count;
 
-        scannedAddedSugars = foundSugar.GetComponent<FindAddedSugar>().scannedAddedSugars;
-        sugarFromMain = foundSugar.GetComponent<FindAddedSugar>().allScanned;
+        scannedAddedSugars = canvas.GetComponent<FindAddedSugar>().scannedAddedSugars;
+        sugarFromMain = canvas.GetComponent<FindAddedSugar>().allScanned;
         foreach (string ni in sugarFromMain)
         {
             if (!allCollectedSugars.Contains(ni) && ni.ToLower() != "no added sugar")
@@ -96,13 +95,13 @@ public class SugarDisk : MonoBehaviour {
 
             }
         }
-        foreach (List<string> s in foundSugar.GetComponent<FindAddedSugar>().dbList)
+        foreach (List<string> s in canvas.GetComponent<FindAddedSugar>().dbList)
         {
             foreach (string ss in newSugars)
             {
-                if (s[cv.GetComponent<FindAddedSugar>().nameIndex].ToLower() == ss.ToLower())
+                if (s[canvas.GetComponent<FindAddedSugar>().nameIndex].ToLower() == ss.ToLower())
                 {
-                    var sc = GameObject.Find(s[cv.GetComponent<FindAddedSugar>().deckNumIndex]);
+                    var sc = GameObject.Find(s[canvas.GetComponent<FindAddedSugar>().deckNumIndex]);
                     var sci = sc.transform.Find("Image");
 
                     if (sc != null)
@@ -131,11 +130,11 @@ public class SugarDisk : MonoBehaviour {
                         sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
                         sci.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
 
-                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[cv.GetComponent<FindAddedSugar>().familyIndex]);
-                        bool newDesign = newMonsterFamilyDesign.Contains(s[cv.GetComponent<FindAddedSugar>().familyIndex]);
-                        string monsterImagePath = newDesign ? "Images/Monsters/" + s[cv.GetComponent<FindAddedSugar>().familyIndex] + "/" + sc.name : "Images/Monsters/" + s[cv.GetComponent<FindAddedSugar>().familyIndex];
+                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex]);
+                        bool newDesign = newMonsterFamilyDesign.Contains(s[canvas.GetComponent<FindAddedSugar>().familyIndex]);
+                        string monsterImagePath = newDesign ? "Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex] + "/" + sc.name : "Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex];
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>(monsterImagePath);
-                        //sci.gameObject.AddComponent<Button>().onClick.AddListener(() => summonSystem.GetComponent<SummonSystem>().PopupSugarInfoCardInSugarDex(sc.name, s[cv.GetComponent<FindAddedSugar>().familyIndex]));
+                        //sci.gameObject.AddComponent<Button>().onClick.AddListener(() => summonSystem.GetComponent<SummonSystem>().PopupSugarInfoCardInSugarDex(sc.name, s[canvas.GetComponent<FindAddedSugar>().familyIndex]));
                         sc.transform.Find("Image").GetComponent<Button>().enabled = true;
                     }
                 }

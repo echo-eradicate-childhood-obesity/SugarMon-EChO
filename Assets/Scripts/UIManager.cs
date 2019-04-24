@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour {
     }
     public List<GameObject> CateBtn;
 
+    private SimpleDemo simpleDemo;
     [SerializeField]
     List<GameObject> familyUIList;
     // Use this for initialization
@@ -47,6 +48,7 @@ public class UIManager : MonoBehaviour {
     private void Start()
     {
        InitCateBtn();
+        simpleDemo = GameObject.Find("Main Camera").GetComponent<SimpleDemo>();
     }
 
     private void InitCateBtn()
@@ -134,6 +136,7 @@ public class UIManager : MonoBehaviour {
 
     public void DisableUI(GameObject go)
     {
+        simpleDemo.enabled = !simpleDemo.enabled;
         go.SetActive(!go.activeSelf);
     }
 }

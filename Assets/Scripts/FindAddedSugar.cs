@@ -250,7 +250,6 @@ public class FindAddedSugar : MonoBehaviour
                     }
                 }
             }
-            scannedAddedSugars.Clear();
             if (scannedAddedSugars.Count == 0)
             {
                 //add green cart code here
