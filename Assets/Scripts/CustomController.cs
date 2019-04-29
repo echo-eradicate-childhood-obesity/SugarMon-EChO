@@ -98,7 +98,7 @@ namespace ARMon
             //if (Mathf.Abs(f1-f2)<fVal) {
             //    return true;
             //}
-            return false;
+         //   return false;
         }
 
         public static bool InRange(Vector3 v1, Vector3 v2, float fVal)
