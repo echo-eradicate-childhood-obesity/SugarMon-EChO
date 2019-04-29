@@ -13,7 +13,12 @@ public class NonAnimButtonAction : MonoBehaviour,IButtonAction {
     {
         foreach (ProductInfo pi in GreenCartController.Instance.CurSelectedPI)
         {
-            pi.Type=(Converter.StringEnumConverter<Category, string>(go.GetComponent<Image>().sprite.name));
+
+
+            //pi.Type=(Converter.StringEnumConverter<Category, string>(go.GetComponent<Image>().sprite.name));
+            //as the image have be packed in the same source image, they do not have its unique name now. use new method but do the same thing
+            pi.Type=(Converter.StringEnumConverter<Category, string>(go.name));
+
         }
         GreenCartController.Instance.PC.PCSave();
         DeselectAction();

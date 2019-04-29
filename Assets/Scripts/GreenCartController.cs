@@ -70,10 +70,13 @@ public class GreenCartController : MonoBehaviour
         }
         else instance = this;
         position = 0;
-        incre = 200;
         down = false;
         totalDisRollingDis = 0;
-        containerHeight = 200f;
+
+        //there is an chance incre value and containerHeight is alway the same
+        //so there should be only one value.
+        incre = 150;
+        containerHeight = 150f;
         try
         {
             pc.products = pc.Load();
@@ -177,11 +180,17 @@ public class GreenCartController : MonoBehaviour
                          * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
                          */
                         string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
-                        return newStr;
+                        string output="";
+                        var strs = newStr.Split(' ');
+                        foreach (string s in strs)
+                        {
+                            var val = char.ToUpper(s[0])+s.Substring(1).ToLower();
+                            output += string.Format("{0} ", val);
+                        }
+                        return output;
                     }
                     catch (HttpRequestException e)
                     {
-
                         Console.WriteLine(e.Message);
                         return "no ndb";
                     }
@@ -228,7 +237,6 @@ public class GreenCartController : MonoBehaviour
 
     private async Task<JObject> DeserializerObjectAsync<JObject>(string str)
     {
-
         Task<JObject> t = Task.Run(() =>
         {
             JObject output;
@@ -250,14 +258,10 @@ public class GreenCartController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             down = true;
-            //downPos = Input.mousePosition;
-            //downTimer += Time.deltaTime;
         }
         if (Input.GetButtonUp("Fire1"))
         {
             down = false;
-            //upPos = Input.mousePosition;
-            //downTimer = 0;
         }
 
         if (Input.touchCount > 0)
@@ -369,7 +373,7 @@ public class GreenCartController : MonoBehaviour
         var offSet = lastPos.y - currentPos.y;
         try
         {
-            if ((pc.GetCount(currentCates) - Containers.Count + 2) * containerHeight < -totalDisRollingDis && offSet < 0)
+            if ((pc.GetCount(currentCates) - Containers.Count) * containerHeight < -totalDisRollingDis && offSet < 0)
             {
 #if UNITY_EDITOR
                 Debug.Log("there is no more data");
@@ -433,7 +437,6 @@ public class GreenCartController : MonoBehaviour
         }
         //Rolling(offSet, info);
         #endregion
-
         totalDisRollingDis += offSet;
     }
 
@@ -511,76 +514,8 @@ public class GreenCartController : MonoBehaviour
             var offset = dashHolder.GetComponent<RectTransform>().rect.width / 2;
             Containers[i].GetComponent<RectTransform>().localPosition = new Vector3(offset, pos, 0);
             pos -= incre;
-            #region foldthis
-            //Debug.Log(pc.products.Count);
-            //Containers[i].GetComponentInChildren<Text>().text = pc.products[pc.products.Count - 1 - i].GetName() ;
-            //try
-            //{
-            //if (cate != Category.uncate)
-            //{
-            //    var piList = pc.greenDic[cate];
-            //    var count = piList.Count;
-            //    if (i > piList.Count - 1)
-            //    {
-            //        Containers[i].SetActive(false);
-            //        //return;
-            //    }
-            //    else Containers[i].GetComponent<GreenDexContainer>().PIUpdate(piList[count - i - 1]);
-            //} 
-            #endregion
-            #region foldthis
-            //if (cates.Count != 0)
-            //{
-            //    #region foldthis
-            //    //foreach (Category cate in cates)
-            //    //{
-            //    //    var piList = pc.greenDic[cate];
-            //    //    var count = piList.Count;
-            //    //    if (i > piList.Count - 1)
-            //    //    {
-            //    //        Containers[i].SetActive(false);
-            //    //        //return;
-            //    //    }
-            //    //    else Containers[i].GetComponent<GreenDexContainer>().PIUpdate(piList[count - i - 1]);
-            //    //} 
-            //    #endregion
-            //    foreach (Category cate in cates)
-            //    {
-            //        var piList = pc.CurDic;
-            //        var count = piList.Count;
-            //        if (i > piList.Count - 1)
-            //        {
-            //            Containers[i].SetActive(false);
-            //            //return;
-            //        }
-            //        else Containers[i].GetComponent<GreenDexContainer>().PIUpdate(piList[count - i - 1]);
-            //    }
-            //}
-            //else
-            //{
-            //    if (i > pc.products.Count - 1)
-            //    {
-
-            //        Containers[i].SetActive(false);
-            //    }
-            //    else Containers[i].GetComponent<GreenDexContainer>().PIUpdate(pc.products[pc.products.Count - 1 - i]);
-            //} 
-            #endregion
             if (cates.Count != 0)
             {
-                #region foldthis
-                //foreach (Category cate in cates)
-                //{
-                //    var piList = pc.greenDic[cate];
-                //    var count = piList.Count;
-                //    if (i > piList.Count - 1)
-                //    {
-                //        Containers[i].SetActive(false);
-                //        //return;
-                //    }
-                //    else Containers[i].GetComponent<GreenDexContainer>().PIUpdate(piList[count - i - 1]);
-                //} 
-                #endregion
                 //dupe
                 foreach (Category cate in cates)
                 {
