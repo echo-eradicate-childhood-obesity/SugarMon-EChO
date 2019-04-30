@@ -102,7 +102,7 @@ public class SimpleDemo : MonoBehaviour
     /// </summary>
     public void StartScan()
     {
-        Invoke("ClickStart", 1f);
+        Invoke("ClickStart", 3f);
     }
     void Update()
     {

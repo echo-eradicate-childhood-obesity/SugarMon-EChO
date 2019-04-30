@@ -20,6 +20,7 @@ public class FindAddedSugar : MonoBehaviour
     //public AudioClip newSugarSound, foundSugarSound, noSugarSound;
     public NumbersOfEachSugar sugarCardData;
     public AudioSource Audio;
+    public RuntimeAnimatorController animController;
 
     private int currentNumMonster = 0;
 
@@ -287,8 +288,7 @@ public class FindAddedSugar : MonoBehaviour
         anim.name = "Animation";
         anim.GetComponent<Image>().sprite = monster.GetComponent<Image>().sprite;
         anim.AddComponent<Animator>();
-        anim.GetComponent<Animator>().runtimeAnimatorController = Resources.Load("Animations/Monster") as RuntimeAnimatorController;
-
+        anim.GetComponent<Animator>().runtimeAnimatorController = animController;
 
         if (s == "Sugar")
         {
