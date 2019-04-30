@@ -14,8 +14,9 @@ using System.Threading.Tasks;
 public class SimpleDemo : MonoBehaviour
 {
 
-    private IScanner BarcodeScanner;
+    public IScanner BarcodeScanner;
     public RawImage Image;
+    public TextAsset PerfactDatabase;
 
     private bool inDB;
     private static List<string> dbProductList = new List<string>();
@@ -51,15 +52,14 @@ public class SimpleDemo : MonoBehaviour
 
         //Read new USDA sorted Database
 #if UNITY_EDITOR
-        TextAsset PerfactDatabase = (TextAsset)Resources.Load("USDA");
         string encodedContent = Encoding.UTF7.GetString(PerfactDatabase.bytes);
         dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
         dbProductList = dbProductList.ConvertAll(item => Regex.Replace(item, @",+", ","));
         dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim().Replace("\"*", "").Replace("[;.]", ",").TrimEnd(','));
+        Debug.Log(dbProductList[0]);
 
 #else
         Task.Run(()=>{
-            TextAsset PerfactDatabase = (TextAsset)Resources.Load("USDA");
             string encodedContent = Encoding.UTF7.GetString(PerfactDatabase.bytes);
             dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
             dbProductList = dbProductList.ConvertAll(item => Regex.Replace(item, @",+", ","));
@@ -89,9 +89,6 @@ public class SimpleDemo : MonoBehaviour
         //  Debug.Log("Status: " + BarcodeScanner.Status);
         //};
 
-
-        if (tutorialStage != 0) Invoke("ClickStart", 1f);
-
         isAndroid = false;
         //When on Android platform
 #if UNITY_ANDROID
@@ -103,6 +100,10 @@ public class SimpleDemo : MonoBehaviour
     /// <summary>
     /// The Update method from unity need to be propagated to the scanner
     /// </summary>
+    public void StartScan()
+    {
+        Invoke("ClickStart", 1f);
+    }
     void Update()
     {
         if (BarcodeScanner == null)

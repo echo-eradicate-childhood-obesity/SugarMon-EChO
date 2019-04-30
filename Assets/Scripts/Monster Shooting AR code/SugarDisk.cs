@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class SugarDisk : MonoBehaviour {
 
-    private GameObject foundSugar;
-
     //singleton ref
     UIManager um;
 
@@ -17,6 +15,7 @@ public class SugarDisk : MonoBehaviour {
     public NumbersOfEachSugar sugarCardData;
     public GameObject summonSystem;
     public GameObject sugarDiskImage;
+    public GameObject mainCam;
     private Vector3 diskPosition;
     public GameObject canvas;
     private GameObject[] allTypesOfSugars;
@@ -40,7 +39,6 @@ public class SugarDisk : MonoBehaviour {
         Transform sugarDiskImage = GameObject.Find("Canvas").transform.Find("FamilyBackground");
         diskPosition = sugarDiskImage.transform.localPosition;
         foundMonsterNumber = 0;
-        foundSugar = GameObject.Find("Canvas");
         newSugars = new List<string>();
 
         um = UIManager.Instance;
@@ -54,7 +52,6 @@ public class SugarDisk : MonoBehaviour {
     public void OpenSugarDisk()
     {
         UpdateDexData();
-
         //if Open from Summon System
         if (summonSystem.activeInHierarchy)
         {
@@ -68,7 +65,8 @@ public class SugarDisk : MonoBehaviour {
     }
     public void CloseSugarDisk()
     {
-        GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = true;
+        mainCam.GetComponent<SimpleDemo>().enabled = true;
+        if (mainCam.GetComponent<SimpleDemo>().tutorialStage != 0) mainCam.GetComponent<SimpleDemo>().StartScan();
         GameObject.Find("SugarDisk").transform.Find("RedDot").gameObject.SetActive(false);
         sugarDiskImage.gameObject.SetActive(false);
         addButtonOnSugarCard.gameObject.SetActive(false);
@@ -77,7 +75,7 @@ public class SugarDisk : MonoBehaviour {
     }
     public void UpdateDexData()
     {
-        GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = false;
+        mainCam.GetComponent<SimpleDemo>().enabled = false;
 
         newSugars.Clear();
         sugarDiskImage.transform.localPosition = diskPosition;
@@ -135,7 +133,7 @@ public class SugarDisk : MonoBehaviour {
                         string monsterImagePath = newDesign ? "Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex] + "/" + sc.name : "Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex];
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>(monsterImagePath);
                         //sci.gameObject.AddComponent<Button>().onClick.AddListener(() => summonSystem.GetComponent<SummonSystem>().PopupSugarInfoCardInSugarDex(sc.name, s[canvas.GetComponent<FindAddedSugar>().familyIndex]));
-                        sc.transform.Find("Image").GetComponent<Button>().enabled = true;
+                        //sc.transform.Find("Image").GetComponent<Button>().enabled = true;
                     }
                 }
             }

@@ -25,6 +25,7 @@ public class FindAddedSugar : MonoBehaviour
 
     protected List<string> upcs;
     protected List<string> ingredients;
+    public TextAsset dbtxt;
 
     public GameObject scanFrame;
     public GameObject summonSystem;
@@ -81,7 +82,7 @@ public class FindAddedSugar : MonoBehaviour
         ingredients = new List<string>();
 
         //Read Database 
-        TextAsset dbtxt = (TextAsset)Resources.Load("Database", typeof(TextAsset));
+        //TextAsset dbtxt = (TextAsset)Resources.Load("Database", typeof(TextAsset));
         string dbContent = Encoding.UTF7.GetString(dbtxt.bytes);
         db = dbContent.Split(new char[] { '\n' }).ToList();
         //Save data in a list of lists
@@ -194,6 +195,7 @@ public class FindAddedSugar : MonoBehaviour
     {
 
         sugarDex.GetComponent<Button>().enabled = false;
+        mainCam.GetComponent<SimpleDemo>().enabled = false;
 
         //Barcode not in database
         if (ingredientFromDB == "Not Found")
@@ -260,6 +262,7 @@ public class FindAddedSugar : MonoBehaviour
                 scannedAddedSugars.Add("No Added Sugar");
                 CreateSugarMonster(scannedAddedSugars[currentNumMonster]);
                 scanFrame.SetActive(false);
+                
             }
             //Include added sugar
             else
@@ -362,6 +365,7 @@ public class FindAddedSugar : MonoBehaviour
             GameObject.Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster - 1]));
             scanFrame.SetActive(true);
             sugarDex.GetComponent<Button>().enabled = true;
+            mainCam.GetComponent<SimpleDemo>().enabled = true;
             mainCam.GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 3 seconds for next scan
         }
         else
