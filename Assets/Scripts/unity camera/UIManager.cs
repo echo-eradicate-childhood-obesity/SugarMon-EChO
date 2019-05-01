@@ -47,8 +47,8 @@ public class UIManager : MonoBehaviour {
 
     private void Start()
     {
-       InitCateBtn();
-        simpleDemo = GameObject.Find("Main Camera").GetComponent<SimpleDemo>();
+       //InitCateBtn();
+       simpleDemo = GameObject.Find("Main Camera").GetComponent<SimpleDemo>();
     }
 
     private void InitCateBtn()

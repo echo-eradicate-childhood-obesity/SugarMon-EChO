@@ -56,7 +56,6 @@ public class SimpleDemo : MonoBehaviour
         dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
         dbProductList = dbProductList.ConvertAll(item => Regex.Replace(item, @",+", ","));
         dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim().Replace("\"*", "").Replace("[;.]", ",").TrimEnd(','));
-        Debug.Log(dbProductList[0]);
 
 #else
         Task.Run(()=>{
@@ -136,7 +135,7 @@ public class SimpleDemo : MonoBehaviour
             
             if (this.GetComponent<TestController>().test) GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
             
-            if (excludedCodeType.Any(barCodeType.Contains))  //need test
+            if (excludedCodeType.Any(barCodeType.Contains))
             {
                 Invoke("ClickStart", 1f);
             }
