@@ -1,0 +1,262 @@
+Number in the App	Added Sugar List Name	Number in Added Sugar Repository	MonstersFamily
+1	Cane Crystals	24	Cane Monsters
+2	Cane Juice	25	Cane Monsters
+3	Cane Juice Crystals	26	Cane Monsters
+4	Cane Molasses	27	Cane Monsters
+5	Dehydrated Cane Juice	61	Cane Monsters
+6	Evaporated Cane Crystals	78	Cane Monsters
+7	Evaporated Cane Juice	79	Cane Monsters
+8	Organic Cane Crystals	147	Cane Monsters
+9	Organic Evaporated Cane Juice	166	Cane Monsters
+10	Corn Dextrin	46	Dextrin Monsters
+11	Corn Maltodextrin	47	Dextrin Monsters
+12	Dextrin	64	Dextrin Monsters
+13	Maltodextrin	123	Dextrin Monsters
+14	Organic Maltodextrin	181	Dextrin Monsters
+15	Organic Tapioca Maltodextrin	198	Dextrin Monsters
+16	Rice Maltodextrin	229	Dextrin Monsters
+17	Tapioca Dextrin	246	Dextrin Monsters
+18	Tapioca Maltodextrin	247	Dextrin Monsters
+19	Wheat Dextrin	256	Dextrin Monsters
+20	Anhydrous Dextrose	3	OSE Monsters
+21	Crystalline Fructose	53	OSE Monsters
+22	Dextrose	65	OSE Monsters
+23	Dextrose Anhydrous Glucose	66	OSE Monsters
+24	Dextrose Sugar	67	OSE Monsters
+25	Dried Glucose Syrup	76	OSE Monsters
+26	Fructooligosaccharides	88	OSE Monsters
+27	Glucose	92	OSE Monsters
+28	Glucose Fructose Syrup	93	OSE Monsters
+29	Glucose Solids	94	OSE Monsters
+30	Glucose Syrup	95	OSE Monsters
+31	Glucose Syrup Solids	96	OSE Monsters
+32	High Fructose Corn Syrup	103	OSE Monsters
+33	High Maltose Corn Syrup Solids	104	OSE Monsters
+34	Maltose	125	OSE Monsters
+35	Organic Date Syrup	159	OSE Monsters
+36	Organic Lactose	179	OSE Monsters
+37	Sucrose	237	OSE Monsters
+38	Trehalose	252	OSE Monsters
+39	Wheat Glucose Syrup	257	OSE Monsters
+40	Apple Juice Concentrate	4	Concentrate Monsters
+41	Beet Juice Concentrate	9	Concentrate Monsters
+42	Black Currant Juice Concentrate	12	Concentrate Monsters
+43	Blackberry Juice Concentrate	13	Concentrate Monsters
+44	Blackcurrant Juice Concentrate	14	Concentrate Monsters
+45	Blood Orange Juice Concentrate	16	Concentrate Monsters
+46	Blueberry Juice Concentrate	17	Concentrate Monsters
+47	Boysenberry Juice Concentrate	18	Concentrate Monsters
+48	Caramelized Pear Juice Concentrate	31	Concentrate Monsters
+49	Carrot Juice Concentrate	34	Concentrate Monsters
+50	Cherry Juice Concentrate	35	Concentrate Monsters
+51	Corn Syrup Solids	51	Concentrate Monsters
+52	Cranberry Juice Concentrate	52	Concentrate Monsters
+53	Date Juice Concentrate	57	Concentrate Monsters
+54	Dried Cherry Juice Concentrate	73	Concentrate Monsters
+55	Dried Cranberry Juice Concentrate	75	Concentrate Monsters
+56	Fruit Juice Concentrate	90	Concentrate Monsters
+57	Goji Berry Juice Concentrate	97	Concentrate Monsters
+58	Grape Juice Concentrate	99	Concentrate Monsters
+59	Grapefruit Juice Concentrate	101	Concentrate Monsters
+60	Guava Juice Concentrate	102	Concentrate Monsters
+61	Honeydew Juice Concentrate	107	Concentrate Monsters
+62	Kiwi Juice Concentrate	115	Concentrate Monsters
+63	Lemon Juice Concentrate	116	Concentrate Monsters
+64	Loganberry Juice Concentrate	120	Concentrate Monsters
+65	Mango Juice Concentrate	126	Concentrate Monsters
+66	Melon Juice Concentrate	129	Concentrate Monsters
+67	Monk Fruit Juice Concentrate	134	Concentrate Monsters
+68	Monk Juice Concentrate	135	Concentrate Monsters
+69	Orange Juice Concentrate	139	Concentrate Monsters
+70	Organic Apple Juice Concentrate	142	Concentrate Monsters
+71	Organic Blueberry Juice Concentrate	144	Concentrate Monsters
+72	Organic Cherry Juice Concentrate	150	Concentrate Monsters
+73	Organic Dried Cherry Juice Concentrate	164	Concentrate Monsters
+74	Organic Dried Cranberry Juice Concentrate	165	Concentrate Monsters
+75	Organic Fruit Juice Concentrate	170	Concentrate Monsters
+76	Organic Grape Juice Concentrate	171	Concentrate Monsters
+77	Organic Pineapple Juice Concentrate	188	Concentrate Monsters
+78	Organic Raisin Juice Concentrate	190	Concentrate Monsters
+79	Organic Strawberry Juice Concentrate	195	Concentrate Monsters
+80	Organic White Grape Juice Concentrate	201	Concentrate Monsters
+81	Passion Fruit Juice Concentrate	205	Concentrate Monsters
+82	Peach Juice Concentrate	206	Concentrate Monsters
+83	Pear Juice Concentrate	207	Concentrate Monsters
+84	Pineapple Juice Concentrate	208	Concentrate Monsters
+85	Pink Grapefruit Juice Concentrate	210	Concentrate Monsters
+86	Plum Juice Concentrate	211	Concentrate Monsters
+87	Pomegranate Juice Concentrate	212	Concentrate Monsters
+88	Raisin Juice Concentrate	219	Concentrate Monsters
+89	Raspberry Juice Concentrate	222	Concentrate Monsters
+90	Red Cherry Juice Concentrate	226	Concentrate Monsters
+91	Strawberry Juice Concentrate	236	Concentrate Monsters
+92	Tangerine Juice Concentrate	245	Concentrate Monsters
+93	Tart Cherry Juice Concentrate	250	Concentrate Monsters
+94	Watermelon Juice Concentrate	255	Concentrate Monsters
+95	White Grape Juice Concentrate	258	Concentrate Monsters
+96	Agave Syrup	2	Syrup Monsters
+97	Barley Malt Syrup	8	Syrup Monsters
+98	Beet Syrup	11	Syrup Monsters
+99	Brown Rice Syrup	20	Syrup Monsters
+100	Brown Rice Syrup Solids	21	Syrup Monsters
+101	Brown Sugar Syrup	23	Syrup Monsters
+102	Cane Refinery Syrup	28	Syrup Monsters
+103	Cane Syrup	30	Syrup Monsters
+104	Caramelized Sugar Syrup	33	Syrup Monsters
+105	Confectioners' Sugar	44	Syrup Monsters
+106	Corn Barley Malt Syrup	45	Syrup Monsters
+107	Corn Sweetener	48	Syrup Monsters
+108	Corn Syrup	49	Syrup Monsters
+109	Corn Syrup Butter	50	Syrup Monsters
+110	Date Syrup	59	Syrup Monsters
+111	Dried Brown Rice Syrup	70	Syrup Monsters
+112	Dried Cane Syrup	72	Syrup Monsters
+113	Dried Corn Syrup	74	Syrup Monsters
+114	Evaporated Cane Juice Invert Syrup	80	Syrup Monsters
+115	Evaporated Cane Juice Syrup	81	Syrup Monsters
+116	Evaporated Cane Syrup	83	Syrup Monsters
+117	Golden Syrup	98	Syrup Monsters
+118	Invert Cane Syrup	110	Syrup Monsters
+119	Invert Sugar Cane Syrup	112	Syrup Monsters
+120	Invert Syrup	113	Syrup Monsters
+121	Malt Syrup	122	Syrup Monsters
+122	Maple Syrup	128	Syrup Monsters
+123	Oat Syrup Solids	138	Syrup Monsters
+124	Organic Barley Malt Syrup	143	Syrup Monsters
+125	Organic Brown Rice Syrup	145	Syrup Monsters
+126	Organic Cane Syrup	149	Syrup Monsters
+127	Organic Coconut Syrup	156	Syrup Monsters
+128	Organic Corn Syrup Solids	157	Syrup Monsters
+129	Organic Dextrose	160	Syrup Monsters
+130	Organic Dried Brown Rice Syrup	161	Syrup Monsters
+131	Organic Dried Cane Syrup	163	Syrup Monsters
+132	Organic Evaporated Cane Juice Syrup	167	Syrup Monsters
+133	Organic Invert Cane Syrup	174	Syrup Monsters
+134	Organic Invert Sugar Cane Syrup	176	Syrup Monsters
+135	Organic Invert Sugar Syrup	177	Syrup Monsters
+136	Organic Invert Syrup	178	Syrup Monsters
+137	Organic Maple Syrup	182	Syrup Monsters
+138	Organic Oat Syrup Solids	186	Syrup Monsters
+139	Organic Raw Dark Agave Syrup	191	Syrup Monsters
+140	Organic Rice Syrup	193	Syrup Monsters
+141	Organic Rice Syrup Solids	194	Syrup Monsters
+142	Organic Sugar Cane Syrup	197	Syrup Monsters
+143	Organic Tapioca Syrup	199	Syrup Monsters
+144	Organic Tapioca Syrup Solids	200	Syrup Monsters
+145	Pancake Syrup	203	Syrup Monsters
+146	Pineapple Syrup	209	Syrup Monsters
+147	Pure Maple Syrup	217	Syrup Monsters
+148	Refiner's Syrup	227	Syrup Monsters
+149	Refinery Syrup	228	Syrup Monsters
+150	Rice Syrup	230	Syrup Monsters
+151	Rice Syrup Solids	231	Syrup Monsters
+152	Sorghum Syrup	235	Syrup Monsters
+153	Sugar Beet Syrup	239	Syrup Monsters
+154	Sugar Cane Syrup	241	Syrup Monsters
+155	Sugar Syrup	242	Syrup Monsters
+156	Syrup	244	Syrup Monsters
+157	Tapioca Syrup	248	Syrup Monsters
+158	Tapioca Syrup Solids	249	Syrup Monsters
+159	Beet Sugar	10	Sugar Monsters
+160	Brown Cane Sugar	19	Sugar Monsters
+161	Brown Sugar	22	Sugar Monsters
+162	Cane Sugar	29	Sugar Monsters
+163	Caramelized Sugar	32	Sugar Monsters
+164	Coconut Blossom Sugar	37	Sugar Monsters
+165	Coconut Palm Sugar	40	Sugar Monsters
+166	Coconut Sugar	41	Sugar Monsters
+167	Coconut Sugar Crystals	42	Sugar Monsters
+168	Coconut Syrup	43	Sugar Monsters
+169	Dark Brown Cane Sugar	54	Sugar Monsters
+170	Dark Brown Sugar	55	Sugar Monsters
+171	Decorative Sugars	60	Sugar Monsters
+172	Dehydrated Cane Sugar	62	Sugar Monsters
+173	Demerara Sugar	63	Sugar Monsters
+174	Dried Cane Sugar	71	Sugar Monsters
+175	Evaporated Cane Sugar	82	Sugar Monsters
+176	Fair Trade Unrefined Cane Sugar	85	Sugar Monsters
+177	Grape Sugar	100	Sugar Monsters
+178	Icing Sugar	108	Sugar Monsters
+179	Invert Cane Sugar	109	Sugar Monsters
+180	Invert Sugar	111	Sugar Monsters
+181	Light Brown Cane Sugar	117	Sugar Monsters
+182	Light Brown Sugar	118	Sugar Monsters
+183	Liquid Sugar	119	Sugar Monsters
+184	Maple Sugar	127	Sugar Monsters
+185	Milled Cane Sugar	130	Sugar Monsters
+186	Organic Brown Sugar	146	Sugar Monsters
+187	Organic Cane Sugar	148	Sugar Monsters
+188	Organic Coconut Palm Sugar	154	Sugar Monsters
+189	Organic Coconut Sugar	155	Sugar Monsters
+190	Organic Date Sugar	158	Sugar Monsters
+191	Organic Dried Cane Sugar	162	Sugar Monsters
+192	Organic Fair Trade Unrefined Cane Sugar	169	Sugar Monsters
+193	Organic Invert Cane Sugar	173	Sugar Monsters
+194	Organic Invert Sugar	175	Sugar Monsters
+195	Organic Light Brown Sugar	180	Sugar Monsters
+196	Organic Milled Cane Sugar	183	Sugar Monsters
+197	Organic Panela Sugar	187	Sugar Monsters
+198	Organic Powdered Sugar	189	Sugar Monsters
+199	Organic Sugar	196	Sugar Monsters
+200	Palm Sugar	202	Sugar Monsters
+201	Powdered Cane Sugar	213	Sugar Monsters
+202	Powdered Sugar	214	Sugar Monsters
+203	Pure Cane Sugar	216	Sugar Monsters
+204	Raw Cane Sugar	223	Sugar Monsters
+205	Raw Sugar	225	Sugar Monsters
+206	Sugar	238	Sugar Monsters
+207	Sugar Cane Granulated	240	Sugar Monsters
+208	Turbinado Sugar	253	Sugar Monsters
+209	White Sugar	259	Sugar Monsters
+210	Yellow Sugar	261	Sugar Monsters
+211	Agave Nectar	1	Other Monsters
+212	Barbados Molasses	5	Other Monsters
+213	Barley Malt	6	Other Monsters
+214	Barley Malt Extract	7	Other Monsters
+215	Blackstrap Molasses	15	Other Monsters
+216	Clover Honey	36	Other Monsters
+217	Coconut Nectar	38	Other Monsters
+218	Coconut Palm Nectar	39	Other Monsters
+219	Date Crystals	56	Other Monsters
+220	Date Nectar	58	Other Monsters
+221	Diastatic Malt	68	Other Monsters
+222	Diastatic Malt Powder	69	Other Monsters
+223	Ethyl Maltol	77	Other Monsters
+224	Evaporated Coconut Palm Nectar	84	Other Monsters
+225	Fondant Sugar	86	Other Monsters
+226	Fructan	87	Other Monsters
+227	Fructose	89	Other Monsters
+228	Galactooligosaccharides	91	Other Monsters
+229	Honey	105	Other Monsters
+230	Honey Powder	106	Other Monsters
+231	Isomalto-oligosaccharide	114	Other Monsters
+232	Malt Extract	121	Other Monsters
+233	Maltol	124	Other Monsters
+234	Molasses	131	Other Monsters
+235	Molasses Granules	132	Other Monsters
+236	Molasses Powder	133	Other Monsters
+237	Muscovado	136	Other Monsters
+238	Non-gmo Honey	137	Other Monsters
+239	Organic Agave	140	Other Monsters
+240	Organic Agave Nectar	141	Other Monsters
+241	Organic Coconut Blossom Nectar	151	Other Monsters
+242	Organic Coconut Nectar	152	Other Monsters
+243	Organic Coconut Palm Nectar	153	Other Monsters
+244	Organic Evaporated Coconut Palm Nectar	168	Other Monsters
+245	Organic Honey	172	Other Monsters
+246	Organic Molasses	184	Other Monsters
+247	Organic Molasses Granules	185	Other Monsters
+248	Organic Raw Honey	192	Other Monsters
+249	Panela	204	Other Monsters
+250	Processed Honey	215	Other Monsters
+251	Pure White Honey	218	Other Monsters
+252	Raisin Nectar	220	Other Monsters
+253	Rapadura	221	Other Monsters
+254	Raw Honey	224	Other Monsters
+255	Saccharose	232	Other Monsters
+256	Sorghum	233	Other Monsters
+257	Sorghum Molasses	234	Other Monsters
+258	Sugarcane Molasses	243	Other Monsters
+259	Treacle	251	Other Monsters
+260	Unsulfured Molasses	254	Other Monsters
+261	Wildflower Honey	260	Other Monsters
