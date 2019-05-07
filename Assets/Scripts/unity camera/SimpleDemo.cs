@@ -82,7 +82,14 @@ public class SimpleDemo : MonoBehaviour
             //rect.sizeDelta = new Vector2(rect.sizeDelta.x, newHeight);
             //rect.sizeDelta = new Vector2(Screen.width, Screen.height);
         };
-
+        BarcodeScanner.StatusChanged += (sender, arg) =>
+        {
+#if UNITY_EDITOR
+            Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
+#else
+            Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Width / BarcodeScanner.Camera.Height;
+#endif
+        };
         // Track status of the scanner
         //BarcodeScanner.StatusChanged += (sender, arg) => {
         //  Debug.Log("Status: " + BarcodeScanner.Status);

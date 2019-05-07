@@ -3651,7 +3651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &545924520
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4027,7 +4027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &690513165
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4246,7 +4246,7 @@ Prefab:
     - target: {fileID: 114584207982116964, guid: 87e560b54d7c5b1409fd19c2ee231992,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87e560b54d7c5b1409fd19c2ee231992, type: 2}
@@ -6215,7 +6215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927066d69e945534d9e418957eac82fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 0
+  test: 1
   upcNumText: {fileID: 690513164}
   resetButton: {fileID: 474457265}
 --- !u!1 &1065920000
@@ -7608,6 +7608,7 @@ MonoBehaviour:
   sugarCardData: {fileID: 11400000, guid: 68800ad102c34d44cb455726c40d1176, type: 2}
   Audio: {fileID: 1325306022}
   animController: {fileID: 9100000, guid: 9ffd609620bf8034d908515ddd926fd7, type: 2}
+  treeBubble: {fileID: 2104623425}
   dbtxt: {fileID: 4900000, guid: 41becad460651964b861fc8346bb1a8f, type: 3}
   scanFrame: {fileID: 1585758326}
   summonSystem: {fileID: 1464098044}
@@ -8058,6 +8059,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7b80ef3f5684e219a6bd71d89c7aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mask: {fileID: 48288085}
+  tree: {fileID: 2104623425}
+  canvas: {fileID: 1325306016}
 --- !u!114 &1405739489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12756,6 +12760,11 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2101657294}
   m_CullTransparentMesh: 0
+--- !u!1 &2104623425 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1701523630653876, guid: 6f8b0589775c7f04182bc947e20a7efc,
+    type: 2}
+  m_PrefabInternal: {fileID: 2023848273}
 --- !u!1 &2138317911
 GameObject:
   m_ObjectHideFlags: 0
