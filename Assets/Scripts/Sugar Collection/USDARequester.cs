@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 public class USDARequester : IRequester
 {
+    //gets infor from the usda database
     public USDARequester(List<string[]> list,int targetpos)
     {
         this.List = list;

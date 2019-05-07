@@ -8104,6 +8104,7 @@ MonoBehaviour:
   fms: []
   scannedAddedSugars: []
   allScanned: []
+  test: {fileID: 1488836601}
 --- !u!82 &1325306022
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8241,7 +8242,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00008943328}
+  m_AnchoredPosition: {x: 0, y: 0.000048064707}
   m_SizeDelta: {x: -883.00006, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1337665287
@@ -9738,7 +9739,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.4500122, y: -0.5550499}
+  m_AnchoredPosition: {x: -2.4500122, y: -0.5550537}
   m_SizeDelta: {x: -45.11, y: -41.01}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1470781739
@@ -9969,8 +9970,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -200}
-  m_SizeDelta: {x: 0, y: 125}
+  m_AnchoredPosition: {x: 0, y: -192.58}
+  m_SizeDelta: {x: 0, y: 139.85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1488836603
 MonoBehaviour:

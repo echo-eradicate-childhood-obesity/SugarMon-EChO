@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 
 
@@ -32,5 +33,7 @@ public class FamilyContentController : MonoBehaviour {
         float titleHeight = tle.GetComponent<RectTransform>().rect.height;
         Vector2 newPosition = new Vector2(familyContentObject.GetComponent<RectTransform>().localPosition.x, Math.Abs(tle.GetComponent<RectTransform>().localPosition.y) - titleHeight);
         familyContentObject.GetComponent<RectTransform>().localPosition = newPosition;
+
     }
+ 
 }

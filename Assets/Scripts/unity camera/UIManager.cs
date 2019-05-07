@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour {
 
     private void Start()
     {
-       InitCateBtn();
+     //  InitCateBtn();
         simpleDemo = GameObject.Find("Main Camera").GetComponent<SimpleDemo>();
     }
 
@@ -101,6 +101,7 @@ public class UIManager : MonoBehaviour {
     }
 
     //have info passed here, active the target gameobject in with in the info parent  
+    
     public void IndicateController(Info info,string targetName)
     {
         foreach (GameObject go in familyUIList)
@@ -108,12 +109,34 @@ public class UIManager : MonoBehaviour {
             //"Monster" is the magic number here, change if later
             if ((go.name + " Monsters") == info.FamilyName)
             {
+                // testing it out here    
+                  
+                //end              
                 var targetGO = go.transform.Find(targetName).gameObject;
                 if (!targetGO.activeInHierarchy)
                 {
                     targetGO.SetActive(true);
                 }
                 else return;
+            }
+        }
+    }
+    public void IndicateController(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
+    {
+        foreach (TMP_Dropdown.OptionData go in list)
+        {
+            //"Monster" is the magic number here, change if later
+            if ((go.text + " Monsters") == info.FamilyName)
+            {
+                // testing it out here    
+                go.text += "(New)";
+                //end              
+              /*  var targetGO = go.transform.Find(targetName).gameObject;
+                if (!targetGO.activeInHierarchy)
+                {
+                    targetGO.SetActive(true);
+                }
+                else return;*/
             }
         }
     }

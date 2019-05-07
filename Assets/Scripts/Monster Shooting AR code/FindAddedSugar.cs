@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using UnityEngine.UI;
 using System.Text;
 using System.Threading.Tasks;
-
+using TMPro;
 
 public class FindAddedSugar : MonoBehaviour
 {
@@ -55,6 +55,7 @@ public class FindAddedSugar : MonoBehaviour
     private GameObject monster;
 
     private int ts;
+    public GameObject test;
 
     // Use this for initialization
     void Awake()
@@ -238,6 +239,8 @@ public class FindAddedSugar : MonoBehaviour
                             {
                                 Info info = new Info(sl[familyIndex]);
                                 um.IndicateController(info,"Notification");
+                                var testtmp = test.GetComponent<TMP_Dropdown>().options;
+                                um.IndicateController(info, "Notification", testtmp);
                             }
                         }
                         
