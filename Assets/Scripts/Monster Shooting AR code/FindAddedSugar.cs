@@ -248,12 +248,8 @@ public class FindAddedSugar : MonoBehaviour
                             {
                                 Info info = new Info(sl[familyIndex]);
                                 um.IndicateController(info,"Notification");
-                                var tt = test.GetComponent<TMP_Dropdown>().options;
-                                um.IndicateController(info, "Notification",tt);
                             }
                         }
-                        
-
                         numCount++;
                         //playerprefAs.set array
                         PlayerPrefs.SetString("num_" + numCount, r.ToLower());

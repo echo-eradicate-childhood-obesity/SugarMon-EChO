@@ -30,6 +30,9 @@ public class GreenCartController : MonoBehaviour
 
     [SerializeField]
     string key;
+
+    [SerializeField]
+    string gkey;
     //where the request file/properity is here
     public IRequester requester;
     public IRequester grequester;
@@ -109,7 +112,7 @@ public class GreenCartController : MonoBehaviour
                 strList.Add(contentArr);
             }
             requester = new USDARequester(strList, 1,key);
-            grequester = new GoogleRequester();
+            grequester = new GoogleRequester(gkey);
         });
         //await SendRequest("123");
     }
@@ -125,7 +128,7 @@ public class GreenCartController : MonoBehaviour
             strList.Add(contentArr);
         }
         requester = new USDARequester(strList, 1,key);
-        grequester = new GoogleRequester();
+        grequester = new GoogleRequester(gkey);
         yield return null;
     }
 

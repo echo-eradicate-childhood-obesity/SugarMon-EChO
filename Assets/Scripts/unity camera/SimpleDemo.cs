@@ -30,6 +30,7 @@ public class SimpleDemo : MonoBehaviour
 
     private List<string> excludedCodeType = new List<string>() { "QR_CODE", "DATA_MATRIX", "AZTEC", "PDF_417" };
 
+    float val;
     // Disable Screen Rotation on that screen
     void Awake()
     {
@@ -75,16 +76,18 @@ public class SimpleDemo : MonoBehaviour
             Image.transform.localEulerAngles = BarcodeScanner.Camera.GetEulerAngles();
             Image.transform.localScale = BarcodeScanner.Camera.GetScale();
             Image.texture = BarcodeScanner.Camera.Texture;
-            Debug.Log(BarcodeScanner.Camera.Width/ BarcodeScanner.Camera.Height);
-            
-            Image.GetComponent<AspectRatioFitter>().aspectRatio =(float)BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
+            //val = (float)BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
+
             //Keep Image Aspect Ratio
             //var rect = Image.GetComponent<RectTransform>();
             //var newHeight = rect.sizeDelta.x * BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
             //rect.sizeDelta = new Vector2(rect.sizeDelta.x, newHeight);
             //rect.sizeDelta = new Vector2(Screen.width, Screen.height);
         };
-
+        BarcodeScanner.StatusChanged += (sender, arg) =>
+        {
+            Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Width / BarcodeScanner.Camera.Height; ;
+        };
         // Track status of the scanner
         //BarcodeScanner.StatusChanged += (sender, arg) => {
         //  Debug.Log("Status: " + BarcodeScanner.Status);
@@ -95,6 +98,8 @@ public class SimpleDemo : MonoBehaviour
 #if UNITY_ANDROID
             isAndroid = true;
 #endif
+        
+        
     }
 
 
@@ -107,7 +112,6 @@ public class SimpleDemo : MonoBehaviour
     }
     void Update()
     {
-
         if (BarcodeScanner == null)
         {
             return;

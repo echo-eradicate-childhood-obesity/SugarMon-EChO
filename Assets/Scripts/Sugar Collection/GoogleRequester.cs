@@ -7,18 +7,21 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 public class GoogleRequester : IRequester
 {
+    public GoogleRequester(string key)
+    {
+        this.Key = key;
+    }
     public List<string[]> List { get; set; }
 
     public int TargetPos { get; set; }
     public string Key { get; set; }
-
     LocationService ls = new LocationService();
     public async Task<string> SendRequest(string info)
     {
         return await Task.Run(async () =>
         {
             
-            string url = $@"https://maps.googleapis.com/maps/api/geocode/json?{info}&result_type=street_address&key=AIzaSyCuOulVvtJ6ftHzdX8JIO_kaVE6CvejXKY";
+            string url = $@"https://maps.googleapis.com/maps/api/geocode/json?{info}&result_type=street_address&key={Key}";
             using (HttpClient client=new HttpClient())
             {
                 try
