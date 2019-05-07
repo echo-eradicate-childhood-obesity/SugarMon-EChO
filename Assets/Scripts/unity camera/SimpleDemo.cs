@@ -76,8 +76,6 @@ public class SimpleDemo : MonoBehaviour
             Image.transform.localEulerAngles = BarcodeScanner.Camera.GetEulerAngles();
             Image.transform.localScale = BarcodeScanner.Camera.GetScale();
             Image.texture = BarcodeScanner.Camera.Texture;
-            //val = (float)BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
-
             //Keep Image Aspect Ratio
             //var rect = Image.GetComponent<RectTransform>();
             //var newHeight = rect.sizeDelta.x * BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
@@ -86,7 +84,11 @@ public class SimpleDemo : MonoBehaviour
         };
         BarcodeScanner.StatusChanged += (sender, arg) =>
         {
-            Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Width / BarcodeScanner.Camera.Height; ;
+#if UNITY_EDITOR
+            Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
+#else
+            Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Width / BarcodeScanner.Camera.Height;
+#endif
         };
         // Track status of the scanner
         //BarcodeScanner.StatusChanged += (sender, arg) => {
@@ -140,7 +142,7 @@ public class SimpleDemo : MonoBehaviour
         BarcodeScanner.Scan((barCodeType, barCodeValue) => {
             BarcodeScanner.Stop();
             
-            //if (this.GetComponent<TestController>().test) GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
+            if (this.GetComponent<TestController>().test) GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
             
             if (excludedCodeType.Any(barCodeType.Contains))
             {
@@ -150,7 +152,7 @@ public class SimpleDemo : MonoBehaviour
             {
                 var i = SearchController.BinarySearch(dbProductList, long.Parse(barCodeValue), dbProductList.Count - 1, 0);
 
-                //bool test = GameObject.Find("Main Camera").GetComponent<TestController>().test;
+                bool test = GameObject.Find("Main Camera").GetComponent<TestController>().test;
 
                 //test
                 if (i != -1)
