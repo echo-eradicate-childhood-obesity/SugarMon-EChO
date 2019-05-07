@@ -131,7 +131,8 @@ public class SugarDisk : MonoBehaviour {
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex]);
                         bool newDesign = newMonsterFamilyDesign.Contains(s[canvas.GetComponent<FindAddedSugar>().familyIndex]);
                         string monsterImagePath = newDesign ? "Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex] + "/" + sc.name : "Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex];
-                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>(monsterImagePath);
+                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + sc.name);
+                        //sci.GetComponent<Image>().sprite = Resources.Load<Sprite>(monsterImagePath);
                         //sci.gameObject.AddComponent<Button>().onClick.AddListener(() => summonSystem.GetComponent<SummonSystem>().PopupSugarInfoCardInSugarDex(sc.name, s[canvas.GetComponent<FindAddedSugar>().familyIndex]));
                         //sc.transform.Find("Image").GetComponent<Button>().enabled = true;
                     }

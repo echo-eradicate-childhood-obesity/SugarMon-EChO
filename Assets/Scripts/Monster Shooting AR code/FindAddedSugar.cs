@@ -21,12 +21,13 @@ public class FindAddedSugar : MonoBehaviour
     public NumbersOfEachSugar sugarCardData;
     public AudioSource Audio;
     public RuntimeAnimatorController animController;
+    private SimpleDemo simpleDemo;
 
     private int currentNumMonster = 0;
 
     protected List<string> upcs;
     protected List<string> ingredients;
-    public TextAsset dbtxt;
+    public TextAsset sugarRepository;
 
     public GameObject scanFrame;
     public GameObject summonSystem;
@@ -83,8 +84,8 @@ public class FindAddedSugar : MonoBehaviour
         ingredients = new List<string>();
 
         //Read Database 
-        //TextAsset dbtxt = (TextAsset)Resources.Load("Database", typeof(TextAsset));
-        string dbContent = Encoding.UTF7.GetString(dbtxt.bytes);
+        //TextAsset sugarRepository = (TextAsset)Resources.Load("Database", typeof(TextAsset));
+        string dbContent = Encoding.UTF7.GetString(sugarRepository.bytes);
         db = dbContent.Split(new char[] { '\n' }).ToList();
         //Save data in a list of lists
         for (int i = 0; i < db.Count; i++)
@@ -170,7 +171,8 @@ public class FindAddedSugar : MonoBehaviour
                         sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
                         sci.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
 
-                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[familyIndex] + "/" + sc.name);
+                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + sc.name);
+                        //sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[familyIndex] + "/" + sc.name);
                         //sci.gameObject.AddComponent<Button>().onClick.AddListener(() => summonSystem.GetComponent<SummonSystem>().PopupSugarInfoCardInSugarDex(sc.name, s[familyIndex]));
                     }
                 }
@@ -354,9 +356,8 @@ public class FindAddedSugar : MonoBehaviour
                     tutorialMask.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
                     tutorialMask.GetComponent<RectTransform>().anchorMax = new Vector2(1, 0);
                     tutorialMask.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0);
-                    tutorialMask.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0);
-                    tutorialMask.GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
-                    tutorialMask.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 1950);
+                    tutorialMask.GetComponent<RectTransform>().anchoredPosition = new Vector2(2, -15);
+                    tutorialMask.GetComponent<RectTransform>().sizeDelta = new Vector2(40, 2000);
 
                     ts++;
                     PlayerPrefs.SetInt("TutorialStage", ts);
@@ -364,9 +365,13 @@ public class FindAddedSugar : MonoBehaviour
             }
             GameObject.Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster - 1]));
             scanFrame.SetActive(true);
-            sugarDex.GetComponent<Button>().enabled = true;
-            mainCam.GetComponent<SimpleDemo>().enabled = true;
-            mainCam.GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 3 seconds for next scan
+            
+            if (GameObject.Find("Magic Tree") == null)
+            {
+                sugarDex.GetComponent<Button>().enabled = true;
+                mainCam.GetComponent<SimpleDemo>().enabled = true;
+                mainCam.GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 3 seconds for next scan
+            }
         }
         else
         {

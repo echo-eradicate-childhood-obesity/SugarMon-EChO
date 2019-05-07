@@ -8,17 +8,15 @@ public class TestController : MonoBehaviour {
 
     public bool test;
     public GameObject upcNumText, resetButton;
+
     // Use this for initialization
     void Awake () {
-        if (test)
-        {
-            upcNumText.SetActive(true);
-            resetButton.SetActive(true);
-        }
-        else
-        {
-            upcNumText.SetActive(false);
-            resetButton.SetActive(false);
-        }
+        ToggleTestObject(test);
 	}
+
+    private void ToggleTestObject(bool b)
+    {
+        upcNumText.SetActive(b);
+        resetButton.SetActive(b);
+    }
 }
