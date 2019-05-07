@@ -4,5 +4,8 @@ public interface IRequester
 {
     List<string[]> List { get; set; }
     int TargetPos { get; set; }
-    Task<int> LookNDBAsync(string upc);
+    string Key { get; set; }
+    //Task<int> LookNDBAsync(string upc);
+
+    Task<string> SendRequest(string info);
 }

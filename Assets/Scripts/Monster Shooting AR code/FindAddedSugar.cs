@@ -6,8 +6,9 @@ using System.Text.RegularExpressions;
 using UnityEngine.UI;
 using System.Text;
 using System.Threading.Tasks;
-
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using TMPro;
 public class FindAddedSugar : MonoBehaviour
 {
     //ref of singleton 
@@ -58,6 +59,11 @@ public class FindAddedSugar : MonoBehaviour
 
     private int ts;
 
+
+    [SerializeField]
+    GameObject ttest;
+
+    public GameObject test;
     // Use this for initialization
     void Awake()
     {
@@ -68,6 +74,7 @@ public class FindAddedSugar : MonoBehaviour
     }
     void Start()
     {
+        
         greenCartGo.gameObject.SetActive(false);
 
         //get singleton ref
@@ -241,6 +248,8 @@ public class FindAddedSugar : MonoBehaviour
                             {
                                 Info info = new Info(sl[familyIndex]);
                                 um.IndicateController(info,"Notification");
+                                var tt = test.GetComponent<TMP_Dropdown>().options;
+                                um.IndicateController(info, "Notification",tt);
                             }
                         }
                         
@@ -255,9 +264,11 @@ public class FindAddedSugar : MonoBehaviour
             }
             if (scannedAddedSugars.Count == 0)
             {
+                
                 //add green cart code here
                 //GreenCartController.Instance.PCAdd(bcv);
                 //GreenCartController.Instance.PC.PCSave();
+                
                 RequesetAsync(bcv);
                 //Change image of monster
                 scannedAddedSugars.Add("No Added Sugar");
@@ -275,9 +286,20 @@ public class FindAddedSugar : MonoBehaviour
         }
     }
 
-    private static async Task RequesetAsync(string bcv)
+    private /*static*/ async Task RequesetAsync(string bcv)
     {
-        string name = await GreenCartController.Instance.SendRequest(bcv);
+        Input.location.Start();
+        Debug.Log(Input.location.isEnabledByUser.ToString());
+        string name = await GreenCartController.Instance.requester.SendRequest(bcv);
+        Input.location.Stop();
+        var pos = Input.location.lastData;
+        //ttest.GetComponent<Text>().text = pos.latitude.ToString() + pos.longitude.ToString();
+        //var info= $@"location={pos.latitude.ToString()},{pos.longitude.ToString()}";
+        //var info = $@"latlng=42.3736785,-71.1112052";
+        var info = $@"latlng={pos.latitude.ToString()},{pos.longitude.ToString()}";
+        //Debug.Log(await GreenCartController.Instance.grequester.SendRequest(info));
+        
+        ttest.GetComponent<Text>().text=await GreenCartController.Instance.grequester.SendRequest(info);
         GreenCartController.Instance.PCAdd(name);
         GreenCartController.Instance.PC.PCSave();
     }

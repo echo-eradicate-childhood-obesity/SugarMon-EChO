@@ -31,7 +31,8 @@ public class GreenCartController : MonoBehaviour
     [SerializeField]
     string key;
     //where the request file/properity is here
-    IRequester requester;
+    public IRequester requester;
+    public IRequester grequester;
     [SerializeField]
     TextAsset text;
     [SerializeField]
@@ -107,8 +108,8 @@ public class GreenCartController : MonoBehaviour
                 var contentArr = line.Split(delimiter);
                 strList.Add(contentArr);
             }
-            requester = new USDARequester(strList, 1);
-
+            requester = new USDARequester(strList, 1,key);
+            grequester = new GoogleRequester();
         });
         //await SendRequest("123");
     }
@@ -123,88 +124,90 @@ public class GreenCartController : MonoBehaviour
             var contentArr = line.Split(delimiter);
             strList.Add(contentArr);
         }
-        requester = new USDARequester(strList, 1);
-
+        requester = new USDARequester(strList, 1,key);
+        grequester = new GoogleRequester();
         yield return null;
     }
-    public async Task<string> SendRequest(string upc)
-    {
-        var ndbno = await requester.LookNDBAsync(upc);
-        if (ndbno != -1)
-        {
-            string url = $@"https://api.nal.usda.gov/ndb/V2/reports?ndbno={ndbno}&format=json&api_key={key}&location=Denver+CO";
-            #region foldthis
-            //using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
-            //{
-            //    try
-            //    {
-            //        string str = await client.GetStringAsync(url);
-            //        //Console.WriteLine("reqeust got");
-            //        JObject jjson = await DeserializerObjectAsync<JObject>(str);
-            //        //JObject jjson = JsonConvert.DeserializeObject<JObject>(str);
-            //        //structure of usda resopnd json
-            //        /*
-            //         * SelectToken will get the object we want. If it show as list then use First or other keyword accordingly
-            //         * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
-            //         * food is the object we are looking for. SelectToken("food")
-            //         * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
-            //         * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
-            //         * 
-            //         */
-            //        string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
-            //        return newStr;
-            //    }
-            //    catch (HttpRequestException e)
-            //    {
 
-            //        Console.WriteLine(e.Message);
-            //        return "no ndb";
-            //    }
+    //move this to requester
+    //public async Task<string> SendRequest(string upc)
+    //{
+    //    var ndbno = await requester.LookNDBAsync(upc);
+    //    if (ndbno != -1)
+    //    {
+    //        string url = $@"https://api.nal.usda.gov/ndb/V2/reports?ndbno={ndbno}&format=json&api_key={key}&location=Denver+CO";
+    //        #region foldthis
+    //        //using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
+    //        //{
+    //        //    try
+    //        //    {
+    //        //        string str = await client.GetStringAsync(url);
+    //        //        //Console.WriteLine("reqeust got");
+    //        //        JObject jjson = await DeserializerObjectAsync<JObject>(str);
+    //        //        //JObject jjson = JsonConvert.DeserializeObject<JObject>(str);
+    //        //        //structure of usda resopnd json
+    //        //        /*
+    //        //         * SelectToken will get the object we want. If it show as list then use First or other keyword accordingly
+    //        //         * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
+    //        //         * food is the object we are looking for. SelectToken("food")
+    //        //         * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
+    //        //         * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
+    //        //         * 
+    //        //         */
+    //        //        string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
+    //        //        return newStr;
+    //        //    }
+    //        //    catch (HttpRequestException e)
+    //        //    {
 
-            //} 
-            #endregion
-            return await Task.Run(async () =>
-            {
-                using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
-                {
-                    try
-                    {
-                        string str = await client.GetStringAsync(url);
-                        JObject jjson = await DeserializerObjectAsync<JObject>(str);
-                        //structure of usda resopnd json
-                        /*
-                         * SelectToken will get the object we want. If it show as list then use First or other keyword accordingly
-                         * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
-                         * food is the object we are looking for. SelectToken("food")
-                         * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
-                         * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
-                         */
-                        string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
-                        string output="";
-                        var strs = newStr.Split(' ');
-                        foreach (string s in strs)
-                        {
-                            var val = char.ToUpper(s[0])+s.Substring(1).ToLower();
-                            output += string.Format("{0} ", val);
-                        }
-                        return output;
-                    }
-                    catch (HttpRequestException e)
-                    {
-                        Console.WriteLine(e.Message);
-                        return "no ndb";
-                    }
+    //        //        Console.WriteLine(e.Message);
+    //        //        return "no ndb";
+    //        //    }
 
-                }
-            });
-            //return await Client(url);
-        }
-        else
-        {
-            Console.WriteLine("upc incorrect");
-            return "no ndb";
-        }
-    }
+    //        //} 
+    //        #endregion
+    //        return await Task.Run(async () =>
+    //        {
+    //            using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
+    //            {
+    //                try
+    //                {
+    //                    string str = await client.GetStringAsync(url);
+    //                    JObject jjson = await DeserializerObjectAsync<JObject>(str);
+    //                    //structure of usda resopnd json
+    //                    /*
+    //                     * SelectToken will get the object we want. If it show as list then use First or other keyword accordingly
+    //                     * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
+    //                     * food is the object we are looking for. SelectToken("food")
+    //                     * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
+    //                     * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
+    //                     */
+    //                    string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
+    //                    string output="";
+    //                    var strs = newStr.Split(' ');
+    //                    foreach (string s in strs)
+    //                    {
+    //                        var val = char.ToUpper(s[0])+s.Substring(1).ToLower();
+    //                        output += string.Format("{0} ", val);
+    //                    }
+    //                    return output;
+    //                }
+    //                catch (HttpRequestException e)
+    //                {
+    //                    Console.WriteLine(e.Message);
+    //                    return "no ndb";
+    //                }
+
+    //            }
+    //        });
+    //        //return await Client(url);
+    //    }
+    //    else
+    //    {
+    //        Console.WriteLine("upc incorrect");
+    //        return "no ndb";
+    //    }
+    //}
 
     //private async Task<string> Client(string url)
     //{
@@ -235,17 +238,17 @@ public class GreenCartController : MonoBehaviour
     //    }
     //}
 
-    private async Task<JObject> DeserializerObjectAsync<JObject>(string str)
-    {
-        Task<JObject> t = Task.Run(() =>
-        {
-            JObject output;
-            output = JsonConvert.DeserializeObject<JObject>(str);
-            return output;
-        });
-        return await t;
+    //private async Task<JObject> DeserializerObjectAsync<JObject>(string str)
+    //{
+    //    Task<JObject> t = Task.Run(() =>
+    //    {
+    //        JObject output;
+    //        output = JsonConvert.DeserializeObject<JObject>(str);
+    //        return output;
+    //    });
+    //    return await t;
 
-    }
+    //}
     public void Update()
     {
         //drag test

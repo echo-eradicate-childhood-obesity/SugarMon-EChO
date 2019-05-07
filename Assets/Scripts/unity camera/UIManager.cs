@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour {
 
     private void Start()
     {
-       //InitCateBtn();
+       InitCateBtn();
        simpleDemo = GameObject.Find("Main Camera").GetComponent<SimpleDemo>();
     }
 
@@ -118,6 +118,17 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    public void IndicateController(Info info, string targetName,List<TMP_Dropdown.OptionData> list)
+    {
+        foreach (TMP_Dropdown.OptionData go in list)
+        {
+            //"Monster" is the magic number here, change if later
+            if ((go.text + " Monsters") == info.FamilyName)
+            {
+                go.text += "(New)";
+            }
+        }
+    }
     //temp func
     public void DisAllUp(string targetName)
     {

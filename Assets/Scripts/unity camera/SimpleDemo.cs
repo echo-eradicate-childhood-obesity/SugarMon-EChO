@@ -75,7 +75,9 @@ public class SimpleDemo : MonoBehaviour
             Image.transform.localEulerAngles = BarcodeScanner.Camera.GetEulerAngles();
             Image.transform.localScale = BarcodeScanner.Camera.GetScale();
             Image.texture = BarcodeScanner.Camera.Texture;
-
+            Debug.Log(BarcodeScanner.Camera.Width/ BarcodeScanner.Camera.Height);
+            
+            Image.GetComponent<AspectRatioFitter>().aspectRatio =(float)BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
             //Keep Image Aspect Ratio
             //var rect = Image.GetComponent<RectTransform>();
             //var newHeight = rect.sizeDelta.x * BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
@@ -105,6 +107,7 @@ public class SimpleDemo : MonoBehaviour
     }
     void Update()
     {
+
         if (BarcodeScanner == null)
         {
             return;
@@ -133,7 +136,7 @@ public class SimpleDemo : MonoBehaviour
         BarcodeScanner.Scan((barCodeType, barCodeValue) => {
             BarcodeScanner.Stop();
             
-            if (this.GetComponent<TestController>().test) GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
+            //if (this.GetComponent<TestController>().test) GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
             
             if (excludedCodeType.Any(barCodeType.Contains))
             {
@@ -143,14 +146,14 @@ public class SimpleDemo : MonoBehaviour
             {
                 var i = SearchController.BinarySearch(dbProductList, long.Parse(barCodeValue), dbProductList.Count - 1, 0);
 
-                bool test = GameObject.Find("Main Camera").GetComponent<TestController>().test;
+                //bool test = GameObject.Find("Main Camera").GetComponent<TestController>().test;
 
                 //test
                 if (i != -1)
                 {
                     inDB = true;
 
-                    if (test == true && barCodeValue == "044000030414") superBarCode = true;
+                    //if (test == true && barCodeValue == "044000030414") superBarCode = true;
                     GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(dbProductList[i].ToLower(), barCodeValue);
                 }
                 if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found", barCodeValue);
