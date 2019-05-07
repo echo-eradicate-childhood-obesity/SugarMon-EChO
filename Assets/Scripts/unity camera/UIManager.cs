@@ -125,18 +125,20 @@ public class UIManager : MonoBehaviour {
     {
         foreach (TMP_Dropdown.OptionData go in list)
         {
+            var newvalue = 0;
             //"Monster" is the magic number here, change if later
-            if ((go.text + " Monsters") == info.FamilyName)
+            if ((go.text.Substring(0,2)) == info.FamilyName.Substring(0,2))
             {
-                // testing it out here    
-                go.text += "(New)";
+                // testing it out here 
+                newvalue++;
+                go.text += " (" + newvalue + "New)";
                 //end              
-              /*  var targetGO = go.transform.Find(targetName).gameObject;
-                if (!targetGO.activeInHierarchy)
-                {
-                    targetGO.SetActive(true);
-                }
-                else return;*/
+                /*  var targetGO = go.transform.Find(targetName).gameObject;
+                  if (!targetGO.activeInHierarchy)
+                  {
+                      targetGO.SetActive(true);
+                  }
+                  else return;*/
             }
         }
     }
