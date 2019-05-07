@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//code for the name and type of items in greendex
 public enum Category
 {
     uncate,
