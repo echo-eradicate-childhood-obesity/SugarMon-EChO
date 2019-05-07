@@ -84,9 +84,13 @@ public class SimpleDemo : MonoBehaviour
         };
 
         // Track status of the scanner
-        //BarcodeScanner.StatusChanged += (sender, arg) => {
-        //  Debug.Log("Status: " + BarcodeScanner.Status);
-        //};
+        BarcodeScanner.StatusChanged += (sender, arg) =>
+        {
+            float w = BarcodeScanner.Camera.Width;
+            float h = BarcodeScanner.Camera.Height;
+            AspectRatioFitter a = Image.GetComponent<AspectRatioFitter>();
+            a.aspectRatio = w / h;
+        };
 
         isAndroid = false;
         //When on Android platform
