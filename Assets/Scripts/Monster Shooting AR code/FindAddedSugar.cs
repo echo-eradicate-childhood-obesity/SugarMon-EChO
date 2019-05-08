@@ -32,6 +32,7 @@ public class FindAddedSugar : MonoBehaviour
     public GameObject scanFrame;
     public GameObject summonSystem;
     public GameObject greenCartGo;
+    public GameObject greenCartBtn;
 
     private int numCount;
     public GameObject sugarDex, redDot, canvas, familyBackground, mainCam;
@@ -198,6 +199,7 @@ public class FindAddedSugar : MonoBehaviour
     {
 
         sugarDex.GetComponent<Button>().enabled = false;
+        greenCartBtn.GetComponent<Button>().enabled = false;
         mainCam.GetComponent<SimpleDemo>().enabled = false;
 
         //Barcode not in database
@@ -369,6 +371,7 @@ public class FindAddedSugar : MonoBehaviour
             if (GameObject.Find("Magic Tree") == null && !greenCartGo.activeSelf)
             {
                 sugarDex.GetComponent<Button>().enabled = true;
+                greenCartBtn.GetComponent<Button>().enabled = true;
                 mainCam.GetComponent<SimpleDemo>().enabled = true;
                 mainCam.GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 3 seconds for next scan
             }

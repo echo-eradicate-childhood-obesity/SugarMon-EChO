@@ -6215,7 +6215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927066d69e945534d9e418957eac82fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 1
+  test: 0
   upcNumText: {fileID: 690513164}
   resetButton: {fileID: 474457265}
 --- !u!1 &1065920000
@@ -7612,6 +7612,7 @@ MonoBehaviour:
   scanFrame: {fileID: 1585758326}
   summonSystem: {fileID: 1464098044}
   greenCartGo: {fileID: 545924519}
+  greenCartBtn: {fileID: 1769160887}
   sugarDex: {fileID: 156339748}
   redDot: {fileID: 1168159290}
   canvas: {fileID: 1325306016}
@@ -10926,6 +10927,11 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1766069291}
   m_CullTransparentMesh: 0
+--- !u!1 &1769160887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1842382986767494, guid: 87e560b54d7c5b1409fd19c2ee231992,
+    type: 2}
+  m_PrefabInternal: {fileID: 699834887}
 --- !u!1 &1775962954
 GameObject:
   m_ObjectHideFlags: 0

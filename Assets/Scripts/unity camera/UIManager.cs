@@ -133,10 +133,8 @@ public class UIManager : MonoBehaviour {
     }
 
     public void DisableUI(GameObject go)
-    {
-        
+    {     
         go.SetActive(!go.activeSelf);
-
         if (go.activeSelf)
         {
             simpleDemo.enabled = false;
