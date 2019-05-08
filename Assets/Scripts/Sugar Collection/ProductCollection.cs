@@ -12,13 +12,13 @@ public class ProductCollection
     public Dictionary<Category, List<ProductInfo>> greenDic=new Dictionary<Category, List<ProductInfo>>();
     private List<ProductInfo> curDic = new List<ProductInfo>();
     public List<ProductInfo> CurDic { get { return curDic; } set { curDic = value; } }
-    public void AddProduct(string name)
+    public void AddProduct(string name,string pos)
     {
         if (products == null)
         {
             products = new List<ProductInfo>();
         }
-        var prod = new ProductInfo(name);
+        var prod = new ProductInfo(name,pos);
         products.Add(prod);
     }
 
@@ -62,7 +62,8 @@ public class ProductCollection
         {
             foreach (ProductInfo pi in products)
             {
-                writer.WriteLine(pi.Name +";"+ pi.Type);
+                //writer.WriteLine(pi.Name +";"+ pi.Type);
+                writer.WriteLine($@"{pi.Name};{pi.Location};{pi.Type}");
             }
         }
         Debug.Log("save done");
@@ -101,7 +102,7 @@ public class ProductCollection
             while ((line = reader.ReadLine()) != null)
             {
                 var arr = line.Split(';');
-                var prod = new ProductInfo(arr[0], Converter.StringEnumConverter<Category, string>(arr[1]));
+                var prod = new ProductInfo(arr[0], arr[1],Converter.StringEnumConverter<Category, string>(arr[2]));
                 products.Add(prod);
             }
         }
@@ -136,8 +137,9 @@ public class ProductCollection
             return products[i];
         }
         string str = "No More Product";
+        string pos = "Unknow Location";
         Func<ProductInfo> returnNoProd = () => {
-            var pi = new ProductInfo(str);
+            var pi = new ProductInfo(str,pos);
             return pi;
         };
         return returnNoProd();

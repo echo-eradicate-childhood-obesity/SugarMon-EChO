@@ -96,7 +96,7 @@ public class USDARequester : IRequester
                     catch (HttpRequestException e)
                     {
                         Debug.Log(e.Message);
-                        return "no ndb";
+                        return upc;
                     }
 
                 }
@@ -106,7 +106,7 @@ public class USDARequester : IRequester
         else
         {
             Debug.Log("upc incorrect");
-            return "no ndb";
+            return upc;
         }
     }
     private async Task<JObject> DeserializerObjectAsync<JObject>(string str)

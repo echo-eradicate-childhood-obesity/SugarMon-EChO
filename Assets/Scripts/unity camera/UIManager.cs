@@ -138,5 +138,6 @@ public class UIManager : MonoBehaviour {
     {
         simpleDemo.enabled = !simpleDemo.enabled;
         go.SetActive(!go.activeSelf);
+        Debug.Log("clicked");
     }
 }

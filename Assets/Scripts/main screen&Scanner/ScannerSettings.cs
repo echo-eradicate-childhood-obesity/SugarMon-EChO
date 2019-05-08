@@ -33,24 +33,27 @@ namespace BarcodeScanner
 			ParserTryHarder = false;
 			
 			WebcamDefaultDeviceName = (WebCamTexture.devices.Length > 0) ? WebCamTexture.devices.First().name : "";
-            //WebcamRequestedWidth = 512;
-            //WebcamRequestedHeight = 512;
-            WebcamRequestedWidth = 768;
-            WebcamRequestedHeight = 768;
-            WebcamFilterMode = FilterMode.Bilinear;
+#if UNITY_EDITOR
+            WebcamRequestedWidth = 512;
+            WebcamRequestedHeight = 512;
+            WebcamFilterMode = FilterMode.Point;
+#else
+            //WebcamRequestedWidth = 1000;
+            //WebcamRequestedHeight = 1000;
+            WebcamFilterMode = FilterMode.Point;
+#endif
+            // Device dependent settings
 
-			// Device dependent settings
-
-			// Disable background thread for webgl : Thread not supported
-			#if UNITY_WEBGL
+            // Disable background thread for webgl : Thread not supported
+#if UNITY_WEBGL
 			ScannerDecodeInterval = 0.5f;
 			ScannerBackgroundThread = false;
-			#endif
+#endif
 
-			// Enable only for desktop usage : heavy CPU consumption
-			#if UNITY_STANDALONE || UNITY_EDITOR
-			ParserTryHarder = true;
-			#endif
+            // Enable only for desktop usage : heavy CPU consumption
+#if UNITY_STANDALONE || UNITY_EDITOR
+            ParserTryHarder = true;
+#endif
 		}
 	}
 }

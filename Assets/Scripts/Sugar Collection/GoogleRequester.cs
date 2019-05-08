@@ -33,7 +33,7 @@ public class GoogleRequester : IRequester
                 }
                 catch { }
             }
-                return "not here";
+                return "Fail To Get Location Information";
         });
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,20 +24,29 @@ public class ProductInfo
 {
     string name;
     public string Name { get => name; set => name = value; }
+    string location;
+    public string Location { get => location; set => name = value; }
     //string upc;
     Category type;
     public Category Type { get => type; set => type = value; }
     public bool IsSelected { get; set; }
-    public ProductInfo(string name, Category type = Category.uncate)
+    public ProductInfo(string name,string location, Category type = Category.uncate)
     {
         this.name = name;
+        this.location = location;
         this.type = type;
         this.IsSelected = false;
     }
 
     internal string PrintInfo()
     {
-        return $"{Name}  cate: {Type}";
+        //return $"{Name}  cate: {Type}";
+        return $"{Name}";
+    }
+
+    internal string GetLocation()
+    {
+        return Location;
     }
 
     //dring-food-snack-default-sauce, selectedimg is CateImg[5]

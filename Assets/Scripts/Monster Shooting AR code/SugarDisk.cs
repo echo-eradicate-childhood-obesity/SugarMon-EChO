@@ -70,7 +70,6 @@ public class SugarDisk : MonoBehaviour {
         GameObject.Find("SugarDisk").transform.Find("RedDot").gameObject.SetActive(false);
         sugarDiskImage.gameObject.SetActive(false);
         addButtonOnSugarCard.gameObject.SetActive(false);
-
         um.DisAllUp("Notification");
     }
     public void UpdateDexData()

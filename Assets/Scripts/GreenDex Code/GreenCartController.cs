@@ -252,6 +252,7 @@ public class GreenCartController : MonoBehaviour
     //    return await t;
 
     //}
+
     public void Update()
     {
         //drag test
@@ -491,9 +492,9 @@ public class GreenCartController : MonoBehaviour
     //    }
     //}
 
-    public void PCAdd(string s)
+    public void PCAdd(string name,string pos)
     {
-        pc.AddProduct(s);
+        pc.AddProduct(name,pos);
     }
 
     private void OnEnable()
