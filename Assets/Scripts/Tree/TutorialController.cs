@@ -99,6 +99,7 @@ public class TutorialController : MonoBehaviour {
                     Destroy(tree);
                     GameObject.Find("SugarDisk").GetComponent<Button>().enabled = true;
                     GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 1f);
+                    GameObject.Find("GreenCart").GetComponent<Button>().enabled = true;
                 }
             }
         }
