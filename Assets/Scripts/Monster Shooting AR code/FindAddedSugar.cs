@@ -366,7 +366,7 @@ public class FindAddedSugar : MonoBehaviour
             GameObject.Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster - 1]));
             scanFrame.SetActive(true);
             
-            if (GameObject.Find("Magic Tree") == null)
+            if (GameObject.Find("Magic Tree") == null && !greenCartGo.activeSelf)
             {
                 sugarDex.GetComponent<Button>().enabled = true;
                 mainCam.GetComponent<SimpleDemo>().enabled = true;
