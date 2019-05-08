@@ -123,22 +123,38 @@ public class UIManager : MonoBehaviour {
     }
     public void IndicateController(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
     {
+        IndicateControllerHelper(info, targetName, list);
+    }
+
+    public void IndicateControllerHelper(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
+    { 
         foreach (TMP_Dropdown.OptionData go in list)
         {
-            var newvalue = 0;
+      
             //"Monster" is the magic number here, change if later
-            if ((go.text.Substring(0,2)) == info.FamilyName.Substring(0,2))
+            if ((go.text.Substring(0, 2)) == info.FamilyName.Substring(0, 2))
             {
-                // testing it out here 
-                newvalue++;
-                go.text += " (" + newvalue + "New)";
-                //end              
-                /*  var targetGO = go.transform.Find(targetName).gameObject;
-                  if (!targetGO.activeInHierarchy)
-                  {
-                      targetGO.SetActive(true);
-                  }
-                  else return;*/
+                if (go.text.Contains(" (new monster!)"))
+                {
+                    int length = go.text.Length;
+                    go.text = go.text.Substring(0, go.text.Length -15) + " (new monsters!)";
+                }
+                else if(!go.text.Contains("("))
+                {
+                 
+                    go.text += " (new monster!)";
+                }
+                /* go.image = spr
+
+                // list.Sort();
+                var current = go.text.Substring(0, 2);
+                 var newvalue = 1;
+                     newvalue++;
+                     go.text += newvalue + " New!";*/
+            }
+            else if ((go.text.Substring(0, 2)) == info.FamilyName.Substring(0, 2))
+            {
+                go.text += "another new";
             }
         }
     }
