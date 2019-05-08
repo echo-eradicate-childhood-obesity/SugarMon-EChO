@@ -496,7 +496,8 @@ public class FindAddedSugar : MonoBehaviour
     {
         var indexOfSugar = repository.IndexOf(sugarName.ToLower()) + 1;
         var monsterFamily = dbList[indexOfSugar][familyIndex];
-        if(monsterFamily == "Dextrin Monsters" || monsterFamily == "Cane Monsters") monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + monsterFamily + "/" + sugarName);
-        else monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + monsterFamily);
+        //if(monsterFamily == "Dextrin Monsters" || monsterFamily == "Cane Monsters") monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + monsterFamily + "/" + sugarName);
+        //else monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + monsterFamily);
+        monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + sugarName);
     }
 }
