@@ -32,6 +32,7 @@ public class FindAddedSugar : MonoBehaviour
     public GameObject scanFrame;
     public GameObject summonSystem;
     public GameObject greenCartGo;
+    public GameObject greenCartBtn;
 
     private int numCount;
     public GameObject sugarDex, redDot, canvas, familyBackground, mainCam;
@@ -198,6 +199,7 @@ public class FindAddedSugar : MonoBehaviour
     {
 
         sugarDex.GetComponent<Button>().enabled = false;
+        greenCartBtn.GetComponent<Button>().enabled = false;
         mainCam.GetComponent<SimpleDemo>().enabled = false;
 
         //Barcode not in database
@@ -366,9 +368,10 @@ public class FindAddedSugar : MonoBehaviour
             GameObject.Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster - 1]));
             scanFrame.SetActive(true);
             
-            if (GameObject.Find("Magic Tree") == null)
+            if (GameObject.Find("Magic Tree") == null && !greenCartGo.activeSelf)
             {
                 sugarDex.GetComponent<Button>().enabled = true;
+                greenCartBtn.GetComponent<Button>().enabled = true;
                 mainCam.GetComponent<SimpleDemo>().enabled = true;
                 mainCam.GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 3 seconds for next scan
             }
@@ -496,7 +499,8 @@ public class FindAddedSugar : MonoBehaviour
     {
         var indexOfSugar = repository.IndexOf(sugarName.ToLower()) + 1;
         var monsterFamily = dbList[indexOfSugar][familyIndex];
-        if(monsterFamily == "Dextrin Monsters" || monsterFamily == "Cane Monsters") monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + monsterFamily + "/" + sugarName);
-        else monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + monsterFamily);
+        //if(monsterFamily == "Dextrin Monsters" || monsterFamily == "Cane Monsters") monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + monsterFamily + "/" + sugarName);
+        //else monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + monsterFamily);
+        monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + sugarName);
     }
 }

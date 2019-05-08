@@ -132,11 +132,17 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-
-
     public void DisableUI(GameObject go)
-    {
-        simpleDemo.enabled = !simpleDemo.enabled;
+    {     
         go.SetActive(!go.activeSelf);
+        if (go.activeSelf)
+        {
+            simpleDemo.enabled = false;
+        }
+        else
+        {
+            simpleDemo.enabled = true;
+            simpleDemo.ClickStart();
+        }
     }
 }
