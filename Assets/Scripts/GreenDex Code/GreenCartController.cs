@@ -11,7 +11,7 @@ public class GreenCartController : MonoBehaviour
     private static GreenCartController instance;
     public static GreenCartController Instance { get { return instance; } }
 
-    public GameObject dashPrefab;
+    public GameObject NetIndicator;
     [SerializeField]
     ProductCollection pc = new ProductCollection();
     public ProductCollection PC { get { return pc; } }
@@ -91,6 +91,7 @@ public class GreenCartController : MonoBehaviour
             Debug.Log(ex.Message);
             Debug.Log(ex.StackTrace);
         }
+        NetIndicator.SetActive(false);
         //creat the requester. no need for await, use this for the build. it is faster 
         //when in editor use this. but use Async method in build will be faster
 #if UNITY_EDITOR
@@ -131,86 +132,6 @@ public class GreenCartController : MonoBehaviour
         grequester = new GoogleRequester(gkey);
         yield return null;
     }
-
-    //move this to requester
-    //public async Task<string> SendRequest(string upc)
-    //{
-    //    var ndbno = await requester.LookNDBAsync(upc);
-    //    if (ndbno != -1)
-    //    {
-    //        string url = $@"https://api.nal.usda.gov/ndb/V2/reports?ndbno={ndbno}&format=json&api_key={key}&location=Denver+CO";
-    //        #region foldthis
-    //        //using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
-    //        //{
-    //        //    try
-    //        //    {
-    //        //        string str = await client.GetStringAsync(url);
-    //        //        //Console.WriteLine("reqeust got");
-    //        //        JObject jjson = await DeserializerObjectAsync<JObject>(str);
-    //        //        //JObject jjson = JsonConvert.DeserializeObject<JObject>(str);
-    //        //        //structure of usda resopnd json
-    //        //        /*
-    //        //         * SelectToken will get the object we want. If it show as list then use First or other keyword accordingly
-    //        //         * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
-    //        //         * food is the object we are looking for. SelectToken("food")
-    //        //         * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
-    //        //         * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
-    //        //         * 
-    //        //         */
-    //        //        string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
-    //        //        return newStr;
-    //        //    }
-    //        //    catch (HttpRequestException e)
-    //        //    {
-
-    //        //        Console.WriteLine(e.Message);
-    //        //        return "no ndb";
-    //        //    }
-
-    //        //} 
-    //        #endregion
-    //        return await Task.Run(async () =>
-    //        {
-    //            using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
-    //            {
-    //                try
-    //                {
-    //                    string str = await client.GetStringAsync(url);
-    //                    JObject jjson = await DeserializerObjectAsync<JObject>(str);
-    //                    //structure of usda resopnd json
-    //                    /*
-    //                     * SelectToken will get the object we want. If it show as list then use First or other keyword accordingly
-    //                     * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
-    //                     * food is the object we are looking for. SelectToken("food")
-    //                     * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
-    //                     * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
-    //                     */
-    //                    string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
-    //                    string output="";
-    //                    var strs = newStr.Split(' ');
-    //                    foreach (string s in strs)
-    //                    {
-    //                        var val = char.ToUpper(s[0])+s.Substring(1).ToLower();
-    //                        output += string.Format("{0} ", val);
-    //                    }
-    //                    return output;
-    //                }
-    //                catch (HttpRequestException e)
-    //                {
-    //                    Console.WriteLine(e.Message);
-    //                    return "no ndb";
-    //                }
-
-    //            }
-    //        });
-    //        //return await Client(url);
-    //    }
-    //    else
-    //    {
-    //        Console.WriteLine("upc incorrect");
-    //        return "no ndb";
-    //    }
-    //}
 
     //private async Task<string> Client(string url)
     //{
@@ -553,5 +474,34 @@ public class GreenCartController : MonoBehaviour
             pi.IsSelected = false;
         };
         curSelectedPI = new List<ProductInfo>();
+    }
+
+    public async Task RequesetAsync(string bcv)
+    {
+        NetIndicator.SetActive(true);
+        //start the locationservice here and give it some time to get the latitude and longitude info
+        Input.location.Start();
+        string name = await requester.SendRequest(bcv);
+        if (name == bcv)
+        {
+            await Task.Run(() => {
+                float i = 0;
+                while (i < 1)
+                {
+                    i += Time.deltaTime;
+                }
+            });
+            name += $"UPC: {bcv}";
+        }
+        //stop the locationservice to save battery life. 
+        //hopefully, the time to get internet request will give the device enought to get the location info
+        Input.location.Stop();
+        var pos = Input.location.lastData;
+        //change the info to an format google api support
+        var info = $@"latlng={pos.latitude.ToString()},{pos.longitude.ToString()}";
+        var realpos = await grequester.SendRequest(info);
+        PCAdd(name, realpos);
+        PC.PCSave();
+        NetIndicator.SetActive(false);
     }
 }

@@ -22,14 +22,14 @@ GameObject:
   - component: {fileID: 222514385038630320}
   - component: {fileID: 114181507516899104}
   - component: {fileID: 114135718770429938}
-  - component: {fileID: 114025775628684460}
+  - component: {fileID: 114193513648241740}
   m_Layer: 5
   m_Name: RightButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1237430354274136
 GameObject:
   m_ObjectHideFlags: 1
@@ -207,20 +207,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1656027509192618}
   m_Mesh: {fileID: 0}
---- !u!114 &114025775628684460
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1134076528528374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90d379f6fff3d924bbc2f8b2df78d879, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Gos: []
-  Orders: []
-  type: 0
 --- !u!114 &114048796508142640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -325,7 +311,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 114060422488258786}
-    characterCount: 29
+    characterCount: 27
     spriteCount: 0
     spaceCount: 5
     wordCount: 6
@@ -419,6 +405,27 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114193513648241740
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1134076528528374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc232abf6fb00db4f8b7806e33464716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gos:
+  - CartDashholder
+  - CateButtonContainer
+  - CartDetailCanvas
+  Orders:
+  - Close
+  - Close
+  - Open
+  type: 0
+  DetailPage: {fileID: 0}
 --- !u!114 &114584863784208408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -564,10 +571,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 114685680145196366}
-    characterCount: 41
+    characterCount: 37
     spriteCount: 0
-    spaceCount: 8
-    wordCount: 9
+    spaceCount: 7
+    wordCount: 8
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -663,7 +670,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!114 &114890262323463232
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -774,7 +781,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: 0}
+  m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224601430460129468
@@ -815,7 +822,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 210, y: 40}
-  m_SizeDelta: {x: 600, y: 50}
+  m_SizeDelta: {x: 550, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!224 &224837164369711964
 RectTransform:
@@ -851,5 +858,5 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 210, y: -40}
-  m_SizeDelta: {x: 600, y: 50}
+  m_SizeDelta: {x: 550, y: 50}
   m_Pivot: {x: 0, y: 0.5}

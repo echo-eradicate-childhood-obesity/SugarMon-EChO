@@ -41,4 +41,9 @@ public class GreenDexContainer : MonoBehaviour {
     {
         this.pi = pi;
     }
+
+    public ProductInfo GetPI()
+    {
+        return pi;
+    }
 }

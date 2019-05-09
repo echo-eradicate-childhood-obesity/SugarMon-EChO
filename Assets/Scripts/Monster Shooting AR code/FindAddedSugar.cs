@@ -264,7 +264,7 @@ public class FindAddedSugar : MonoBehaviour
                 //add green cart code here
                 //GreenCartController.Instance.PCAdd(bcv);
                 //GreenCartController.Instance.PC.PCSave();   
-                RequesetAsync(bcv);
+                GreenCartController.Instance.RequesetAsync(bcv);
                 //Change image of monster
                 scannedAddedSugars.Add("No Added Sugar");
                 CreateSugarMonster(scannedAddedSugars[currentNumMonster]);
@@ -280,28 +280,32 @@ public class FindAddedSugar : MonoBehaviour
         }
     }
 
-    private /*static*/ async Task RequesetAsync(string bcv)
-    {
-        //start the locationservice here and give it some time to get the latitude and longitude info
-        Input.location.Start();
-        string name = await GreenCartController.Instance.requester.SendRequest(bcv);
-        if (name == bcv)
-        {
-            await Task.Run(() => { float i = 0;
-                while(i<1){
-                    i += Time.deltaTime;
-                } });
-        }
-        //stop the locationservice to save battery life. 
-        //hopefully, the time to get internet request will give the device enought to get the location info
-        Input.location.Stop();
-        var pos = Input.location.lastData;
-        //change the info to an format google api support
-        var info = $@"latlng={pos.latitude.ToString()},{pos.longitude.ToString()}";
-        var realpos=await GreenCartController.Instance.grequester.SendRequest(info);
-        GreenCartController.Instance.PCAdd(name,realpos);
-        GreenCartController.Instance.PC.PCSave();
-    }
+    //this function is now move to GreenCartController.cs
+    //private /*static*/ async Task RequesetAsync(string bcv)
+    //{
+    //    GreenCartController.Instance.NetIndicator.SetActive(true);
+    //    //start the locationservice here and give it some time to get the latitude and longitude info
+    //    Input.location.Start();
+    //    string name = await GreenCartController.Instance.requester.SendRequest(bcv);
+    //    if (name == bcv)
+    //    {
+    //        await Task.Run(() => { float i = 0;
+    //            while(i<1){
+    //                i += Time.deltaTime;
+    //            } });
+    //        name += $"UPC: {bcv}";
+    //    }
+    //    //stop the locationservice to save battery life. 
+    //    //hopefully, the time to get internet request will give the device enought to get the location info
+    //    Input.location.Stop();
+    //    var pos = Input.location.lastData;
+    //    //change the info to an format google api support
+    //    var info = $@"latlng={pos.latitude.ToString()},{pos.longitude.ToString()}";
+    //    var realpos=await GreenCartController.Instance.grequester.SendRequest(info);
+    //    GreenCartController.Instance.PCAdd(name,realpos);
+    //    GreenCartController.Instance.PC.PCSave();
+    //    GreenCartController.Instance.NetIndicator.SetActive(true);
+    //}
 
     private IEnumerator AnimatorSugarCardToDex(string s)
     {

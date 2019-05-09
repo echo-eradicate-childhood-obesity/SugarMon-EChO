@@ -38,8 +38,8 @@ namespace BarcodeScanner
             WebcamRequestedHeight = 512;
             WebcamFilterMode = FilterMode.Point;
 #else
-            //WebcamRequestedWidth = 1000;
-            //WebcamRequestedHeight = 1000;
+            WebcamRequestedWidth = 700;
+            WebcamRequestedHeight = 700;
             WebcamFilterMode = FilterMode.Point;
 #endif
             // Device dependent settings
