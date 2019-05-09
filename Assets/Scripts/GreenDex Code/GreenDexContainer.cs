@@ -8,8 +8,10 @@ public class GreenDexContainer : MonoBehaviour {
     GameObject pName;
     [SerializeField]
     GameObject pIcon;
-
+    [SerializeField]
+    GameObject pLocation;
     TextMeshProUGUI pText;
+    TextMeshProUGUI pLocationText;
     Image pImage;
     public ProductInfo PI { get { return pi; } }
 	void Start () {
@@ -19,12 +21,14 @@ public class GreenDexContainer : MonoBehaviour {
 
         pImage = pIcon.GetComponent<Image>();
         pText = pName.GetComponent<TextMeshProUGUI>();
+        pLocationText = pLocation.GetComponent<TextMeshProUGUI>();
 	}
 	
 	
 	void Update () {
         pText.text = pi.PrintInfo();
         pImage.sprite = pi.GetSprite();
+        pLocationText.text = pi.GetLocation();
 	}
 
     private void SetPi(Category cate)
@@ -36,5 +40,10 @@ public class GreenDexContainer : MonoBehaviour {
     public void PIUpdate(ProductInfo pi)
     {
         this.pi = pi;
+    }
+
+    public ProductInfo GetPI()
+    {
+        return pi;
     }
 }

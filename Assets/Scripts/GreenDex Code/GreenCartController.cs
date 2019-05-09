@@ -7,11 +7,11 @@ using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 public class GreenCartController : MonoBehaviour
 {
-
+    public bool roolable { get; set; }
     private static GreenCartController instance;
     public static GreenCartController Instance { get { return instance; } }
 
-    public GameObject dashPrefab;
+    public GameObject NetIndicator;
     [SerializeField]
     ProductCollection pc = new ProductCollection();
     public ProductCollection PC { get { return pc; } }
@@ -30,8 +30,11 @@ public class GreenCartController : MonoBehaviour
 
     [SerializeField]
     string key;
+    [SerializeField]
+    string gkey;
     //where the request file/properity is here
-    IRequester requester;
+    public IRequester requester;
+    public IRequester grequester;
     [SerializeField]
     TextAsset text;
     [SerializeField]
@@ -60,7 +63,9 @@ public class GreenCartController : MonoBehaviour
     private List<ProductInfo> curSelectedPI = new List<ProductInfo>();
     public List<ProductInfo> CurSelectedPI { get { return curSelectedPI; } }
 
-
+    //this val is used to adjust the rooling
+    //use this val to avoid rooling overflow
+    float microAdjustVal;
     private void Awake()
     {
 
@@ -72,7 +77,7 @@ public class GreenCartController : MonoBehaviour
         position = 0;
         down = false;
         totalDisRollingDis = 0;
-
+        roolable = true;
         //there is an chance incre value and containerHeight is alway the same
         //so there should be only one value.
         incre = 150;
@@ -87,6 +92,7 @@ public class GreenCartController : MonoBehaviour
             Debug.Log(ex.Message);
             Debug.Log(ex.StackTrace);
         }
+        NetIndicator.SetActive(false);
         //creat the requester. no need for await, use this for the build. it is faster 
         //when in editor use this. but use Async method in build will be faster
 #if UNITY_EDITOR
@@ -94,6 +100,7 @@ public class GreenCartController : MonoBehaviour
 #else
         StartAsync(); 
 #endif
+        microAdjustVal = 0.5f;
     }
 
     private async Task StartAsync()
@@ -107,8 +114,8 @@ public class GreenCartController : MonoBehaviour
                 var contentArr = line.Split(delimiter);
                 strList.Add(contentArr);
             }
-            requester = new USDARequester(strList, 1);
-
+            requester = new USDARequester(strList, 1,key);
+            grequester = new GoogleRequester(gkey);
         });
         //await SendRequest("123");
     }
@@ -123,87 +130,9 @@ public class GreenCartController : MonoBehaviour
             var contentArr = line.Split(delimiter);
             strList.Add(contentArr);
         }
-        requester = new USDARequester(strList, 1);
-
+        requester = new USDARequester(strList, 1,key);
+        grequester = new GoogleRequester(gkey);
         yield return null;
-    }
-    public async Task<string> SendRequest(string upc)
-    {
-        var ndbno = await requester.LookNDBAsync(upc);
-        if (ndbno != -1)
-        {
-            string url = $@"https://api.nal.usda.gov/ndb/V2/reports?ndbno={ndbno}&format=json&api_key={key}&location=Denver+CO";
-            #region foldthis
-            //using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
-            //{
-            //    try
-            //    {
-            //        string str = await client.GetStringAsync(url);
-            //        //Console.WriteLine("reqeust got");
-            //        JObject jjson = await DeserializerObjectAsync<JObject>(str);
-            //        //JObject jjson = JsonConvert.DeserializeObject<JObject>(str);
-            //        //structure of usda resopnd json
-            //        /*
-            //         * SelectToken will get the object we want. If it show as list then use First or other keyword accordingly
-            //         * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
-            //         * food is the object we are looking for. SelectToken("food")
-            //         * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
-            //         * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
-            //         * 
-            //         */
-            //        string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
-            //        return newStr;
-            //    }
-            //    catch (HttpRequestException e)
-            //    {
-
-            //        Console.WriteLine(e.Message);
-            //        return "no ndb";
-            //    }
-
-            //} 
-            #endregion
-            return await Task.Run(async () =>
-            {
-                using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
-                {
-                    try
-                    {
-                        string str = await client.GetStringAsync(url);
-                        JObject jjson = await DeserializerObjectAsync<JObject>(str);
-                        //structure of usda resopnd json
-                        /*
-                         * SelectToken will get the object we want. If it show as list then use First or other keyword accordingly
-                         * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
-                         * food is the object we are looking for. SelectToken("food")
-                         * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
-                         * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
-                         */
-                        string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
-                        string output="";
-                        var strs = newStr.Split(' ');
-                        foreach (string s in strs)
-                        {
-                            var val = char.ToUpper(s[0])+s.Substring(1).ToLower();
-                            output += string.Format("{0} ", val);
-                        }
-                        return output;
-                    }
-                    catch (HttpRequestException e)
-                    {
-                        Console.WriteLine(e.Message);
-                        return "no ndb";
-                    }
-
-                }
-            });
-            //return await Client(url);
-        }
-        else
-        {
-            Console.WriteLine("upc incorrect");
-            return "no ndb";
-        }
     }
 
     //private async Task<string> Client(string url)
@@ -235,21 +164,25 @@ public class GreenCartController : MonoBehaviour
     //    }
     //}
 
-    private async Task<JObject> DeserializerObjectAsync<JObject>(string str)
-    {
-        Task<JObject> t = Task.Run(() =>
-        {
-            JObject output;
-            output = JsonConvert.DeserializeObject<JObject>(str);
-            return output;
-        });
-        return await t;
+    //private async Task<JObject> DeserializerObjectAsync<JObject>(string str)
+    //{
+    //    Task<JObject> t = Task.Run(() =>
+    //    {
+    //        JObject output;
+    //        output = JsonConvert.DeserializeObject<JObject>(str);
+    //        return output;
+    //    });
+    //    return await t;
 
-    }
+    //}
+
     public void Update()
     {
         //drag test
-        RollingAction();
+        if (roolable)
+        {
+            RollingAction();
+        }
 
     }
 
@@ -373,7 +306,7 @@ public class GreenCartController : MonoBehaviour
         var offSet = lastPos.y - currentPos.y;
         try
         {
-            if ((pc.GetCount(currentCates) - Containers.Count) * containerHeight < -totalDisRollingDis && offSet < 0)
+            if ((pc.GetCount(currentCates) - Containers.Count-microAdjustVal) * containerHeight < -totalDisRollingDis && offSet < 0)
             {
 #if UNITY_EDITOR
                 Debug.Log("there is no more data");
@@ -418,7 +351,7 @@ public class GreenCartController : MonoBehaviour
                     Debug.Log(ex.StackTrace);
                 }
             }
-            if (curPos.y < -Containers.Count * containerHeight)
+            if (curPos.y < (-Containers.Count+microAdjustVal) * containerHeight)
             {
                 curPos.y += Containers.Count * containerHeight;
                 try
@@ -485,9 +418,9 @@ public class GreenCartController : MonoBehaviour
     //    }
     //}
 
-    public void PCAdd(string s)
+    public void PCAdd(string name,string pos)
     {
-        pc.AddProduct(s);
+        pc.AddProduct(name,pos);
     }
 
     private void OnEnable()
@@ -546,5 +479,34 @@ public class GreenCartController : MonoBehaviour
             pi.IsSelected = false;
         };
         curSelectedPI = new List<ProductInfo>();
+    }
+
+    public async Task RequesetAsync(string bcv)
+    {
+        NetIndicator.SetActive(true);
+        //start the locationservice here and give it some time to get the latitude and longitude info
+        Input.location.Start();
+        string name = await requester.SendRequest(bcv);
+        if (name == bcv)
+        {
+            await Task.Run(() => {
+                float i = 0;
+                while (i < 1)
+                {
+                    i += Time.deltaTime;
+                }
+            });
+            name += $"UPC: {bcv}";
+        }
+        //stop the locationservice to save battery life. 
+        //hopefully, the time to get internet request will give the device enought to get the location info
+        Input.location.Stop();
+        var pos = Input.location.lastData;
+        //change the info to an format google api support
+        var info = $@"latlng={pos.latitude.ToString()},{pos.longitude.ToString()}";
+        var realpos = await grequester.SendRequest(info);
+        PCAdd(name, realpos);
+        PC.PCSave();
+        NetIndicator.SetActive(false);
     }
 }
