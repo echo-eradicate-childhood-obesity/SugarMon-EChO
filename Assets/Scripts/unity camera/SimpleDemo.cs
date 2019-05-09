@@ -30,7 +30,6 @@ public class SimpleDemo : MonoBehaviour
 
     private List<string> excludedCodeType = new List<string>() { "QR_CODE", "DATA_MATRIX", "AZTEC", "PDF_417" };
 
-    float val;
     // Disable Screen Rotation on that screen
     void Awake()
     {

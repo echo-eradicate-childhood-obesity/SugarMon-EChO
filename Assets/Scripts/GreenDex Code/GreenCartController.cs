@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 public class GreenCartController : MonoBehaviour
 {
-
+    public bool roolable { get; set; }
     private static GreenCartController instance;
     public static GreenCartController Instance { get { return instance; } }
 
@@ -30,7 +30,6 @@ public class GreenCartController : MonoBehaviour
 
     [SerializeField]
     string key;
-
     [SerializeField]
     string gkey;
     //where the request file/properity is here
@@ -64,7 +63,9 @@ public class GreenCartController : MonoBehaviour
     private List<ProductInfo> curSelectedPI = new List<ProductInfo>();
     public List<ProductInfo> CurSelectedPI { get { return curSelectedPI; } }
 
-
+    //this val is used to adjust the rooling
+    //use this val to avoid rooling overflow
+    float microAdjustVal;
     private void Awake()
     {
 
@@ -76,7 +77,7 @@ public class GreenCartController : MonoBehaviour
         position = 0;
         down = false;
         totalDisRollingDis = 0;
-
+        roolable = true;
         //there is an chance incre value and containerHeight is alway the same
         //so there should be only one value.
         incre = 150;
@@ -99,6 +100,7 @@ public class GreenCartController : MonoBehaviour
 #else
         StartAsync(); 
 #endif
+        microAdjustVal = 0.5f;
     }
 
     private async Task StartAsync()
@@ -177,7 +179,10 @@ public class GreenCartController : MonoBehaviour
     public void Update()
     {
         //drag test
-        RollingAction();
+        if (roolable)
+        {
+            RollingAction();
+        }
 
     }
 
@@ -301,7 +306,7 @@ public class GreenCartController : MonoBehaviour
         var offSet = lastPos.y - currentPos.y;
         try
         {
-            if ((pc.GetCount(currentCates) - Containers.Count) * containerHeight < -totalDisRollingDis && offSet < 0)
+            if ((pc.GetCount(currentCates) - Containers.Count-microAdjustVal) * containerHeight < -totalDisRollingDis && offSet < 0)
             {
 #if UNITY_EDITOR
                 Debug.Log("there is no more data");
@@ -346,7 +351,7 @@ public class GreenCartController : MonoBehaviour
                     Debug.Log(ex.StackTrace);
                 }
             }
-            if (curPos.y < -Containers.Count * containerHeight)
+            if (curPos.y < (-Containers.Count+microAdjustVal) * containerHeight)
             {
                 curPos.y += Containers.Count * containerHeight;
                 try

@@ -32,6 +32,7 @@ public class ToDetailBtn : AnimButtonAction {
 
     private void ApplyDetail()
     {
+        GreenCartController.Instance.roolable = false;
         var pi = transform.GetComponentInParent<GreenDexContainer>().GetPI();
         string category="";
         switch (pi.Type)

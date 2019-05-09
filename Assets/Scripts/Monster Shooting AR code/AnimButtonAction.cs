@@ -17,6 +17,7 @@ public class AnimButtonAction : MonoBehaviour,IButtonAction {
     public virtual void ClickEventTrigger()
     {
         List<GameObject> gos = new List<GameObject>();
+        GreenCartController.Instance.roolable = true;
         foreach (string str in Gos)
         {
             var go = transform.Find(str)!=null?transform.Find(str).gameObject:GameObject.Find(str);
