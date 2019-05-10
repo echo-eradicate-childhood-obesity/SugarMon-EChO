@@ -498,9 +498,18 @@ public class GreenCartController : MonoBehaviour
             });
             name += $"UPC: {bcv}";
         }
+        //wait 1 second to give the location service more time to get latlng info
+        await Task.Run(() => {
+            float i = 0;
+            while (i < 1)
+            {
+                i += Time.deltaTime;
+            }
+        });
         //stop the locationservice to save battery life. 
         //hopefully, the time to get internet request will give the device enought to get the location info
         Input.location.Stop();
+
         var pos = Input.location.lastData;
         //change the info to an format google api support
         var info = $@"latlng={pos.latitude.ToString()},{pos.longitude.ToString()}";

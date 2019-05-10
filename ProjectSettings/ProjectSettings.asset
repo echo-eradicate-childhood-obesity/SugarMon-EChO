@@ -531,7 +531,7 @@ PlayerSettings:
   enableCrashReportAPI: 0
   cameraUsageDescription: Enable SugAR Mon to access your camera to scan barcodes
     of food and beverage items.
-  locationUsageDescription: 
+  locationUsageDescription: Enable SugAR Mon to locate the product users are scanning
   microphoneUsageDescription: 
   switchNetLibKey: 
   switchSocketMemoryPoolSize: 6144
@@ -806,6 +806,7 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform:
     Android: 6
     Standalone: 6
+    iOS: 6
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: UnityCloudVision

@@ -58,7 +58,7 @@ public class ProductCollection
 #endif
     public void PCSave()
     {
-        using (StreamWriter writer = new StreamWriter(Application.persistentDataPath + "test.txt"))
+        using (StreamWriter writer = new StreamWriter(Application.persistentDataPath + "/test.txt"))
         {
             foreach (ProductInfo pi in products)
             {
@@ -93,7 +93,7 @@ public class ProductCollection
     public List<ProductInfo> Load()
     {
         string line = "";
-        using (StreamReader reader=new StreamReader(Application.persistentDataPath + "test.txt"))
+        using (StreamReader reader=new StreamReader(Application.persistentDataPath + "/test.txt"))
         {
             if (products == null)
                 {
