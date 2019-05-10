@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: EChO
-  productName: SugAR Mon
+  productName: SugAR Mon Test
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
@@ -120,7 +120,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.1.3
+  bundleVersion: 1.1.4
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -154,14 +154,14 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.EChO.SugarMon
+    Android: com.EChO.SugarMonTest
     Standalone: unity.comoc.UnityArUco
     Tizen: com.Company.ProductName
     iOS: com.EChO-Foundation.SugAR-Mon
     tvOS: com.Company.ProductName
   buildNumber:
     iOS: 1
-  AndroidBundleVersionCode: 13
+  AndroidBundleVersionCode: 14
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -250,8 +250,8 @@ PlayerSettings:
   AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 2
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/Louis/Desktop/user.keystore
-  AndroidKeyaliasName: user
+  AndroidKeystoreName: 
+  AndroidKeyaliasName: 
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
@@ -531,7 +531,7 @@ PlayerSettings:
   enableCrashReportAPI: 0
   cameraUsageDescription: Enable SugAR Mon to access your camera to scan barcodes
     of food and beverage items.
-  locationUsageDescription: 
+  locationUsageDescription: Enable SugAR Mon to locate the product users are scanning
   microphoneUsageDescription: 
   switchNetLibKey: 
   switchSocketMemoryPoolSize: 6144
@@ -806,6 +806,7 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform:
     Android: 6
     Standalone: 6
+    iOS: 6
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: UnityCloudVision

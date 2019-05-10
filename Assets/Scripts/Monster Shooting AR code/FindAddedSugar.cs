@@ -219,13 +219,6 @@ public class FindAddedSugar : MonoBehaviour
             dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim());
 
 
-
-            if (mainCam.GetComponent<SimpleDemo>().superBarCode)
-            {
-                dbIngredientList = repository;  //this line of code is for getting all sugar to test
-                mainCam.GetComponent<SimpleDemo>().superBarCode = false;
-            }
-
             foreach (string r in repository)
             {
                 if (dbIngredientList.Contains(r.ToLower()))
@@ -247,7 +240,6 @@ public class FindAddedSugar : MonoBehaviour
                                 um.IndicateController(info,"Notification");
                             }
                         }
-                        
 
                         numCount++;
                         //playerprefAs.set array
@@ -257,12 +249,13 @@ public class FindAddedSugar : MonoBehaviour
                     }
                 }
             }
+
             if (scannedAddedSugars.Count == 0)
             {
                 //add green cart code here
                 //GreenCartController.Instance.PCAdd(bcv);
                 //GreenCartController.Instance.PC.PCSave();
-                RequesetAsync(bcv);
+                GreenCartController.Instance.RequesetAsync(bcv);
                 //Change image of monster
                 scannedAddedSugars.Add("No Added Sugar");
                 CreateSugarMonster(scannedAddedSugars[currentNumMonster]);
@@ -278,13 +271,7 @@ public class FindAddedSugar : MonoBehaviour
             
         }
     }
-
-    private static async Task RequesetAsync(string bcv)
-    {
-        string name = await GreenCartController.Instance.SendRequest(bcv);
-        GreenCartController.Instance.PCAdd(name);
-        GreenCartController.Instance.PC.PCSave();
-    }
+    
     private IEnumerator AnimatorSugarCardToDex(string s)
     {
         //Animation - Card To Dex
@@ -293,6 +280,7 @@ public class FindAddedSugar : MonoBehaviour
         anim.GetComponent<Image>().sprite = monster.GetComponent<Image>().sprite;
         anim.AddComponent<Animator>();
         anim.GetComponent<Animator>().runtimeAnimatorController = animController;
+        
 
         if (s == "Sugar")
         {
@@ -319,7 +307,7 @@ public class FindAddedSugar : MonoBehaviour
             {
                 Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster]));
             }
-            anim.GetComponent<Animator>().Play("SugarCardToDex");
+            anim.GetComponent<Animator>().Play("GreenCard");
             yield return new WaitForSeconds(1f);
             Destroy(anim);
             ChangeNextCardText();

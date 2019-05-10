@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// * Attached To each product icon in the GreenDashCanvas
+/// * Used to selected and change the Category of each product
+/// </summary>
 public class ProductionIcon :AnimButtonAction {
 
     GameObject parentGo;
@@ -9,8 +12,12 @@ public class ProductionIcon :AnimButtonAction {
         parentGo = transform.parent.gameObject;
         Action(this.gameObject);
 	}
-	
 
+    /// <summary>
+    /// * Inaddition to the based Class
+    /// * When click, add prouction informationt this container point at to the GreenCartController.Instance.CurSelectedPI When it is not in the list
+    /// * Otherwise remove it from the list and change the icons to the based on current 
+    /// </summary>
     public override void ClickEventTrigger()
     {
         base.ClickEventTrigger();
