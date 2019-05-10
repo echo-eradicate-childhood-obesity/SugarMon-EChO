@@ -4,13 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-public class ToDetailBtn : AnimButtonAction {
 
-    public GameObject DetailPage;
+/// <summary>
+/// * Attached to GreenDashCanvas RightIcon
+/// </summary>
+public class ToDetailBtn : AnimButtonAction {
+    //reference to the DetailPage
+    ////As the DetailPage is not an prefabe need drap/drop manually for each Container
+    ////Potential fix: add reference to GreenCartContorller, then this script could get reference form there
+    //public GameObject DetailPage;
 	// Use this for initialization
 	void Start () {
         //detailpage is in inspector, but this GO is an prefabe, inefficient to sign in incpector
-        DetailPage = GameObject.Find("CartDetailCanvas");
+       // DetailPage = GameObject.Find("CartDetailCanvas");
         this.Action(this.gameObject);
 	}
 	
@@ -23,16 +29,13 @@ public class ToDetailBtn : AnimButtonAction {
     {
         base.ClickEventTrigger();
         ApplyDetail();
-        ApplyIcon();
     }
-
-    private void ApplyIcon()
-    {
-    }
-
+    /// <summary>
+    /// * Change the content of detail page
+    /// </summary>
     private void ApplyDetail()
     {
-        GreenCartController.Instance.roolable = false;
+        GreenCartController.Instance.rollable = false;
         var pi = transform.GetComponentInParent<GreenDexContainer>().GetPI();
         string category="";
         switch (pi.Type)
@@ -53,7 +56,7 @@ public class ToDetailBtn : AnimButtonAction {
                 category = "Uncategorized";
                 break;
         }
-        DetailPage.GetComponentInChildren<Image>().sprite = pi.GetSprite();
-        DetailPage.GetComponentInChildren<TextMeshProUGUI>().text = $"Product Name: {pi.Name}\nProduct Category: {category}\nScan Location: {pi.Location}";
+        GreenCartController.Instance.DetailPage.GetComponentInChildren<Image>().sprite = pi.GetSprite();
+        GreenCartController.Instance.DetailPage.GetComponentInChildren<TextMeshProUGUI>().text = $"Product Name: {pi.Name}\nProduct Category: {category}\nScan Location: {pi.Location}";
     }
 }
