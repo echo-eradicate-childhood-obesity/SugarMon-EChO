@@ -18,7 +18,13 @@ public class SplashScreen : MonoBehaviour
 
     IEnumerator Start()
     {
-
+        //when locationserive is not enabled by use, ask for permission
+        if (!Input.location.isEnabledByUser)
+        {
+            Input.location.Start();
+            yield return new WaitForSeconds(0.1f);
+            Input.location.Stop();
+        }
         SplashImage.canvasRenderer.SetAlpha(0.1f);
         SplashText.canvasRenderer.SetAlpha(0.1f);
         FadeIn();
