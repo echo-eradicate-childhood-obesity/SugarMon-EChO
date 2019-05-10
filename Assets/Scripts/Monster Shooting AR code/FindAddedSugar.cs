@@ -27,6 +27,8 @@ public class FindAddedSugar : MonoBehaviour
     protected List<string> upcs;
     protected List<string> ingredients;
     public TextAsset dbtxt;
+    public Button vb;
+    public Image cancel;
 
     public GameObject scanFrame;
     public GameObject summonSystem;
@@ -35,6 +37,8 @@ public class FindAddedSugar : MonoBehaviour
     private int numCount;
     public GameObject sugarDex, redDot, canvas, familyBackground, mainCam;
     public GameObject totalCount, foundCount;
+
+    public bool vibrate;
 
     //need to follow the title in Database.txt
     [Header("Column names")]
@@ -63,8 +67,10 @@ public class FindAddedSugar : MonoBehaviour
     {
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
+        cancel.enabled = false;
+        vibrate = true;
 
-        
+
     }
     void Start()
     {
@@ -189,9 +195,20 @@ public class FindAddedSugar : MonoBehaviour
     void Update()
     {
 
-
     }
-    
+
+    public void ToggleVibrate()
+    {
+        vibrate = !vibrate;
+        cancel.enabled = !cancel.enabled;
+#if UNITY_ANDROID || UNITY_IOS
+        if (vibrate)
+        {
+            Handheld.Vibrate();
+        }
+#endif
+    }
+
     public void AllTypeOfSugars(string ingredientFromDB, string bcv)
     {
 
@@ -375,7 +392,9 @@ public class FindAddedSugar : MonoBehaviour
             {
 
 #if UNITY_ANDROID || UNITY_IOS
+                if (vibrate) {
                 Handheld.Vibrate();
+                }
 #endif
                 monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NewAddedSugar");
                 redDot.gameObject.SetActive(true);
@@ -446,7 +465,9 @@ public class FindAddedSugar : MonoBehaviour
             if (!sugarInWall.Contains(sugarName.ToLower()))
             {
 #if UNITY_ANDROID || UNITY_IOS
+                if (vibrate) {
                 Handheld.Vibrate();
+                }
 #endif
                 monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NewAddedSugar");
                 redDot.gameObject.SetActive(true);
