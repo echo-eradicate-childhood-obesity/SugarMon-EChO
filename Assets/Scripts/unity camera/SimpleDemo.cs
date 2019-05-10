@@ -23,9 +23,6 @@ public class SimpleDemo : MonoBehaviour
     [HideInInspector]
     public int tutorialStage;
 
-    [HideInInspector]
-    public bool superBarCode = false;
-
     private bool isAndroid;
 
     private List<string> excludedCodeType = new List<string>() { "QR_CODE", "DATA_MATRIX", "AZTEC", "PDF_417" };
@@ -156,7 +153,6 @@ public class SimpleDemo : MonoBehaviour
                 {
                     inDB = true;
 
-                    if (test == true && barCodeValue == "044000030414") superBarCode = true;
                     GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(dbProductList[i].ToLower(), barCodeValue);
                 }
                 if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found", barCodeValue);

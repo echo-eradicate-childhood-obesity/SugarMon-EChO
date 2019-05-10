@@ -219,13 +219,6 @@ public class FindAddedSugar : MonoBehaviour
             dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim());
 
 
-
-            if (mainCam.GetComponent<SimpleDemo>().superBarCode)
-            {
-                dbIngredientList = repository;  //this line of code is for getting all sugar to test
-                mainCam.GetComponent<SimpleDemo>().superBarCode = false;
-            }
-
             foreach (string r in repository)
             {
                 if (dbIngredientList.Contains(r.ToLower()))
@@ -247,7 +240,6 @@ public class FindAddedSugar : MonoBehaviour
                                 um.IndicateController(info,"Notification");
                             }
                         }
-                        
 
                         numCount++;
                         //playerprefAs.set array
@@ -257,6 +249,7 @@ public class FindAddedSugar : MonoBehaviour
                     }
                 }
             }
+
             if (scannedAddedSugars.Count == 0)
             {
                 //add green cart code here
