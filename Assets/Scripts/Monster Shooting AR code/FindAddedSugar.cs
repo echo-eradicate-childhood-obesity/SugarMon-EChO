@@ -253,8 +253,7 @@ public class FindAddedSugar : MonoBehaviour
             if (scannedAddedSugars.Count == 0)
             {
                 //add green cart code here
-                //GreenCartController.Instance.PCAdd(bcv);
-                //GreenCartController.Instance.PC.PCSave();
+                //without await is expected behavior
                 GreenCartController.Instance.RequesetAsync(bcv);
                 //Change image of monster
                 scannedAddedSugars.Add("No Added Sugar");

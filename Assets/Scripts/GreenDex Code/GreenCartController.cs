@@ -16,6 +16,7 @@ public class GreenCartController : MonoBehaviour
     private static GreenCartController instance;
     public static GreenCartController Instance { get { return instance; } }
     public GameObject DetailPage;
+    [Tooltip("Indicator used show connection when web request is send but waiting for respond")]
     public GameObject NetIndicator;
     [SerializeField]
     ProductCollection pc = new ProductCollection();
@@ -30,7 +31,6 @@ public class GreenCartController : MonoBehaviour
     public List<Sprite> CateImg { get { return cateImg; } }
     [SerializeField]
     float containerHeight;
-    int position;
     int incre;
 
     [SerializeField]
@@ -79,7 +79,6 @@ public class GreenCartController : MonoBehaviour
             Destroy(this);
         }
         else instance = this;
-        position = 0;
         down = false;
         totalDisRollingDis = 0;
         rollable = true;
@@ -100,6 +99,7 @@ public class GreenCartController : MonoBehaviour
         NetIndicator.SetActive(false);
         //creat the requester. no need for await, use this for the build. it is faster 
         //when in editor use this. but use Async method in build will be faster
+        //the Async without an await is exected, so DON'T add await
         //!not support Async load TextAsset in Editor
 #if UNITY_EDITOR
         StartCoroutine("InitRequester");
