@@ -218,6 +218,8 @@ public class FindAddedSugar : MonoBehaviour
             List<string> dbIngredientList = ingredientFromDB.Split(',').ToList();
             dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim());
 
+            dbIngredientList = repository;
+            Debug.Log(dbIngredientList.Count);
 
             foreach (string r in repository)
             {
