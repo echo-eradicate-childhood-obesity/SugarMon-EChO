@@ -3,8 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 /*info is boxed and send when scanner found an item
- * 
+* 
 */
 public struct Info{
     
@@ -134,23 +135,27 @@ public class UIManager : MonoBehaviour {
             //"Monster" is the magic number here, change if later
             if ((go.text.Substring(0, 2)) == info.FamilyName.Substring(0, 2))
             {
-                if (go.text.Contains(" (new monster!)"))
+                if (go.text.Contains(" ("))
                 {
                     int length = go.text.Length;
-                    go.text = go.text.Substring(0, go.text.Length -15) + " (new monsters!)";
+                    int x = 0;
+                    var number = go.text.Substring(length - 7, 1);
+                    var largernumber = go.text.Substring(length - 8, 2);
+                    if(Int32.TryParse(largernumber, out x))
+                    {
+                        go.text = go.text.Substring(0, go.text.Length - 8) + (x + 1) + " new!)";
+                    }
+                    else if (Int32.TryParse(number, out x))
+                    {
+                        go.text = go.text.Substring(0, go.text.Length - 7)+(x+1) + " new!)";
+                    }
                 }
                 else if(!go.text.Contains("("))
                 {
                  
-                    go.text += " (new monster!)";
+                    go.text += " (1 new!)";
                 }
-                /* go.image = spr
-
-                // list.Sort();
-                var current = go.text.Substring(0, 2);
-                 var newvalue = 1;
-                     newvalue++;
-                     go.text += newvalue + " New!";*/
+             
             }
             else if ((go.text.Substring(0, 2)) == info.FamilyName.Substring(0, 2))
             {
