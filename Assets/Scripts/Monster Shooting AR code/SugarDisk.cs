@@ -27,9 +27,6 @@ public class SugarDisk : MonoBehaviour {
     private int numCount;
     public List<string> scannedAddedSugars;
 
-    private List<string> newMonsterFamilyDesign = new List<string>() { "Dextrin Monsters", "Cane Monsters" };
-
-    public List<string> monsterColor;
     //change to local
     //private Transform sci;
     // Use this for initialization
@@ -129,8 +126,6 @@ public class SugarDisk : MonoBehaviour {
                         sci.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
 
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex]);
-                        bool newDesign = newMonsterFamilyDesign.Contains(s[canvas.GetComponent<FindAddedSugar>().familyIndex]);
-                        string monsterImagePath = newDesign ? "Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex] + "/" + sc.name : "Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex];
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + sc.name);
                         //sci.GetComponent<Image>().sprite = Resources.Load<Sprite>(monsterImagePath);
                         //sci.gameObject.AddComponent<Button>().onClick.AddListener(() => summonSystem.GetComponent<SummonSystem>().PopupSugarInfoCardInSugarDex(sc.name, s[canvas.GetComponent<FindAddedSugar>().familyIndex]));

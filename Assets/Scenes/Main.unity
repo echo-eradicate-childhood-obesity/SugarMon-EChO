@@ -1513,7 +1513,6 @@ MonoBehaviour:
   addButtonOnSugarCard: {fileID: 1795000996}
   allCollectedSugars: []
   scannedAddedSugars: []
-  monsterColor: []
 --- !u!1 &161888592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1889,7 +1888,7 @@ GameObject:
   - component: {fileID: 232478625}
   - component: {fileID: 232478624}
   m_Layer: 5
-  m_Name: Concentrate
+  m_Name: Syrup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4719,7 +4718,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Syrups
+  m_Text: Concentrates
 --- !u!222 &857211512
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5938,7 +5937,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Concentrates
+  m_Text: Syrups
 --- !u!222 &1012232825
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7622,17 +7621,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colors:
-  - name: Cane Monsters
-    HexCode: '#DD7E6B'
   - name: Dextrin Monsters
     HexCode: '#FCD7B0'
-  - name: OSE Monsters
+  - name: OSEs Monsters
     HexCode: '#D5A6BD'
-  - name: Concentrate Monsters
-    HexCode: '#B6D7A8'
+  - name: Cane Monsters
+    HexCode: '#DD7E6B'
   - name: Syrup Monsters
     HexCode: '#D8C2EF'
-  - name: Sugar Monsters
+  - name: Concentrate Monsters
+    HexCode: '#B6D7A8'
+  - name: Obvious Monsters
     HexCode: '#A2C4C9'
   - name: Strange Monsters
     HexCode: '#9FC5E8'
@@ -7640,6 +7639,14 @@ MonoBehaviour:
   Cell: {fileID: 1797911274733296, guid: 54ff7dbdca1ed4bcbbd4a9539dc85b31, type: 2}
   Panel: {fileID: 1357523383139488, guid: 21fd3794e9ab64641a5e2292e8190dfc, type: 2}
   Title: {fileID: 1384632042099982, guid: 94a9faebb920a1a4492dc7ae8690c2af, type: 2}
+  familyBtn:
+  - {fileID: 1564541859}
+  - {fileID: 1689952356}
+  - {fileID: 1952935485}
+  - {fileID: 232478623}
+  - {fileID: 1448375044}
+  - {fileID: 1570364253}
+  - {fileID: 539244889}
 --- !u!114 &1337665289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8507,7 +8514,7 @@ GameObject:
   - component: {fileID: 1448375046}
   - component: {fileID: 1448375045}
   m_Layer: 5
-  m_Name: Syrup
+  m_Name: Concentrate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9158,7 +9165,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Canes
+  m_Text: Dextrins
 --- !u!222 &1557268794
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9254,7 +9261,7 @@ GameObject:
   - component: {fileID: 1564541861}
   - component: {fileID: 1564541860}
   m_Layer: 5
-  m_Name: Cane
+  m_Name: Dextrin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10311,7 +10318,7 @@ GameObject:
   - component: {fileID: 1689952358}
   - component: {fileID: 1689952357}
   m_Layer: 5
-  m_Name: Dextrin
+  m_Name: OSE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10925,7 +10932,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Dextrins
+  m_Text: OSEs
 --- !u!222 &1779803605
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11405,7 +11412,7 @@ GameObject:
   - component: {fileID: 1952935487}
   - component: {fileID: 1952935486}
   m_Layer: 5
-  m_Name: OSE
+  m_Name: Cane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11583,7 +11590,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: OSEs
+  m_Text: Canes
 --- !u!222 &1962165907
 CanvasRenderer:
   m_ObjectHideFlags: 0
