@@ -162,7 +162,7 @@ PlayerSettings:
   buildNumber:
     iOS: 1
   AndroidBundleVersionCode: 14
-  AndroidMinSdkVersion: 16
+  AndroidMinSdkVersion: 24
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -255,7 +255,7 @@ PlayerSettings:
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
-  AndroidEnableTango: 0
+  AndroidEnableTango: 1
   androidEnableBanner: 0
   androidUseLowAccuracyLocation: 0
   m_AndroidBanners:
@@ -804,7 +804,7 @@ PlayerSettings:
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   apiCompatibilityLevelPerPlatform:
-    Android: 6
+    Android: 3
     Standalone: 6
     iOS: 6
   m_RenderingPath: 1

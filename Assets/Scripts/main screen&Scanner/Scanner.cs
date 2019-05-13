@@ -22,7 +22,7 @@ namespace BarcodeScanner.Scanner
 		public event EventHandler StatusChanged;
 
 		//
-		public IWebcam Camera { get; private set; }
+		//public IWebcam Camera { get; private set; }
 		public IParser Parser { get; private set; }
 		public ScannerSettings Settings { get; private set; }
 
@@ -69,7 +69,7 @@ namespace BarcodeScanner.Scanner
 			// Default Properties
 			Settings = (settings == null) ? new ScannerSettings() : settings;
 			Parser = (parser == null) ? new ZXingParser(Settings) : parser;
-			Camera = (webcam == null) ? new UnityWebcam(Settings) : webcam;
+			//Camera = (webcam == null) ? new UnityWebcam(Settings) : webcam;
 		}
 
 		/// <summary>
@@ -156,8 +156,8 @@ namespace BarcodeScanner.Scanner
 			parserPixelAvailable = false;
 
 			// clean camera
-			Camera.Destroy();
-			Camera = null;
+			//Camera.Destroy();
+			//Camera = null;
 			Parser = null;
 		}
 
@@ -311,8 +311,10 @@ namespace BarcodeScanner.Scanner
 					return;
 				}
 
-				// Get the image as an array of Color32
-				pixels = Camera.GetPixels(pixels);
+                // Get the image as an array of Color32
+                var t = (Texture2D)(UIManager.Instance.transform.GetComponent<GoogleARCore.ARCoreBackgroundRenderer>().BackgroundMaterial.mainTexture);
+                pixels = t.GetPixels32();
+				//pixels = Camera.GetPixels(pixels);
 				parserPixelAvailable = true;
 
 				// If background thread OFF, do the decode main thread with 500ms of pause for UI

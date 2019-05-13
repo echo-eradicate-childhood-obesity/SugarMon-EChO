@@ -15,7 +15,7 @@ public class SugarDisk : MonoBehaviour {
     public NumbersOfEachSugar sugarCardData;
     public GameObject summonSystem;
     public GameObject sugarDiskImage;
-    public GameObject mainCam;
+    public GameObject Cam;
     private Vector3 diskPosition;
     public GameObject canvas;
     private GameObject[] allTypesOfSugars;
@@ -65,8 +65,8 @@ public class SugarDisk : MonoBehaviour {
     }
     public void CloseSugarDisk()
     {
-        mainCam.GetComponent<SimpleDemo>().enabled = true;
-        if (mainCam.GetComponent<SimpleDemo>().tutorialStage != 0) mainCam.GetComponent<SimpleDemo>().StartScan();
+        Cam.transform.GetComponent<SimpleDemo>().enabled = true;
+        if (Cam.GetComponent<SimpleDemo>().tutorialStage != 0) Cam.GetComponent<SimpleDemo>().StartScan();
         GameObject.Find("SugarDisk").transform.Find("RedDot").gameObject.SetActive(false);
         sugarDiskImage.gameObject.SetActive(false);
         addButtonOnSugarCard.gameObject.SetActive(false);
@@ -75,7 +75,7 @@ public class SugarDisk : MonoBehaviour {
     }
     public void UpdateDexData()
     {
-        mainCam.GetComponent<SimpleDemo>().enabled = false;
+        Cam.GetComponent<SimpleDemo>().enabled = false;
 
         newSugars.Clear();
         sugarDiskImage.transform.localPosition = diskPosition;
