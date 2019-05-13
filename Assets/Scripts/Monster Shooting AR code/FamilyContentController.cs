@@ -8,18 +8,20 @@ using System.Linq;
 
 
 
-public class FamilyContentController : MonoBehaviour {
+public class FamilyContentController : MonoBehaviour
+{
 
     //for the dropdown version
-   
+
 
     public GameObject familyContentObject;
     [SerializeField]
-    private List<GameObject> familyNames=new List<GameObject>();
-   
+    private List<GameObject> familyNames = new List<GameObject>();
+
+    RectTransform familyRT;
     void Start()
     {
-
+        familyRT = familyContentObject.GetComponent<RectTransform>();
 
     }
     public void FamilyContentPosition()
@@ -31,7 +33,7 @@ public class FamilyContentController : MonoBehaviour {
         var thisname = thisopts[thisval].text.ToString();
         //familyNames = GameObject.Find("Canvas").GetComponent<FindAddedSugar>().fms;
         //GameObject tle = GameObject.Find(this.name + " Monsters Title");
-        foreach(GameObject go in familyNames)
+        foreach (GameObject go in familyNames)
         {
             if (go.name.Substring(0, 2) == thisname.Substring(0, 2))
             {
@@ -47,5 +49,44 @@ public class FamilyContentController : MonoBehaviour {
         //familyContentObject.GetComponent<RectTransform>().localPosition = newPosition;
 
     }
- 
+    private void TitleControl()
+    {
+        //if()
+        var d = transform.GetComponent<TMP_Dropdown>();
+        if (-7 <= familyRT.localPosition.y && 1090 >= familyRT.localPosition.y)
+          {
+              d.captionText.text = "Cane";
+          }
+          else if (1090 < familyRT.localPosition.y && 2160 >= familyRT.localPosition.y)
+          {
+              d.captionText.text = "Dextrin";
+          }
+           else if (2160 < familyRT.localPosition.y && 3800 >= familyRT.localPosition.y)
+          {
+              d.captionText.text = "OSE";
+          }
+           else if (3800 < familyRT.localPosition.y && 8400 >= familyRT.localPosition.y)
+          {
+              d.captionText.text = "Concentrate";
+          }
+           else if (8400 < familyRT.localPosition.y && 13700 >= familyRT.localPosition.y)
+          {
+              d.captionText.text = "Syrup";
+          }
+           else if (13700 < familyRT.localPosition.y && 17900 >= familyRT.localPosition.y)
+          {
+              d.captionText.text = "Sugar";
+          }
+            else if (17900 < familyRT.localPosition.y)
+          {
+              d.captionText.text = "Other";
+          }
+    }
+
+    void Update()
+    {
+        TitleControl();
+        Debug.Log(familyRT.localPosition.y);
+    }
+
 }

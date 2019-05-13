@@ -132,7 +132,6 @@ public class UIManager : MonoBehaviour {
         foreach (TMP_Dropdown.OptionData go in list)
         {
       
-            //"Monster" is the magic number here, change if later
             if ((go.text.Substring(0, 2)) == info.FamilyName.Substring(0, 2))
             {
                 if (go.text.Contains(" ("))
@@ -157,10 +156,7 @@ public class UIManager : MonoBehaviour {
                 }
              
             }
-            else if ((go.text.Substring(0, 2)) == info.FamilyName.Substring(0, 2))
-            {
-                go.text += "another new";
-            }
+          
         }
     }
 
