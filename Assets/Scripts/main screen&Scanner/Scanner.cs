@@ -22,7 +22,7 @@ namespace BarcodeScanner.Scanner
 		public event EventHandler StatusChanged;
 
 		//
-		//public IWebcam Camera { get; private set; }
+		public IWebcam Camera { get; private set; }
 		public IParser Parser { get; private set; }
 		public ScannerSettings Settings { get; private set; }
 
@@ -51,8 +51,9 @@ namespace BarcodeScanner.Scanner
 		private int webcamFrameDelayed = 0;
 		private int webcamLastChecksum = -1;
 		private bool decodeInterrupted = true;
-
-		public Scanner() : this(null, null, null) { }
+        private Texture2D t;
+        private int width, height;
+        public Scanner() : this(null, null, null) { }
 		public Scanner(ScannerSettings settings) : this(settings, null, null) {}
 		public Scanner(IParser parser, IWebcam webcam) : this(null, parser, webcam) {}
 
@@ -69,7 +70,9 @@ namespace BarcodeScanner.Scanner
 			// Default Properties
 			Settings = (settings == null) ? new ScannerSettings() : settings;
 			Parser = (parser == null) ? new ZXingParser(Settings) : parser;
-			//Camera = (webcam == null) ? new UnityWebcam(Settings) : webcam;
+            Camera = (webcam == null) ? new UnityWebcam(Settings) : webcam;
+            
+            
 		}
 
 		/// <summary>
@@ -170,17 +173,19 @@ namespace BarcodeScanner.Scanner
 		public void DecodeQR()
 		{
 			// Wait
-			if (Status != ScannerStatus.Running || !parserPixelAvailable || Camera.Width == 0)
+			if (Status != ScannerStatus.Running || !parserPixelAvailable /*|| Camera.Width == 0*/)
 			{
 				return;
 			}
 
 			// Process
-			Log.Debug(this + " SimpleScanner -> Scan ... " + Camera.Width + " / " + Camera.Height);
+			//Log.Debug(this + " SimpleScanner -> Scan ... " + Camera.Width + " / " + Camera.Height);
 			try
 			{
-				Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
-				parserPixelAvailable = false;
+                //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
+                Debug.Log($"width is {width} and height is {height}, total length is {t.GetPixels32().Length}");
+                Result = Parser.Decode(pixels, width, height);
+                parserPixelAvailable = false;
 			}
 			catch (Exception e)
 			{
@@ -204,18 +209,19 @@ namespace BarcodeScanner.Scanner
 			while (decodeInterrupted == false && Result == null)
 			{
 				// Wait
-				if (Status != ScannerStatus.Running || !parserPixelAvailable || Camera.Width == 0)
+				if (Status != ScannerStatus.Running || !parserPixelAvailable /*|| Camera.Width == 0*/)
 				{
 					Thread.Sleep(Mathf.FloorToInt(Settings.ScannerDecodeInterval * 1000));
 					continue;
 				}
 
 				// Process
-				Log.Debug(this + " SimpleScanner -> Scan ... " + Camera.Width + " / " + Camera.Height);
+				//Log.Debug(this + " SimpleScanner -> Scan ... " + Camera.Width + " / " + Camera.Height);
 				try
 				{
-					Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
-					parserPixelAvailable = false;
+                    Result = Parser.Decode(pixels, width, height);
+                    //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
+                    parserPixelAvailable = false;
 					if (Result == null)
 					{
 						continue;
@@ -242,12 +248,12 @@ namespace BarcodeScanner.Scanner
 		private bool WebcamInitialized()
 		{
 			// If webcam information still change, reset delayFrame
-			if (webcamLastChecksum != Camera.GetChecksum())
-			{
-				webcamLastChecksum = Camera.GetChecksum();
-				webcamFrameDelayed = 0;
-				return false;
-			}
+			//if (webcamLastChecksum != Camera.GetChecksum())
+			//{
+			//	webcamLastChecksum = Camera.GetChecksum();
+			//	webcamFrameDelayed = 0;
+			//	return false;
+			//}
 
 			// Increment delayFrame
 			if (webcamFrameDelayed < Settings.ScannerDelayFrameMin)
@@ -256,7 +262,7 @@ namespace BarcodeScanner.Scanner
 				return false;
 			}
 
-			Camera.SetSize();
+			//Camera.SetSize();
 			webcamFrameDelayed = 0;
 			return true;
 		}
@@ -269,23 +275,28 @@ namespace BarcodeScanner.Scanner
 		/// </summary>
 		public void Update()
 		{
-			// If not ready, wait
-			if (!Camera.IsReady())
-			{
-				Log.Warning(this + " Camera Not Ready Yet ...");
-				if (status != ScannerStatus.Initialize)
-				{
-					Status = ScannerStatus.Initialize;
-				}
-				return;
-			}
+            // If not ready, wait
+            //if (!Camera.IsReady())
+            //{
+            //	Log.Warning(this + " Camera Not Ready Yet ...");
+            //	if (status != ScannerStatus.Initialize)
+            //	{
+            //		Status = ScannerStatus.Initialize;
+            //	}
+            //	return;
+            //}
 
-			// If the app start for the first time (select size & onReady Event)
-			if (Status == ScannerStatus.Initialize)
+            //t = (Texture2D)GoogleARCore.Frame.CameraImage.Texture;
+            ////t = (Texture2D)(UIManager.Instance.transform.GetComponent<GoogleARCore.ARCoreBackgroundRenderer>().BackgroundMaterial.mainTexture);
+            //width = t.width;
+            //height = t.height;
+            //pixels = t.GetPixels32();
+            // If the app start for the first time (select size & onReady Event)
+            if (Status == ScannerStatus.Initialize)
 			{
 				if (WebcamInitialized())
 				{
-					Log.Info(this + " Camera is Ready ", Camera);
+					//Log.Info(this + " Camera is Ready ", Camera);
 
 					Status = ScannerStatus.Paused;
 
@@ -312,8 +323,7 @@ namespace BarcodeScanner.Scanner
 				}
 
                 // Get the image as an array of Color32
-                var t = (Texture2D)(UIManager.Instance.transform.GetComponent<GoogleARCore.ARCoreBackgroundRenderer>().BackgroundMaterial.mainTexture);
-                pixels = t.GetPixels32();
+                //t = (Texture2D)(UIManager.Instance.transform.GetComponent<GoogleARCore.ARCoreBackgroundRenderer>().BackgroundMaterial.mainTexture);
 				//pixels = Camera.GetPixels(pixels);
 				parserPixelAvailable = true;
 

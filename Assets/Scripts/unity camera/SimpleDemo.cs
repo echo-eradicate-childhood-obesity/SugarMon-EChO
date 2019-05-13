@@ -72,7 +72,7 @@ public class SimpleDemo : MonoBehaviour
             //Image.transform.localEulerAngles = BarcodeScanner.Camera.GetEulerAngles();
             //Image.transform.localScale = BarcodeScanner.Camera.GetScale();
             //Image.texture = BarcodeScanner.Camera.Texture;
-            Image.texture = transform.GetComponent<GoogleARCore.ARCoreBackgroundRenderer>().BackgroundMaterial.mainTexture;
+            
             //Keep Image Aspect Ratio
             //var rect = Image.GetComponent<RectTransform>();
             //var newHeight = rect.sizeDelta.x * BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
@@ -83,8 +83,10 @@ public class SimpleDemo : MonoBehaviour
         {
 #if UNITY_EDITOR
             //Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
+            //Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)GoogleARCore.Frame.CameraImage.Texture.height / GoogleARCore.Frame.CameraImage.Texture.width;
 #else
             //Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Width / BarcodeScanner.Camera.Height;
+            //Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)GoogleARCore.Frame.CameraImage.Texture.width / GoogleARCore.Frame.CameraImage.Texture.height;
 #endif
         };
         // Track status of the scanner
@@ -109,6 +111,8 @@ public class SimpleDemo : MonoBehaviour
     }
     void Update()
     {
+        Image.texture = GoogleARCore.Frame.CameraImage.Texture;
+        Debug.Log($"width is {GoogleARCore.Frame.CameraImage.Texture.width} and height is {GoogleARCore.Frame.CameraImage.Texture.height}, total length is {((Texture2D)(GoogleARCore.Frame.CameraImage.Texture)).GetPixels32().Length}");
         if (BarcodeScanner == null)
         {
             return;

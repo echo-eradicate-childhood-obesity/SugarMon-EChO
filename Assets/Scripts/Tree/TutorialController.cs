@@ -11,6 +11,7 @@ public class TutorialController : MonoBehaviour {
     public int pic;
     private GameObject tree;
     public GameObject sugarDex;
+
     // Use this for initialization
     void Start () {
         tree = GameObject.Find("Magic Tree");
@@ -22,16 +23,16 @@ public class TutorialController : MonoBehaviour {
         if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || Input.GetKeyDown(KeyCode.A))
         {
             //First stage of tutorial
-            if (GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage == 0)
+            if (GameObject.Find("First Person Camera").GetComponent<SimpleDemo>().tutorialStage == 0)
             {
                 if (pic == tutorialStagePics.Count)
                 {
                     pic = 0;
-                    GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage++;
-                    Debug.Log("Stage Num: " + GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage);
+                    GameObject.Find("First Person Camera").GetComponent<SimpleDemo>().tutorialStage++;
+                    //Debug.Log("Stage Num: " + GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage);
                     PlayerPrefs.SetInt("TutorialStage", GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage);
-                    Debug.Log("Destroy");
-                    GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 1f);
+                    //Debug.Log("Destroy");
+                    GameObject.Find("First Person Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 1f);
                     Destroy(gameObject);
                     Destroy(tree);
                 }
@@ -54,14 +55,14 @@ public class TutorialController : MonoBehaviour {
                 pic++;
             }
             //Second stage of tutorial
-            else if (GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage == 1)
+            else if (GameObject.Find("First Person Camera").GetComponent<SimpleDemo>().tutorialStage == 1)
             {
                 if (pic == tutorialStagePics.Count)
                 {
                     pic = 0;
-                    GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage++;
-                    Debug.Log("Stage Num: " + GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage);
-                    PlayerPrefs.SetInt("TutorialStage", GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage);
+                    GameObject.Find("First Person Camera").GetComponent<SimpleDemo>().tutorialStage++;
+                    //Debug.Log("Stage Num: " + GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage);
+                    PlayerPrefs.SetInt("TutorialStage", GameObject.Find("First Person Camera").GetComponent<SimpleDemo>().tutorialStage);
                     Debug.Log("Destroy");
                     Destroy(gameObject);
                     Destroy(tree);
@@ -84,21 +85,21 @@ public class TutorialController : MonoBehaviour {
                 pic++;
             }
             //Third stage of tutorial
-            else if (GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage == 2)
+            else if (GameObject.Find("First Person Camera").GetComponent<SimpleDemo>().tutorialStage == 2)
             {
                 if (pic == tutorialStagePics.Count)
                 {
                     pic = 0;
-                    GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = true;
-                    GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage++;
-                    Debug.Log("Stage Num: " + GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage);
-                    PlayerPrefs.SetInt("TutorialStage", GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage);
-                    Debug.Log("Destroy");
+                    GameObject.Find("First Person Camera").GetComponent<SimpleDemo>().enabled = true;
+                    GameObject.Find("First Person Camera").GetComponent<SimpleDemo>().tutorialStage++;
+                    //Debug.Log("Stage Num: " + GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage);
+                    PlayerPrefs.SetInt("TutorialStage", GameObject.Find("First Person Camera").GetComponent<SimpleDemo>().tutorialStage);
+                    //Debug.Log("Destroy");
                     Destroy(gameObject);
                     Destroy(GameObject.Find("Tutorial Dex"));
                     Destroy(tree);
                     GameObject.Find("SugarDisk").GetComponent<Button>().enabled = true;
-                    GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 1f);
+                    GameObject.Find("First Person Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 1f);
                     GameObject.Find("GreenCart").GetComponent<Button>().enabled = true;
                 }
             }
