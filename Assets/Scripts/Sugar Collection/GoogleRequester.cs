@@ -19,7 +19,7 @@ public class GoogleRequester : IRequester
 
     public int TargetPos { get; set; }
     public string Key { get; set; }
-
+    LocationService ls = new LocationService();
     /// <summary>
     /// * This is used only for geocode
     /// * change the url to make it work for other request
