@@ -3,6 +3,7 @@ using BarcodeScanner.Webcam;
 using System;
 using UnityEngine;
 using Wizcorp.Utils.Logger;
+using UnityEngine.UI;
 
 #if !UNITY_WEBGL
 using System.Threading;
@@ -51,8 +52,11 @@ namespace BarcodeScanner.Scanner
 		private int webcamFrameDelayed = 0;
 		private int webcamLastChecksum = -1;
 		private bool decodeInterrupted = true;
+
         private Texture2D t;
         private int width, height;
+        float time=0;
+
         public Scanner() : this(null, null, null) { }
 		public Scanner(ScannerSettings settings) : this(settings, null, null) {}
 		public Scanner(IParser parser, IWebcam webcam) : this(null, parser, webcam) {}
@@ -288,11 +292,20 @@ namespace BarcodeScanner.Scanner
             //    return;
             //}
 
-            t = (Texture2D)GoogleARCore.Frame.CameraImage.Texture;
-            //t = (Texture2D)(UIManager.Instance.transform.GetComponent<GoogleARCore.ARCoreBackgroundRenderer>().BackgroundMaterial.mainTexture);
-            width = t.width;
-            height = t.height;
-            pixels = t.GetPixels32();
+            try
+            {
+                time += Time.deltaTime;
+                //t = new Texture2D(GoogleARCore.Frame.CameraImage.Texture.width, GoogleARCore.Frame.CameraImage.Texture.height,);
+                t = (Texture2D)GoogleARCore.Frame.CameraImage.Texture;
+                //UIManager.Instance.ImageText.GetComponent<Text>().text = $"{((Texture2D)GoogleARCore.Frame.CameraImage.Texture).GetPixels32().Length} + {time}";
+                UIManager.Instance.ImageWHText.GetComponent<Text>().text = $"{GoogleARCore.Frame.CameraImage.Texture.width.ToString()} & {GoogleARCore.Frame.CameraImage.Texture.height.ToString()}";
+                pixels = t.GetPixels32();
+            }
+            catch (Exception)
+            {
+
+                
+            }
             // If the app start for the first time (select size & onReady Event)
             if (Status == ScannerStatus.Initialize)
 			{
