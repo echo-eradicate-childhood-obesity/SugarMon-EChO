@@ -153,7 +153,34 @@ public class UIManager : MonoBehaviour {
                 }
                 else if(!go.text.Contains("("))
                 {
-                  go.image.GetComponent<Image>().sprite = Sprites[0];
+                    if (go.text.Equals("Cane"))
+                    {
+                        go.image = Sprites[0];
+                    }
+                    if (go.text.Equals("Dextrin"))
+                    {
+                        go.image = Sprites[1];
+                    }
+                    if (go.text.Equals("OSE"))
+                    {
+                        go.image = Sprites[2];
+                    }
+                    if (go.text.Equals("Concentrate"))
+                    {
+                        go.image = Sprites[3];
+                    }
+                    if (go.text.Equals("Syrup"))
+                    {
+                        go.image = Sprites[4];
+                    }
+                    if (go.text.Equals("Sugar"))
+                    {
+                        go.image = Sprites[5];
+                    }
+                    if (go.text.Equals("Other"))
+                    {
+                        go.image = Sprites[6];
+                    }
                     go.text += " (1 new!)";
                 }
              
