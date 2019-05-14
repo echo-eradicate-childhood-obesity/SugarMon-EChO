@@ -28,11 +28,9 @@ public class FindAddedSugar : MonoBehaviour
     protected List<string> ingredients;
     public TextAsset dbtxt;
 
-    public Button vb;
     public Image vibrateCancel;
     public bool vibrate;
 
-    public Button sb;
     public Image soundCancel;
     public bool sound;
     public AudioSource goodSound;
