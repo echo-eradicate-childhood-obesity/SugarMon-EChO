@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+
 /*info is boxed and send when scanner found an item
 * 
 */
@@ -19,7 +20,7 @@ public struct Info{
 }
 
 public class UIManager : MonoBehaviour {
-
+    public List<Sprite> Sprites;
 
     //singleton attached to main camera
     private static UIManager _instance;
@@ -126,7 +127,7 @@ public class UIManager : MonoBehaviour {
     {
         IndicateControllerHelper(info, targetName, list);
     }
-
+    public Sprite dextrose;
     public void IndicateControllerHelper(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
     { 
         foreach (TMP_Dropdown.OptionData go in list)
@@ -136,6 +137,7 @@ public class UIManager : MonoBehaviour {
             {
                 if (go.text.Contains(" ("))
                 {
+
                     int length = go.text.Length;
                     int x = 0;
                     var number = go.text.Substring(length - 7, 1);
@@ -151,7 +153,7 @@ public class UIManager : MonoBehaviour {
                 }
                 else if(!go.text.Contains("("))
                 {
-                 
+                  go.image.GetComponent<Image>().sprite = Sprites[0];
                     go.text += " (1 new!)";
                 }
              
