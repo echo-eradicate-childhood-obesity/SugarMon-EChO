@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using GoogleARCore;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System.Drawing;
 namespace ARMon
 {
     public class GameManager : MonoBehaviour
@@ -55,7 +56,7 @@ namespace ARMon
         public Vector3 CurrentRoundPos { get { return currentRoundPos; } }
 
         private Vector3 previousPos;
-                
+
         public Vector3 PreviousPos
         {
             get { return previousPos; }
@@ -84,7 +85,7 @@ namespace ARMon
             monsters = new List<GameObject>();
             //set currentscore to 0 for test
             CurrentScore = 0;
-            
+
             foreach (SpawnGrid sg in ssHandler.Obersvers)
             {
                 sg.SignNeighbor(ssHandler.Obersvers, sconfig.gap);
@@ -131,14 +132,13 @@ namespace ARMon
             Shoot(bulletGO);
         }
 
-        
+
         private void LateUpdate()
         {
             MoveHandler?.Invoke();
             //current scene score
             textCamPos.GetComponent<Text>().text = CurrentScore.ToString();
-            
-            List<Direction> moveDir = CustomController.PositionCompair( previousPos,currentRoundPos, sconfig.gap);
+            List<Direction> moveDir = CustomController.PositionCompair(previousPos, currentRoundPos, sconfig.gap);
             foreach (Direction s in moveDir)
             {
                 previousPos = currentRoundPos;
@@ -159,13 +159,13 @@ namespace ARMon
         }
 
         //this is use for the touch/mouse event
-        
+
 
 
         private void Shoot(GameObject bulletGO)
         {
             FireEvent();
-            if (shot&&buttonHit)
+            if (shot && buttonHit)
             {
                 shotTimer += Time.deltaTime;
             }
@@ -188,7 +188,7 @@ namespace ARMon
                 //LayerMask layermask = 1 << 12 | 1 << 10;
                 //var touchPos = new Vector2(0.2f,0.2f) ;
                 //Ray ray = new Ray(deviceGO.transform.position, Camera.main.transform.forward);
-                Debug.DrawRay(deviceGO.transform.position, Camera.main.transform.forward, Color.red, 10f);
+                //Debug.DrawRay(deviceGO.transform.position, Camera.main.transform.forward, Color.red, 10f);
                 //textCamPos.GetComponent<Text>().text = "I shoot somthing";
                 //RaycastHit hit;
                 //if (Physics.Raycast(ray, out hit, Mathf.Infinity, layermask))
@@ -219,7 +219,7 @@ namespace ARMon
         }
 
 
-        
+
         public void Summon(string s)
         {
             //GameObject deviceGO = GameManager.Instance.deviceGO;
@@ -234,16 +234,16 @@ namespace ARMon
                 spawnGO.transform.localScale = new Vector3(1, 1, 1);
                 spawnGO.SendMessage("OccupyGrid", sg);
                 monsters.Add(spawnGO);
-                
+
             }
             catch (System.Exception e)
             {
                 Debug.Log(e.StackTrace);
             }
-            
+
         }
 
-        
+
         private SpawnGrid GetGrid(List<IObersver> list)
         {
             SpawnGrid output;
@@ -258,7 +258,7 @@ namespace ARMon
             ssHandler.Notfiy(currentRoundPos, dir, sconfig);
         }
 
-        
+
         public void ChangeMode()
         {
             bool canvasStatus = canvas.activeSelf;
@@ -266,7 +266,7 @@ namespace ARMon
             arCoreDevice.gameObject.SetActive(canvasStatus);
             planeDiscovery.gameObject.SetActive(canvasStatus);
         }
-            
+
 
         public void LoadTreeScene()
         {
@@ -279,6 +279,23 @@ namespace ARMon
         public void MonsterDie(GameObject go)
         {
             monsters.Remove(go);
+        }
+
+        public void Print()
+        {
+            UnityEngine.Color[] cols = ((Texture2D)GoogleARCore.Frame.CameraImage.Texture).GetPixels();
+
+            var image = new Bitmap(Frame.CameraImage.Texture.width, GoogleARCore.Frame.CameraImage.Texture.height);
+            for (int i = 0; i < cols.Length; i++)
+            {
+
+                var col = System.Drawing.Color.FromArgb((int)(cols[i].r * 255), (int)(cols[i].g * 255), (int)(cols[i].b * 255));
+                image.SetPixel((int)(i / GoogleARCore.Frame.CameraImage.Texture.height), (int)(i % GoogleARCore.Frame.CameraImage.Texture.width), col);
+            }
+            using (System.IO.StreamWriter writer = new System.IO.StreamWriter(Application.persistentDataPath + "/out.jpg"))
+            {
+                
+            }
         }
     }
 }
