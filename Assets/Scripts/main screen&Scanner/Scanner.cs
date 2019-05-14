@@ -22,7 +22,7 @@ namespace BarcodeScanner.Scanner
 		public event EventHandler StatusChanged;
 
 		//
-		//public IWebcam Camera { get; private set; }
+		public IWebcam Camera { get; private set; }
 		public IParser Parser { get; private set; }
 		public ScannerSettings Settings { get; private set; }
 
@@ -70,7 +70,7 @@ namespace BarcodeScanner.Scanner
 			// Default Properties
 			Settings = (settings == null) ? new ScannerSettings() : settings;
 			Parser = (parser == null) ? new ZXingParser(Settings) : parser;
-            //Camera = (webcam == null) ? new UnityWebcam(Settings) : webcam;
+            Camera = (webcam == null) ? new UnityWebcam(Settings) : webcam;
             
             
 		}
@@ -183,7 +183,7 @@ namespace BarcodeScanner.Scanner
 			try
 			{
                 //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
-                //Debug.Log($"width is {width} and height is {height}, total length is {t.GetPixels32().Length}");
+                Debug.Log($"width is {width} and height is {height}, total length is {t.GetPixels32().Length}");
                 Result = Parser.Decode(pixels, width, height);
                 parserPixelAvailable = false;
 			}
@@ -219,8 +219,7 @@ namespace BarcodeScanner.Scanner
 				//Log.Debug(this + " SimpleScanner -> Scan ... " + Camera.Width + " / " + Camera.Height);
 				try
 				{
-                    Result = Parser.Decode(pixels, height, width);
-                    //Result = Parser.Decode(pixels, width, height);
+                    Result = Parser.Decode(pixels, width, height);
                     //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
                     parserPixelAvailable = false;
 					if (Result == null)
@@ -248,24 +247,23 @@ namespace BarcodeScanner.Scanner
 		/// <returns></returns>
 		private bool WebcamInitialized()
 		{
-            //If webcam information still change, reset delayFrame
+			// If webcam information still change, reset delayFrame
+			//if (webcamLastChecksum != Camera.GetChecksum())
+			//{
+			//	webcamLastChecksum = Camera.GetChecksum();
+			//	webcamFrameDelayed = 0;
+			//	return false;
+			//}
 
-            //if (webcamLastChecksum != Camera.GetChecksum())
-            //{
-            //    webcamLastChecksum = Camera.GetChecksum();
-            //    webcamFrameDelayed = 0;
-            //    return false;
-            //}
-
-            // Increment delayFrame
-            if (webcamFrameDelayed < Settings.ScannerDelayFrameMin)
+			// Increment delayFrame
+			if (webcamFrameDelayed < Settings.ScannerDelayFrameMin)
 			{
 				webcamFrameDelayed++;
 				return false;
 			}
 
 			//Camera.SetSize();
-			//webcamFrameDelayed = 0;
+			webcamFrameDelayed = 0;
 			return true;
 		}
 
@@ -280,19 +278,19 @@ namespace BarcodeScanner.Scanner
             // If not ready, wait
             //if (!Camera.IsReady())
             //{
-            //    Log.Warning(this + " Camera Not Ready Yet ...");
-            //    if (status != ScannerStatus.Initialize)
-            //    {
-            //        Status = ScannerStatus.Initialize;
-            //    }
-            //    return;
+            //	Log.Warning(this + " Camera Not Ready Yet ...");
+            //	if (status != ScannerStatus.Initialize)
+            //	{
+            //		Status = ScannerStatus.Initialize;
+            //	}
+            //	return;
             //}
 
-            t = (Texture2D)GoogleARCore.Frame.CameraImage.Texture;
-            //t = (Texture2D)(UIManager.Instance.transform.GetComponent<GoogleARCore.ARCoreBackgroundRenderer>().BackgroundMaterial.mainTexture);
-            width = t.width;
-            height = t.height;
-            pixels = t.GetPixels32();
+            //t = (Texture2D)GoogleARCore.Frame.CameraImage.Texture;
+            ////t = (Texture2D)(UIManager.Instance.transform.GetComponent<GoogleARCore.ARCoreBackgroundRenderer>().BackgroundMaterial.mainTexture);
+            //width = t.width;
+            //height = t.height;
+            //pixels = t.GetPixels32();
             // If the app start for the first time (select size & onReady Event)
             if (Status == ScannerStatus.Initialize)
 			{
