@@ -40,9 +40,12 @@ public class UIManager : MonoBehaviour {
     public GameObject ImageWHText;
     public GameObject StatusText;
 
+    public List<Sprite> Sprites;
+    
     // Use this for initialization
     void Awake ()
     {
+        gameObject.GetComponent<Image>().sprite=Sprites[0]
         if (_instance == null)
         {
             _instance = this;
