@@ -27,8 +27,18 @@ public class FindAddedSugar : MonoBehaviour
     protected List<string> upcs;
     protected List<string> ingredients;
     public TextAsset dbtxt;
+
     public Button vb;
-    public Image cancel;
+    public Image vibrateCancel;
+    public bool vibrate;
+
+    public Button sb;
+    public Image soundCancel;
+    public bool sound;
+    public AudioSource goodSound;
+    public AudioSource badSound;
+    public AudioSource unknownSound;
+    public AudioSource onSound;
 
     public GameObject scanFrame;
     public GameObject summonSystem;
@@ -38,7 +48,7 @@ public class FindAddedSugar : MonoBehaviour
     public GameObject sugarDex, redDot, canvas, familyBackground, mainCam;
     public GameObject totalCount, foundCount;
 
-    public bool vibrate;
+
 
     //need to follow the title in Database.txt
     [Header("Column names")]
@@ -67,8 +77,10 @@ public class FindAddedSugar : MonoBehaviour
     {
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
-        cancel.enabled = false;
+        vibrateCancel.enabled = false;
         vibrate = true;
+        soundCancel.enabled = false;
+        sound = true;
 
 
     }
@@ -143,7 +155,7 @@ public class FindAddedSugar : MonoBehaviour
         familyBackground.gameObject.SetActive(true);
         GameObject.Find("FamilyContent").GetComponent<PopulateFamilyPanels>().PopulateFamilies();
 
-        
+
         //Family Background
         foreach (List<string> s in dbList)
         {
@@ -200,13 +212,24 @@ public class FindAddedSugar : MonoBehaviour
     public void ToggleVibrate()
     {
         vibrate = !vibrate;
-        cancel.enabled = !cancel.enabled;
+        vibrateCancel.enabled = !vibrateCancel.enabled;
 #if UNITY_ANDROID || UNITY_IOS
         if (vibrate)
         {
             Handheld.Vibrate();
         }
 #endif
+    }
+
+    public void ToggleSound()
+    {
+        sound = !sound;
+        soundCancel.enabled = !soundCancel.enabled;
+   
+        if (sound)
+        {
+            onSound.Play();
+        }
     }
 
     public void AllTypeOfSugars(string ingredientFromDB, string bcv)
@@ -452,12 +475,18 @@ public class FindAddedSugar : MonoBehaviour
         {
             monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NoAddedSugar");
             monster.transform.Find("SugarDesign").gameObject.SetActive(false);
+            if (sound)
+            {
+                goodSound.Play();
+            }
+            
         }
         else if (sugarName == "Not Found")
         {
             monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Not Found Card");
             monster.transform.Find("SugarDesign").gameObject.SetActive(false);
             scannedAddedSugars.Add("Not Found");
+            unknownSound.Play();
         }
         else
         {
@@ -469,6 +498,10 @@ public class FindAddedSugar : MonoBehaviour
                 Handheld.Vibrate();
                 }
 #endif
+                if (sound)
+                {
+                    badSound.Play();
+                }
                 monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NewAddedSugar");
                 redDot.gameObject.SetActive(true);
             }
