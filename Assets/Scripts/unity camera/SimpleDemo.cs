@@ -111,8 +111,11 @@ public class SimpleDemo : MonoBehaviour
     }
     void Update()
     {
-        Image.texture = GoogleARCore.Frame.CameraImage.Texture;
-        Debug.Log($"width is {GoogleARCore.Frame.CameraImage.Texture.width} and height is {GoogleARCore.Frame.CameraImage.Texture.height}, total length is {((Texture2D)(GoogleARCore.Frame.CameraImage.Texture)).GetPixels32().Length}");
+        //Image.texture = GoogleARCore.Frame.CameraImage.Texture;
+        UIManager.Instance.StatusText.GetComponent<Text>().text = $"{BarcodeScanner.Status}";
+        UIManager.Instance.ImageText.GetComponent<Text>().text = $"{((Texture2D)GoogleARCore.Frame.CameraImage.Texture).GetPixels32().Length}";
+        UIManager.Instance.ImageWHText.GetComponent<Text>().text = $"{GoogleARCore.Frame.CameraImage.Texture.width.ToString()} & {GoogleARCore.Frame.CameraImage.Texture.height.ToString()}";
+        //Debug.Log($"width is {GoogleARCore.Frame.CameraImage.Texture.width} and height is {GoogleARCore.Frame.CameraImage.Texture.height}, total length is {((Texture2D)(GoogleARCore.Frame.CameraImage.Texture)).GetPixels32().Length}");
         if (BarcodeScanner == null)
         {
             return;
@@ -151,7 +154,7 @@ public class SimpleDemo : MonoBehaviour
             {
                 var i = SearchController.BinarySearch(dbProductList, long.Parse(barCodeValue), dbProductList.Count - 1, 0);
 
-                bool test = GameObject.Find("Main Camera").GetComponent<TestController>().test;
+                bool test = transform.GetComponent<TestController>().test;
 
                 //test
                 if (i != -1)
