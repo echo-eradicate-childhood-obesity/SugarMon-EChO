@@ -17,6 +17,9 @@ public class PopulateFamilyPanels : MonoBehaviour {
 
     public List<string> titleColor;
     public GameObject Cell, Panel, Title;
+
+    [SerializeField]
+    private List<GameObject> familyBtn;
     // Use this for initialization
 
     void Start () {
@@ -37,7 +40,7 @@ public class PopulateFamilyPanels : MonoBehaviour {
         Color col;
         if (colors[0] == null)
         {
-            titleColor = new List<string>() { "#DD7E6B", "#FCD7B0", "#D5A6BD", "#B6D7A8", "#D8C2EF", "#A2C4C9", "#9FC5E8" };
+            titleColor = new List<string>() { "#FCD7B0", "#D5A6BD", "#DD7E6B", "#D8C2EF", "#B6D7A8", "#A2C4C9", "#9FC5E8" };
         }
         else
         {
@@ -48,17 +51,16 @@ public class PopulateFamilyPanels : MonoBehaviour {
             }
         }
 
-
-        GameObject.Find("SugarDisk").GetComponent<SugarDisk>().monsterColor = titleColor;
-
         for (int i = 0; i < families.Count; i++)
         {
+
             newTitle = (GameObject)Instantiate(Title, transform);
             newTitle.name = families[i] + " Title";
 
             //Convert hex code to RGB color and assign to titles
             ColorUtility.TryParseHtmlString(titleColor[i], out col);
             newTitle.GetComponent<Image>().color = col;
+            familyBtn[i].GetComponent<Image>().color = col;
 
             newTitle.GetComponentInChildren<Text>().text = families[i];
             newPanel = (GameObject)Instantiate(Panel, transform);
