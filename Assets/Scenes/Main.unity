@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073993, b: 0.3587269, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5086,11 +5086,6 @@ RectTransform:
   m_AnchoredPosition: {x: -253, y: -15.175018}
   m_SizeDelta: {x: 156, y: 41.1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &893423987 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1520526069937942, guid: dd1636857335e44c6a59786b5ce5043c,
-    type: 2}
-  m_PrefabInternal: {fileID: 2117174730}
 --- !u!1 &907399119 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1367268725991152, guid: 3210c2d7dab454c4e909a936fd2a71b3,
@@ -7469,7 +7464,6 @@ MonoBehaviour:
   fms: []
   scannedAddedSugars: []
   allScanned: []
-  test: {fileID: 893423987}
 --- !u!82 &1325306022
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7607,8 +7601,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000056921515}
-  m_SizeDelta: {x: -882.624, y: 50}
+  m_AnchoredPosition: {x: 0, y: -0.000004202571}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1337665287
 MonoBehaviour:
@@ -8916,7 +8910,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 2000}
   m_Pivot: {x: 0, y: 1}
@@ -9923,7 +9917,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 700.46155, y: -0.58325195}
+  m_SizeDelta: {x: 700.46155, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1633522407
 MonoBehaviour:
