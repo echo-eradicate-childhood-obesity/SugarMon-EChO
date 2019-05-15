@@ -212,15 +212,28 @@ namespace ARMon
 
         void ShootLaser()
         {
-            //Implement RayCast
+           
 
             if (buttonHit)
             {
-                print("SHOOTING");
+                RaycastHit hit;
+                // Does the ray intersect any objects excluding the player layer
+                if (Physics.Raycast(deviceGO.transform.position, deviceGO.transform.forward, out hit, Mathf.Infinity))
+                {
+                    deviceGO.GetComponent<LineRenderer>().SetPosition(0, deviceGO.transform.position - Vector3.up*0.2f);
+                    deviceGO.GetComponent<LineRenderer>().SetPosition(1, hit.point);
+                }
+                else
+                {
+                    deviceGO.GetComponent<LineRenderer>().SetPosition(0, deviceGO.transform.position - Vector3.up * 0.2f);
+                    deviceGO.GetComponent<LineRenderer>().SetPosition(1, deviceGO.transform.position + deviceGO.transform.forward * 100);
+                }
                 deviceGO.GetComponent<LineRenderer>().enabled = true;
             }
             else
             {
+                deviceGO.GetComponent<LineRenderer>().SetPosition(0, deviceGO.transform.position);
+                deviceGO.GetComponent<LineRenderer>().SetPosition(1, deviceGO.transform.position);
                 deviceGO.GetComponent<LineRenderer>().enabled = false;
             }
         }
