@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -6,11 +6,11 @@ using System.Text.RegularExpressions;
 using UnityEngine.UI;
 using System.Text;
 using System.Threading.Tasks;
-using TMPro;
+
 
 public class FindAddedSugar : MonoBehaviour
 {
-    //ref of singleton 
+    //ref of singleton
     UIManager um;
 
     //private IScanner BarcodeScanner;
@@ -23,7 +23,8 @@ public class FindAddedSugar : MonoBehaviour
     public RuntimeAnimatorController animController;
     private SimpleDemo simpleDemo;
 
-    private int currentNumMonster = 0;
+    private int currentNumMonster = 0; // index of monster displaying on card
+    private bool wasSkipped = false; // were the current displaying card animations skipped
 
     protected List<string> upcs;
     protected List<string> ingredients;
@@ -46,10 +47,11 @@ public class FindAddedSugar : MonoBehaviour
     public string numberInRepositoryColumn = "Number in Added Sugar Repository";
     public string monsterFamilyColumn = "MonstersFamily";
 
-
     [HideInInspector]
     public int familyIndex, deckNumIndex, nameIndex, repoNumIndex, familyNum;
 
+    // scannedAddedSugars - list of sugars found from scan
+    // allScanned - list of sugars previously scanner
     [HideInInspector]
     public List<string> sugarInWall, fms = new List<string>(), scannedAddedSugars = new List<string>(), allScanned = new List<string>();
 
@@ -57,8 +59,8 @@ public class FindAddedSugar : MonoBehaviour
     public Dictionary<string, int> familyDictionary;
 
     private GameObject monster;
-    public GameObject test;
 
+    // tutorial stage: 1 = first open app, 2 = first card animation, 3 = after last card animation of first scan
     private int ts;
 
     // Use this for initialization
@@ -66,8 +68,6 @@ public class FindAddedSugar : MonoBehaviour
     {
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
-
-
     }
     void Start()
     {
@@ -85,7 +85,7 @@ public class FindAddedSugar : MonoBehaviour
         upcs = new List<string>();
         ingredients = new List<string>();
 
-        //Read Database 
+        //Read Database
         //TextAsset sugarRepository = (TextAsset)Resources.Load("Database", typeof(TextAsset));
         string dbContent = Encoding.UTF7.GetString(sugarRepository.bytes);
         db = dbContent.Split(new char[] { '\n' }).ToList();
@@ -100,7 +100,7 @@ public class FindAddedSugar : MonoBehaviour
         nameIndex = dbList[0].IndexOf(sugarNameColumn);
         repoNumIndex = dbList[0].IndexOf(numberInRepositoryColumn);  //use only when you need the sugar index in sugar repository
 
-        //Find out how many different families and how many type of sugar they contain 
+        //Find out how many different families and how many type of sugar they contain
         //Save in familyDictionary [family name, count]
         //Save all types of added sugar in the repository variable
         familyDictionary = new Dictionary<string, int>();
@@ -238,10 +238,7 @@ public class FindAddedSugar : MonoBehaviour
                             if (sl[nameIndex].ToLower() == r.ToLower())
                             {
                                 Info info = new Info(sl[familyIndex]);
-                                um.IndicateController(info, "Notification");
-                                var testtmp = test.GetComponent<TMP_Dropdown>().options;
-                                um.IndicateController(info, "Notification", testtmp);
-
+                                um.IndicateController(info,"Notification");
                             }
                         }
 
@@ -275,7 +272,6 @@ public class FindAddedSugar : MonoBehaviour
 
         }
     }
-
     private IEnumerator AnimatorSugarCardToDex(string s)
     {
         //Animation - Card To Dex
@@ -285,19 +281,29 @@ public class FindAddedSugar : MonoBehaviour
         anim.AddComponent<Animator>();
         anim.GetComponent<Animator>().runtimeAnimatorController = animController;
 
-
         if (s == "Sugar")
         {
             canvas.transform.Find("Animation/Sugar Name").GetComponent<Text>().text = scannedAddedSugars[currentNumMonster];
-            yield return new WaitForSeconds(2f);
-            if (currentNumMonster + 1 == scannedAddedSugars.Count)
+            float animWaitCounter = 0f;
+            while(animWaitCounter < 2f && wasSkipped == false) // wait for 2 seconds
             {
-                Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster]));
+                if(Input.GetButtonDown("Fire1") || Input.touchCount > 0) break; // if mouse pressed or screen tapped, end timer
+                yield return null;
+                animWaitCounter += Time.deltaTime;
             }
-            else
+            if(animWaitCounter < 2f) // if the previous animation was skipped
             {
-                GameObject.Find(scannedAddedSugars[currentNumMonster]).GetComponentInChildren<Text>().text = scannedAddedSugars[currentNumMonster + 1];
-
+                wasSkipped = true;
+                yield return new WaitForSeconds(.2f); // delay between rapid SugarCardToDex animations
+            }
+            if (currentNumMonster + 1 == scannedAddedSugars.Count) // if last card
+            {
+                Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster])); // destroy stationary card
+                wasSkipped = false; // reset wasSkipped for the next scan
+            }
+            else // if there are more cards
+            {
+                GameObject.Find(scannedAddedSugars[currentNumMonster]).GetComponentInChildren<Text>().text = scannedAddedSugars[currentNumMonster + 1]; // set atationary card to the next card
             }
             ChangeNextCardText();
             anim.GetComponent<Animator>().Play("SugarCardToDex");
@@ -329,11 +335,10 @@ public class FindAddedSugar : MonoBehaviour
             Destroy(anim);
             ChangeNextCardText();
         }
-
     }
     private void ChangeNextCardText()
     {
-        currentNumMonster++;
+        currentNumMonster++; //increment card index
         if (currentNumMonster == scannedAddedSugars.Count)
         {
             if (redDot.gameObject.activeSelf)
@@ -352,7 +357,6 @@ public class FindAddedSugar : MonoBehaviour
                     tutorialMask.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0);
                     tutorialMask.GetComponent<RectTransform>().anchoredPosition = new Vector2(2, -15);
                     tutorialMask.GetComponent<RectTransform>().sizeDelta = new Vector2(40, 2000);
-
                     ts++;
                     PlayerPrefs.SetInt("TutorialStage", ts);
                 }
@@ -476,7 +480,14 @@ public class FindAddedSugar : MonoBehaviour
             }
             else
             {
-                magicTree.GetComponentInChildren<Text>().text = "Wow! Looks like you found a Sugar Monster!";
+                if(scannedAddedSugars.Count > 1)
+                {
+                    magicTree.GetComponentInChildren<Text>().text = "Wow! Looks like you found some Sugar Monsters!";
+                }
+                else
+                {
+                    magicTree.GetComponentInChildren<Text>().text = "Wow! Looks like you found a Sugar Monster!";
+                }
             }
             ts++;
             PlayerPrefs.SetInt("TutorialStage", ts);
