@@ -9,6 +9,13 @@ namespace ARMon
 {
     public class GameManager : MonoBehaviour
     {
+        [System.Serializable]
+        public struct AttackTypes{
+            public string name;
+            public Sprite sprite;
+        }
+
+
         private static GameManager instance;
 
         public static GameManager Instance
@@ -25,13 +32,14 @@ namespace ARMon
 
         public GameObject camPosText;
 
-        public GameObject deviceGO;
+        public GameObject deviceGO;       
 
         public float time;
         public float shotTimer;
         private bool buttonHit;
         bool shot;
 
+        public GameObject projectile;
         public GameObject bulletGO;
         public GameObject coin;
         public GameObject monsterGo;
@@ -45,6 +53,9 @@ namespace ARMon
 
         //detect radius of player where grid spawn
         public float radius;
+
+        public List<AttackTypes> _attacks;
+        private int _currentAttack = 0;
 
         private List<GameObject> monsters;
         public static event Move MoveHandler;
@@ -170,13 +181,50 @@ namespace ARMon
                 shotTimer += Time.deltaTime;
             }
             else { shotTimer = 0f; }
+            switch (_currentAttack)
+            {
+                case 0:
+                    ShootProjectile();
+                    break;
+                case 1:
+                    ShootLaser();             
+                    break;
+                default:
+                    break;
+            }
+
+            
+        }
+        void ShootProjectile()
+        {
             if (shotTimer >= time)
             {
-                var bul = Instantiate(bulletGO, deviceGO.transform.position, Quaternion.identity);
-                bul.SendMessage("SetDir", deviceGO.transform.forward);
+
+
+                GameObject temp = Instantiate(projectile, deviceGO.transform.position, Quaternion.identity);
+                temp.GetComponent<ProjectileScript>().SetProjectile(deviceGO.transform.forward);
+
+                //var bul = Instantiate(bulletGO, deviceGO.transform.position, Quaternion.identity);
+                //bul.SendMessage("SetDir", deviceGO.transform.forward);
                 shotTimer = 0f;
             }
         }
+
+        void ShootLaser()
+        {
+            //Implement RayCast
+
+            if (buttonHit)
+            {
+                print("SHOOTING");
+                deviceGO.GetComponent<LineRenderer>().enabled = true;
+            }
+            else
+            {
+                deviceGO.GetComponent<LineRenderer>().enabled = false;
+            }
+        }
+
         private void FireEvent()
         {
             if (Input.GetButtonDown("Fire1"))
@@ -279,6 +327,12 @@ namespace ARMon
         public void MonsterDie(GameObject go)
         {
             monsters.Remove(go);
+        }
+
+        public void ChangeWeapon(Image image)
+        {
+            _currentAttack = (_currentAttack + 1) % _attacks.Count;
+            image.sprite = _attacks[_currentAttack].sprite;
         }
     }
 }
