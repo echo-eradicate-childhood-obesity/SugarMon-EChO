@@ -187,7 +187,7 @@ namespace BarcodeScanner.Scanner
 			{
                 //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
                 //Debug.Log($"width is {width} and height is {height}, total length is {t.GetPixels32().Length}");
-                Result = Parser.Decode(pixels, GoogleARCore.Frame.CameraImage.Texture.width, GoogleARCore.Frame.CameraImage.Texture.height);
+                Result = Parser.Decode(pixels,width, height);
                 
                 Debug.Log(pixels.Length);
                 parserPixelAvailable = false;
@@ -225,7 +225,7 @@ namespace BarcodeScanner.Scanner
 				try
 				{
 
-                    Result = Parser.Decode(pixels, 1440, 2560);
+                    Result = Parser.Decode(pixels, width, height);
                     //Result = Parser.Decode(pixels, GoogleARCore.Frame.CameraImage.Texture.height, GoogleARCore.Frame.CameraImage.Texture.width);
                     //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
                     parserPixelAvailable = false;
@@ -334,8 +334,10 @@ namespace BarcodeScanner.Scanner
                 {
                     //t = new Texture2D(GoogleARCore.Frame.CameraImage.Texture.width, GoogleARCore.Frame.CameraImage.Texture.height,);
                     t = (Texture2D)GoogleARCore.Frame.CameraImage.Texture;
+                    width = GoogleARCore.Frame.CameraImage.Texture.width;
+                    height = GoogleARCore.Frame.CameraImage.Texture.height;
                     //UIManager.Instance.ImageText.GetComponent<Text>().text = $"{((Texture2D)GoogleARCore.Frame.CameraImage.Texture).GetPixels32().Length} + {time}";
-                    UIManager.Instance.ImageWHText.GetComponent<Text>().text = $"{GoogleARCore.Frame.CameraImage.Texture.width.ToString()} & {GoogleARCore.Frame.CameraImage.Texture.height.ToString()}";
+                    UIManager.Instance.ImageWHText.GetComponent<Text>().text = $"{width.ToString()} & {height.ToString()}";
                     pixels = t.GetPixels32();
                     Debug.Log(pixels.Length);
                     Debug.Log("this is running");
