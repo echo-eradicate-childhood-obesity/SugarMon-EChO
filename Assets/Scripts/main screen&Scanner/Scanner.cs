@@ -188,7 +188,7 @@ namespace BarcodeScanner.Scanner
 			{
                 //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
                 //Debug.Log($"width is {width} and height is {height}, total length is {t.GetPixels32().Length}");
-                Result = Parser.Decode(pixels, width, height);
+                //Result = Parser.Decode(pixels, width, height);
                 parserPixelAvailable = false;
 			}
 			catch (Exception e)
@@ -223,7 +223,7 @@ namespace BarcodeScanner.Scanner
 				//Log.Debug(this + " SimpleScanner -> Scan ... " + Camera.Width + " / " + Camera.Height);
 				try
 				{
-                    Result = Parser.Decode(pixels, height, width);
+                    Result = Parser.Decode(pixels, width,height);
                     //Result = Parser.Decode(pixels, width, height);
                     //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
                     parserPixelAvailable = false;

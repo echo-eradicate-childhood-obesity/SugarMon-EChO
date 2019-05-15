@@ -111,7 +111,7 @@ public class SimpleDemo : MonoBehaviour
     }
     void Update()
     {
-        //Image.texture = GoogleARCore.Frame.CameraImage.Texture;
+        Image.texture = GoogleARCore.Frame.CameraImage.Texture;
         try
         {
             UIManager.Instance.GIMage.GetComponent<Text>().text = BarcodeScanner.ToString();
