@@ -14196,7 +14196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927066d69e945534d9e418957eac82fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 1
+  test: 0
   upcNumText: {fileID: 690513164}
   resetButton: {fileID: 474457265}
 --- !u!1 &1749236373

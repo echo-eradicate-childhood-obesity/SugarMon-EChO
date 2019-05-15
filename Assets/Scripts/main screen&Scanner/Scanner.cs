@@ -55,7 +55,6 @@ namespace BarcodeScanner.Scanner
 
         private Texture2D t;
         private int width, height;
-        float time=0;
 
         public Scanner() : this(null, null, null) { }
 		public Scanner(ScannerSettings settings) : this(settings, null, null) {}
@@ -188,7 +187,9 @@ namespace BarcodeScanner.Scanner
 			{
                 //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
                 //Debug.Log($"width is {width} and height is {height}, total length is {t.GetPixels32().Length}");
-                //Result = Parser.Decode(pixels, width, height);
+                Result = Parser.Decode(pixels, GoogleARCore.Frame.CameraImage.Texture.width, GoogleARCore.Frame.CameraImage.Texture.height);
+                
+                Debug.Log(pixels.Length);
                 parserPixelAvailable = false;
 			}
 			catch (Exception e)
@@ -223,8 +224,9 @@ namespace BarcodeScanner.Scanner
 				//Log.Debug(this + " SimpleScanner -> Scan ... " + Camera.Width + " / " + Camera.Height);
 				try
 				{
-                    Result = Parser.Decode(pixels, width,height);
-                    //Result = Parser.Decode(pixels, width, height);
+
+                    Result = Parser.Decode(pixels, 1440, 2560);
+                    //Result = Parser.Decode(pixels, GoogleARCore.Frame.CameraImage.Texture.height, GoogleARCore.Frame.CameraImage.Texture.width);
                     //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
                     parserPixelAvailable = false;
 					if (Result == null)
@@ -292,20 +294,7 @@ namespace BarcodeScanner.Scanner
             //    return;
             //}
 
-            try
-            {
-                time += Time.deltaTime;
-                //t = new Texture2D(GoogleARCore.Frame.CameraImage.Texture.width, GoogleARCore.Frame.CameraImage.Texture.height,);
-                t = (Texture2D)GoogleARCore.Frame.CameraImage.Texture;
-                //UIManager.Instance.ImageText.GetComponent<Text>().text = $"{((Texture2D)GoogleARCore.Frame.CameraImage.Texture).GetPixels32().Length} + {time}";
-                UIManager.Instance.ImageWHText.GetComponent<Text>().text = $"{GoogleARCore.Frame.CameraImage.Texture.width.ToString()} & {GoogleARCore.Frame.CameraImage.Texture.height.ToString()}";
-                pixels = t.GetPixels32();
-            }
-            catch (Exception)
-            {
-
-                
-            }
+            
             // If the app start for the first time (select size & onReady Event)
             if (Status == ScannerStatus.Initialize)
 			{
@@ -327,9 +316,10 @@ namespace BarcodeScanner.Scanner
 				// Call the callback if a result is there
 				if (Result != null)
 				{
-					//
-					//Log.Info(Result);
-					Callback(Result.Type, Result.Value);
+                    
+                    //
+                    //Log.Info(Result);
+                    Callback(Result.Type, Result.Value);
 
 					// clean and return
 					Result = null;
@@ -339,8 +329,23 @@ namespace BarcodeScanner.Scanner
 
                 // Get the image as an array of Color32
                 //t = (Texture2D)(UIManager.Instance.transform.GetComponent<GoogleARCore.ARCoreBackgroundRenderer>().BackgroundMaterial.mainTexture);
-				//pixels = Camera.GetPixels(pixels);
-				parserPixelAvailable = true;
+                //pixels = Camera.GetPixels(pixels);
+                try
+                {
+                    //t = new Texture2D(GoogleARCore.Frame.CameraImage.Texture.width, GoogleARCore.Frame.CameraImage.Texture.height,);
+                    t = (Texture2D)GoogleARCore.Frame.CameraImage.Texture;
+                    //UIManager.Instance.ImageText.GetComponent<Text>().text = $"{((Texture2D)GoogleARCore.Frame.CameraImage.Texture).GetPixels32().Length} + {time}";
+                    UIManager.Instance.ImageWHText.GetComponent<Text>().text = $"{GoogleARCore.Frame.CameraImage.Texture.width.ToString()} & {GoogleARCore.Frame.CameraImage.Texture.height.ToString()}";
+                    pixels = t.GetPixels32();
+                    Debug.Log(pixels.Length);
+                    Debug.Log("this is running");
+                }
+                catch (Exception)
+                {
+
+                    Debug.Log("not running");
+                }
+                parserPixelAvailable = true;
 
 				// If background thread OFF, do the decode main thread with 500ms of pause for UI
 				if (!Settings.ScannerBackgroundThread && mainThreadLastDecode < Time.realtimeSinceStartup - Settings.ScannerDecodeInterval)
