@@ -5,13 +5,18 @@ using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+/// <summary>
+/// * This Class Controls overall behavior of GreenDex
+/// * This is a singleton
+/// * Attached to GreenCartBack
+/// </summary>
 public class GreenCartController : MonoBehaviour
 {
-
+    public bool rollable { get; set; }
     private static GreenCartController instance;
     public static GreenCartController Instance { get { return instance; } }
-
-    public GameObject dashPrefab;
+    public GameObject DetailPage;
+    public GameObject NetIndicator;
     [SerializeField]
     ProductCollection pc = new ProductCollection();
     public ProductCollection PC { get { return pc; } }
@@ -30,8 +35,11 @@ public class GreenCartController : MonoBehaviour
 
     [SerializeField]
     string key;
+    [SerializeField]
+    string gkey;
     //where the request file/properity is here
-    IRequester requester;
+    public IRequester requester;
+    public IRequester grequester;
     [SerializeField]
     TextAsset text;
     [SerializeField]
@@ -60,7 +68,9 @@ public class GreenCartController : MonoBehaviour
     private List<ProductInfo> curSelectedPI = new List<ProductInfo>();
     public List<ProductInfo> CurSelectedPI { get { return curSelectedPI; } }
 
-
+    //this val is used to adjust the rooling
+    //use this val to avoid rooling overflow
+    float microAdjustVal;
     private void Awake()
     {
 
@@ -72,7 +82,7 @@ public class GreenCartController : MonoBehaviour
         position = 0;
         down = false;
         totalDisRollingDis = 0;
-
+        rollable = true;
         //there is an chance incre value and containerHeight is alway the same
         //so there should be only one value.
         incre = 150;
@@ -87,15 +97,24 @@ public class GreenCartController : MonoBehaviour
             Debug.Log(ex.Message);
             Debug.Log(ex.StackTrace);
         }
+        NetIndicator.SetActive(false);
         //creat the requester. no need for await, use this for the build. it is faster 
         //when in editor use this. but use Async method in build will be faster
+        //!not support Async load TextAsset in Editor
 #if UNITY_EDITOR
         StartCoroutine("InitRequester");
 #else
         StartAsync(); 
 #endif
+        microAdjustVal = 0.5f;
     }
-
+    /// <summary>
+    /// *Load UPC&NDB Lookup table into memory and sign to USDARequester
+    /// *requester is the used to send request to usda
+    /// *grequester is use to send request to Google using google map api.
+    /// *!Warnning: Seems like Unity do not support TextAsset streaming using Task. Do not use this in unity editor
+    /// </summary>
+    /// <returns></returns>
     private async Task StartAsync()
     {
         await Task.Run(() =>
@@ -107,12 +126,15 @@ public class GreenCartController : MonoBehaviour
                 var contentArr = line.Split(delimiter);
                 strList.Add(contentArr);
             }
-            requester = new USDARequester(strList, 1);
-
+            requester = new USDARequester(strList, 1,key);
+            grequester = new GoogleRequester(gkey);
         });
         //await SendRequest("123");
     }
-
+    /// <summary>
+    /// * This function is same as StartAsync()
+    /// * But used only in Editor
+    /// </summary>
     System.Collections.IEnumerator InitRequester()
     {
 
@@ -123,136 +145,28 @@ public class GreenCartController : MonoBehaviour
             var contentArr = line.Split(delimiter);
             strList.Add(contentArr);
         }
-        requester = new USDARequester(strList, 1);
-
+        requester = new USDARequester(strList, 1,key);
+        grequester = new GoogleRequester(gkey);
         yield return null;
     }
-    public async Task<string> SendRequest(string upc)
-    {
-        var ndbno = await requester.LookNDBAsync(upc);
-        if (ndbno != -1)
-        {
-            string url = $@"https://api.nal.usda.gov/ndb/V2/reports?ndbno={ndbno}&format=json&api_key={key}&location=Denver+CO";
-            #region foldthis
-            //using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
-            //{
-            //    try
-            //    {
-            //        string str = await client.GetStringAsync(url);
-            //        //Console.WriteLine("reqeust got");
-            //        JObject jjson = await DeserializerObjectAsync<JObject>(str);
-            //        //JObject jjson = JsonConvert.DeserializeObject<JObject>(str);
-            //        //structure of usda resopnd json
-            //        /*
-            //         * SelectToken will get the object we want. If it show as list then use First or other keyword accordingly
-            //         * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
-            //         * food is the object we are looking for. SelectToken("food")
-            //         * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
-            //         * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
-            //         * 
-            //         */
-            //        string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
-            //        return newStr;
-            //    }
-            //    catch (HttpRequestException e)
-            //    {
 
-            //        Console.WriteLine(e.Message);
-            //        return "no ndb";
-            //    }
 
-            //} 
-            #endregion
-            return await Task.Run(async () =>
-            {
-                using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
-                {
-                    try
-                    {
-                        string str = await client.GetStringAsync(url);
-                        JObject jjson = await DeserializerObjectAsync<JObject>(str);
-                        //structure of usda resopnd json
-                        /*
-                         * SelectToken will get the object we want. If it show as list then use First or other keyword accordingly
-                         * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
-                         * food is the object we are looking for. SelectToken("food")
-                         * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
-                         * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
-                         */
-                        string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
-                        string output="";
-                        var strs = newStr.Split(' ');
-                        foreach (string s in strs)
-                        {
-                            var val = char.ToUpper(s[0])+s.Substring(1).ToLower();
-                            output += string.Format("{0} ", val);
-                        }
-                        return output;
-                    }
-                    catch (HttpRequestException e)
-                    {
-                        Console.WriteLine(e.Message);
-                        return "no ndb";
-                    }
-
-                }
-            });
-            //return await Client(url);
-        }
-        else
-        {
-            Console.WriteLine("upc incorrect");
-            return "no ndb";
-        }
-    }
-
-    //private async Task<string> Client(string url)
-    //{
-    //    using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
-    //    {
-    //        try
-    //        {
-    //            string str = await client.GetStringAsync(url);
-    //            JObject jjson = await DeserializerObjectAsync<JObject>(str);
-    //            //structure of usda resopnd json
-    //            /*
-    //             * SelectToken will get the object we want. If it show as list then use First or other keyword accordingly
-    //             * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
-    //             * food is the object we are looking for. SelectToken("food")
-    //             * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
-    //             * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
-    //             */
-    //            string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
-    //            return newStr;
-    //        }
-    //        catch (HttpRequestException e)
-    //        {
-
-    //            Console.WriteLine(e.Message);
-    //            return "no ndb";
-    //        }
-
-    //    }
-    //}
-
-    private async Task<JObject> DeserializerObjectAsync<JObject>(string str)
-    {
-        Task<JObject> t = Task.Run(() =>
-        {
-            JObject output;
-            output = JsonConvert.DeserializeObject<JObject>(str);
-            return output;
-        });
-        return await t;
-
-    }
     public void Update()
     {
-        //drag test
-        RollingAction();
+        //when roolable, rolling
+        //disable ro
+        if (rollable)
+        {
+            RollingAction();
+        }
 
     }
-
+    /// <summary>
+    /// *Simulate the Scrolling in Mobile
+    /// *currentTouch record users Touch position at current frame
+    /// *lastTouchPos is the recorded last frame Touch postition
+    /// *! Unity Editor do not support Touch, use mouse input in editor
+    /// </summary>
     private void RollingAction()
     {
         if (Input.GetButtonDown("Fire1"))
@@ -263,7 +177,6 @@ public class GreenCartController : MonoBehaviour
         {
             down = false;
         }
-
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -275,78 +188,6 @@ public class GreenCartController : MonoBehaviour
             {
                 var currentTouch = touch.position;
                 NewRolling(currentTouch, lastTouchPos);
-                #region replace with newrolling same as click
-                //if (touch.phase == TouchPhase.Moved)
-                //{
-                //    var touchoffSet = lastTouchPos.y - currentTouch.y;
-                //    //var curPos = this.GetComponent<RectTransform>().localPosition.y;
-                //    //curPos -= offSet;
-                //    //this.GetComponent<RectTransform>().localPosition = new Vector3(0,curPos);
-                //    try
-                //    {
-                //        if ((pc.GetCount(currentCate) - Containers.Count+1) * containerHeight < -totalDisRollingDis && touchoffSet < 0)
-                //        {
-                //            Debug.Log("there is no more data");
-                //            touchoffSet = 0;
-                //        }
-                //        else if (totalDisRollingDis > 0 && touchoffSet > 0)
-                //        {
-                //            Debug.Log("this is the top of data");
-                //            touchoffSet = 0;
-                //        }
-                //    }
-                //    catch { }
-                //    var info = new NotifyInfo();
-                //    info.Offset = touchoffSet;
-                //    info.RollingDis = totalDisRollingDis;
-
-                //    //Rolling(touchoffSet,info);
-                //    #region replace with rolling method: same as click
-                //    foreach (GameObject go in Containers)
-                //    {
-                //        var rectTrans = go.GetComponent<RectTransform>();
-                //        //var offSet = lastPos.y - currentPos.y;
-                //        var curPos = new Vector3(rectTrans.localPosition.x, rectTrans.localPosition.y, rectTrans.localPosition.z);
-                //        curPos.y -= touchoffSet;
-                //        if (curPos.y > 0)
-                //        {
-                //            curPos.y -= containerHeight * Containers.Count;
-                //            //Debug.Log("Move to bottom");
-                //            //var text = go.transform.Find("ProductName").GetComponent<Text>();
-                //            try
-                //            {
-                //                int i = pc.GetCount(currentCate) + (int)(info.RollingDis / containerHeight) - Containers.Count - 1;
-
-                //                //go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i));
-                //                go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i, currentCate));
-                //            }
-                //            catch (System.Exception ex)
-                //            {
-                //                Debug.Log(totalDisRollingDis);
-                //                Debug.Log(ex.StackTrace);
-                //            }
-                //        }
-                //        if (curPos.y < -Containers.Count * containerHeight)
-                //        {
-                //            curPos.y += Containers.Count * containerHeight;
-                //            try
-                //            {
-                //                int i = pc.GetCount(currentCate) - (int)(-info.RollingDis / containerHeight) /*- Containers.Count*/ - 1;
-                //                //go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i);
-                //                go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i, currentCate));
-                //            }
-                //            catch (System.Exception ex)
-                //            {
-                //                Debug.Log(totalDisRollingDis);
-                //                Debug.Log(ex.StackTrace);
-                //            }
-                //        }
-                //        rectTrans.localPosition = curPos;
-                //    }
-
-                //    totalDisRollingDis += touchoffSet;
-                #endregion
-                //}
                 lastTouchPos = touch.position;
             }
         }
@@ -368,12 +209,23 @@ public class GreenCartController : MonoBehaviour
 #endif
     }
 
+    /// <summary>
+    /// * Check offSet of last/current Touch/mouse click position
+    /// * Adjust the GreenDex Container's position accordingly
+    /// </summary>
+    /// <param name="currentPos">current user's Touch/mouse position</param>
+    /// <param name="lastPos">Touch/mouse position of last frame</param>
     private void NewRolling(Vector3 currentPos, Vector3 lastPos)
     {
         var offSet = lastPos.y - currentPos.y;
         try
         {
-            if ((pc.GetCount(currentCates) - Containers.Count) * containerHeight < -totalDisRollingDis && offSet < 0)
+            //when the rolling distance is more than the totaly data user have
+            //then set offSet value to 0 to prevent furthe rolling
+            //pc.GetCount(currentCates) is the total number of products in current selected category
+            //Containers.Count is the container number in editor(number is 10 when writing this) 
+            //containerHeight is height of each container
+            if ((pc.GetCount(currentCates) - Containers.Count-microAdjustVal) * containerHeight < -totalDisRollingDis && offSet < 0)
             {
 #if UNITY_EDITOR
                 Debug.Log("there is no more data");
@@ -418,7 +270,7 @@ public class GreenCartController : MonoBehaviour
                     Debug.Log(ex.StackTrace);
                 }
             }
-            if (curPos.y < -Containers.Count * containerHeight)
+            if (curPos.y < (-Containers.Count+microAdjustVal) * containerHeight)
             {
                 curPos.y += Containers.Count * containerHeight;
                 try
@@ -485,19 +337,30 @@ public class GreenCartController : MonoBehaviour
     //    }
     //}
 
-    public void PCAdd(string s)
+    /// <summary>
+    /// * Add Scanned product to PC(Product Collection)
+    /// </summary>
+    /// <param name="name">prodcut name</param>
+    /// <param name="pos">location where the product is scanned</param>
+    public void PCAdd(string name,string pos)
     {
-        pc.AddProduct(s);
+        pc.AddProduct(name,pos);
     }
-
+    /// <summary>
+    /// * Reset the Container's Position every time user Open GreenDex
+    /// * Make it easier to control the container's UI position
+    /// </summary>
     private void OnEnable()
     {
         ResetContainer(currentCates);
     }
-
-    //update container content
-    //1. reset container pos
-    //2. update content
+    /// <summary>
+    /// update container content
+    /// * reset container pos
+    /// * update content
+    /// * When products in cates are less than container than disable the extra container
+    /// </summary>
+    /// <param name="cates">current user selected Categorys</param>
     public void ResetContainer(List<Category> cates)
     {
         totalDisRollingDis = 0;
@@ -538,7 +401,11 @@ public class GreenCartController : MonoBehaviour
 
         }
     }
-
+    /// <summary>
+    /// * IsSelected is recorded in pi(Prodcut Infomation)
+    /// * Set the value to false make sure it can be selected in later action
+    /// * Reset curSelelctedPI to en empty List.
+    /// </summary>
     public void ClearCurSelectedPI()
     {
         foreach (ProductInfo pi in curSelectedPI)
@@ -546,5 +413,55 @@ public class GreenCartController : MonoBehaviour
             pi.IsSelected = false;
         };
         curSelectedPI = new List<ProductInfo>();
+    }
+
+    /// <summary>
+    /// * Send Request To USDA and Google to get Information
+    /// * Using normal method will cause halt
+    /// * Set the NetIndicator to be Active to show the request is activeing, and set it to false when it ends
+    /// * The NetIndicator will cause bug when the first request is not end but another request is send. Need further test
+    /// * Call the PCAdd(string,string) to Add product to collection
+    /// * Call PC.PCSave() to save the products to user's locat file
+    /// </summary>
+    /// <param name="bcv"></param>
+    /// <returns></returns>
+    public async Task RequesetAsync(string bcv)
+    {
+        NetIndicator.SetActive(true);
+        //start the locationservice here and give it some time to get the latitude and longitude info
+        Input.location.Start();
+        string name = await requester.SendRequest(bcv);
+        if (name == bcv)
+        {
+            await Task.Run(() => {
+                float i = 0;
+                while (i < 1)
+                {
+                    i += Time.deltaTime;
+                }
+            });
+            name += $"UPC: {bcv}";
+        }
+        //wait 1 second to give the location service more time to get latlng info
+#if !UNITY_EDITOR
+        await Task.Run(() => {
+            float i = 0;
+            while (i < 2)
+            {
+                i += Time.deltaTime;
+            }
+        });
+#endif
+        //stop the locationservice to save battery life. 
+        //hopefully, the time to get internet request will give the device enought to get the location info
+        Input.location.Stop();
+
+        var pos = Input.location.lastData;
+        //change the info to an format google api support
+        var info = $@"latlng={pos.latitude.ToString()},{pos.longitude.ToString()}";
+        var realpos = await grequester.SendRequest(info);
+        PCAdd(name, realpos);
+        PC.PCSave();
+        NetIndicator.SetActive(false);
     }
 }

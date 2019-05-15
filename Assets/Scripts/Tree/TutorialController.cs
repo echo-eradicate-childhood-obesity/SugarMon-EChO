@@ -10,6 +10,7 @@ public class TutorialController : MonoBehaviour {
     [HideInInspector]
     public int pic;
     private GameObject tree;
+    public GameObject sugarDex;
     // Use this for initialization
     void Start () {
         tree = GameObject.Find("Magic Tree");
@@ -18,10 +19,6 @@ public class TutorialController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        //Touch touch = Input.GetTouch(0);
-
-        //if (Input.GetKeyDown(KeyCode.A) || touch.phase == TouchPhase.Ended)
-        //if(Input.GetKeyDown(KeyCode.A))
         if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || Input.GetKeyDown(KeyCode.A))
         {
             //First stage of tutorial
@@ -92,6 +89,7 @@ public class TutorialController : MonoBehaviour {
                 if (pic == tutorialStagePics.Count)
                 {
                     pic = 0;
+                    GameObject.Find("Main Camera").GetComponent<SimpleDemo>().enabled = true;
                     GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage++;
                     Debug.Log("Stage Num: " + GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage);
                     PlayerPrefs.SetInt("TutorialStage", GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage);
@@ -99,6 +97,9 @@ public class TutorialController : MonoBehaviour {
                     Destroy(gameObject);
                     Destroy(GameObject.Find("Tutorial Dex"));
                     Destroy(tree);
+                    GameObject.Find("SugarDisk").GetComponent<Button>().enabled = true;
+                    GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 1f);
+                    GameObject.Find("GreenCart").GetComponent<Button>().enabled = true;
                 }
             }
         }

@@ -120,7 +120,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.0.5
+  bundleVersion: 1.1.4
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -154,14 +154,14 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.EChO.SugarMon425
+    Android: com.EChO.SugarMonTest
     Standalone: unity.comoc.UnityArUco
     Tizen: com.Company.ProductName
     iOS: com.EChO-Foundation.SugAR-Mon
     tvOS: com.Company.ProductName
   buildNumber:
     iOS: 1
-  AndroidBundleVersionCode: 3
+  AndroidBundleVersionCode: 14
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -531,7 +531,7 @@ PlayerSettings:
   enableCrashReportAPI: 0
   cameraUsageDescription: Enable SugAR Mon to access your camera to scan barcodes
     of food and beverage items.
-  locationUsageDescription: 
+  locationUsageDescription: Enable SugAR Mon to locate the product users are scanning
   microphoneUsageDescription: 
   switchNetLibKey: 
   switchSocketMemoryPoolSize: 6144
@@ -794,7 +794,7 @@ PlayerSettings:
   scriptingDefineSymbols: {}
   platformArchitecture: {}
   scriptingBackend:
-    Android: 1
+    Android: 0
     Standalone: 0
     WebGL: 1
     WebPlayer: 0
@@ -806,6 +806,7 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform:
     Android: 6
     Standalone: 6
+    iOS: 6
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: UnityCloudVision
