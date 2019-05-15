@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+
 /*info is boxed and send when scanner found an item
 * 
 */
@@ -19,7 +20,7 @@ public struct Info{
 }
 
 public class UIManager : MonoBehaviour {
-
+    public List<Sprite> Sprites;
 
     //singleton attached to main camera
     private static UIManager _instance;
@@ -126,9 +127,10 @@ public class UIManager : MonoBehaviour {
     {
         IndicateControllerHelper(info, targetName, list);
     }
-
+    public Sprite dextrose;
     public void IndicateControllerHelper(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
-    { 
+    {
+        Debug.Log("hi");
         foreach (TMP_Dropdown.OptionData go in list)
         {
       
@@ -136,6 +138,7 @@ public class UIManager : MonoBehaviour {
             {
                 if (go.text.Contains(" ("))
                 {
+
                     int length = go.text.Length;
                     int x = 0;
                     var number = go.text.Substring(length - 7, 1);
@@ -151,7 +154,34 @@ public class UIManager : MonoBehaviour {
                 }
                 else if(!go.text.Contains("("))
                 {
-                 
+                    if (go.text.Equals("Cane"))
+                    {
+                        go.image = Sprites[0];
+                    }
+                    if (go.text.Equals("Dextrin"))
+                    {
+                        go.image = Sprites[1];
+                    }
+                    if (go.text.Equals("OSE"))
+                    {
+                        go.image = Sprites[2];
+                    }
+                    if (go.text.Equals("Concentrate"))
+                    {
+                        go.image = Sprites[3];
+                    }
+                    if (go.text.Equals("Syrup"))
+                    {
+                        go.image = Sprites[4];
+                    }
+                    if (go.text.Equals("Sugar"))
+                    {
+                        go.image = Sprites[5];
+                    }
+                    if (go.text.Equals("Other"))
+                    {
+                        go.image = Sprites[6];
+                    }
                     go.text += " (1 new!)";
                 }
              

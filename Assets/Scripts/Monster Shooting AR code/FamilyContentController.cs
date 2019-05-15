@@ -17,6 +17,7 @@ public class FamilyContentController : MonoBehaviour
     public GameObject familyContentObject;
     [SerializeField]
     private List<GameObject> familyNames = new List<GameObject>();
+    public List<Sprite> Sprites;
 
     RectTransform familyRT;
     void Start()
@@ -49,47 +50,52 @@ public class FamilyContentController : MonoBehaviour
         //familyContentObject.GetComponent<RectTransform>().localPosition = newPosition;
 
     }
-     private void TitleControl()
-     {
-         //if()
-         var d = transform.GetComponent<TMP_Dropdown>();
-     
-         if (-7 <= familyRT.localPosition.y && 1000 >= familyRT.localPosition.y)
-           {
-               d.captionText.text = "Dextrin";
-           }
-           else if (1090 < familyRT.localPosition.y && 3000 >= familyRT.localPosition.y)
-           {
-               d.captionText.text = "OSE";
-           }
-            else if (3000 < familyRT.localPosition.y && 6300 >= familyRT.localPosition.y)
-           {
-               d.captionText.text = "Cane";
-           }
-            else if (6300 < familyRT.localPosition.y && 10000 >= familyRT.localPosition.y)
-           {
-               d.captionText.text = "Syrup";
-           }
-            else if (10000 < familyRT.localPosition.y && 15000 >= familyRT.localPosition.y)
-           {
-               d.captionText.text = "Concentrate";
-           }
-            else if (15000 < familyRT.localPosition.y && 18900 >= familyRT.localPosition.y)
-           {
-               d.captionText.text = "Obvious";
-           }
-            else if (18900 < familyRT.localPosition.y)
-           {
-            // d.captionImage.sprite =
-               d.captionText.text = "Strange";
-           }
-        // d.captionText.text = familyRT.localPosition.y.ToString();
-     }
+    private void TitleControl()
+    {
+        //if()
+        var d = transform.GetComponent<TMP_Dropdown>();
+        if (-7 <= familyRT.localPosition.y && 1070 >= familyRT.localPosition.y)
+          {
+              d.captionText.text = "Dextrin";
+             d.captionImage.sprite = Sprites[0];
 
-     void Update()
-     {
-         TitleControl();
-         Debug.Log(familyRT.localPosition.y);
-     }
+        }
+          else if (1070 < familyRT.localPosition.y && 3000 >= familyRT.localPosition.y)
+          {
+              d.captionText.text = "OSE";
+            d.captionImage.sprite = Sprites[1];
+        }
+           else if (3000 < familyRT.localPosition.y && 6400 >= familyRT.localPosition.y)
+          {
+            d.captionText.text = "Cane";
+              d.captionImage.sprite = Sprites[2];
+        }
+           else if (6400 < familyRT.localPosition.y && 10000 >= familyRT.localPosition.y)
+          {
+              d.captionText.text = "Syrup";
+            d.captionImage.sprite = Sprites[3];
+        }
+           else if (10000 < familyRT.localPosition.y && 15000 >= familyRT.localPosition.y)
+          {
+              d.captionText.text = "Concentrate";
+            d.captionImage.sprite = Sprites[4];
+        }
+           else if (15000 < familyRT.localPosition.y && 19000 >= familyRT.localPosition.y)
+          {
+              d.captionText.text = "Obvious";
+            d.captionImage.sprite = Sprites[5];
+        }
+            else if (19000 < familyRT.localPosition.y)
+          {
+              d.captionText.text = "Strange";
+            d.captionImage.sprite = Sprites[6];
+        }
+    }
+
+    void Update()
+    {
+        TitleControl();
+        Debug.Log(familyRT.localPosition.y);
+    }
 
 }
