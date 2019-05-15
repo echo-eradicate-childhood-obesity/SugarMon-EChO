@@ -23,6 +23,9 @@ public class FindAddedSugar : MonoBehaviour
     public RuntimeAnimatorController animController;
     private SimpleDemo simpleDemo;
 
+    [SerializeField]
+    string superCode;
+
     private int currentNumMonster = 0;
 
     protected List<string> upcs;
@@ -201,6 +204,10 @@ public class FindAddedSugar : MonoBehaviour
         sugarDex.GetComponent<Button>().enabled = false;
         greenCartBtn.GetComponent<Button>().enabled = false;
         mainCam.GetComponent<SimpleDemo>().enabled = false;
+        if(bcv == superCode)
+        {
+            ingredientFromDB = "";
+        }
 
         //Barcode not in database
         if (ingredientFromDB == "Not Found")
@@ -218,6 +225,7 @@ public class FindAddedSugar : MonoBehaviour
             List<string> dbIngredientList = ingredientFromDB.Split(',').ToList();
             dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim());
 
+            if (bcv == superCode) dbIngredientList = repository;
 
             foreach (string r in repository)
             {
