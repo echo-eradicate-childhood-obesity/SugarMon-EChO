@@ -111,15 +111,6 @@ public class SimpleDemo : MonoBehaviour
     }
     void Update()
     {
-        Image.texture = GoogleARCore.Frame.CameraImage.Texture;
-        try
-        {
-            UIManager.Instance.ImageText.GetComponent<Text>().text = $"{((Texture2D)transform.GetComponent<GoogleARCore.ARCoreBackgroundRenderer>().BackgroundMaterial.mainTexture).GetPixels32().Length}";
-        }
-        catch (Exception)
-        {
-
-        }
         UIManager.Instance.StatusText.GetComponent<Text>().text = $"{BarcodeScanner.Status}";
         //UIManager.Instance.ImageText.GetComponent<Text>().text = $"{((Texture2D)GoogleARCore.Frame.CameraImage.Texture).GetPixels32().Length}";
         //UIManager.Instance.ImageWHText.GetComponent<Text>().text = $"{GoogleARCore.Frame.CameraImage.Texture.width.ToString()} & {GoogleARCore.Frame.CameraImage.Texture.height.ToString()}";
