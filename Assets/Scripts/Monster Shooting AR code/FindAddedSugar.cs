@@ -22,6 +22,8 @@ public class FindAddedSugar : MonoBehaviour
     public AudioSource Audio;
     public RuntimeAnimatorController animController;
     private SimpleDemo simpleDemo;
+    private bool wasSkipped = false;
+
 
     [SerializeField]
     string superCode;
@@ -142,47 +144,50 @@ public class FindAddedSugar : MonoBehaviour
         familyBackground.gameObject.SetActive(true);
         GameObject.Find("FamilyContent").GetComponent<PopulateFamilyPanels>().PopulateFamilies();
 
-        
-        //Family Background
-        foreach (List<string> s in dbList)
-        {
-            foreach (string ss in sugarDex.GetComponent<SugarDisk>().allCollectedSugars)
-            {
-                if (s[nameIndex].ToLower() == ss.ToLower())
-                {
-                    var sc = GameObject.Find(s[deckNumIndex]);
-                    if (sc != null)
-                    {
-                        sc.name = ss;
-                        List<string> sugarWords = ss.Split(' ').ToList();
-                        sc.transform.Find("Counter").GetComponent<Text>().text = "X" + sugarCardData.GetNumberOfSugar(ss).ToString();
-                        if (sugarWords[0].ToCharArray().Count() > 12)
-                        {
-                            string text = char.ToUpper(ss[0]) + ss.Substring(1);
-                            text = text.Insert(12, "- ");
-                            sc.transform.Find("Name").GetComponent<Text>().text = text;
 
-                        }
-                        else sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
+        //Update Family Background
+        sugarDex.GetComponent<SugarDisk>().UpdateSugarDex(dbList, sugarDex.GetComponent<SugarDisk>().allCollectedSugars);
+        #region Old Update Family Backgound Func
+        //foreach (List<string> s in dbList)
+        //{
+        //    foreach (string ss in sugarDex.GetComponent<SugarDisk>().allCollectedSugars)
+        //    {
+        //        if (s[nameIndex].ToLower() == ss.ToLower())
+        //        {
+        //            var sc = GameObject.Find(s[deckNumIndex]);
+        //            if (sc != null)
+        //            {
+        //                sc.name = ss;
+        //                List<string> sugarWords = ss.Split(' ').ToList();
+        //                sc.transform.Find("Counter").GetComponent<Text>().text = "X" + sugarCardData.GetNumberOfSugar(ss).ToString();
+        //                if (sugarWords[0].ToCharArray().Count() > 12)
+        //                {
+        //                    string text = char.ToUpper(ss[0]) + ss.Substring(1);
+        //                    text = text.Insert(12, "- ");
+        //                    sc.transform.Find("Name").GetComponent<Text>().text = text;
+
+        //                }
+        //                else sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
 
 
-                        var sci = sc.transform.Find("Image");
-                        sci.GetComponentInChildren<Text>().text = "";
-                        sci.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
-                        sci.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
-                        sci.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-                        sci.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
-                        sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
-                        sci.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
+        //                var sci = sc.transform.Find("Image");
+        //                sci.GetComponentInChildren<Text>().text = "";
+        //                sci.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
+        //                sci.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+        //                sci.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+        //                sci.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
+        //                sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
+        //                sci.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
 
-                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + sc.name);
-                        //sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[familyIndex] + "/" + sc.name);
-                        //sci.gameObject.AddComponent<Button>().onClick.AddListener(() => summonSystem.GetComponent<SummonSystem>().PopupSugarInfoCardInSugarDex(sc.name, s[familyIndex]));
-                    }
-                }
-            }
+        //                sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + sc.name);
+        //                //sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[familyIndex] + "/" + sc.name);
+        //                //sci.gameObject.AddComponent<Button>().onClick.AddListener(() => summonSystem.GetComponent<SummonSystem>().PopupSugarInfoCardInSugarDex(sc.name, s[familyIndex]));
+        //            }
+        //        }
+        //    }
 
-        }
+        //}
+        #endregion
 
         GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars = sugarDex.GetComponent<SugarDisk>().allCollectedSugars.Distinct().ToList();
         foundCount.GetComponent<Text>().text = "Found: " + sugarDex.GetComponent<SugarDisk>().allCollectedSugars.Count;
@@ -288,20 +293,31 @@ public class FindAddedSugar : MonoBehaviour
         anim.GetComponent<Image>().sprite = monster.GetComponent<Image>().sprite;
         anim.AddComponent<Animator>();
         anim.GetComponent<Animator>().runtimeAnimatorController = animController;
-        
+
 
         if (s == "Sugar")
         {
             canvas.transform.Find("Animation/Sugar Name").GetComponent<Text>().text = scannedAddedSugars[currentNumMonster];
-            yield return new WaitForSeconds(2f);
-            if (currentNumMonster + 1 == scannedAddedSugars.Count)
+            float animWaitCounter = 0f;
+            while (animWaitCounter < 2f && wasSkipped == false) // wait for 2 seconds
             {
-                Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster]));
+                if (Input.GetButtonDown("Fire1") || Input.touchCount > 0) break; // if mouse pressed or screen tapped, end timer
+                yield return null;
+                animWaitCounter += Time.deltaTime;
             }
-            else
+            if (animWaitCounter < 2f) // if the previous animation was skipped
             {
-                GameObject.Find(scannedAddedSugars[currentNumMonster]).GetComponentInChildren<Text>().text = scannedAddedSugars[currentNumMonster + 1];
-                
+                wasSkipped = true;
+                yield return new WaitForSeconds(.2f); // delay between rapid SugarCardToDex animations
+            }
+            if (currentNumMonster + 1 == scannedAddedSugars.Count) // if last card
+            {
+                Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster])); // destroy stationary card
+                wasSkipped = false; // reset wasSkipped for the next scan
+            }
+            else // if there are more cards
+            {
+                GameObject.Find(scannedAddedSugars[currentNumMonster]).GetComponentInChildren<Text>().text = scannedAddedSugars[currentNumMonster + 1]; // set atationary card to the next card
             }
             ChangeNextCardText();
             anim.GetComponent<Animator>().Play("SugarCardToDex");
