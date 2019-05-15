@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SettingsScript : MonoBehaviour {
 
@@ -11,6 +12,7 @@ public class SettingsScript : MonoBehaviour {
 
     private void Awake()
     {
+        //Singleton 
         if (instance == null)
         {
             instance = this;
@@ -22,11 +24,18 @@ public class SettingsScript : MonoBehaviour {
         }
     }
 
+    //Change settings for sound and vibrations
     public void toggleSound() { hasSound = !hasSound; }
     public void toggleVibration() { hasVibration = !hasSound; }
     public void setSoundSettings(bool tof) { hasSound = tof; }
     public void setVirbrationSettings(bool tof) { hasVibration = tof; }
 
+    //Get the settings for the sound and vibration settings
     public bool getSoundSettings(){ return hasSound;}
     public bool getVibrationSettings(){ return hasVibration; }
+
+    //Go to a different scene
+    public void BackToMainMenu() { SceneManager.LoadScene("Menu"); }
+
+
 }

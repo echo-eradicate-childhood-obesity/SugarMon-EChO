@@ -6,8 +6,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
- 
+using UnityEngine.UI;
 public class MenuScript : MonoBehaviour {
+
+    /*
+     * Changes the text of the button to loading...
+     * <This function gets called from buttons in the main menu>
+     */
+    public void changeButtonText(Text text)
+    {
+        text.text = "Loading...";
+    }
 
     /*
      * Loads a scene based on the scene name. If the name does not exist log an error
