@@ -277,6 +277,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   familyContentObject: {fileID: 0}
+  familyNames:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114035599374293336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -449,8 +457,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -467,7 +475,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -616,14 +624,14 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 75
-  m_fontSizeBase: 75
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 514
+  m_textAlignment: 516
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -825,19 +833,19 @@ MonoBehaviour:
   m_Options:
     m_Options:
     - m_Text: Cane
-      m_Image: {fileID: 21300000, guid: c34ab8549dfea884ea7139391d5b376c, type: 3}
+      m_Image: {fileID: 21300000, guid: b11072640b31f2548b098258a6dbafb0, type: 3}
     - m_Text: Dextrin
-      m_Image: {fileID: 21300000, guid: b6e6abd679fa4b449b4e2b3e8e36e9cf, type: 3}
+      m_Image: {fileID: 21300000, guid: c34ab8549dfea884ea7139391d5b376c, type: 3}
     - m_Text: OSE
-      m_Image: {fileID: 21300000, guid: 19277485ede9c75448a32cbfe7f1075f, type: 3}
+      m_Image: {fileID: 21300000, guid: b6e6abd679fa4b449b4e2b3e8e36e9cf, type: 3}
     - m_Text: Concentrate
-      m_Image: {fileID: 21300000, guid: 2f6ad90ea53e6614fa709db47a71e4e7, type: 3}
+      m_Image: {fileID: 21300000, guid: f2c5600bbc673934c9881a27b5e77149, type: 3}
     - m_Text: Syrup
-      m_Image: {fileID: 21300000, guid: 6afc4cfd0e3fdf246a0452ca2352e2b3, type: 3}
+      m_Image: {fileID: 21300000, guid: faeeab4915d62aa469f3c714704fd40e, type: 3}
     - m_Text: Sugar
-      m_Image: {fileID: 21300000, guid: eaf7faad9c2c2664fa6ac84c2a33f48c, type: 3}
+      m_Image: {fileID: 21300000, guid: 736ac6177e9c858439a38d0c1e57b006, type: 3}
     - m_Text: Other
-      m_Image: {fileID: 21300000, guid: 594ae0818979bb04592b45d752ec8516, type: 3}
+      m_Image: {fileID: 21300000, guid: 3b892915656711e49b7669af0eb5772a, type: 3}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1133,8 +1141,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: 0, y: -3}
+  m_AnchoredPosition: {x: -25, y: -0.5}
+  m_SizeDelta: {x: -50, y: -3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224350014946173834
 RectTransform:

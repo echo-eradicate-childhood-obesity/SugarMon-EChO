@@ -4,24 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TutorialDisplay : MonoBehaviour {
+
+    public GameObject mask, tree, canvas;
     private int tapCount = 0;
-    private Transform mask, tree;
     private bool isPressed = false;
+    private readonly string[] dialog = new string[] { "Start by aiming a food or beverage barcode at the center of the square.",
+                                                      "Click the checkmark to add the new Sugar Monster to your SugarDex!",
+                                                      "Check out your collection of Sugar Monsters in the SugarDex!"};
 
     // Use this for initialization
     void Start () {
-        mask = GameObject.Find("Canvas").transform.Find("Mask");
-        tree = GameObject.Find("Canvas").transform.Find("Tree Bubble");
-        tree.GetComponent<RectTransform>().localPosition = new Vector2(0, 0 - GameObject.Find("Canvas").GetComponent<RectTransform>().rect.height / 3 + GameObject.Find("Canvas").GetComponent<RectTransform>().rect.height / 10);
+        float canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
+        tree.GetComponent<RectTransform>().localPosition = new Vector2(0, 0 - canvasHeight / 3 + canvasHeight / 10);
         
     }
 	
 	// Update is called once per frame
 	void Update () {
-
-        //if (Input.GetKeyDown(KeyCode.A) && isPressed)
-        //if(Input.GetTouch(0).phase == TouchPhase.Ended && isPressed)
-        if (((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || Input.GetKeyDown(KeyCode.A))&& isPressed)
+        if (((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || 
+              Input.GetKeyDown(KeyCode.A)) && isPressed)
         {
             ButtonClick();
         }
@@ -29,8 +30,6 @@ public class TutorialDisplay : MonoBehaviour {
     }
    
     public void ButtonClick() {
-        //bool deviceIsIphoneX = UnityEngine.iOS.Device.generation == UnityEngine.iOS.DeviceGeneration.iPhoneX;
-
         var tipText = tree.GetComponentInChildren<Text>().text;
         switch (tapCount)
         {
@@ -38,49 +37,23 @@ public class TutorialDisplay : MonoBehaviour {
             case 4:
                 tapCount = -1;
                 tree.GetComponentInChildren<Text>().text = "";
-                mask.gameObject.SetActive(false);
-                tree.gameObject.SetActive(false);
+                ToggleTutorialObjects(false);
                 isPressed = false;
                 break;
 
             case 3:
-                mask.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-                mask.GetComponent<RectTransform>().anchorMax = new Vector2(1, 0);
-                mask.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0);
-                mask.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0);
-                mask.GetComponent<RectTransform>().offsetMax = new Vector2(10, 0);
-                mask.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 1950);
-                mask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/2-1");
-                tree.GetComponentInChildren<Text>().text = "Check out your collection of Sugar Monsters in the SugarDex!";
-
-                mask.gameObject.SetActive(true);
-                tree.gameObject.SetActive(true);
+                PositionTutorialMask(new Vector2(0, -205), new Vector2(20, 1820), "DexMask", dialog[2]);
+                ToggleTutorialObjects(true);
                 break;
 
             case 2:
-                mask.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
-                mask.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
-                mask.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-                mask.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
-                mask.GetComponent<RectTransform>().sizeDelta = new Vector2(900, 2150);
-                mask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/TutorialCard");
-                tree.GetComponentInChildren<Text>().text = "Click the checkmark to add the new Sugar Monster to your SugarDex!";
-
-                mask.gameObject.SetActive(true);
-                tree.gameObject.SetActive(true);
+                PositionTutorialMask(new Vector2(0, -150), new Vector2(160, 2150), "TutorialCard", dialog[1]);
+                ToggleTutorialObjects(true);
                 break;
 
             case 0:
-                mask.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
-                mask.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
-                mask.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-                mask.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -68);
-                mask.GetComponent<RectTransform>().sizeDelta = new Vector2(1050, 2084);
-                mask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/0-3");
-                tree.GetComponentInChildren<Text>().text = "Start by aiming a food or beverage barcode at the center of the square.";
-
-                mask.gameObject.SetActive(true);
-                tree.gameObject.SetActive(true);
+                PositionTutorialMask(new Vector2(0, -310), new Vector2(160, 2084), "0-3", dialog[0]);
+                ToggleTutorialObjects(true);
                 isPressed = true;
                 break;
 
@@ -89,4 +62,22 @@ public class TutorialDisplay : MonoBehaviour {
         }
         tapCount++;
     }
+    private void PositionTutorialMask(Vector2 anchoredPosition, Vector2 sizeDelta, string maskName, string content)
+    {
+        RectTransform maskRect = mask.GetComponent<RectTransform>();
+        mask.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+        mask.GetComponent<RectTransform>().anchorMax = new Vector2(1, 0);
+        mask.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0);
+        mask.GetComponent<RectTransform>().anchoredPosition = anchoredPosition;
+        mask.GetComponent<RectTransform>().sizeDelta = sizeDelta;
+        mask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + maskName);
+        tree.GetComponentInChildren<Text>().text = content;
+    }
+
+    private void ToggleTutorialObjects(bool b)  //Enable and disable mask and tree
+    {
+        mask.gameObject.SetActive(b);
+        tree.gameObject.SetActive(b);
+    }
+
 }

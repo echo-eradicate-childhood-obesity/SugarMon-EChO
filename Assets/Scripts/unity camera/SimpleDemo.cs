@@ -14,16 +14,14 @@ using System.Threading.Tasks;
 public class SimpleDemo : MonoBehaviour
 {
 
-    private IScanner BarcodeScanner;
+    public IScanner BarcodeScanner;
     public RawImage Image;
+    public TextAsset PerfactDatabase;
 
     private bool inDB;
     private static List<string> dbProductList = new List<string>();
     [HideInInspector]
     public int tutorialStage;
-
-    [HideInInspector]
-    public bool superBarCode = false;
 
     private bool isAndroid;
 
@@ -51,7 +49,6 @@ public class SimpleDemo : MonoBehaviour
 
         //Read new USDA sorted Database
 #if UNITY_EDITOR
-        TextAsset PerfactDatabase = (TextAsset)Resources.Load("USDA");
         string encodedContent = Encoding.UTF7.GetString(PerfactDatabase.bytes);
         dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
         dbProductList = dbProductList.ConvertAll(item => Regex.Replace(item, @",+", ","));
@@ -59,7 +56,6 @@ public class SimpleDemo : MonoBehaviour
 
 #else
         Task.Run(()=>{
-            TextAsset PerfactDatabase = (TextAsset)Resources.Load("USDA");
             string encodedContent = Encoding.UTF7.GetString(PerfactDatabase.bytes);
             dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
             dbProductList = dbProductList.ConvertAll(item => Regex.Replace(item, @",+", ","));
@@ -82,14 +78,18 @@ public class SimpleDemo : MonoBehaviour
             //rect.sizeDelta = new Vector2(rect.sizeDelta.x, newHeight);
             //rect.sizeDelta = new Vector2(Screen.width, Screen.height);
         };
-
+        BarcodeScanner.StatusChanged += (sender, arg) =>
+        {
+#if UNITY_EDITOR
+            Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
+#else
+            Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Width / BarcodeScanner.Camera.Height;
+#endif
+        };
         // Track status of the scanner
         //BarcodeScanner.StatusChanged += (sender, arg) => {
         //  Debug.Log("Status: " + BarcodeScanner.Status);
         //};
-
-
-        if (tutorialStage != 0) Invoke("ClickStart", 1f);
 
         isAndroid = false;
         //When on Android platform
@@ -102,9 +102,12 @@ public class SimpleDemo : MonoBehaviour
     /// <summary>
     /// The Update method from unity need to be propagated to the scanner
     /// </summary>
+    public void StartScan()
+    {
+        Invoke("ClickStart", 3f);
+    }
     void Update()
     {
-        Debug.Log(BarcodeScanner.Status);
         if (BarcodeScanner == null)
         {
             return;
@@ -135,7 +138,7 @@ public class SimpleDemo : MonoBehaviour
             
             if (this.GetComponent<TestController>().test) GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
             
-            if (excludedCodeType.Any(barCodeType.Contains))  //need test
+            if (excludedCodeType.Any(barCodeType.Contains))
             {
                 Invoke("ClickStart", 1f);
             }
@@ -150,7 +153,6 @@ public class SimpleDemo : MonoBehaviour
                 {
                     inDB = true;
 
-                    if (test == true && barCodeValue == "044000030414") superBarCode = true;
                     GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(dbProductList[i].ToLower(), barCodeValue);
                 }
                 if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found", barCodeValue);

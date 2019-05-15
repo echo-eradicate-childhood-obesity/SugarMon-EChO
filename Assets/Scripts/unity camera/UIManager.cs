@@ -129,7 +129,8 @@ public class UIManager : MonoBehaviour {
     }
     public Sprite dextrose;
     public void IndicateControllerHelper(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
-    { 
+    {
+        Debug.Log("hi");
         foreach (TMP_Dropdown.OptionData go in list)
         {
       
@@ -153,31 +154,31 @@ public class UIManager : MonoBehaviour {
                 }
                 else if(!go.text.Contains("("))
                 {
-                    if (go.text.Equals("Cane"))
+                    if (go.text.Equals("Dextrin"))
                     {
                         go.image = Sprites[0];
                     }
-                    if (go.text.Equals("Dextrin"))
+                    if (go.text.Equals("OSE"))
                     {
                         go.image = Sprites[1];
                     }
-                    if (go.text.Equals("OSE"))
+                    if (go.text.Equals("Cane"))
                     {
                         go.image = Sprites[2];
                     }
-                    if (go.text.Equals("Concentrate"))
+                    if (go.text.Equals("Syrup"))
                     {
                         go.image = Sprites[3];
                     }
-                    if (go.text.Equals("Syrup"))
+                    if (go.text.Equals("Concentrate"))
                     {
                         go.image = Sprites[4];
                     }
-                    if (go.text.Equals("Sugar"))
+                    if (go.text.Equals("Obvious"))
                     {
                         go.image = Sprites[5];
                     }
-                    if (go.text.Equals("Other"))
+                    if (go.text.Equals("Strange"))
                     {
                         go.image = Sprites[6];
                     }

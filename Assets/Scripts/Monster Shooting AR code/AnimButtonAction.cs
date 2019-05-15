@@ -4,9 +4,12 @@ using UnityEngine.UI;
 
 
 public class AnimButtonAction : MonoBehaviour,IButtonAction {
-
+    //Gos are the name of GameObject in the hierarchy want to manipulate use this button
     public List<string> Gos;
+    //Orders are the actions want to do
     public List<string> Orders;
+    //change ActionType based on animtion parameter type
+    //trigger/boolean
     public ActionType type;
 
     private void Start()
@@ -40,7 +43,10 @@ public class AnimButtonAction : MonoBehaviour,IButtonAction {
             catch (System.Exception ex) { Debug.Log(ex.StackTrace); }
         }
     }
-
+    /// <summary>
+    /// * Play close animation when deselect
+    /// * Deslect request an event trigger component
+    /// </summary>
     public void DeselectAction()
     {
         List<GameObject> gos = new List<GameObject>();
@@ -54,7 +60,7 @@ public class AnimButtonAction : MonoBehaviour,IButtonAction {
             catch (System.Exception ex) { Debug.Log(ex.StackTrace); }
         }
     }
-
+    
     protected virtual List<GameObject> GetGOs()
     {
         List<GameObject> output = new List<GameObject>();
