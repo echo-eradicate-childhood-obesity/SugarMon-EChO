@@ -333,12 +333,16 @@ namespace BarcodeScanner.Scanner
                 try
                 {
                     //t = new Texture2D(GoogleARCore.Frame.CameraImage.Texture.width, GoogleARCore.Frame.CameraImage.Texture.height,);
-                    t = (Texture2D)GoogleARCore.Frame.CameraImage.Texture;
-                    width = GoogleARCore.Frame.CameraImage.Texture.width;
-                    height = GoogleARCore.Frame.CameraImage.Texture.height;
-                    //UIManager.Instance.ImageText.GetComponent<Text>().text = $"{((Texture2D)GoogleARCore.Frame.CameraImage.Texture).GetPixels32().Length} + {time}";
-                    UIManager.Instance.ImageWHText.GetComponent<Text>().text = $"{width.ToString()} & {height.ToString()}";
+                    //t = (Texture2D)GoogleARCore.Frame.CameraImage.Texture;
+                    t = (Texture2D)ARMon.GameManager.Instance.CamTexture;
+                    //width = GoogleARCore.Frame.CameraImage.Texture.width;
+                    //height = GoogleARCore.Frame.CameraImage.Texture.height;
+                    width = ARMon.GameManager.Instance.CamTexture.width;
+                    height = ARMon.GameManager.Instance.CamTexture.height;
                     pixels = t.GetPixels32();
+                    UIManager.Instance.ImageText.GetComponent<Text>().text = $"{pixels.Length}";
+                    UIManager.Instance.ImageWHText.GetComponent<Text>().text = $"{width.ToString()} & {height.ToString()}";
+                   
                     Debug.Log(pixels.Length);
                     Debug.Log("this is running");
                 }

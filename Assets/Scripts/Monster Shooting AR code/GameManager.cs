@@ -62,7 +62,9 @@ namespace ARMon
             get { return previousPos; }
         }
 
-
+        public Texture CamTexture;
+        ARCoreBackgroundRenderer backRenderer;
+        public Texture2D t2D;
         //test ui 
         //public List<GameObject> zeroObjText;
         //public GameObject currentObjText;
@@ -90,7 +92,7 @@ namespace ARMon
             {
                 sg.SignNeighbor(ssHandler.Obersvers, sconfig.gap);
             }
-
+            
         }
 
         //create grid
@@ -130,6 +132,8 @@ namespace ARMon
         private void Update()
         {
             Shoot(bulletGO);
+            backRenderer = deviceGO.GetComponent<ARCoreBackgroundRenderer>();
+            CamTexture = backRenderer.BackgroundMaterial.mainTexture;
         }
 
 

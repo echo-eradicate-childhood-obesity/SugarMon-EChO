@@ -111,6 +111,7 @@ public class SimpleDemo : MonoBehaviour
     }
     void Update()
     {
+        
         UIManager.Instance.StatusText.GetComponent<Text>().text = $"{BarcodeScanner.Status}";
         //UIManager.Instance.ImageText.GetComponent<Text>().text = $"{((Texture2D)GoogleARCore.Frame.CameraImage.Texture).GetPixels32().Length}";
         //UIManager.Instance.ImageWHText.GetComponent<Text>().text = $"{GoogleARCore.Frame.CameraImage.Texture.width.ToString()} & {GoogleARCore.Frame.CameraImage.Texture.height.ToString()}";
