@@ -331,6 +331,10 @@ public class FindAddedSugar : MonoBehaviour
         if (s == "Sugar")
         {
             canvas.transform.Find("Animation/Sugar Name").GetComponent<Text>().text = scannedAddedSugars[currentNumMonster];
+            if (sound)
+            {
+                badSound.Play();
+            }
             yield return new WaitForSeconds(2f);
             if (currentNumMonster + 1 == scannedAddedSugars.Count)
             {
@@ -348,6 +352,10 @@ public class FindAddedSugar : MonoBehaviour
         }
         else if (s == "NoAddedSugar")
         {
+            if (sound)
+            {
+                goodSound.Play();
+            }
             yield return new WaitForSeconds(2f);
             if (currentNumMonster + 1 == scannedAddedSugars.Count)
             {
@@ -360,6 +368,10 @@ public class FindAddedSugar : MonoBehaviour
         }
         else if (s == "NotFound")
         {
+            if (sound)
+            {
+                unknownSound.Play();
+            }
             yield return new WaitForSeconds(2f);
             if (currentNumMonster + 1 == scannedAddedSugars.Count)
             {
@@ -473,10 +485,6 @@ public class FindAddedSugar : MonoBehaviour
         {
             monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NoAddedSugar");
             monster.transform.Find("SugarDesign").gameObject.SetActive(false);
-            if (sound)
-            {
-                goodSound.Play();
-            }
             
         }
         else if (sugarName == "Not Found")
@@ -484,7 +492,6 @@ public class FindAddedSugar : MonoBehaviour
             monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Not Found Card");
             monster.transform.Find("SugarDesign").gameObject.SetActive(false);
             scannedAddedSugars.Add("Not Found");
-            unknownSound.Play();
         }
         else
         {
@@ -496,10 +503,6 @@ public class FindAddedSugar : MonoBehaviour
                 Handheld.Vibrate();
                 }
 #endif
-                if (sound)
-                {
-                    badSound.Play();
-                }
                 monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NewAddedSugar");
                 redDot.gameObject.SetActive(true);
             }
