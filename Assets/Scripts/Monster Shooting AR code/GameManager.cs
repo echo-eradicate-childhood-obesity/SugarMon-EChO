@@ -66,6 +66,11 @@ namespace ARMon
         private List<GameObject> monsters;
         public static event Move MoveHandler;
 
+        [Header("Monster Spawn Settings ----------------------------------")]
+        public List<GameObject> monsterPrefabs;
+        public float minSpawnDistance = 2.0f;
+        public float maxSpawnDistance = 5.0f;
+
 
         //test field
         private Vector3 currentRoundPos = Vector3.zero;
@@ -212,12 +217,6 @@ namespace ARMon
                 GameObject temp = Instantiate(_rapidFireBullet, deviceGO.transform.position - new Vector3(0f,0.05f,0f), _rapidFireBullet.transform.rotation);                
                 temp.GetComponent<Rigidbody>().velocity = deviceGO.transform.forward * 5f;
                 Destroy(temp, 3);
-                RaycastHit hit;
-                // Does the ray intersect any objects excluding the player layer
-                if (Physics.Raycast(deviceGO.transform.position, deviceGO.transform.forward, out hit, Mathf.Infinity))
-                {
-                    
-                }
             }
         }
 
@@ -320,15 +319,52 @@ namespace ARMon
             //get a random pos from gird;
             try
             {
+
+
+                /*------OLD SPAWN--------
                 SpawnGrid sg = GetGrid(ssHandler.Obersvers);
                 Vector3 pos = sg.GetPos();
                 Vector3 offsetPos = deviceGO.transform.position;
+
                 //instantiate and set the value of bullet obj
                 var spawnGO = Instantiate(monsterGo, pos, Quaternion.identity);
                 spawnGO.transform.localScale = new Vector3(1, 1, 1);
                 spawnGO.SendMessage("OccupyGrid", sg);
+
+
                 monsters.Add(spawnGO);
+                */
+
+                float x = Random.Range(-1.0f, 1.0f);
+                float y = Random.Range(-1.0f, 1.0f);
+                float z = Random.Range(-1.0f, 1.0f);
+
+                float dis = Random.Range(minSpawnDistance, maxSpawnDistance);
+
+                int index = Random.Range(0, monsterPrefabs.Count);
+                if(monsterPrefabs.Count > 0)
+                {
+                    Vector3 pos = new Vector3(x, y, z).normalized * dis + deviceGO.transform.position;
+                    GameObject monster = Instantiate(monsterPrefabs[index], pos, Quaternion.identity);
+                    MeshRenderer[] matRends = monster.GetComponentsInChildren<MeshRenderer>();
+              
+                    foreach(MeshRenderer matRend in matRends)
+                    {
+                        foreach(Material mat in matRend.materials)
+                        {
+                            mat.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+                        }                       
+                    }
+
+                    monster.transform.LookAt(deviceGO.transform.position);
+                    monsters.Add(monster);
+                }
+                else
+                {
+                    Debug.LogError("NO MONSTERS IN LIST TO SPAWN");
+                }        
                 
+                                                             
             }
             catch (System.Exception e)
             {

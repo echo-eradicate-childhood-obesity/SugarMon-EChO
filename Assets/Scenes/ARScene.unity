@@ -523,7 +523,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4046245426087888, guid: e0318e86a380edf4b9a3846fd279e1f6, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1749292684437178, guid: e0318e86a380edf4b9a3846fd279e1f6, type: 2}
       propertyPath: m_IsActive
@@ -837,48 +837,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 316566555}
   m_CullTransparentMesh: 0
---- !u!1001 &388036643
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4813256620468714, guid: 45476eb298c0c7a4aa3fe9db673d9c74, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4813256620468714, guid: 45476eb298c0c7a4aa3fe9db673d9c74, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -0.317
-      objectReference: {fileID: 0}
-    - target: {fileID: 4813256620468714, guid: 45476eb298c0c7a4aa3fe9db673d9c74, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 11.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 4813256620468714, guid: 45476eb298c0c7a4aa3fe9db673d9c74, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4813256620468714, guid: 45476eb298c0c7a4aa3fe9db673d9c74, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4813256620468714, guid: 45476eb298c0c7a4aa3fe9db673d9c74, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4813256620468714, guid: 45476eb298c0c7a4aa3fe9db673d9c74, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4813256620468714, guid: 45476eb298c0c7a4aa3fe9db673d9c74, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 45476eb298c0c7a4aa3fe9db673d9c74, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &462830874
 GameObject:
   m_ObjectHideFlags: 0
@@ -2404,8 +2362,8 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
         type: 2}
-      propertyPath: _attacks.Array.size
-      value: 3
+      propertyPath: monsterPrefabs.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4707872536789304, guid: 791c6817a809e1a4fb57e943dff177fb, type: 2}
       propertyPath: m_LocalPosition.x
@@ -2461,59 +2419,50 @@ Prefab:
       objectReference: {fileID: 731257507}
     - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
         type: 2}
-      propertyPath: projectile
-      value: 
-      objectReference: {fileID: 1595127986404428, guid: 2d87225132c0e744ca083dc0166095c9,
-        type: 2}
-    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
-        type: 2}
-      propertyPath: _attacks.Array.data[0].name
-      value: Normal
-      objectReference: {fileID: 0}
-    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
-        type: 2}
-      propertyPath: _attacks.Array.data[1].name
-      value: Testing
-      objectReference: {fileID: 0}
-    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
-        type: 2}
-      propertyPath: _attacks.Array.data[1].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 879124fdfc0229244a0536088fdca721,
-        type: 3}
-    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
-        type: 2}
-      propertyPath: _attacks.Array.data[0].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: d4e534c0a94bd2f4592596e29758a9eb,
-        type: 3}
-    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
-        type: 2}
       propertyPath: _sparks
       value: 
       objectReference: {fileID: 1024216528}
-    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
-        type: 2}
-      propertyPath: _rapidFireBullet
-      value: 
-      objectReference: {fileID: 1999942583834866, guid: 86c2c620751377c4f94a560e8ec474d3,
-        type: 2}
-    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
-        type: 2}
-      propertyPath: _attacks.Array.data[2].name
-      value: Rapid
+    - target: {fileID: 4707872536789304, guid: 791c6817a809e1a4fb57e943dff177fb, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707872536789304, guid: 791c6817a809e1a4fb57e943dff177fb, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707872536789304, guid: 791c6817a809e1a4fb57e943dff177fb, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
         type: 2}
-      propertyPath: _attacks.Array.data[2].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: fdf87547fda4c8b4791d618a40140dfa,
-        type: 3}
+      propertyPath: maxSpawnDistance
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
         type: 2}
-      propertyPath: _rapidSpeed
-      value: 70
-      objectReference: {fileID: 0}
+      propertyPath: monsterPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 1387335990479346, guid: 207ddf5b448756742b3e97708915f9d8,
+        type: 2}
+    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
+        type: 2}
+      propertyPath: monsterPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1006911596731088, guid: fa3fb9293eb3d99408ba065ee94b2d6b,
+        type: 2}
+    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
+        type: 2}
+      propertyPath: monsterPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1094803713027334, guid: 8083573d64221014eb0b6110d34c02f2,
+        type: 2}
+    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
+        type: 2}
+      propertyPath: monsterPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 1315810281938034, guid: 19ddc3c31774daf4ab29fa9c94b4f0c4,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 791c6817a809e1a4fb57e943dff177fb, type: 2}
   m_IsPrefabAsset: 0

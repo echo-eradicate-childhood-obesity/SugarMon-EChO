@@ -35,7 +35,7 @@ Transform:
   m_GameObject: {fileID: 1483722914203168}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1.9, z: 2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -56,10 +56,29 @@ MonoBehaviour:
   deviceGO: {fileID: 0}
   time: 0
   shotTimer: 0
+  projectile: {fileID: 1595127986404428, guid: 2d87225132c0e744ca083dc0166095c9, type: 2}
   bulletGO: {fileID: 1567875901752550, guid: b1d363c9df3655b4e8c1688a846c956d, type: 2}
   coin: {fileID: 1626564796919128, guid: b134de771b30bbd44953f66108c5697c, type: 2}
   monsterGo: {fileID: 1284787544939062, guid: 45476eb298c0c7a4aa3fe9db673d9c74, type: 2}
+  canvas: {fileID: 0}
+  arCoreDevice: {fileID: 0}
+  planeDiscovery: {fileID: 0}
+  backToMainButton: {fileID: 0}
   sconfig: {fileID: 11400000, guid: 791709fc46a734a419b44a2fd316ac3c, type: 2}
   radius: 0
-  treasureBox: {fileID: 1190091649889860, guid: 2bf1fd069cb3d7f49866dcb1f0a3cce0,
+  _sparks: {fileID: 0}
+  _rapidFireBullet: {fileID: 1999942583834866, guid: 86c2c620751377c4f94a560e8ec474d3,
     type: 2}
+  _rapidSpeed: 70
+  _attacks:
+  - name: Normal
+    sprite: {fileID: 21300000, guid: d4e534c0a94bd2f4592596e29758a9eb, type: 3}
+  - name: Testing
+    sprite: {fileID: 21300000, guid: 879124fdfc0229244a0536088fdca721, type: 3}
+  - name: Rapid
+    sprite: {fileID: 21300000, guid: fdf87547fda4c8b4791d618a40140dfa, type: 3}
+  monsterPrefabs:
+  - {fileID: 1164287497634574, guid: f29a42175fea98e4fa586b9f93cff0e0, type: 2}
+  - {fileID: 1747115701990576, guid: a4daa40a8d7fe0543b6c82aa32137e2b, type: 2}
+  - {fileID: 1005416105777450, guid: 22416332450679d4ba78fd476fc2eb58, type: 2}
+  - {fileID: 1222030269764134, guid: 0e2366be05653414cafcbe994709a6d2, type: 2}
