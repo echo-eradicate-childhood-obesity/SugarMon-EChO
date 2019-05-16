@@ -44,12 +44,11 @@ public class UIManager : MonoBehaviour {
         }
         else { Destroy(this); }
         //init four catebtn
-        //InitCateBtn();
     }
 
     private void Start()
     {
-     //  InitCateBtn();
+        InitCateBtn();
         simpleDemo = GameObject.Find("Main Camera").GetComponent<SimpleDemo>();
     }
 
@@ -128,7 +127,7 @@ public class UIManager : MonoBehaviour {
         IndicateControllerHelper(info, targetName, list);
     }
     public Sprite dextrose;
-    public void IndicateControllerHelper(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
+    private void IndicateControllerHelper(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
     {
         Debug.Log("hi");
         foreach (TMP_Dropdown.OptionData go in list)
