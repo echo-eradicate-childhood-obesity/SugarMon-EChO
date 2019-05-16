@@ -5,12 +5,13 @@ using UnityEngine.UI;
 using GoogleARCore;
 using System.Linq;
 using UnityEngine.SceneManagement;
+
 namespace ARMon
 {
     public class GameManager : MonoBehaviour
     {
         [System.Serializable]
-        public struct AttackTypes{
+        public struct AttackTypes {
             public string name;
             public Sprite sprite;
         }
@@ -32,7 +33,7 @@ namespace ARMon
 
         public GameObject camPosText;
 
-        public GameObject deviceGO;       
+        public GameObject deviceGO;
 
         public float time;
         public float shotTimer;
@@ -54,6 +55,11 @@ namespace ARMon
         //detect radius of player where grid spawn
         public float radius;
 
+
+        [Header("Attack Settings ----------------------------------")]
+        public GameObject _sparks;
+        public GameObject _rapidFireBullet;
+        public float _rapidSpeed;
         public List<AttackTypes> _attacks;
         private int _currentAttack = 0;
 
@@ -187,7 +193,10 @@ namespace ARMon
                     ShootProjectile();
                     break;
                 case 1:
-                    ShootLaser();             
+                    ShootLaser();     
+                    break;
+                case 2:
+                    ShootRapidFire();
                     break;
                 default:
                     break;
@@ -195,6 +204,23 @@ namespace ARMon
 
             
         }
+
+        void ShootRapidFire()
+        {
+            if (buttonHit)
+            {
+                GameObject temp = Instantiate(_rapidFireBullet, deviceGO.transform.position - new Vector3(0f,0.05f,0f), _rapidFireBullet.transform.rotation);                
+                temp.GetComponent<Rigidbody>().velocity = deviceGO.transform.forward * 5f;
+                Destroy(temp, 3);
+                RaycastHit hit;
+                // Does the ray intersect any objects excluding the player layer
+                if (Physics.Raycast(deviceGO.transform.position, deviceGO.transform.forward, out hit, Mathf.Infinity))
+                {
+                    
+                }
+            }
+        }
+
         void ShootProjectile()
         {
             if (shotTimer >= time)
@@ -220,11 +246,16 @@ namespace ARMon
                 // Does the ray intersect any objects excluding the player layer
                 if (Physics.Raycast(deviceGO.transform.position, deviceGO.transform.forward, out hit, Mathf.Infinity))
                 {
+                    if (!_sparks.activeSelf)
+                        _sparks.SetActive(true);
+                    _sparks.transform.position = hit.point;
                     deviceGO.GetComponent<LineRenderer>().SetPosition(0, deviceGO.transform.position - Vector3.up*0.2f);
                     deviceGO.GetComponent<LineRenderer>().SetPosition(1, hit.point);
                 }
                 else
                 {
+                    if (_sparks.activeSelf)
+                        _sparks.SetActive(false);
                     deviceGO.GetComponent<LineRenderer>().SetPosition(0, deviceGO.transform.position - Vector3.up * 0.2f);
                     deviceGO.GetComponent<LineRenderer>().SetPosition(1, deviceGO.transform.position + deviceGO.transform.forward * 100);
                 }
@@ -232,6 +263,8 @@ namespace ARMon
             }
             else
             {
+                if (_sparks.activeSelf)
+                    _sparks.SetActive(false);
                 deviceGO.GetComponent<LineRenderer>().SetPosition(0, deviceGO.transform.position);
                 deviceGO.GetComponent<LineRenderer>().SetPosition(1, deviceGO.transform.position);
                 deviceGO.GetComponent<LineRenderer>().enabled = false;
@@ -346,6 +379,11 @@ namespace ARMon
         {
             _currentAttack = (_currentAttack + 1) % _attacks.Count;
             image.sprite = _attacks[_currentAttack].sprite;
+        }
+
+        public void ReturnToMainMenu()
+        {
+            SceneManager.LoadScene("Menu");
         }
     }
 }
