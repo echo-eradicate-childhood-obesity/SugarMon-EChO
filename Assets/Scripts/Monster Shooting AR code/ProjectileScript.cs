@@ -10,6 +10,8 @@ public class ProjectileScript : MonoBehaviour {
     private float _speed;
     private Vector3 _dir;
 
+    private bool hasHit = false;
+
     public void Start()
     {
         Destroy(gameObject, 3);
@@ -25,8 +27,13 @@ public class ProjectileScript : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        GameObject part = Instantiate(_particalSystem, collision.transform.position, Quaternion.identity);
-        Destroy(part, 1);
-        Destroy(gameObject);
+        if(collision.gameObject.tag == "Monster" && !hasHit)
+        {
+            GameObject part = Instantiate(_particalSystem, collision.transform.position, Quaternion.identity);
+            Destroy(part, 1);
+            Destroy(gameObject);
+            hasHit = true;
+        }
+       
     }
 }

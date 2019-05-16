@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class RapidFireBullet : MonoBehaviour {
 
+    public GameObject _particles;
+    private bool hasHit = false;
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Monster") {
+        if(other.tag == "Monster" && !hasHit) {
+            GameObject temp = Instantiate(_particles, gameObject.transform.position, Quaternion.identity);
+            Destroy(temp, 1);
             print("Monster Hit");
-            Destroy(gameObject);
+            hasHit = true;
+            Destroy(gameObject);            
         }
     }
 }
