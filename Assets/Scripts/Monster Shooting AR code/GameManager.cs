@@ -214,7 +214,7 @@ namespace ARMon
         {
             if (buttonHit)
             {
-                GameObject temp = Instantiate(_rapidFireBullet, deviceGO.transform.position - new Vector3(0f,0.05f,0f), _rapidFireBullet.transform.rotation);                
+                GameObject temp = Instantiate(_rapidFireBullet, deviceGO.transform.position - deviceGO.transform.up * 0.05f, Quaternion.identity);
                 temp.GetComponent<Rigidbody>().velocity = deviceGO.transform.forward * 5f;
                 Destroy(temp, 3);
             }
@@ -226,7 +226,7 @@ namespace ARMon
             {
 
 
-                GameObject temp = Instantiate(projectile, deviceGO.transform.position, Quaternion.identity);
+                GameObject temp = Instantiate(projectile, deviceGO.transform.position, deviceGO.transform.rotation);
                 temp.GetComponent<ProjectileScript>().SetProjectile(deviceGO.transform.forward);
 
                 //var bul = Instantiate(bulletGO, deviceGO.transform.position, Quaternion.identity);

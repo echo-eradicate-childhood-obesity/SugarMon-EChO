@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 33166455398855808}
   - component: {fileID: 23794950988419916}
   - component: {fileID: 54974525296646888}
-  - component: {fileID: 65180803898363442}
   - component: {fileID: 114647679349347194}
+  - component: {fileID: 135146429973011174}
   m_Layer: 0
   m_Name: RapidFireBullet
   m_TagString: Untagged
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1999942583834866}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.085, z: 0.332}
+  m_LocalPosition: {x: -4.327795, y: -1.9993281, z: 0.7219968}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,7 +85,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1999942583834866}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &54974525296646888
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -101,18 +101,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &65180803898363442
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1999942583834866}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2.0000005, z: 1.0000002}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114647679349347194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,3 +113,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particles: {fileID: 1729938628617778, guid: c6aa6604822077544983853f38cf70e6, type: 2}
+--- !u!135 &135146429973011174
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1999942583834866}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5000001
+  m_Center: {x: 0, y: 0, z: 0}
