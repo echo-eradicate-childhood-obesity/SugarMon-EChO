@@ -47,7 +47,7 @@ namespace GoogleARCore.Examples.ComputerVision
         /// Output image format.
         /// </summary>
         public TextureReaderApi.ImageFormatType ImageFormat =
-            TextureReaderApi.ImageFormatType.ImageFormatGrayscale;
+            TextureReaderApi.ImageFormatType.ImageFormatColor;
 
         private const int k_ARCoreTextureWidth = 1920;
         private const int k_ARCoreTextureHeight = 1080;

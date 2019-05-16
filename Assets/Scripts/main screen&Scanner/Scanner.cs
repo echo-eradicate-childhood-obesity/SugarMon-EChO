@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using Wizcorp.Utils.Logger;
 using UnityEngine.UI;
-
+using GoogleARCore;
 #if !UNITY_WEBGL
 using System.Threading;
 #endif
@@ -55,11 +55,12 @@ namespace BarcodeScanner.Scanner
 
         private Texture2D t;
         private int width, height;
-
+        private int imageBufferIndex = -1;
         public Scanner() : this(null, null, null) { }
 		public Scanner(ScannerSettings settings) : this(settings, null, null) {}
 		public Scanner(IParser parser, IWebcam webcam) : this(null, parser, webcam) {}
 
+        float timer;
 		public Scanner(ScannerSettings settings, IParser parser, IWebcam webcam)
 		{
 			// Check Device Authorization
@@ -326,25 +327,36 @@ namespace BarcodeScanner.Scanner
 					parserPixelAvailable = false;
 					return;
 				}
-
+                t = null;
+                pixels = null;
                 // Get the image as an array of Color32
                 //t = (Texture2D)(UIManager.Instance.transform.GetComponent<GoogleARCore.ARCoreBackgroundRenderer>().BackgroundMaterial.mainTexture);
                 //pixels = Camera.GetPixels(pixels);
                 try
                 {
+
                     //t = new Texture2D(GoogleARCore.Frame.CameraImage.Texture.width, GoogleARCore.Frame.CameraImage.Texture.height,);
                     //t = (Texture2D)GoogleARCore.Frame.CameraImage.Texture;
-                    t = (Texture2D)ARMon.GameManager.Instance.CamTexture;
-                    //width = GoogleARCore.Frame.CameraImage.Texture.width;
-                    //height = GoogleARCore.Frame.CameraImage.Texture.height;
-                    width = ARMon.GameManager.Instance.CamTexture.width;
-                    height = ARMon.GameManager.Instance.CamTexture.height;
-                    pixels = t.GetPixels32();
-                    UIManager.Instance.ImageText.GetComponent<Text>().text = $"{pixels.Length}";
-                    UIManager.Instance.ImageWHText.GetComponent<Text>().text = $"{width.ToString()} & {height.ToString()}";
-                   
-                    Debug.Log(pixels.Length);
-                    Debug.Log("this is running");
+                    #region this only work in instant preview
+                    //t = (Texture2D)ARMon.GameManager.Instance.CamTexture;
+                    //width = ARMon.GameManager.Instance.CamTexture.width;
+                    //height = ARMon.GameManager.Instance.CamTexture.height;
+                    #endregion
+                    //make this happen every .5s?
+                    
+                    while (timer > 0.5f)
+                    {
+                        timer = 0f;
+                        var image = Frame.CameraImage.AcquireCameraImageBytes();
+                        width = image.Width;
+                        height = image.Height;
+                        t = ARMon.GameManager.Instance.Print(image);
+                        pixels = t.GetPixels32();
+                        UIManager.Instance.ImageText.GetComponent<Text>().text = $"{pixels.Length}";
+                        UIManager.Instance.ImageWHText.GetComponent<Text>().text = $"{width.ToString()} & {height.ToString()}";
+                        image.Release();
+                    }
+                    timer += Time.deltaTime;
                 }
                 catch (Exception)
                 {

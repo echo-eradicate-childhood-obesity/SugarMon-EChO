@@ -65,10 +65,7 @@ namespace ARMon
         public Texture CamTexture;
         ARCoreBackgroundRenderer backRenderer;
         public Texture2D t2D;
-        //test ui 
-        //public List<GameObject> zeroObjText;
-        //public GameObject currentObjText;
-        //public GameObject deviceObjText;
+        public GoogleARCore.Examples.ComputerVision.TextureReaderApi reader;
         private void Awake()
         {
             if (instance == null)
@@ -87,12 +84,12 @@ namespace ARMon
             monsters = new List<GameObject>();
             //set currentscore to 0 for test
             CurrentScore = 0;
-
+            reader = new GoogleARCore.Examples.ComputerVision.TextureReaderApi();
             foreach (SpawnGrid sg in ssHandler.Obersvers)
             {
                 sg.SignNeighbor(ssHandler.Obersvers, sconfig.gap);
             }
-            
+
         }
 
         //create grid
@@ -285,21 +282,31 @@ namespace ARMon
             monsters.Remove(go);
         }
 
-        public void Print()
+        public Texture2D Print(CameraImageBytes image)
         {
-            UnityEngine.Color[] cols = ((Texture2D)GoogleARCore.Frame.CameraImage.Texture).GetPixels();
-
-            var image = new Bitmap(Frame.CameraImage.Texture.width, GoogleARCore.Frame.CameraImage.Texture.height);
-            for (int i = 0; i < cols.Length; i++)
+            UIManager.Instance.GIMage.GetComponent<Text>();
+            Texture2D texture;
+            byte[] buffer_Y;
+            texture = new Texture2D(image.Width, image.Height, TextureFormat.RGBA32, false, false);
+            buffer_Y = new byte[image.Width * image.Height * 4];
+            System.Runtime.InteropServices.Marshal.Copy(image.Y, buffer_Y, 0, image.Width * image.Height * 4);
+            
+            for (int y = 0; y < image.Height; y++)
             {
+                for (int x = 0; x < image.Width; x++)
+                {
+                    UnityEngine.Color c = new UnityEngine.Color();
+                    float Y = buffer_Y[y * image.Width + x];
+                    c.r = Y/255f;
+                    c.g = Y/255f;
+                    c.b = Y/255f;
+                    c.a = 1.0f;
+                    texture.SetPixel(x, y, c);
+                }
+            }
 
-                var col = System.Drawing.Color.FromArgb((int)(cols[i].r * 255), (int)(cols[i].g * 255), (int)(cols[i].b * 255));
-                image.SetPixel((int)(i / GoogleARCore.Frame.CameraImage.Texture.height), (int)(i % GoogleARCore.Frame.CameraImage.Texture.width), col);
-            }
-            using (System.IO.StreamWriter writer = new System.IO.StreamWriter(Application.persistentDataPath + "/out.jpg"))
-            {
-                
-            }
+            return texture;
+
         }
     }
 }

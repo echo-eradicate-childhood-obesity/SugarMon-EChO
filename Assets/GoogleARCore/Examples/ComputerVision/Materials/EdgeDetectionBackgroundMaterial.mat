@@ -4,7 +4,7 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: EdgeDetectionBackgroundMaterial
   m_Shader: {fileID: 4800000, guid: b7004efaaedb14dfcba62eea5c70c9d2, type: 3}
