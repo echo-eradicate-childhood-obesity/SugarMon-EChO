@@ -43,6 +43,9 @@ public class FindAddedSugar : MonoBehaviour
     public AudioSource badSound;
     public AudioSource unknownSound;
     public AudioSource onSound;
+    public AudioSource sweepSound;
+    private bool firstBadSound;
+    private bool firstSweepSound;
 
     public GameObject scanFrame;
     public GameObject summonSystem;
@@ -87,6 +90,8 @@ public class FindAddedSugar : MonoBehaviour
         vibrate = true;
         soundCancel.enabled = false;
         sound = true;
+        firstBadSound = true;
+        firstSweepSound = true;
     }
 
     void Start()
@@ -337,23 +342,31 @@ public class FindAddedSugar : MonoBehaviour
         {
             canvas.transform.Find("Animation/Sugar Name").GetComponent<Text>().text = scannedAddedSugars[currentNumMonster];
 
-            if (sound)
-            {
-                badSound.Play();
-            }
+            
 
             float animWaitCounter = 0f;
             while (animWaitCounter < 2f && wasSkipped == false) // wait for 2 seconds
             {
+                if (sound && firstBadSound)
+                {
+                    badSound.Play();
+                    firstBadSound = false;
+                }
                 if (Input.GetButtonDown("Fire1") || Input.touchCount > 0) break; // if mouse pressed or screen tapped, end timer
                 yield return null;
                 animWaitCounter += Time.deltaTime;
             }
             if (animWaitCounter < 2f) // if the previous animation was skipped
             {
+                if (sound && firstSweepSound && !wasSkipped)
+                {
+                    sweepSound.Play();
+                    firstSweepSound = false;
+                }
                 wasSkipped = true;
                 yield return new WaitForSeconds(.2f); // delay between rapid SugarCardToDex animations
             }
+            firstBadSound = firstSweepSound= true;
             if (currentNumMonster + 1 == scannedAddedSugars.Count) // if last card
             {
                 Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster])); // destroy stationary card
