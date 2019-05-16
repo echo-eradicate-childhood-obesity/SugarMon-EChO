@@ -45,7 +45,6 @@ public class FindAddedSugar : MonoBehaviour
     public AudioSource onSound;
     public AudioSource sweepSound;
     private bool firstBadSound;
-    private bool firstSweepSound;
 
     public GameObject scanFrame;
     public GameObject summonSystem;
@@ -91,7 +90,6 @@ public class FindAddedSugar : MonoBehaviour
         soundCancel.enabled = false;
         sound = true;
         firstBadSound = true;
-        firstSweepSound = true;
     }
 
     void Start()
@@ -358,15 +356,14 @@ public class FindAddedSugar : MonoBehaviour
             }
             if (animWaitCounter < 2f) // if the previous animation was skipped
             {
-                if (sound && firstSweepSound && !wasSkipped)
+                if (sound)
                 {
                     sweepSound.Play();
-                    firstSweepSound = false;
                 }
                 wasSkipped = true;
                 yield return new WaitForSeconds(.2f); // delay between rapid SugarCardToDex animations
             }
-            firstBadSound = firstSweepSound= true;
+            firstBadSound = true;
             if (currentNumMonster + 1 == scannedAddedSugars.Count) // if last card
             {
                 Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster])); // destroy stationary card
