@@ -55,7 +55,7 @@ namespace BarcodeScanner.Scanner
         private bool decodeInterrupted = true;
 
         private Texture2D t;
-
+        CameraImageBytes image;
         private int width, height;
 
         public Scanner() : this(null, null, null) { }
@@ -228,12 +228,11 @@ namespace BarcodeScanner.Scanner
                 try
                 {
 
-                    lock (pixels)
-                    {
+                   
                         Result = Parser.Decode(pixels, width, height);
                         t = null;
                         pixels = null;
-                    }
+                    
                     //Result = Parser.Decode(pixels, GoogleARCore.Frame.CameraImage.Texture.height, GoogleARCore.Frame.CameraImage.Texture.width);
                     //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
                     
@@ -343,8 +342,7 @@ namespace BarcodeScanner.Scanner
                 try
                 {
 
-                    using (var image = Frame.CameraImage.AcquireCameraImageBytes())
-                    {
+                    image = Frame.CameraImage.AcquireCameraImageBytes();
                         if (image.IsAvailable)
                         {
                             
@@ -359,12 +357,12 @@ namespace BarcodeScanner.Scanner
                             }
                         }
                         timer += Time.deltaTime;
-                    }
+                        image.Release();
                 }
                 catch (Exception e)
                 {
 
-                    Debug.Log(e.Message);
+                    Debug.Log(e.StackTrace);
                 }
                 parserPixelAvailable = true;
 

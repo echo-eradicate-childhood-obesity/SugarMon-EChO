@@ -285,10 +285,19 @@ namespace ARMon
 
         public Texture2D Print(CameraImageBytes image)
         {
-            Texture2D texture = new Texture2D(image.Width, image.Height, TextureFormat.RGB24, false, false);
+            Texture2D texture = new Texture2D(image.Width, image.Height, TextureFormat.RGBA32, false, false);
             UnityEngine.Color bufferColor=new UnityEngine.Color();
-            byte[] buffer_Y = new byte[image.Width * image.Height * 4];
+            //byte[] m_image = new byte[image.Width * image.Height];
+#if UNITY_EDITOR
+            byte[] buffer_Y = new byte[image.Width * image.Height *4];
             System.Runtime.InteropServices.Marshal.Copy(image.Y, buffer_Y, 0, image.Width * image.Height * 4);
+#else
+            byte[] buffer_Y = new byte[image.Width * image.Height];
+            System.Runtime.InteropServices.Marshal.Copy(image.Y, buffer_Y, 0, image.Width * image.Height );
+#endif
+
+            //System.Runtime.InteropServices.Marshal.Copy(image.V, buffer_Y, 0, image.Width * image.Height * 4);
+            UIManager.Instance.GIMage.GetComponent<Text>().text = $"{buffer_Y.Length}+{texture.width * texture.height}";
             for (int x = 0; x < image.Width; x++)
             {
                 for (int y = 0; y < image.Height; y++)
@@ -301,7 +310,7 @@ namespace ARMon
                     texture.SetPixel(x, y, bufferColor);
                 }
             }
-            //for(int i = 0; i < m_image.Length; i++)
+            //for (int i = 0; i < m_image.Length; i++)
             //{
             //    m_image[i] = buffer_Y[i * 4];
             //}
