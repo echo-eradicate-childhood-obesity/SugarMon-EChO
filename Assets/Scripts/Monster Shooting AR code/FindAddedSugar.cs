@@ -75,6 +75,9 @@ public class FindAddedSugar : MonoBehaviour
     [HideInInspector]
     public Dictionary<string, int> familyDictionary;
 
+    [HideInInspector]
+    public List<string> repo;
+
     private GameObject monster;
 
     private int ts;
@@ -143,6 +146,9 @@ public class FindAddedSugar : MonoBehaviour
                 familyDictionary.Add(item[familyIndex], count + 1);
             }
         }
+
+        repo = repository;
+
         fms = familyDictionary.Keys.ToList();
 
         //Remove title
