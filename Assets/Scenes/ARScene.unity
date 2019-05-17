@@ -2391,6 +2391,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
         type: 2}
+      propertyPath: _monsters.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
+        type: 2}
       propertyPath: monsterPrefabs.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -2492,6 +2497,36 @@ Prefab:
       value: 
       objectReference: {fileID: 1315810281938034, guid: 19ddc3c31774daf4ab29fa9c94b4f0c4,
         type: 2}
+    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
+        type: 2}
+      propertyPath: _monsters.Array.data[0].commonDropRate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
+        type: 2}
+      propertyPath: _monsters.Array.data[0].uncommonDropRate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
+        type: 2}
+      propertyPath: _monsters.Array.data[0].rareDropRate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
+        type: 2}
+      propertyPath: rareDropRate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
+        type: 2}
+      propertyPath: commonDropRate
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114060997328518654, guid: 791c6817a809e1a4fb57e943dff177fb,
+        type: 2}
+      propertyPath: uncommonDropRate
+      value: 0.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 791c6817a809e1a4fb57e943dff177fb, type: 2}
   m_IsPrefabAsset: 0

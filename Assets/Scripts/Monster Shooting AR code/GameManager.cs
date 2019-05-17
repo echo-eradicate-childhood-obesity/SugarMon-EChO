@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿/*
+ * This file has been editted by Mark Botaish  
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,8 +19,6 @@ namespace ARMon
             public string name;
             public Sprite sprite;
         }
-
-
         private static GameManager instance;
 
         public static GameManager Instance
@@ -65,11 +67,20 @@ namespace ARMon
 
         private List<GameObject> monsters;
         public static event Move MoveHandler;
+        //-------------------------------------------------------------
+
 
         [Header("Monster Spawn Settings ----------------------------------")]
         public List<GameObject> monsterPrefabs;
         public float minSpawnDistance = 2.0f;
         public float maxSpawnDistance = 5.0f;
+
+        //Varaibles get set in the GameManagerEditor Assets/Editor/GameManagerEditor
+        [SerializeField, HideInInspector] public float commonDropRate;
+        [SerializeField, HideInInspector] public float uncommonDropRate;
+        [SerializeField, HideInInspector] public float rareDropRate;
+
+        //-------------------------------------------------------------
 
 
         //test field
@@ -312,7 +323,7 @@ namespace ARMon
         }
 
 
-        
+        int tempIndexPos = 0;
         public void Summon(string s)
         {
             //GameObject deviceGO = GameManager.Instance.deviceGO;
@@ -340,12 +351,21 @@ namespace ARMon
                 float z = Random.Range(-1.0f, 1.0f);
 
                 float dis = Random.Range(minSpawnDistance, maxSpawnDistance);
+                float rarity = Random.Range(0.0f, 100f);
 
                 int index = Random.Range(0, monsterPrefabs.Count);
                 if(monsterPrefabs.Count > 0)
                 {
+
+                    if (rarity <= commonDropRate) print("COMMON " + rarity);
+                    else if (rarity <= commonDropRate + uncommonDropRate) print("UNCOMMON " + rarity);
+                    else print("RARE " + rarity);
+
                     Vector3 pos = new Vector3(x, y, z).normalized * dis + deviceGO.transform.position;
-                    GameObject monster = Instantiate(monsterPrefabs[index], pos, Quaternion.identity);
+                    //GameObject monster = Instantiate(monsterPrefabs[index], pos, Quaternion.identity);
+                    GameObject monster = Instantiate(monsterPrefabs[3], new Vector3(10, 0, tempIndexPos++), Quaternion.identity);
+
+                    /*
                     MeshRenderer[] matRends = monster.GetComponentsInChildren<MeshRenderer>();
               
                     foreach(MeshRenderer matRend in matRends)
@@ -355,7 +375,7 @@ namespace ARMon
                             mat.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
                         }                       
                     }
-
+                    */
                     monster.transform.LookAt(deviceGO.transform.position);
                     monsters.Add(monster);
                 }
