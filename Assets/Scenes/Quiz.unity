@@ -257,7 +257,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Option B
+  m_Text: 
 --- !u!222 &59459413
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -400,11 +400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390beee13513da247a67bba816767f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prompt: {fileID: 0}
-  btnA: {fileID: 0}
-  btnB: {fileID: 0}
-  btnC: {fileID: 0}
-  btnD: {fileID: 0}
 --- !u!1 &188406767
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +467,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Option A
+  m_Text: 
 --- !u!222 &188406770
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -547,7 +542,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Option D
+  m_Text: 
 --- !u!222 &229997139
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -692,7 +687,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Placeholder text for a question within the quiz
+  m_Text: 
 --- !u!222 &771446565
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -835,11 +830,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390beee13513da247a67bba816767f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prompt: {fileID: 0}
-  btnA: {fileID: 0}
-  btnB: {fileID: 0}
-  btnC: {fileID: 0}
-  btnD: {fileID: 0}
 --- !u!1 &1391337998
 GameObject:
   m_ObjectHideFlags: 0
@@ -1009,7 +999,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Option C
+  m_Text: 
 --- !u!222 &1732115410
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1214,11 +1204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390beee13513da247a67bba816767f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prompt: {fileID: 0}
-  btnA: {fileID: 0}
-  btnB: {fileID: 0}
-  btnC: {fileID: 0}
-  btnD: {fileID: 0}
 --- !u!1 &2081242388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,11 +1339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390beee13513da247a67bba816767f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prompt: {fileID: 0}
-  btnA: {fileID: 0}
-  btnB: {fileID: 0}
-  btnC: {fileID: 0}
-  btnD: {fileID: 0}
 --- !u!1 &2087620223
 GameObject:
   m_ObjectHideFlags: 0
@@ -1494,8 +1474,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390beee13513da247a67bba816767f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prompt: {fileID: 0}
-  btnA: {fileID: 0}
-  btnB: {fileID: 0}
-  btnC: {fileID: 0}
-  btnD: {fileID: 0}
