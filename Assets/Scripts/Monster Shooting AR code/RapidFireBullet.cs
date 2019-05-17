@@ -24,7 +24,7 @@ public class RapidFireBullet : MonoBehaviour {
             Destroy(temp, 1); //Destroy particles after 1 second
             print("Monster Hit");
             hasHit = true;
-            Destroy(gameObject);            
+            Destroy(gameObject);             
         }
     }
 }

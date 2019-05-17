@@ -15,7 +15,7 @@ public class MenuScript : MonoBehaviour {
      */
     public void changeButtonText(Text text)
     {
-        text.text = "Loading...";
+        text.text = "Loading...";   
     }
 
     /*
