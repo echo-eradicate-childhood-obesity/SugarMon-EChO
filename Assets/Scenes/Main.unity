@@ -4421,7 +4421,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1976888913}
     - target: {fileID: 114584207982116964, guid: 87e560b54d7c5b1409fd19c2ee231992,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -9871,7 +9871,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1976888913}
         m_MethodName: DisableUI
         m_Mode: 2
         m_Arguments:
@@ -11576,6 +11576,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1637996540812124, guid: c10877f7cd5764de18d46d7b777d1faa,
     type: 2}
   m_PrefabInternal: {fileID: 573622871}
+--- !u!114 &1976888913 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114065512269437050, guid: c10877f7cd5764de18d46d7b777d1faa,
+    type: 2}
+  m_PrefabInternal: {fileID: 573622871}
+  m_Script: {fileID: 11500000, guid: b63987e7ea17a604aa8116486d5541e0, type: 3}
 --- !u!1001 &1980249784
 Prefab:
   m_ObjectHideFlags: 0
