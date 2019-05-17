@@ -193,6 +193,7 @@ public class SugarDisk : MonoBehaviour {
 
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex]);
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + sc.name);
+                        sci.GetComponent<Image>().color = Color.white;
                     }
                 }
             }
