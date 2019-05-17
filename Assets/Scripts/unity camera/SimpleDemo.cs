@@ -15,7 +15,6 @@ public class SimpleDemo : MonoBehaviour
 {
 
     public IScanner BarcodeScanner;
-    public RawImage Image;
     public TextAsset PerfactDatabase;
 
     private bool inDB;
@@ -182,7 +181,6 @@ public class SimpleDemo : MonoBehaviour
     public IEnumerator StopCamera(Action callback)
     {
         // Stop Scanning
-        Image = null;
         BarcodeScanner.Destroy();
         BarcodeScanner = null;
 
