@@ -162,7 +162,6 @@ public class SimpleDemo : MonoBehaviour
                 if (i != -1)
                 {
                     inDB = true;
-
                     GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(dbProductList[i].ToLower(), barCodeValue);
                 }
                 if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found", barCodeValue);
