@@ -352,7 +352,7 @@ namespace BarcodeScanner.Scanner
                         {
                             width = image.Width;
                             height = image.Height;
-                            texture = ARMon.GameManager.Instance.Print(image);
+                            texture = Converter.Print(image);
                             pixels = texture.GetPixels32();
                             timer = 0;
                         }
