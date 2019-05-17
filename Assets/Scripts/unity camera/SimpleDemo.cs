@@ -67,28 +67,30 @@ public class SimpleDemo : MonoBehaviour
         //BarcodeScanner.Camera.Play();
 
         // Display the camera texture through a RawImage
-        BarcodeScanner.OnReady += (sender, arg) => {
+        BarcodeScanner.OnReady += (sender, arg) =>
+        {
             // Set Orientation & Texture
             //Image.transform.localEulerAngles = BarcodeScanner.Camera.GetEulerAngles();
             //Image.transform.localScale = BarcodeScanner.Camera.GetScale();
             //Image.texture = BarcodeScanner.Camera.Texture;
-            
+
             //Keep Image Aspect Ratio
             //var rect = Image.GetComponent<RectTransform>();
             //var newHeight = rect.sizeDelta.x * BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
             //rect.sizeDelta = new Vector2(rect.sizeDelta.x, newHeight);
             //rect.sizeDelta = new Vector2(Screen.width, Screen.height);
         };
-        BarcodeScanner.StatusChanged += (sender, arg) =>
-        {
-#if UNITY_EDITOR
-            //Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
-            //Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)GoogleARCore.Frame.CameraImage.Texture.height / GoogleARCore.Frame.CameraImage.Texture.width;
-#else
-            //Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Width / BarcodeScanner.Camera.Height;
-            //Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)GoogleARCore.Frame.CameraImage.Texture.width / GoogleARCore.Frame.CameraImage.Texture.height;
-#endif
-        };
+        //AspectRatio is now controllered by ARCamera, do now need this now
+        //BarcodeScanner.StatusChanged += (sender, arg) =>
+        //{
+        //#if UNITY_EDITOR
+        //            //Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
+        //            //Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)GoogleARCore.Frame.CameraImage.Texture.height / GoogleARCore.Frame.CameraImage.Texture.width;
+        //#else
+        //            //Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Width / BarcodeScanner.Camera.Height;
+        //            //Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)GoogleARCore.Frame.CameraImage.Texture.width / GoogleARCore.Frame.CameraImage.Texture.height;
+        //#endif
+        //};
         // Track status of the scanner
         //BarcodeScanner.StatusChanged += (sender, arg) => {
         //  Debug.Log("Status: " + BarcodeScanner.Status);
@@ -97,7 +99,7 @@ public class SimpleDemo : MonoBehaviour
         isAndroid = false;
         //When on Android platform
 #if UNITY_ANDROID
-            isAndroid = true;
+        isAndroid = true;
 #endif
     }
 
@@ -111,21 +113,17 @@ public class SimpleDemo : MonoBehaviour
     }
     void Update()
     {
-        
-        UIManager.Instance.StatusText.GetComponent<Text>().text = $"{BarcodeScanner.Status}";
-        //UIManager.Instance.ImageText.GetComponent<Text>().text = $"{((Texture2D)GoogleARCore.Frame.CameraImage.Texture).GetPixels32().Length}";
-        //UIManager.Instance.ImageWHText.GetComponent<Text>().text = $"{GoogleARCore.Frame.CameraImage.Texture.width.ToString()} & {GoogleARCore.Frame.CameraImage.Texture.height.ToString()}";
-        //Debug.Log($"width is {GoogleARCore.Frame.CameraImage.Texture.width} and height is {GoogleARCore.Frame.CameraImage.Texture.height}, total length is {((Texture2D)(GoogleARCore.Frame.CameraImage.Texture)).GetPixels32().Length}");
+
+
         if (BarcodeScanner == null)
         {
             return;
         }
-        
 
-        if (isAndroid&& Input.GetButtonDown("Cancel"))
+        if (isAndroid && Input.GetButtonDown("Cancel"))
         {
             AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
-            activity.Call<bool>("moveTaskToBack",true);
+            activity.Call<bool>("moveTaskToBack", true);
         }
     }
 
@@ -133,7 +131,7 @@ public class SimpleDemo : MonoBehaviour
     {
         BarcodeScanner.Update();
     }
-#region UI Buttons
+    #region UI Buttons
 
     public void ClickStart()
     {
@@ -145,11 +143,12 @@ public class SimpleDemo : MonoBehaviour
         }
 
         // Start Scanning
-        BarcodeScanner.Scan((barCodeType, barCodeValue) => {
+        BarcodeScanner.Scan((barCodeType, barCodeValue) =>
+        {
             BarcodeScanner.Stop();
-            
+
             if (this.GetComponent<TestController>().test) GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
-            
+
             if (excludedCodeType.Any(barCodeType.Contains))
             {
                 Invoke("ClickStart", 1f);
@@ -194,7 +193,7 @@ public class SimpleDemo : MonoBehaviour
     }
 
 
-#endregion
+    #endregion
 
-    
+
 }

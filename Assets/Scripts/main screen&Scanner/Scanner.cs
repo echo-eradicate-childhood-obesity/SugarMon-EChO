@@ -54,15 +54,16 @@ namespace BarcodeScanner.Scanner
         private int webcamLastChecksum = -1;
         private bool decodeInterrupted = true;
 
-        private Texture2D t;
+        private Texture2D texture;
         CameraImageBytes image;
         private int width, height;
-
+        float timer;
+        public float FrameTime = 1.5f;
         public Scanner() : this(null, null, null) { }
         public Scanner(ScannerSettings settings) : this(settings, null, null) { }
         public Scanner(IParser parser, IWebcam webcam) : this(null, parser, webcam) { }
 
-        float timer;
+
         public Scanner(ScannerSettings settings, IParser parser, IWebcam webcam)
         {
             // Check Device Authorization
@@ -191,7 +192,7 @@ namespace BarcodeScanner.Scanner
                 //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
                 //Debug.Log($"width is {width} and height is {height}, total length is {t.GetPixels32().Length}");
                 Result = Parser.Decode(pixels, width, height);
-                t = null;
+                texture = null;
                 pixels = null;
                 parserPixelAvailable = false;
             }
@@ -228,15 +229,15 @@ namespace BarcodeScanner.Scanner
                 try
                 {
 
-                   
-                        Result = Parser.Decode(pixels, width, height);
-                        t = null;
-                        pixels = null;
-                    
+
+                    Result = Parser.Decode(pixels, width, height);
+                    texture = null;
+                    pixels = null;
+
                     //Result = Parser.Decode(pixels, GoogleARCore.Frame.CameraImage.Texture.height, GoogleARCore.Frame.CameraImage.Texture.width);
                     //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
-                    
-                    
+
+
                     parserPixelAvailable = false;
                     if (Result == null)
                     {
@@ -337,27 +338,27 @@ namespace BarcodeScanner.Scanner
                 }
 
                 // Get the image as an array of Color32
-                //t = (Texture2D)(UIManager.Instance.transform.GetComponent<GoogleARCore.ARCoreBackgroundRenderer>().BackgroundMaterial.mainTexture);
                 //pixels = Camera.GetPixels(pixels);
+                //get Frame info here
                 try
                 {
 
                     image = Frame.CameraImage.AcquireCameraImageBytes();
-                        if (image.IsAvailable)
+                    if (image.IsAvailable)
+                    {
+                        //keep get frame info consumes too much power
+                        //make it happen every 1.5s
+                        while (timer > FrameTime)
                         {
-                            
-                            //make this happen every .5s?
-                            while (timer > 1.5f)
-                            {
-                                width = image.Width;
-                                height = image.Height;
-                                t = ARMon.GameManager.Instance.Print(image);
-                                pixels = t.GetPixels32();
-                                timer = 0;
-                            }
+                            width = image.Width;
+                            height = image.Height;
+                            texture = ARMon.GameManager.Instance.Print(image);
+                            pixels = texture.GetPixels32();
+                            timer = 0;
                         }
-                        timer += Time.deltaTime;
-                        image.Release();
+                    }
+                    timer += Time.deltaTime;
+                    image.Release();
                 }
                 catch (Exception e)
                 {

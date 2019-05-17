@@ -36,10 +36,6 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     GameObject cav;
 
-    public GameObject ImageText;
-    public GameObject ImageWHText;
-    public GameObject StatusText;
-    public GameObject GIMage;
     
     // Use this for initialization
     void Awake ()
