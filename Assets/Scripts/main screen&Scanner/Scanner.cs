@@ -11,250 +11,259 @@ using System.Threading;
 
 namespace BarcodeScanner.Scanner
 {
-	/// <summary>
-	/// This Scanner Is used to manage the Camera & the parser and provide:
-	/// * Simple methods : Scan / Stop
-	/// * Simple events : OnStatus / StatusChanged
-	/// </summary>
-	public class Scanner : IScanner
-	{
-		//
-		public event EventHandler OnReady;
-		public event EventHandler StatusChanged;
+    /// <summary>
+    /// This Scanner Is used to manage the Camera & the parser and provide:
+    /// * Simple methods : Scan / Stop
+    /// * Simple events : OnStatus / StatusChanged
+    /// </summary>
+    public class Scanner : IScanner
+    {
+        //
+        public event EventHandler OnReady;
+        public event EventHandler StatusChanged;
 
-		//
-		//public IWebcam Camera { get; private set; }
-		public IParser Parser { get; private set; }
-		public ScannerSettings Settings { get; private set; }
+        //
+        //public IWebcam Camera { get; private set; }
+        public IParser Parser { get; private set; }
+        public ScannerSettings Settings { get; private set; }
 
-		//
-		private ScannerStatus status;
-		public ScannerStatus Status {
-			get { return status; }
-			private set
-			{
-				status = value;
-				if (StatusChanged != null)
-				{
-					StatusChanged.Invoke(this, EventArgs.Empty);
-				}
-			}
-		}
+        //
+        private ScannerStatus status;
+        public ScannerStatus Status
+        {
+            get { return status; }
+            private set
+            {
+                status = value;
+                if (StatusChanged != null)
+                {
+                    StatusChanged.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
 
-		// Store information about last image / results (use the update loop to access camera and callback)
-		private Color32[] pixels = null;
-		private Action<string, string> Callback;
-		private ParserResult Result;
+        // Store information about last image / results (use the update loop to access camera and callback)
+        private Color32[] pixels = null;
+        private Action<string, string> Callback;
+        private ParserResult Result;
 
-		//
-		private bool parserPixelAvailable = false;
-		private float mainThreadLastDecode = 0;
-		private int webcamFrameDelayed = 0;
-		private int webcamLastChecksum = -1;
-		private bool decodeInterrupted = true;
+        //
+        private bool parserPixelAvailable = false;
+        private float mainThreadLastDecode = 0;
+        private int webcamFrameDelayed = 0;
+        private int webcamLastChecksum = -1;
+        private bool decodeInterrupted = true;
 
         private Texture2D t;
+
         private int width, height;
-        private int imageBufferIndex = -1;
+
         public Scanner() : this(null, null, null) { }
-		public Scanner(ScannerSettings settings) : this(settings, null, null) {}
-		public Scanner(IParser parser, IWebcam webcam) : this(null, parser, webcam) {}
+        public Scanner(ScannerSettings settings) : this(settings, null, null) { }
+        public Scanner(IParser parser, IWebcam webcam) : this(null, parser, webcam) { }
 
         float timer;
-		public Scanner(ScannerSettings settings, IParser parser, IWebcam webcam)
-		{
-			// Check Device Authorization
-			if (!Application.HasUserAuthorization(UserAuthorization.WebCam))
-			{
-				throw new Exception("This Webcam Library can't work without the webcam authorization");
-			}
+        public Scanner(ScannerSettings settings, IParser parser, IWebcam webcam)
+        {
+            // Check Device Authorization
+            if (!Application.HasUserAuthorization(UserAuthorization.WebCam))
+            {
+                throw new Exception("This Webcam Library can't work without the webcam authorization");
+            }
 
-			Status = ScannerStatus.Initialize;
+            Status = ScannerStatus.Initialize;
 
-			// Default Properties
-			Settings = (settings == null) ? new ScannerSettings() : settings;
-			Parser = (parser == null) ? new ZXingParser(Settings) : parser;
+            // Default Properties
+            Settings = (settings == null) ? new ScannerSettings() : settings;
+            Parser = (parser == null) ? new ZXingParser(Settings) : parser;
             //Camera = (webcam == null) ? new UnityWebcam(Settings) : webcam;
-            
-            
-		}
 
-		/// <summary>
-		/// Used to start Scanning
-		/// </summary>
-		/// <param name="callback"></param>
-		public void Scan(Action<string, string> callback)
-		{
-			if (Callback != null)
-			{
-				//Log.Warning(this + " Already Scan");
-				return;
-			}
-			Callback = callback;
 
-			//Log.Info(this + " SimpleScanner -> Start Scan");
-			Status = ScannerStatus.Running;
+        }
 
-			#if !UNITY_WEBGL
-			if (Settings.ScannerBackgroundThread)
-			{
-				if (CodeScannerThread != null)
-				{
-					Stop(true);
-				}
+        /// <summary>
+        /// Used to start Scanning
+        /// </summary>
+        /// <param name="callback"></param>
+        public void Scan(Action<string, string> callback)
+        {
+            if (Callback != null)
+            {
+                //Log.Warning(this + " Already Scan");
+                return;
+            }
+            Callback = callback;
 
-				decodeInterrupted = false;
-				CodeScannerThread = new Thread(ThreadDecodeQR);
-				CodeScannerThread.Start();
-			}
-			#endif
-		}
+            //Log.Info(this + " SimpleScanner -> Start Scan");
+            Status = ScannerStatus.Running;
 
-		/// <summary>
-		/// Used to Stop Scanning
-		/// </summary>
-		public void Stop()
-		{
-			Stop(false);
-		}
+#if !UNITY_WEBGL
+            if (Settings.ScannerBackgroundThread)
+            {
+                if (CodeScannerThread != null)
+                {
+                    Stop(true);
+                }
 
-		/// <summary>
-		/// Used to Stop Scanning internaly (can be forced)
-		/// </summary>
-		private void Stop(bool forced)
-		{
-			if (!forced && Callback == null)
-			{
-				Log.Warning(this + " No Scan running");
-				return;
-			}
+                decodeInterrupted = false;
+                CodeScannerThread = new Thread(ThreadDecodeQR);
+                CodeScannerThread.Start();
+            }
+#endif
+        }
 
-			// Stop thread / Clean callback
-			//Log.Info(this + " SimpleScanner -> Stop Scan");
-			#if !UNITY_WEBGL
-			if (CodeScannerThread != null)
-			{
-				decodeInterrupted = true;
-				CodeScannerThread.Join();
-				CodeScannerThread = null;
-			}
-			#endif
+        /// <summary>
+        /// Used to Stop Scanning
+        /// </summary>
+        public void Stop()
+        {
+            Stop(false);
+        }
 
-			Callback = null;
-			Status = ScannerStatus.Paused;
-		}
+        /// <summary>
+        /// Used to Stop Scanning internaly (can be forced)
+        /// </summary>
+        private void Stop(bool forced)
+        {
+            if (!forced && Callback == null)
+            {
+                Log.Warning(this + " No Scan running");
+                return;
+            }
 
-		/// <summary>
-		/// Used to be sure that everything is properly clean
-		/// </summary>
-		public void Destroy()
-		{
-			// clean events
-			OnReady = null;
-			StatusChanged = null;
+            // Stop thread / Clean callback
+            //Log.Info(this + " SimpleScanner -> Stop Scan");
+#if !UNITY_WEBGL
+            if (CodeScannerThread != null)
+            {
+                decodeInterrupted = true;
+                CodeScannerThread.Join();
+                CodeScannerThread = null;
+            }
+#endif
 
-			// Stop it
-			Stop(true);
+            Callback = null;
+            Status = ScannerStatus.Paused;
+        }
 
-			// clean returns
-			Callback = null;
-			Result = null;
-			pixels = null;
-			parserPixelAvailable = false;
+        /// <summary>
+        /// Used to be sure that everything is properly clean
+        /// </summary>
+        public void Destroy()
+        {
+            // clean events
+            OnReady = null;
+            StatusChanged = null;
 
-			// clean camera
-			//Camera.Destroy();
-			//Camera = null;
-			Parser = null;
-		}
+            // Stop it
+            Stop(true);
 
-		#region Unthread
+            // clean returns
+            Callback = null;
+            Result = null;
+            pixels = null;
+            parserPixelAvailable = false;
 
-		/// <summary>
-		/// Process Image Decoding in the main Thread
-		/// Background Thread : OFF
-		/// </summary>
-		public void DecodeQR()
-		{
-			// Wait
-			if (Status != ScannerStatus.Running || !parserPixelAvailable /*|| Camera.Width == 0*/)
-			{
-				return;
-			}
+            // clean camera
+            //Camera.Destroy();
+            //Camera = null;
+            Parser = null;
+        }
 
-			// Process
-			//Log.Debug(this + " SimpleScanner -> Scan ... " + Camera.Width + " / " + Camera.Height);
-			try
-			{
+        #region Unthread
+
+        /// <summary>
+        /// Process Image Decoding in the main Thread
+        /// Background Thread : OFF
+        /// </summary>
+        public void DecodeQR()
+        {
+            // Wait
+            if (Status != ScannerStatus.Running || !parserPixelAvailable /*|| Camera.Width == 0*/)
+            {
+                return;
+            }
+
+            // Process
+            //Log.Debug(this + " SimpleScanner -> Scan ... " + Camera.Width + " / " + Camera.Height);
+            try
+            {
                 //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
                 //Debug.Log($"width is {width} and height is {height}, total length is {t.GetPixels32().Length}");
-                Result = Parser.Decode(pixels,width, height);
-                
-                Debug.Log(pixels.Length);
+                Result = Parser.Decode(pixels, width, height);
+                t = null;
+                pixels = null;
                 parserPixelAvailable = false;
-			}
-			catch (Exception e)
-			{
-				Log.Error(e);
-			}
-		}
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Background Thread
+        #region Background Thread
 
-		#if !UNITY_WEBGL
-		private Thread CodeScannerThread;
+#if !UNITY_WEBGL
+        private Thread CodeScannerThread;
 
-		/// <summary>
-		/// Process Image Decoding in a Background Thread
-		/// Background Thread : OFF
-		/// </summary>
-		public void ThreadDecodeQR()
-		{
-			while (decodeInterrupted == false && Result == null)
-			{
-				// Wait
-				if (Status != ScannerStatus.Running || !parserPixelAvailable /*|| Camera.Width == 0*/)
-				{
-					Thread.Sleep(Mathf.FloorToInt(Settings.ScannerDecodeInterval * 1000));
-					continue;
-				}
+        /// <summary>
+        /// Process Image Decoding in a Background Thread
+        /// Background Thread : OFF
+        /// </summary>
+        public void ThreadDecodeQR()
+        {
+            while (decodeInterrupted == false && Result == null)
+            {
+                // Wait
+                if (Status != ScannerStatus.Running || !parserPixelAvailable /*|| Camera.Width == 0*/)
+                {
+                    Thread.Sleep(Mathf.FloorToInt(Settings.ScannerDecodeInterval * 1000));
+                    continue;
+                }
 
-				// Process
-				//Log.Debug(this + " SimpleScanner -> Scan ... " + Camera.Width + " / " + Camera.Height);
-				try
-				{
+                // Process
+                //Log.Debug(this + " SimpleScanner -> Scan ... " + Camera.Width + " / " + Camera.Height);
+                try
+                {
 
-                    Result = Parser.Decode(pixels, width, height);
+                    lock (pixels)
+                    {
+                        Result = Parser.Decode(pixels, width, height);
+                        t = null;
+                        pixels = null;
+                    }
                     //Result = Parser.Decode(pixels, GoogleARCore.Frame.CameraImage.Texture.height, GoogleARCore.Frame.CameraImage.Texture.width);
                     //Result = Parser.Decode(pixels, Camera.Width, Camera.Height);
+                    
+                    
                     parserPixelAvailable = false;
-					if (Result == null)
-					{
-						continue;
-					}
+                    if (Result == null)
+                    {
+                        continue;
+                    }
 
-					// Sleep a little bit and set the signal to get the next frame
-					Thread.Sleep(Mathf.FloorToInt(Settings.ScannerDecodeInterval * 1000));
-				}
-				catch (ThreadAbortException) { }
-				catch (Exception e)
-				{
-					Log.Error(e);
-				}
-			}
-		}
-		#endif
+                    // Sleep a little bit and set the signal to get the next frame
+                    Thread.Sleep(Mathf.FloorToInt(Settings.ScannerDecodeInterval * 1000));
+                }
+                catch (ThreadAbortException) { }
+                catch (Exception e)
+                {
+                    Log.Error(e);
+                }
+            }
+        }
+#endif
 
-		#endregion
+        #endregion
 
-		/// <summary>
-		/// Be sure that the camera metadata is stable (thanks Unity) and wait until then (increment delayFrameWebcam)
-		/// </summary>
-		/// <returns></returns>
-		private bool WebcamInitialized()
-		{
+        /// <summary>
+        /// Be sure that the camera metadata is stable (thanks Unity) and wait until then (increment delayFrameWebcam)
+        /// </summary>
+        /// <returns></returns>
+        private bool WebcamInitialized()
+        {
             //If webcam information still change, reset delayFrame
 
             //if (webcamLastChecksum != Camera.GetChecksum())
@@ -266,24 +275,24 @@ namespace BarcodeScanner.Scanner
 
             // Increment delayFrame
             if (webcamFrameDelayed < Settings.ScannerDelayFrameMin)
-			{
-				webcamFrameDelayed++;
-				return false;
-			}
+            {
+                webcamFrameDelayed++;
+                return false;
+            }
 
-			//Camera.SetSize();
-			//webcamFrameDelayed = 0;
-			return true;
-		}
+            //Camera.SetSize();
+            //webcamFrameDelayed = 0;
+            return true;
+        }
 
-		/// <summary>
-		/// This Update Loop is used to :
-		/// * Wait the Camera is really ready
-		/// * Bring back Callback to the main thread when using Background Thread
-		/// * To execute image Decoding When not using the background Thread
-		/// </summary>
-		public void Update()
-		{
+        /// <summary>
+        /// This Update Loop is used to :
+        /// * Wait the Camera is really ready
+        /// * Bring back Callback to the main thread when using Background Thread
+        /// * To execute image Decoding When not using the background Thread
+        /// </summary>
+        public void Update()
+        {
             // If not ready, wait
             //if (!Camera.IsReady())
             //{
@@ -295,88 +304,84 @@ namespace BarcodeScanner.Scanner
             //    return;
             //}
 
-            
+
             // If the app start for the first time (select size & onReady Event)
             if (Status == ScannerStatus.Initialize)
-			{
-				if (WebcamInitialized())
-				{
-					//Log.Info(this + " Camera is Ready ", Camera);
+            {
+                if (WebcamInitialized())
+                {
+                    //Log.Info(this + " Camera is Ready ", Camera);
 
-					Status = ScannerStatus.Paused;
+                    Status = ScannerStatus.Paused;
 
-					if (OnReady != null)
-					{
-						OnReady.Invoke(this, EventArgs.Empty);
-					}
-				}
-			}
+                    if (OnReady != null)
+                    {
+                        OnReady.Invoke(this, EventArgs.Empty);
+                    }
+                }
+            }
 
-			if (Status == ScannerStatus.Running)
-			{
-				// Call the callback if a result is there
-				if (Result != null)
-				{
-                    
+            if (Status == ScannerStatus.Running)
+            {
+                // Call the callback if a result is there
+                if (Result != null)
+                {
+
                     //
                     //Log.Info(Result);
                     Callback(Result.Type, Result.Value);
 
-					// clean and return
-					Result = null;
-					parserPixelAvailable = false;
-					return;
-				}
-                t = null;
-                pixels = null;
+                    // clean and return
+                    Result = null;
+                    parserPixelAvailable = false;
+                    return;
+                }
+
                 // Get the image as an array of Color32
                 //t = (Texture2D)(UIManager.Instance.transform.GetComponent<GoogleARCore.ARCoreBackgroundRenderer>().BackgroundMaterial.mainTexture);
                 //pixels = Camera.GetPixels(pixels);
                 try
                 {
 
-                    //t = new Texture2D(GoogleARCore.Frame.CameraImage.Texture.width, GoogleARCore.Frame.CameraImage.Texture.height,);
-                    //t = (Texture2D)GoogleARCore.Frame.CameraImage.Texture;
-                    #region this only work in instant preview
-                    //t = (Texture2D)ARMon.GameManager.Instance.CamTexture;
-                    //width = ARMon.GameManager.Instance.CamTexture.width;
-                    //height = ARMon.GameManager.Instance.CamTexture.height;
-                    #endregion
-                    //make this happen every .5s?
-                    
-                    while (timer > 0.5f)
+                    using (var image = Frame.CameraImage.AcquireCameraImageBytes())
                     {
-                        timer = 0f;
-                        var image = Frame.CameraImage.AcquireCameraImageBytes();
-                        width = image.Width;
-                        height = image.Height;
-                        t = ARMon.GameManager.Instance.Print(image);
-                        pixels = t.GetPixels32();
-                        UIManager.Instance.ImageText.GetComponent<Text>().text = $"{pixels.Length}";
-                        UIManager.Instance.ImageWHText.GetComponent<Text>().text = $"{width.ToString()} & {height.ToString()}";
-                        image.Release();
+                        if (image.IsAvailable)
+                        {
+                            
+                            //make this happen every .5s?
+                            while (timer > 1.5f)
+                            {
+                                width = image.Width;
+                                height = image.Height;
+                                t = ARMon.GameManager.Instance.Print(image);
+                                pixels = t.GetPixels32();
+                                timer = 0;
+                            }
+                        }
+                        timer += Time.deltaTime;
                     }
-                    timer += Time.deltaTime;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
 
-                    Debug.Log("not running");
+                    Debug.Log(e.Message);
                 }
                 parserPixelAvailable = true;
 
-				// If background thread OFF, do the decode main thread with 500ms of pause for UI
-				if (!Settings.ScannerBackgroundThread && mainThreadLastDecode < Time.realtimeSinceStartup - Settings.ScannerDecodeInterval)
-				{
-					DecodeQR();
-					mainThreadLastDecode = Time.realtimeSinceStartup;
-				}
-			}
-		}
+                // If background thread OFF, do the decode main thread with 500ms of pause for UI
+                if (!Settings.ScannerBackgroundThread && mainThreadLastDecode < Time.realtimeSinceStartup - Settings.ScannerDecodeInterval)
+                {
+                    DecodeQR();
 
-		public override string ToString()
-		{
-			return "[UnityBarcodeScanner]";
-		}
-	}
+                    mainThreadLastDecode = Time.realtimeSinceStartup;
+                }
+
+            }
+        }
+
+        public override string ToString()
+        {
+            return "[UnityBarcodeScanner]";
+        }
+    }
 }

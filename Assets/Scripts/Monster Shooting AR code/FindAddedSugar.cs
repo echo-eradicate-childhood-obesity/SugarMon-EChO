@@ -229,8 +229,6 @@ public class FindAddedSugar : MonoBehaviour
                     if (!allScanned.Contains(r.ToLower()))
                     {
                         allScanned.Add(r.ToLower());
-
-
                         //this is the newly add indicator showing func.
                         foreach (List<string> sl in dbList)
                         {

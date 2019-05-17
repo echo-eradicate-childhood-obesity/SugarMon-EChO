@@ -62,6 +62,7 @@ namespace ARMon
             get { return previousPos; }
         }
 
+
         public Texture CamTexture;
         ARCoreBackgroundRenderer backRenderer;
         public Texture2D t2D;
@@ -284,27 +285,31 @@ namespace ARMon
 
         public Texture2D Print(CameraImageBytes image)
         {
-            UIManager.Instance.GIMage.GetComponent<Text>();
-            Texture2D texture;
-            byte[] buffer_Y;
-            texture = new Texture2D(image.Width, image.Height, TextureFormat.RGBA32, false, false);
-            buffer_Y = new byte[image.Width * image.Height * 4];
+            Texture2D texture = new Texture2D(image.Width, image.Height, TextureFormat.RGB24, false, false);
+            UnityEngine.Color bufferColor=new UnityEngine.Color();
+            byte[] buffer_Y = new byte[image.Width * image.Height * 4];
             System.Runtime.InteropServices.Marshal.Copy(image.Y, buffer_Y, 0, image.Width * image.Height * 4);
-            
-            for (int y = 0; y < image.Height; y++)
+            for (int x = 0; x < image.Width; x++)
             {
-                for (int x = 0; x < image.Width; x++)
+                for (int y = 0; y < image.Height; y++)
                 {
-                    UnityEngine.Color c = new UnityEngine.Color();
                     float Y = buffer_Y[y * image.Width + x];
-                    c.r = Y/255f;
-                    c.g = Y/255f;
-                    c.b = Y/255f;
-                    c.a = 1.0f;
-                    texture.SetPixel(x, y, c);
+                    bufferColor.r = Y / 255f;
+                    //c.g = Y / 255f;
+                    //c.b = Y / 255f;
+                    //c.a = 1.0f;
+                    texture.SetPixel(x, y, bufferColor);
                 }
             }
-
+            //for(int i = 0; i < m_image.Length; i++)
+            //{
+            //    m_image[i] = buffer_Y[i * 4];
+            //}
+            //text.text = "2";
+            //texture.LoadRawTextureData(m_image);
+            //var path = Application.persistentDataPath + "/test.jpg";
+            //var output = texture.EncodeToJPG();
+            //System.IO.File.WriteAllBytes(path,output);
             return texture;
 
         }

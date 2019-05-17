@@ -120,7 +120,7 @@ public class SimpleDemo : MonoBehaviour
         {
             return;
         }
-        BarcodeScanner.Update();
+        
 
         if (isAndroid&& Input.GetButtonDown("Cancel"))
         {
@@ -129,6 +129,10 @@ public class SimpleDemo : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        BarcodeScanner.Update();
+    }
 #region UI Buttons
 
     public void ClickStart()
