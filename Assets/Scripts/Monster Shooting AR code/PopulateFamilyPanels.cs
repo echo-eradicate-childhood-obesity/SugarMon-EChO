@@ -83,6 +83,14 @@ public class PopulateFamilyPanels : MonoBehaviour {
                 numberCircle.GetComponent<RectTransform>().SetAsFirstSibling();
 
                 diskNumber.GetComponent<Text>().text = newCell.name;
+                if ( cell < 99)
+                {
+                    diskNumber.GetComponent<Text>().fontSize = 30;
+                } else
+                {
+                    diskNumber.GetComponent<Text>().fontSize = 26;
+                }
+                
                 diskNumber.GetComponent<Text>().color = Color.black;
                 GameObject monsterName = newCell.transform.Find("Name").gameObject;
                 monsterName.GetComponent<Text>().text = "???";
