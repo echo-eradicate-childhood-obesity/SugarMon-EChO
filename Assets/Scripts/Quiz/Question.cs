@@ -1,10 +1,11 @@
 ﻿
 public class Question {
     public string prompt{get; set;}
-    public string[] answers = new string[4];
+    public string[] answers{get; set;}
     public char correct{get; set;}
 
     public Question() {
+        answers = new string[4];
         this.generateQuestion();
     }
     private void generateQuestion() {

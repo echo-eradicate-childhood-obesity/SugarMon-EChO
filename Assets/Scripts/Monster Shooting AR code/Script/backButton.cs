@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class backButton : MonoBehaviour {
     private void Start()
     {
-        
+
     }
     // Update is called once per frame
     void Update()
@@ -22,5 +22,8 @@ public class backButton : MonoBehaviour {
 
     public void GoToDex() {
         SceneManager.LoadScene("SugarDisk");
+    }
+    public void GoToQuiz() {
+        SceneManager.LoadScene("Quiz");
     }
 }
