@@ -346,7 +346,7 @@ public class FindAddedSugar : MonoBehaviour
 
             // Work around until this can be called by check button on card
             SceneManager.LoadScene("Quiz");
-
+            // rest of code would be for if anything but the check was pressed
 
 
             anim.GetComponent<Animator>().Play("NotFoundCard");
