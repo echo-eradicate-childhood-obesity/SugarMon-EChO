@@ -181,6 +181,7 @@ public class SugarDisk : MonoBehaviour {
 
 
                         sci.GetComponentInChildren<Text>().text = "";
+                        sci.GetChild(0).gameObject.SetActive(false);
 
                         //placing and resizing the monster image in sugardex
 
@@ -193,6 +194,7 @@ public class SugarDisk : MonoBehaviour {
 
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex]);
                         sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + sc.name);
+                        sci.GetComponent<Image>().color = Color.white;
                     }
                 }
             }
