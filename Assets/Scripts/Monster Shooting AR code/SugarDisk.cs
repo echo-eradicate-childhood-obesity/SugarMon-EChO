@@ -181,6 +181,7 @@ public class SugarDisk : MonoBehaviour {
 
 
                         sci.GetComponentInChildren<Text>().text = "";
+                        sci.GetChild(0).gameObject.SetActive(false);
 
                         //placing and resizing the monster image in sugardex
 

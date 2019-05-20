@@ -218,6 +218,9 @@ public class FindAddedSugar : MonoBehaviour
         foundCount.GetComponent<Text>().text = "Found: " + sugarDex.GetComponent<SugarDisk>().allCollectedSugars.Count;
         totalCount.GetComponent<Text>().text = "Total: " + repository.Count;
         sugarDex.GetComponent<SugarDisk>().CloseSugarDisk();
+
+        CanvasScaler cs = canvas.GetComponent<CanvasScaler>();
+        //cs.referenceResolution = new Vector2 ()
     }
 
 
