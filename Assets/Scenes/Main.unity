@@ -8079,6 +8079,7 @@ MonoBehaviour:
   fms: []
   scannedAddedSugars: []
   allScanned: []
+  repo: []
 --- !u!82 &1325306022
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8660,6 +8661,8 @@ MonoBehaviour:
   Cell: {fileID: 1797911274733296, guid: 54ff7dbdca1ed4bcbbd4a9539dc85b31, type: 2}
   Panel: {fileID: 1357523383139488, guid: 21fd3794e9ab64641a5e2292e8190dfc, type: 2}
   Title: {fileID: 1384632042099982, guid: 94a9faebb920a1a4492dc7ae8690c2af, type: 2}
+  NumberCircle: {fileID: 1066494882120196, guid: d6142e5500f54004e9d1bf72723942bd,
+    type: 2}
   familyBtn:
   - {fileID: 1564541859}
   - {fileID: 1689952356}
