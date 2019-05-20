@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ButtonHandler : MonoBehaviour {
     private const float TimeBetweenLetters = 0.02f; // time between each letter for typewriter text effect
@@ -15,18 +16,20 @@ public class ButtonHandler : MonoBehaviour {
     private Text textC; // bottom-left
     private Text textD; // bottom-right
     private char correct; // Correct answer
-
-    private GameObject result; // Correct/incorret result card that appears after selection
+    private Image resultBox; // Correct/incorret result card that appears after selection
+    private Text resultText;
 
     // private Color Default = new Color(255, 255, 255, 255);
-    private Color CorrectColor = new Color(155, 255, 155, 255);
-    private Color IncorrectColor = new Color(255, 165, 165, 255);
+    private Color32 CorrectColor = new Color32(155, 255, 155, 255);
+    private Color32 IncorrectColor = new Color32(255, 165, 165, 255);
 
     // Initialize Quiz with the first question
     IEnumerator Start() {
         // initializaitons
-        result = GameObject.Find("Result Box");
-        result.SetActive(false);
+        resultBox = GameObject.Find("Result Box").GetComponentInChildren<Image>();
+        resultText = GameObject.Find("Result Text").GetComponentInChildren<Text>();
+        resultBox.enabled = false;
+        resultText.enabled = false;
         wasSkipped = false;
 
         question = new Question();
@@ -36,6 +39,7 @@ public class ButtonHandler : MonoBehaviour {
         for(int i = 0; i <= question.prompt.Length; i++) {
             GameObject.Find("Current Question Text Box").GetComponentInChildren<Text>().text = question.prompt.Substring(0, i);
             if(wasSkipped == false) yield return StartCoroutine(TimerWithSkip(TimeBetweenLetters));
+            Debug.Log("AA");
         }
 
         // button initializations and fade in effects
@@ -58,16 +62,22 @@ public class ButtonHandler : MonoBehaviour {
 
     // Responds to the press of any button
     public void ButtonClicked(string ButtonLabel) {
-        if(ButtonLabel[0] == correct) { // correct button pressed
+        if(ButtonLabel[0] == correct) { // character "correct" matches the button letter pressed (A, B, C, D)
             Debug.Log("Correct!");
-
+            resultBox.color = CorrectColor;
+            resultText.text = "Correct!";
         }
         else { // wrong button pressed
+            resultBox.color = IncorrectColor;
+            resultText.text = "Not Quite!";
             Debug.Log("Wrong");
 
         }
-        Debug.Log(correct);
-        Debug.Log(ButtonLabel);
+        resultBox.enabled = true;
+        resultText.enabled = true;
+
+        StartCoroutine(TimerWithSkip(2.0f));
+        SceneManager.LoadScene("Main");
     }
 
     // Waits for timer amount of time unless the mouse is pressed or screen is tapped
@@ -82,7 +92,6 @@ public class ButtonHandler : MonoBehaviour {
 
     // Text fade in effect for timer time with tap or press to skip
     public IEnumerator FadeTextIn(float timer, Text text) {
-        float alpha = text.color.a;
         float waitCounter = 0f;
         text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
         while (waitCounter < timer && wasSkipped == false) {
@@ -91,6 +100,6 @@ public class ButtonHandler : MonoBehaviour {
             yield return null;
             waitCounter += Time.deltaTime;
         }
-        text.color = new Color(text.color.r, text.color.g, text.color.b, alpha);
+        text.color = new Color(text.color.r, text.color.g, text.color.b, 255);
     }
 }

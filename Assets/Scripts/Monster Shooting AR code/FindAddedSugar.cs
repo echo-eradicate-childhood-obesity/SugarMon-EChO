@@ -338,7 +338,7 @@ public class FindAddedSugar : MonoBehaviour
         }
         else if (s == "NotFound")
         {
-            while (wasSkipped == false) // wait for 2 seconds
+            while (wasSkipped == false) // wait until click
             {
                 if (Input.GetButtonDown("Fire1") || Input.touchCount > 0) wasSkipped = true; // if mouse pressed or screen tapped, end timer
                 yield return null;
@@ -346,7 +346,7 @@ public class FindAddedSugar : MonoBehaviour
 
             // Work around until this can be called by check button on card
             SceneManager.LoadScene("Quiz");
-            // rest of code would be for if anything but the check was pressed
+            // below code would be for if anything but the check was pressed
 
 
             anim.GetComponent<Animator>().Play("NotFoundCard");
