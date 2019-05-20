@@ -6,12 +6,9 @@ using UnityEngine.UI;
 public class ButtonHandler : MonoBehaviour {
     private const float TimeBetweenLetters = 0.02f; // time between each letter for typewriter text effect
     private const float TimeBetweenWords = 0.7f; // time between each word fade appears
-
-
+    private bool wasSkipped; // this is true when one animation is skipped so that all other animations are skipped as well
 
     private Question question; // current quiz question object, including prompt, answers, correct answer values
-
-    private bool wasSkipped; // was the mouse pressed to skip all into animations?
     private Text prompt; // question/prompt at the top of the screen
     private Text textA; // top-left
     private Text textB; // top-right
@@ -19,7 +16,7 @@ public class ButtonHandler : MonoBehaviour {
     private Text textD; // bottom-right
     private char correct; // Correct answer
 
-    private GameObject result;
+    private GameObject result; // Correct/incorret result card that appears after selection
 
     // private Color Default = new Color(255, 255, 255, 255);
     private Color CorrectColor = new Color(155, 255, 155, 255);
@@ -27,6 +24,7 @@ public class ButtonHandler : MonoBehaviour {
 
     // Initialize Quiz with the first question
     IEnumerator Start() {
+        // initializaitons
         result = GameObject.Find("Result Box");
         result.SetActive(false);
         wasSkipped = false;
@@ -34,11 +32,13 @@ public class ButtonHandler : MonoBehaviour {
         question = new Question();
         correct = question.correct;
 
+        // "typewriter" text appearing one letter at a time effect
         for(int i = 0; i <= question.prompt.Length; i++) {
             GameObject.Find("Current Question Text Box").GetComponentInChildren<Text>().text = question.prompt.Substring(0, i);
             if(wasSkipped == false) yield return StartCoroutine(TimerWithSkip(TimeBetweenLetters));
         }
 
+        // button initializations and fade in effects
         textA = GameObject.Find("A Button").GetComponentInChildren<Text>();
         textA.text = question.answers[0];
         yield return StartCoroutine(FadeTextIn(TimeBetweenWords, textA));
@@ -55,6 +55,7 @@ public class ButtonHandler : MonoBehaviour {
         textD.text = question.answers[3];
         yield return StartCoroutine(FadeTextIn(TimeBetweenWords, textD));
     }
+
     // Responds to the press of any button
     public void ButtonClicked(string ButtonLabel) {
         if(ButtonLabel[0] == correct) { // correct button pressed
@@ -68,6 +69,8 @@ public class ButtonHandler : MonoBehaviour {
         Debug.Log(correct);
         Debug.Log(ButtonLabel);
     }
+
+    // Waits for timer amount of time unless the mouse is pressed or screen is tapped
     public IEnumerator TimerWithSkip(float timer) {
         float waitCounter = 0f;
         while (waitCounter < timer && wasSkipped == false) {
@@ -76,6 +79,8 @@ public class ButtonHandler : MonoBehaviour {
             waitCounter += Time.deltaTime; // update timer
         }
     }
+
+    // Text fade in effect for timer time with tap or press to skip
     public IEnumerator FadeTextIn(float timer, Text text) {
         float alpha = text.color.a;
         float waitCounter = 0f;
