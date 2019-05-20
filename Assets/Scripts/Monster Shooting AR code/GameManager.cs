@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using GoogleARCore;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System.Drawing;
 namespace ARMon
 {
     public class GameManager : MonoBehaviour
@@ -55,17 +56,17 @@ namespace ARMon
         public Vector3 CurrentRoundPos { get { return currentRoundPos; } }
 
         private Vector3 previousPos;
-                
+
         public Vector3 PreviousPos
         {
             get { return previousPos; }
         }
 
 
-        //test ui 
-        //public List<GameObject> zeroObjText;
-        //public GameObject currentObjText;
-        //public GameObject deviceObjText;
+        public Texture CamTexture;
+        ARCoreBackgroundRenderer backRenderer;
+        public Texture2D t2D;
+        public GoogleARCore.Examples.ComputerVision.TextureReaderApi reader;
         private void Awake()
         {
             if (instance == null)
@@ -84,7 +85,7 @@ namespace ARMon
             monsters = new List<GameObject>();
             //set currentscore to 0 for test
             CurrentScore = 0;
-            
+            reader = new GoogleARCore.Examples.ComputerVision.TextureReaderApi();
             foreach (SpawnGrid sg in ssHandler.Obersvers)
             {
                 sg.SignNeighbor(ssHandler.Obersvers, sconfig.gap);
@@ -129,16 +130,17 @@ namespace ARMon
         private void Update()
         {
             Shoot(bulletGO);
+            backRenderer = deviceGO.GetComponent<ARCoreBackgroundRenderer>();
+            CamTexture = backRenderer.BackgroundMaterial.mainTexture;
         }
 
-        
+
         private void LateUpdate()
         {
             MoveHandler?.Invoke();
             //current scene score
             textCamPos.GetComponent<Text>().text = CurrentScore.ToString();
-            
-            List<Direction> moveDir = CustomController.PositionCompair( previousPos,currentRoundPos, sconfig.gap);
+            List<Direction> moveDir = CustomController.PositionCompair(previousPos, currentRoundPos, sconfig.gap);
             foreach (Direction s in moveDir)
             {
                 previousPos = currentRoundPos;
@@ -159,13 +161,13 @@ namespace ARMon
         }
 
         //this is use for the touch/mouse event
-        
+
 
 
         private void Shoot(GameObject bulletGO)
         {
             FireEvent();
-            if (shot&&buttonHit)
+            if (shot && buttonHit)
             {
                 shotTimer += Time.deltaTime;
             }
@@ -188,7 +190,7 @@ namespace ARMon
                 //LayerMask layermask = 1 << 12 | 1 << 10;
                 //var touchPos = new Vector2(0.2f,0.2f) ;
                 //Ray ray = new Ray(deviceGO.transform.position, Camera.main.transform.forward);
-                Debug.DrawRay(deviceGO.transform.position, Camera.main.transform.forward, Color.red, 10f);
+                //Debug.DrawRay(deviceGO.transform.position, Camera.main.transform.forward, Color.red, 10f);
                 //textCamPos.GetComponent<Text>().text = "I shoot somthing";
                 //RaycastHit hit;
                 //if (Physics.Raycast(ray, out hit, Mathf.Infinity, layermask))
@@ -219,7 +221,7 @@ namespace ARMon
         }
 
 
-        
+
         public void Summon(string s)
         {
             //GameObject deviceGO = GameManager.Instance.deviceGO;
@@ -234,16 +236,16 @@ namespace ARMon
                 spawnGO.transform.localScale = new Vector3(1, 1, 1);
                 spawnGO.SendMessage("OccupyGrid", sg);
                 monsters.Add(spawnGO);
-                
+
             }
             catch (System.Exception e)
             {
                 Debug.Log(e.StackTrace);
             }
-            
+
         }
 
-        
+
         private SpawnGrid GetGrid(List<IObersver> list)
         {
             SpawnGrid output;
@@ -258,7 +260,7 @@ namespace ARMon
             ssHandler.Notfiy(currentRoundPos, dir, sconfig);
         }
 
-        
+
         public void ChangeMode()
         {
             bool canvasStatus = canvas.activeSelf;
@@ -266,7 +268,7 @@ namespace ARMon
             arCoreDevice.gameObject.SetActive(canvasStatus);
             planeDiscovery.gameObject.SetActive(canvasStatus);
         }
-            
+
 
         public void LoadTreeScene()
         {
@@ -280,5 +282,51 @@ namespace ARMon
         {
             monsters.Remove(go);
         }
-    }
+//        /// <summary>
+//        /// Get texture from CPU buffer and return it to scanner for scanning
+//        /// * Buffer size requirement is different on Editor and phone
+//        /// * Phone is grayscale so buffer size is small
+//        /// * Editro will need 4 time the size of buffer.
+//        /// * May need adjustment of TextureFormat on phone
+//        /// </summary>
+//        /// <param name="image">Current frame image. It uses YUV-420-888 Format</param>
+//        /// <see cref="https://developers.google.com/ar/reference/unity/struct/GoogleARCore/CameraImageBytes"/>
+//        /// <returns>The Texture from Camera</returns>
+//        public Texture2D Print(CameraImageBytes image)
+//        {
+//            Texture2D texture = new Texture2D(image.Width, image.Height, TextureFormat.RGBA32, false, false);
+//            UnityEngine.Color bufferColor=new UnityEngine.Color();
+//            //byte[] m_image = new byte[image.Width * image.Height];
+//#if UNITY_EDITOR
+//            byte[] buffer_Y = new byte[image.Width * image.Height *4];
+//            System.Runtime.InteropServices.Marshal.Copy(image.Y, buffer_Y, 0, image.Width * image.Height * 4);
+//#else
+//            byte[] buffer_Y = new byte[image.Width * image.Height];
+//            System.Runtime.InteropServices.Marshal.Copy(image.Y, buffer_Y, 0, image.Width * image.Height );
+//#endif
+//            for (int x = 0; x < image.Width; x++)
+//            {
+//                for (int y = 0; y < image.Height; y++)
+//                {
+//                    float Y = buffer_Y[y * image.Width + x];
+//                    bufferColor.r = Y / 255f;
+//                    //one color channel is enough
+//                    //c.g = Y / 255f;
+//                    //c.b = Y / 255f;
+//                    //c.a = 1.0f;
+//                    texture.SetPixel(x, y, bufferColor);
+//                }
+//            }
+//            //for (int i = 0; i < m_image.Length; i++)
+//            //{
+//            //    m_image[i] = buffer_Y[i * 4];
+//            //}
+//            //texture.LoadRawTextureData(m_image);
+//            //var path = Application.persistentDataPath + "/test.jpg";
+//            //var output = texture.EncodeToJPG();
+//            //System.IO.File.WriteAllBytes(path,output);
+//            return texture;
+
+//        }
+   }
 }

@@ -29,10 +29,14 @@ public class UIManager : MonoBehaviour {
         private set { _instance = value; }
     }
     public List<GameObject> CateBtn;
-
+    
     private SimpleDemo simpleDemo;
     [SerializeField]
     List<GameObject> familyUIList;
+    [SerializeField]
+    GameObject cav;
+
+    
     // Use this for initialization
     void Awake ()
     {
@@ -48,12 +52,12 @@ public class UIManager : MonoBehaviour {
     private void Start()
     {
        InitCateBtn();
-       simpleDemo = GameObject.Find("Main Camera").GetComponent<SimpleDemo>();
+       simpleDemo = transform.GetComponent<SimpleDemo>();
     }
 
     private void InitCateBtn()
     {
-        var cav = GameObject.Find("GreenCartBack");
+        //cav = GameObject.Find("GreenCartBack");
         var cavRect = cav.GetComponent<RectTransform>().rect;
         var catebtnWidth = cavRect.width / (CateBtn.Count);
         var pos = -(catebtnWidth * CateBtn.Count / 2);
