@@ -293,24 +293,14 @@ public class FindAddedSugar : MonoBehaviour
         anim.GetComponent<Image>().sprite = monster.GetComponent<Image>().sprite;
         anim.AddComponent<Animator>();
         anim.GetComponent<Animator>().runtimeAnimatorController = animController;
-        wasSkipped = false;
 
         if (s == "Sugar")
         {
             canvas.transform.Find("Animation/Sugar Name").GetComponent<Text>().text = scannedAddedSugars[currentNumMonster];
-            float animWaitCounter = 0f;
-            while (animWaitCounter < 2f && wasSkipped == false) // wait for 2 seconds
-            {
-                if (Input.GetButtonDown("Fire1") || Input.touchCount > 0) break; // if mouse pressed or screen tapped, end timer
-                yield return null;
-                animWaitCounter += Time.deltaTime;
-            }
-            if (animWaitCounter < 2f) // if the previous animation was skipped
-            {
-                wasSkipped = true;
-                yield return new WaitForSeconds(.2f); // delay between rapid SugarCardToDex animations
-            }
-            if (currentNumMonster + 1 == scannedAddedSugars.Count) // if last card
+            yield return StartCoroutine(WaitWithSkip(2f));
+            if (wasSkipped) yield return new WaitForSeconds(.2f); // delay between rapid SugarCardToDex animations
+
+            if (currentNumMonster + 1 == scannedAddedSugars.Count) // if this is the last card
             {
                 Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster])); // destroy stationary card
                 wasSkipped = false; // reset wasSkipped for the next scan
@@ -338,23 +328,24 @@ public class FindAddedSugar : MonoBehaviour
         }
         else if (s == "NotFound")
         {
+            canvas.transform.Find("Animation/OKButton").GetComponent<Button>().onClick.AddListener(delegate{ changeToQuiz(); });
             while (wasSkipped == false) // wait until click
             {
                 if (Input.GetButtonDown("Fire1") || Input.touchCount > 0) wasSkipped = true; // if mouse pressed or screen tapped, end timer
                 yield return null;
             }
 
-            // Work around until this can be called by check button on card
-            SceneManager.LoadScene("Quiz");
-            // below code would be for if anything but the check was pressed
-
-
             anim.GetComponent<Animator>().Play("NotFoundCard");
             yield return new WaitForSeconds(1f);
             Destroy(anim);
             ChangeNextCardText();
+            wasSkipped = false;
         }
 
+    }
+    private void changeToQuiz() {
+        Debug.Log("A");
+        SceneManager.LoadScene("Quiz");
     }
     private void ChangeNextCardText()
     {
@@ -418,6 +409,15 @@ public class FindAddedSugar : MonoBehaviour
             //Audio.Play();
             DisplayMonsters();
 
+        }
+    }
+    public IEnumerator WaitWithSkip(float timer) {
+        float animWaitCounter = 0f;
+        while (animWaitCounter < timer && wasSkipped == false) // wait for 2 seconds
+        {
+            if (Input.GetButtonDown("Fire1") || Input.touchCount > 0) wasSkipped = true; // if mouse pressed or screen tapped, end timer
+            yield return null;
+            animWaitCounter += Time.deltaTime;
         }
     }
     public void DisplayMonsters()
