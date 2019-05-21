@@ -322,8 +322,6 @@ namespace ARMon
             buttonHit = true;
         }
 
-
-        int tempIndexPos = 0;
         public void Summon(string s)
         {
             //GameObject deviceGO = GameManager.Instance.deviceGO;
@@ -345,37 +343,51 @@ namespace ARMon
 
                 monsters.Add(spawnGO);
                 */
-
-                float x = Random.Range(-1.0f, 1.0f);
-                float y = Random.Range(-1.0f, 1.0f);
-                float z = Random.Range(-1.0f, 1.0f);
-
-                float dis = Random.Range(minSpawnDistance, maxSpawnDistance);
-                float rarity = Random.Range(0.0f, 100f);
-
-                int index = Random.Range(0, monsterPrefabs.Count);
+               
                 if(monsterPrefabs.Count > 0)
                 {
+                    //Random position
+                    float x = Random.Range(-1.0f, 1.0f);
+                    float y = Random.Range(-1.0f, 1.0f);
+                    float z = Random.Range(-1.0f, 1.0f);
 
-                    if (rarity <= commonDropRate) print("COMMON " + rarity);
-                    else if (rarity <= commonDropRate + uncommonDropRate) print("UNCOMMON " + rarity);
-                    else print("RARE " + rarity);
+                    //Random distance
+                    float dis = Random.Range(minSpawnDistance, maxSpawnDistance);
 
+                    //Random rarity 
+                    float rarity = Random.Range(0.0f, 100f);
+
+                    //Random monster
+                    int index = Random.Range(0, monsterPrefabs.Count);
+
+                    Color col = Color.white ;
+
+                    //Which rarity should spawn 
+                    if (rarity <= commonDropRate) col = Color.white;
+                    else if (rarity <= commonDropRate + uncommonDropRate) col = Color.blue;
+                    else col = Color.yellow;
+
+                    //Get the position around the player
                     Vector3 pos = new Vector3(x, y, z).normalized * dis + deviceGO.transform.position;
-                    //GameObject monster = Instantiate(monsterPrefabs[index], pos, Quaternion.identity);
-                    GameObject monster = Instantiate(monsterPrefabs[3], new Vector3(10, 0, tempIndexPos++), Quaternion.identity);
 
-                    /*
-                    MeshRenderer[] matRends = monster.GetComponentsInChildren<MeshRenderer>();
-              
-                    foreach(MeshRenderer matRend in matRends)
+                    //Get the monster
+                    GameObject monster = Instantiate(monsterPrefabs[index], pos, Quaternion.identity);
+
+                    //If the color is not white (a rarity other than common), change the color
+                    if(col != Color.white)
                     {
-                        foreach(Material mat in matRend.materials)
+                        MeshRenderer[] matRends = monster.GetComponentsInChildren<MeshRenderer>();
+
+                        foreach (MeshRenderer matRend in matRends)
                         {
-                            mat.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-                        }                       
-                    }
-                    */
+                            foreach (Material mat in matRend.materials)
+                            {
+                                mat.color = col;
+                            }
+                        }
+                    }                   
+                    
+                    //Monster looking at the player
                     monster.transform.LookAt(deviceGO.transform.position);
                     monsters.Add(monster);
                 }
