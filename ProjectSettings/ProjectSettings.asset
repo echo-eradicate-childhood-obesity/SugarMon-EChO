@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: EChO
-  productName: SugAR Mon
+  productName: SugAR Mon Quiz
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
@@ -154,14 +154,14 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.EChO.SugarMon
+    Android: com.EChO.SugarMonQuiz
     Standalone: unity.comoc.UnityArUco
     Tizen: com.Company.ProductName
     iOS: com.EChO-Foundation.SugAR-Mon
     tvOS: com.Company.ProductName
   buildNumber:
     iOS: 1
-  AndroidBundleVersionCode: 15
+  AndroidBundleVersionCode: 16
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
