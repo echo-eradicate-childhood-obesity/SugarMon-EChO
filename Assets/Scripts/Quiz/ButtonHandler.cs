@@ -36,7 +36,7 @@ public class ButtonHandler : MonoBehaviour {
         wasSkipped = false;
 
 
-        question = questions.questions[0];
+        question = questions.questions[Random.Range(0, questions.questions.Count)];
         correct = question.correct;
 
         // "typewriter" text appearing one letter at a time effect
