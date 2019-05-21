@@ -44,7 +44,7 @@ public class ProgressionScript : MonoBehaviour {
     [ContextMenu("ADD EXP")]
     public void TestXP()
     {
-        AddXP(1000.0f);
+        AddXP(100000.0f);
     }
     
     /*
@@ -61,7 +61,8 @@ public class ProgressionScript : MonoBehaviour {
     IEnumerator AddXPAnimation(float xp)
     {
         float nextXp = _currentXP + xp;
-        while (nextXp > _currentXP)
+        float time = 0;
+        while (time <= _xpFillTime)
         {
             _currentXP += 5.0f;
             UpdateFillBar();
@@ -72,15 +73,15 @@ public class ProgressionScript : MonoBehaviour {
                 _xpToNextLevel = (int)(_xpToNextLevel * _xpMulitplier);
                 UpdateFillBar();
             }
-
+            time += Time.fixedDeltaTime;
+            print(time);
             yield return null;
         }
 
         if (nextXp < _currentXP)
         {
             _currentXP = nextXp;
-            UpdateFillBar();
-           
+            UpdateFillBar();           
         }
     }
 
