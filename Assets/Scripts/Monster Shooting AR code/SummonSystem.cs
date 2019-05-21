@@ -101,7 +101,6 @@ public class SummonSystem : MonoBehaviour {
                 sugarCardData.MinusOneCardInDatabase(s);
             }
             summonSystem.gameObject.SetActive(false);
-            ARMon.GameManager.Instance.ChangeMode();
             foreach (string s in listOfSummonMonsters) ARMon.GameManager.Instance.Summon(s);
         }        
     }

@@ -22,7 +22,6 @@ public class RapidFireBullet : MonoBehaviour {
         if (other.tag == "Monster" && !hasHit) {
             GameObject temp = Instantiate(_particles, gameObject.transform.position, Quaternion.identity);
             Destroy(temp, 1); //Destroy particles after 1 second
-            print("Monster Hit");
             hasHit = true;
             Destroy(gameObject);             
         }
