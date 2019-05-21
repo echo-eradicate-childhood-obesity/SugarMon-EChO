@@ -8,14 +8,17 @@ public class ButtonHandler : MonoBehaviour {
     private const float TimeBetweenLetters = 0.02f; // time between each letter for typewriter text effect
     private const float TimeBetweenWords = 0.7f; // time between each word fade appears
     private bool wasSkipped; // this is true when one animation is skipped so that all other animations are skipped as well
+    [SerializeField]
 
-    private Question question; // current quiz question object, including prompt, answers, correct answer values
+    public Questions questions; // current quiz question object list, including prompt, answers, correct answer values
+    public Questions.Question question; // current question
+
     private Text prompt; // question/prompt at the top of the screen
     private Text textA; // top-left
     private Text textB; // top-right
     private Text textC; // bottom-left
     private Text textD; // bottom-right
-    private char correct; // Correct answer
+    private int correct; // Correct answer
     private Image resultBox; // Correct/incorret result card that appears after selection
     private Text resultText;
 
@@ -32,7 +35,8 @@ public class ButtonHandler : MonoBehaviour {
         resultText.enabled = false;
         wasSkipped = false;
 
-        question = new Question();
+
+        question = questions.questions[0];
         correct = question.correct;
 
         // "typewriter" text appearing one letter at a time effect
@@ -62,7 +66,7 @@ public class ButtonHandler : MonoBehaviour {
 
     // Responds to the press of any button
     public void ButtonClicked(string ButtonLabel) {
-        if(ButtonLabel[0] == correct) { // character "correct" matches the button letter pressed (A, B, C, D)
+        if(int.Parse(ButtonLabel) == correct) { // character "correct" matches the button letter pressed (A, B, C, D)
             Debug.Log("Correct!");
             resultBox.color = CorrectColor;
             resultText.text = "Correct!";

@@ -350,7 +350,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: B
+          m_StringArgument: 1
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -400,6 +400,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390beee13513da247a67bba816767f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questions: {fileID: 11400000, guid: eb41d40e31065db4d8ddc436cd48e4bb, type: 2}
+  question:
+    prompt: 
+    answers: []
+    correct: 0
 --- !u!1 &188406767
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,7 +930,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: C
+          m_StringArgument: 2
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -975,6 +980,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390beee13513da247a67bba816767f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questions: {fileID: 11400000, guid: eb41d40e31065db4d8ddc436cd48e4bb, type: 2}
+  question:
+    prompt: 
+    answers: []
+    correct: 0
 --- !u!1 &1391337998
 GameObject:
   m_ObjectHideFlags: 0
@@ -1350,6 +1360,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390beee13513da247a67bba816767f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questions: {fileID: 11400000, guid: eb41d40e31065db4d8ddc436cd48e4bb, type: 2}
+  question:
+    prompt: 
+    answers: []
+    correct: 0
 --- !u!1 &2081242388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1435,7 +1450,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: A
+          m_StringArgument: 0
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -1485,6 +1500,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390beee13513da247a67bba816767f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questions: {fileID: 11400000, guid: eb41d40e31065db4d8ddc436cd48e4bb, type: 2}
+  question:
+    prompt: 
+    answers: []
+    correct: 0
 --- !u!1 &2087620223
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,7 +1590,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: D
+          m_StringArgument: 3
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -1620,3 +1640,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390beee13513da247a67bba816767f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questions: {fileID: 11400000, guid: eb41d40e31065db4d8ddc436cd48e4bb, type: 2}
+  question:
+    prompt: 
+    answers: []
+    correct: 0
