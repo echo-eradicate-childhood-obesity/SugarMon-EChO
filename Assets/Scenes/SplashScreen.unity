@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SplashImage: {fileID: 1424689196}
   SplashText: {fileID: 225235745}
-  NextScene: Main
+  NextScene: Menu
   TimeToFadeIn: 1
   TimeTillFadeOut: 2.55
   TimeToFadeOut: 1
