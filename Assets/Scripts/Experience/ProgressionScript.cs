@@ -17,16 +17,16 @@ public class ProgressionScript : MonoBehaviour {
 
     //Backend xp info
     private float _currentXP;
-    private float _xpToNextLevel;
-    private float _xpPreviousLevel;
-    private float _xpFillTime = 3.0f;
+    private int _xpToNextLevel;
+    private int _xpPreviousLevel;
+    private float _xpFillTime = 2.0f;
     private int _currentLevel;
 
     // Use this for initialization
     void Start () {
 
         //TODO: Get the current xp (from saved file?)
-        _currentXP = 0.0f;
+        _currentXP = 0;
         _currentLevel = 0;
         _xpToNextLevel = 100;
         _xpPreviousLevel = 0;
@@ -44,13 +44,13 @@ public class ProgressionScript : MonoBehaviour {
     [ContextMenu("ADD EXP")]
     public void TestXP()
     {
-        AddXP(100000.0f);
+        AddXP(12345);
     }
     
     /*
      * This function is the public function that can be called anywhere to add a certain ammount of xp to the bar
      */
-    public void AddXP(float xp)
+    public void AddXP(int xp)
     {
         StartCoroutine(AddXPAnimation(xp));
     }
@@ -58,14 +58,18 @@ public class ProgressionScript : MonoBehaviour {
     /*
      * This function does the fill animation for the xp bar
      */
-    IEnumerator AddXPAnimation(float xp)
+    IEnumerator AddXPAnimation(int xp)
     {
         float nextXp = _currentXP + xp;
-        float time = 0;
-        while (time <= _xpFillTime)
+        float timer = 0;
+        float startingXP = _currentXP;
+        while (_currentXP < nextXp)
         {
-            _currentXP += 5.0f;
+            _currentXP = Mathf.Lerp(startingXP, nextXp, timer);
+            timer += Time.deltaTime / 2.0f;
+            //print(timer);   
             UpdateFillBar();
+
             if (_currentXP >= _xpToNextLevel)
             {
                 _currentLevel++;
@@ -73,15 +77,13 @@ public class ProgressionScript : MonoBehaviour {
                 _xpToNextLevel = (int)(_xpToNextLevel * _xpMulitplier);
                 UpdateFillBar();
             }
-            time += Time.fixedDeltaTime;
-            print(time);
             yield return null;
         }
-
         if (nextXp < _currentXP)
         {
-            _currentXP = nextXp;
-            UpdateFillBar();           
+            print("over " + _currentXP);
+            //_currentXP = nextXp;
+            //UpdateFillBar();            
         }
     }
 
