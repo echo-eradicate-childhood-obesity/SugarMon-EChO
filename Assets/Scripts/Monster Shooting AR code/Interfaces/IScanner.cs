@@ -11,7 +11,7 @@ namespace BarcodeScanner
 		ScannerStatus Status { get; }
 
 		IParser Parser { get; }
-		IWebcam Camera { get; }
+		//IWebcam Camera { get; }
 		ScannerSettings Settings { get; }
 
 		void Scan(Action<string, string> Callback);

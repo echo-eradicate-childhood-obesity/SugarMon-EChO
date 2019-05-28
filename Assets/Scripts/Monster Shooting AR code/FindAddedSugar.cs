@@ -24,6 +24,19 @@ public class FindAddedSugar : MonoBehaviour
     private SimpleDemo simpleDemo;
     private bool wasSkipped = false;
 
+    public Image vibrateCancel;
+    public bool vibrate;
+
+    public Image soundCancel;
+    public bool sound;
+
+    public AudioSource goodSound;
+    public AudioSource badSound;
+    public AudioSource unknowSound;
+    public AudioSource onSound;
+    public AudioSource sweepSound;
+    private bool firstBadSound;
+
 
     [SerializeField]
     string superCode;
@@ -34,18 +47,6 @@ public class FindAddedSugar : MonoBehaviour
     protected List<string> ingredients;
     public TextAsset sugarRepository;
 
-    public Image vibrateCancel;
-    public bool vibrate;
-
-    public Image soundCancel;
-    public bool sound;
-    public AudioSource goodSound;
-    public AudioSource badSound;
-    public AudioSource unknownSound;
-    public AudioSource onSound;
-    public AudioSource sweepSound;
-    private bool firstBadSound;
-
     public GameObject scanFrame;
     public GameObject summonSystem;
     public GameObject greenCartGo;
@@ -54,8 +55,6 @@ public class FindAddedSugar : MonoBehaviour
     private int numCount;
     public GameObject sugarDex, redDot, canvas, familyBackground, mainCam;
     public GameObject totalCount, foundCount;
-
-
 
     //need to follow the title in Database.txt
     [Header("Column names")]
@@ -75,9 +74,6 @@ public class FindAddedSugar : MonoBehaviour
     [HideInInspector]
     public Dictionary<string, int> familyDictionary;
 
-    [HideInInspector]
-    public List<string> repo;
-
     private GameObject monster;
 
     private int ts;
@@ -93,8 +89,9 @@ public class FindAddedSugar : MonoBehaviour
         soundCancel.enabled = false;
         sound = true;
         firstBadSound = true;
+        
+        
     }
-
     void Start()
     {
         greenCartGo.gameObject.SetActive(false);
@@ -146,9 +143,6 @@ public class FindAddedSugar : MonoBehaviour
                 familyDictionary.Add(item[familyIndex], count + 1);
             }
         }
-
-        repo = repository;
-
         fms = familyDictionary.Keys.ToList();
 
         //Remove title
@@ -218,9 +212,6 @@ public class FindAddedSugar : MonoBehaviour
         foundCount.GetComponent<Text>().text = "Found: " + sugarDex.GetComponent<SugarDisk>().allCollectedSugars.Count;
         totalCount.GetComponent<Text>().text = "Total: " + repository.Count;
         sugarDex.GetComponent<SugarDisk>().CloseSugarDisk();
-
-        CanvasScaler cs = canvas.GetComponent<CanvasScaler>();
-        //cs.referenceResolution = new Vector2 ()
     }
 
 
@@ -228,29 +219,7 @@ public class FindAddedSugar : MonoBehaviour
     void Update()
     {
 
-    }
 
-    public void ToggleVibrate()
-    {
-        vibrate = !vibrate;
-        vibrateCancel.enabled = !vibrateCancel.enabled;
-#if UNITY_ANDROID || UNITY_IOS
-        if (vibrate)
-        {
-            Handheld.Vibrate();
-        }
-#endif
-    }
-
-    public void ToggleSound()
-    {
-        sound = !sound;
-        soundCancel.enabled = !soundCancel.enabled;
-   
-        if (sound)
-        {
-            onSound.Play();
-        }
     }
     
     public void AllTypeOfSugars(string ingredientFromDB, string bcv)
@@ -348,9 +317,6 @@ public class FindAddedSugar : MonoBehaviour
         if (s == "Sugar")
         {
             canvas.transform.Find("Animation/Sugar Name").GetComponent<Text>().text = scannedAddedSugars[currentNumMonster];
-
-            
-
             float animWaitCounter = 0f;
             while (animWaitCounter < 2f && wasSkipped == false) // wait for 2 seconds
             {
@@ -407,7 +373,7 @@ public class FindAddedSugar : MonoBehaviour
         {
             if (sound)
             {
-                unknownSound.Play();
+                unknowSound.Play();
             }
             yield return new WaitForSeconds(2f);
             if (currentNumMonster + 1 == scannedAddedSugars.Count)
@@ -466,9 +432,7 @@ public class FindAddedSugar : MonoBehaviour
             {
 
 #if UNITY_ANDROID || UNITY_IOS
-                if (vibrate) {
                 Handheld.Vibrate();
-                }
 #endif
                 monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NewAddedSugar");
                 redDot.gameObject.SetActive(true);
@@ -526,7 +490,6 @@ public class FindAddedSugar : MonoBehaviour
         {
             monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NoAddedSugar");
             monster.transform.Find("SugarDesign").gameObject.SetActive(false);
-            
         }
         else if (sugarName == "Not Found")
         {
@@ -540,9 +503,7 @@ public class FindAddedSugar : MonoBehaviour
             if (!sugarInWall.Contains(sugarName.ToLower()))
             {
 #if UNITY_ANDROID || UNITY_IOS
-                if (vibrate) {
                 Handheld.Vibrate();
-                }
 #endif
                 monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NewAddedSugar");
                 redDot.gameObject.SetActive(true);
@@ -591,4 +552,27 @@ public class FindAddedSugar : MonoBehaviour
         //else monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + monsterFamily);
         monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + sugarName);
     }
+
+    public void ToggleVibrate()
+    {
+        vibrate = !vibrate;
+        vibrateCancel.enabled = !vibrateCancel.enabled;
+#if UNITY_ANDROID || UNITY_IOS
+        if (vibrate)
+        {
+            Handheld.Vibrate();
+        }
+#endif
+    }
+    public void ToggleSound()
+    {
+        sound = !sound;
+        soundCancel.enabled = !soundCancel.enabled;
+        if (sound)
+        {
+            onSound.Play();
+        }
+    }
 }
+
+

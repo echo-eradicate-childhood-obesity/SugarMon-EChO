@@ -30,7 +30,7 @@ public class ProductInfo
     Category type;
     public Category Type { get => type; set => type = value; }
     public bool IsSelected { get; set; }
-    public ProductInfo(string name,string location, Category type = Category.uncate)
+    public ProductInfo(string name, string location, Category type = Category.uncate)
     {
         this.name = name;
         this.location = location;

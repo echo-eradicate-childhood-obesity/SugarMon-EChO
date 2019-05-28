@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
-
 /*info is boxed and send when scanner found an item
-* 
+ * 
 */
 public struct Info{
     
@@ -20,6 +19,7 @@ public struct Info{
 }
 
 public class UIManager : MonoBehaviour {
+
     public List<Sprite> Sprites;
 
     //singleton attached to main camera
@@ -31,10 +31,14 @@ public class UIManager : MonoBehaviour {
         private set { _instance = value; }
     }
     public List<GameObject> CateBtn;
-
+    
     private SimpleDemo simpleDemo;
     [SerializeField]
     List<GameObject> familyUIList;
+    [SerializeField]
+    GameObject cav, planeDiscovery;
+
+    
     // Use this for initialization
     void Awake ()
     {
@@ -44,17 +48,18 @@ public class UIManager : MonoBehaviour {
         }
         else { Destroy(this); }
         //init four catebtn
+        //InitCateBtn();
     }
 
     private void Start()
     {
-        InitCateBtn();
-        simpleDemo = GameObject.Find("Main Camera").GetComponent<SimpleDemo>();
+       InitCateBtn();
+       simpleDemo = transform.GetComponent<SimpleDemo>();
     }
 
     private void InitCateBtn()
     {
-        var cav = GameObject.Find("GreenCartBack");
+        //cav = GameObject.Find("GreenCartBack");
         var cavRect = cav.GetComponent<RectTransform>().rect;
         var catebtnWidth = cavRect.width / (CateBtn.Count);
         var pos = -(catebtnWidth * CateBtn.Count / 2);
@@ -102,7 +107,6 @@ public class UIManager : MonoBehaviour {
     }
 
     //have info passed here, active the target gameobject in with in the info parent  
-    
     public void IndicateController(Info info,string targetName)
     {
         foreach (GameObject go in familyUIList)
@@ -110,9 +114,6 @@ public class UIManager : MonoBehaviour {
             //"Monster" is the magic number here, change if later
             if ((go.name + " Monsters") == info.FamilyName)
             {
-                // testing it out here    
-                  
-                //end              
                 var targetGO = go.transform.Find(targetName).gameObject;
                 if (!targetGO.activeInHierarchy)
                 {
@@ -122,17 +123,17 @@ public class UIManager : MonoBehaviour {
             }
         }
     }
-    public void IndicateController(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
+    public void IndicatController(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
     {
         IndicateControllerHelper(info, targetName, list);
     }
-    public Sprite dextrose;
-    private void IndicateControllerHelper(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
+
+    public void IndicateControllerHelper(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
     {
         Debug.Log("hi");
         foreach (TMP_Dropdown.OptionData go in list)
         {
-      
+
             if ((go.text.Substring(0, 2)) == info.FamilyName.Substring(0, 2))
             {
                 if (go.text.Contains(" ("))
@@ -142,16 +143,16 @@ public class UIManager : MonoBehaviour {
                     int x = 0;
                     var number = go.text.Substring(length - 7, 1);
                     var largernumber = go.text.Substring(length - 8, 2);
-                    if(Int32.TryParse(largernumber, out x))
+                    if (Int32.TryParse(largernumber, out x))
                     {
                         go.text = go.text.Substring(0, go.text.Length - 8) + (x + 1) + " new!)";
                     }
                     else if (Int32.TryParse(number, out x))
                     {
-                        go.text = go.text.Substring(0, go.text.Length - 7)+(x+1) + " new!)";
+                        go.text = go.text.Substring(0, go.text.Length - 7) + (x + 1) + " new!)";
                     }
                 }
-                else if(!go.text.Contains("("))
+                else if (!go.text.Contains("("))
                 {
                     if (go.text.Equals("Dextrin"))
                     {
@@ -183,12 +184,11 @@ public class UIManager : MonoBehaviour {
                     }
                     go.text += " (1 new!)";
                 }
-             
+
             }
-          
+
         }
     }
-
     //temp func
     public void DisAllUp(string targetName)
     {
@@ -203,11 +203,22 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-
-
     public void DisableUI(GameObject go)
-    {
-        simpleDemo.enabled = !simpleDemo.enabled;
+    {     
         go.SetActive(!go.activeSelf);
+        if (go.activeSelf)
+        {
+            simpleDemo.enabled = false;
+        }
+        else
+        {
+            simpleDemo.enabled = true;
+            simpleDemo.ClickStart();
+        }
+    }
+    public void SwitchMode()
+    {
+        cav.SetActive(!cav.activeSelf);
+        planeDiscovery.SetActive(!planeDiscovery.activeSelf);
     }
 }

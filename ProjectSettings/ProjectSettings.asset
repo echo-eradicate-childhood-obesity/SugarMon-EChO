@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: EChO
-  productName: SugAR Mon
+  productName: SugAR Mon ARTest
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
@@ -120,7 +120,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.1.4
+  bundleVersion: 1.1.5
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -154,15 +154,15 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.EChO.SugarMon3
+    Android: com.EChO.SugarMonARTest
     Standalone: unity.comoc.UnityArUco
     Tizen: com.Company.ProductName
     iOS: com.EChO-Foundation.SugAR-Mon
     tvOS: com.Company.ProductName
   buildNumber:
     iOS: 1
-  AndroidBundleVersionCode: 15
-  AndroidMinSdkVersion: 16
+  AndroidBundleVersionCode: 20
+  AndroidMinSdkVersion: 24
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -255,7 +255,7 @@ PlayerSettings:
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
-  AndroidEnableTango: 0
+  AndroidEnableTango: 1
   androidEnableBanner: 0
   androidUseLowAccuracyLocation: 0
   m_AndroidBanners:

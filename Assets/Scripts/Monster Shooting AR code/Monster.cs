@@ -116,6 +116,7 @@ namespace ARMon {
                 //will send this info to coin(?), then when coin touches player, val increase.
                 //GameManager.Instance.CurrentScore += BoundsVal;
                 var canv = GameObject.Find("Canv");
+                CustomController.SpawnCoin(gm.coin, canv,this.gameObject, BoundsVal);
                 gm.MonsterDie(this.gameObject);
                 Destroy(this.gameObject);
             }

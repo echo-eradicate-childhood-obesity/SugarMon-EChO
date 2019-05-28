@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class NavBarBackground : MonoBehaviour {
 
-    private bool menuStatus;
+    [HideInInspector]
+    public bool menuStatus;
     public GameObject menuBarBackgound;
 
     void Start()

@@ -32,8 +32,7 @@ public class FamilyContentController : MonoBehaviour
         var thisopts = test.options;
         var thisval = test.value;
         var thisname = thisopts[thisval].text.ToString();
-        //familyNames = GameObject.Find("Canvas").GetComponent<FindAddedSugar>().fms;
-        //GameObject tle = GameObject.Find(this.name + " Monsters Title");
+        
         foreach (GameObject go in familyNames)
         {
             if (go.name.Substring(0, 2) == thisname.Substring(0, 2))
@@ -95,7 +94,6 @@ public class FamilyContentController : MonoBehaviour
     void Update()
     {
         TitleControl();
-        //Debug.Log(familyRT.localPosition.y);
     }
 
 }
