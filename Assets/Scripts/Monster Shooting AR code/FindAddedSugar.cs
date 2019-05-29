@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using UnityEngine.UI;
 using System.Text;
 using System.Threading.Tasks;
+using TMPro;
 
 
 public class FindAddedSugar : MonoBehaviour
@@ -36,6 +37,7 @@ public class FindAddedSugar : MonoBehaviour
 
     public Image vibrateCancel;
     public bool vibrate;
+    public GameObject dropdown;
 
     public Image soundCancel;
     public bool sound;
@@ -293,14 +295,14 @@ public class FindAddedSugar : MonoBehaviour
                     {
                         allScanned.Add(r.ToLower());
 
-
+                        List<TMP_Dropdown.OptionData> list = dropdown.GetComponent<TMP_Dropdown>().options;
                         //this is the newly add indicator showing func.
                         foreach (List<string> sl in dbList)
                         {
                             if (sl[nameIndex].ToLower() == r.ToLower())
                             {
                                 Info info = new Info(sl[familyIndex]);
-                                um.IndicateController(info,"Notification");
+                                um.IndicateController(info,"Notification", list);
                             }
                         }
 

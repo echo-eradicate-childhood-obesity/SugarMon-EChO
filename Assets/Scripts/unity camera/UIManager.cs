@@ -129,7 +129,6 @@ public class UIManager : MonoBehaviour {
     public Sprite dextrose;
     private void IndicateControllerHelper(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
     {
-        Debug.Log("hi");
         foreach (TMP_Dropdown.OptionData go in list)
         {
       
@@ -148,7 +147,7 @@ public class UIManager : MonoBehaviour {
                     }
                     else if (Int32.TryParse(number, out x))
                     {
-                        go.text = go.text.Substring(0, go.text.Length - 7)+(x+1) + " new!)";
+                        go.text = go.text.Substring(0, go.text.Length - 7) + (x + 1) + " new!)";
                     }
                 }
                 else if(!go.text.Contains("("))
@@ -202,8 +201,6 @@ public class UIManager : MonoBehaviour {
             else return;
         }
     }
-
-
 
     public void DisableUI(GameObject go)
     {

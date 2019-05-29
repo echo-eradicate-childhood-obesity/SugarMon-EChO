@@ -5,6 +5,7 @@ using System;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 
 
@@ -34,6 +35,10 @@ public class FamilyContentController : MonoBehaviour
         var thisname = thisopts[thisval].text.ToString();
         //familyNames = GameObject.Find("Canvas").GetComponent<FindAddedSugar>().fms;
         //GameObject tle = GameObject.Find(this.name + " Monsters Title");
+
+        //Reset selected item when clicked
+        test.options[thisval].text = Regex.Replace(thisname, " (\\(.*\\))", "");
+        test.options[thisval].image = Sprites[thisval];
         foreach (GameObject go in familyNames)
         {
             if (go.name.Substring(0, 2) == thisname.Substring(0, 2))
@@ -95,7 +100,6 @@ public class FamilyContentController : MonoBehaviour
     void Update()
     {
         TitleControl();
-        //Debug.Log(familyRT.localPosition.y);
     }
 
 }
