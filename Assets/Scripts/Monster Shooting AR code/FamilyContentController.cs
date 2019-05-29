@@ -19,26 +19,26 @@ public class FamilyContentController : MonoBehaviour
     [SerializeField]
     private List<GameObject> familyNames = new List<GameObject>();
     public List<Sprite> Sprites;
+    private TMP_Dropdown dropdownComponent;
 
     RectTransform familyRT;
     void Start()
     {
         familyRT = familyContentObject.GetComponent<RectTransform>();
-
+        dropdownComponent = gameObject.GetComponent<TMP_Dropdown>();
     }
     public void FamilyContentPosition()
     {
 
-        var test = gameObject.GetComponent<TMP_Dropdown>();
-        var thisopts = test.options;
-        var thisval = test.value;
+        dropdownComponent = gameObject.GetComponent<TMP_Dropdown>();
+        var thisopts = dropdownComponent.options;
+        var thisval = dropdownComponent.value;
         var thisname = thisopts[thisval].text.ToString();
-        //familyNames = GameObject.Find("Canvas").GetComponent<FindAddedSugar>().fms;
-        //GameObject tle = GameObject.Find(this.name + " Monsters Title");
-
+        
         //Reset selected item when clicked
-        test.options[thisval].text = Regex.Replace(thisname, " (\\(.*\\))", "");
-        test.options[thisval].image = Sprites[thisval];
+        dropdownComponent.options[thisval].text = Regex.Replace(thisname, " (\\(.*\\))", "");
+        dropdownComponent.options[thisval].image = Sprites[thisval];
+
         foreach (GameObject go in familyNames)
         {
             if (go.name.Substring(0, 2) == thisname.Substring(0, 2))
@@ -48,53 +48,45 @@ public class FamilyContentController : MonoBehaviour
                 Vector2 newPosition = new Vector2(familyContentObject.GetComponent<RectTransform>().localPosition.x, Math.Abs(tle.GetComponent<RectTransform>().localPosition.y) - titleHeight);
                 familyContentObject.GetComponent<RectTransform>().localPosition = newPosition;
             }
-        }
-        //GameObject tle = GameObject.Find(thisname + " Monsters Title");
-        //float titleHeight = tle.GetComponent<RectTransform>().rect.height;
-        //Vector2 newPosition = new Vector2(familyContentObject.GetComponent<RectTransform>().localPosition.x, Math.Abs(tle.GetComponent<RectTransform>().localPosition.y) - titleHeight);
-        //familyContentObject.GetComponent<RectTransform>().localPosition = newPosition;
-
+        }       
     }
     private void TitleControl()
     {
-        //if()
-        var d = transform.GetComponent<TMP_Dropdown>();
         if (-7 <= familyRT.localPosition.y && 1070 >= familyRT.localPosition.y)
         {
-            d.captionText.text = "Dextrin";
-            d.captionImage.sprite = Sprites[0];
-
+            ChangeSpriteAndTextOfDropdownItem("Dextrin", 0);
         }
         else if (1070 < familyRT.localPosition.y && 3000 >= familyRT.localPosition.y)
         {
-            d.captionText.text = "OSE";
-            d.captionImage.sprite = Sprites[1];
+            ChangeSpriteAndTextOfDropdownItem("OSE", 1);
         }
         else if (3000 < familyRT.localPosition.y && 6400 >= familyRT.localPosition.y)
         {
-            d.captionText.text = "Cane";
-            d.captionImage.sprite = Sprites[2];
+            ChangeSpriteAndTextOfDropdownItem("Cane", 2);
         }
         else if (6400 < familyRT.localPosition.y && 10000 >= familyRT.localPosition.y)
         {
-            d.captionText.text = "Syrup";
-            d.captionImage.sprite = Sprites[3];
+            ChangeSpriteAndTextOfDropdownItem("Syrup", 3);
         }
         else if (10000 < familyRT.localPosition.y && 15000 >= familyRT.localPosition.y)
         {
-            d.captionText.text = "Concentrate";
-            d.captionImage.sprite = Sprites[4];
+            ChangeSpriteAndTextOfDropdownItem("Concentrate", 4);
         }
         else if (15000 < familyRT.localPosition.y && 19000 >= familyRT.localPosition.y)
         {
-            d.captionText.text = "Obvious";
-            d.captionImage.sprite = Sprites[5];
+            ChangeSpriteAndTextOfDropdownItem("Obvious", 5);
         }
         else if (19000 < familyRT.localPosition.y)
         {
-            d.captionText.text = "Strange";
-            d.captionImage.sprite = Sprites[6];
+            ChangeSpriteAndTextOfDropdownItem("Strange", 6);
         }
+    }
+
+    private void ChangeSpriteAndTextOfDropdownItem(string name, int index)
+    {
+        dropdownComponent.captionText.text = name;
+        dropdownComponent.captionImage.sprite = Sprites[index];
+        dropdownComponent.value = index;
     }
 
     void Update()
