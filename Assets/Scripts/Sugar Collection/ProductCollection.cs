@@ -4,14 +4,11 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 /// <summary>
-/// * This classed is used to record all information about the green products
-/// * Protentially can be expend to all kinds of products by change the save file to direction+
+/// * This class is used to record information about scanned foods
 /// </summary>
 public class ProductCollection 
 {
     public List<ProductInfo> products = new List<ProductInfo>();
-    
-    public Dictionary<Category, List<ProductInfo>> greenDic=new Dictionary<Category, List<ProductInfo>>();
     private List<ProductInfo> curDic = new List<ProductInfo>();
     public List<ProductInfo> CurDic { get { return curDic; } set { curDic = value; } }
 
@@ -21,19 +18,18 @@ public class ProductCollection
     /// </summary>
     /// <param name="name">name of product</param>
     /// <param name="pos">where product is scanned</param>
-    public void AddProduct(string name,string pos)
+    /// <param name="type">whether or not it has sugar</param>
+    public void AddProduct(string name,string pos, Category type)
     {
-        if (products == null)
-        {
-            products = new List<ProductInfo>();
-        }
-        var prod = new ProductInfo(name,pos);
+        if (products == null) products = new List<ProductInfo>();
+        var prod = new ProductInfo(name, pos, DateTime.Now, type);
         products.Add(prod);
+
     }
-    /// <summary>
+/*    /// <summary>
     /// * Get Count of products in each category
     /// </summary>
-    /// <param name="cates">the Category want to count</param>
+    /// <param name="cate">the Category want to count</param>
     /// <returns></returns>
     public int GetCount(List<Category> cates)
     {
@@ -47,24 +43,20 @@ public class ProductCollection
             return output;
         }
         else { return GetCount(); }
-    }
+    }*/
     /// <summary>
     /// * Get count of product of that category
     /// * When the not parameter is passed, then use default uncate and return all product count
     /// </summary>
     /// <param name="cate">One specific Category</param>
     /// <returns></returns>
-    private int GetCount(Category cate = Category.uncate)
+    public int GetCount(Category cate)
     {
-        if (products != null)
-        {
-            if (cate != Category.uncate)
-            {
-                return greenDic[cate].Count;
-            }
-            return this.products.Count;
+        int count = 0;
+        foreach (ProductInfo pi in products) {
+            if (pi.GetType() == cate) count++;
         }
-        return 0;
+        return count;
     }
     /// <summary>
     /// * Function used in test to clear all products
@@ -73,7 +65,6 @@ public class ProductCollection
 #if UNITY_EDITOR
     internal void Reset()
     {
-        greenDic = new Dictionary<Category, List<ProductInfo>>();
         products = new List<ProductInfo>();
         PCSave();
     }
@@ -87,7 +78,7 @@ public class ProductCollection
         {
             foreach (ProductInfo pi in products)
             {
-                writer.WriteLine($@"{pi.Name};{pi.Location};{pi.Type}");
+                writer.WriteLine($@"{pi.Name};{pi.Location};{pi.getScanDateTimeAsString()};{pi.Type}");
             }
         }
         Debug.Log("save done");
@@ -140,7 +131,7 @@ public class ProductCollection
             while ((line = reader.ReadLine()) != null)
             {
                 var arr = line.Split(';');
-                var prod = new ProductInfo(arr[0], arr[1],Converter.StringEnumConverter<Category, string>(arr[2]));
+                var prod = new ProductInfo(arr[0], arr[1], ProductInfo.getScanDateTimeFromString(arr[2]), Converter.StringEnumConverter<Category, string>(arr[3]));
                 products.Add(prod);
             }
         }
@@ -153,11 +144,11 @@ public class ProductCollection
     /// <param name="i">index</param>
     /// <param name="cate">that category</param>
     /// <returns></returns>
-    public string PrintInfo(int i, Category cate = Category.uncate)
+    public string PrintInfo(int i, Category cate)
     {
         if (products != null)
         {
-            return products[i].PrintInfo();
+            return products[i].GetName();
         }
         return "No Product";
     }
@@ -167,29 +158,33 @@ public class ProductCollection
     /// <param name="i">index</param>
     /// <param name="cates">that category</param>
     /// <returns></returns>
-    public ProductInfo GetProduct(int i, List<Category> cates)
+    public ProductInfo GetProduct(int i, Category cate)
     {
-        if (cates.Count==0)
+        if (cate == Category.all)
         {
-            return GetProduct(i);
+            return GetProduct(i, products);
         }
         else
         {
-            return curDic[i];
+            List<ProductInfo> categoryList = new List<ProductInfo>();
+            foreach(ProductInfo pi in products) {
+                if (pi.GetType() == cate) categoryList.Add(pi);
+            }
+
+            return GetProduct(i, categoryList);
         }
     }
 
-    private ProductInfo GetProduct(int i)
+    private ProductInfo GetProduct(int i, List<ProductInfo> prods)
     {
-        if ( i>0&&i < products.Count)
+        if (i > 0 && i < prods.Count)
         {
-            return products[i];
+            return prods[i];
         }
         string str = "No More Product";
-        string pos = "Unknow Location";
+        string pos = "Unknown Location";
         Func<ProductInfo> returnNoProd = () => {
-            var pi = new ProductInfo(str,pos);
-            return pi;
+            return new ProductInfo(str, pos, DateTime.Now, Category.all);
         };
         return returnNoProd();
     }

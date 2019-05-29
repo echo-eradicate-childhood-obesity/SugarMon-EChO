@@ -12,22 +12,23 @@ public class GreenDexContainer : MonoBehaviour {
     [SerializeField]
     GameObject pIcon;
     [SerializeField]
-    GameObject pLocation;
+    GameObject pTimeDate;
+
     TextMeshProUGUI pText;
-    TextMeshProUGUI pLocationText;
+    TextMeshProUGUI pTimeDateDisplay;
     Image pImage;
     public ProductInfo PI { get { return pi; } }
 	void Start () {
         pImage = pIcon.GetComponent<Image>();
         pText = pName.GetComponent<TextMeshProUGUI>();
-        pLocationText = pLocation.GetComponent<TextMeshProUGUI>();
+        pTimeDateDisplay = pTimeDate.GetComponent<TextMeshProUGUI>();
 	}
 	
 	
 	void Update () {
-        pText.text = pi.PrintInfo();
+        pText.text = pi.GetDisplayName();
         pImage.sprite = pi.GetSprite();
-        pLocationText.text = pi.GetLocation();
+        pTimeDateDisplay.text = pi.displayDateTime();
 	}
 
     private void SetPi(Category cate)

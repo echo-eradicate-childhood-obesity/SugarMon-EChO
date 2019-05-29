@@ -16,6 +16,11 @@ public class GreenCartController : MonoBehaviour
     private static GreenCartController instance;
     public static GreenCartController Instance { get { return instance; } }
     public GameObject DetailPage;
+    public GameObject ProductName;
+    public GameObject ProductDate;
+    public GameObject ProductLocation;
+
+
     public GameObject NetIndicator;
     [SerializeField]
     ProductCollection pc = new ProductCollection();
@@ -61,8 +66,8 @@ public class GreenCartController : MonoBehaviour
     float totalDisRollingDis;
 
 
-    private List<Category> currentCates = new List<Category>();
-    public List<Category> CurrentCates { get { return currentCates; } set { currentCates = value; } }
+    private Category currentCate = new Category();
+    public Category CurrentCate { get { return currentCate; } set { currentCate = value; } }
 
 
     private List<ProductInfo> curSelectedPI = new List<ProductInfo>();
@@ -222,10 +227,11 @@ public class GreenCartController : MonoBehaviour
         {
             //when the rolling distance is more than the totaly data user have
             //then set offSet value to 0 to prevent furthe rolling
-            //pc.GetCount(currentCates) is the total number of products in current selected category
+            //pc.GetCount(currentCate) is the total number of products in current selected category
             //Containers.Count is the container number in editor(number is 10 when writing this) 
             //containerHeight is height of each container
-            if ((pc.GetCount(currentCates) - Containers.Count-microAdjustVal) * containerHeight < -totalDisRollingDis && offSet < 0)
+            //Debug.Log($"#of:{pc.GetCount(currentCate)}");
+            if ((pc.GetCount(currentCate) - Containers.Count-microAdjustVal) * containerHeight < -totalDisRollingDis && offSet < 0)
             {
 #if UNITY_EDITOR
                 Debug.Log("there is no more data");
@@ -259,10 +265,10 @@ public class GreenCartController : MonoBehaviour
                 //var text = go.transform.Find("ProductName").GetComponent<Text>();
                 try
                 {
-                    int i = pc.GetCount(currentCates) + (int)(info.RollingDis / containerHeight) - Containers.Count - 1;
+                    int i = pc.GetCount(currentCate) + (int)(info.RollingDis / containerHeight) - Containers.Count - 1;
 
                     //go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i));
-                    go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i, currentCates));
+                    go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i, currentCate));
                 }
                 catch (System.Exception ex)
                 {
@@ -275,9 +281,9 @@ public class GreenCartController : MonoBehaviour
                 curPos.y += Containers.Count * containerHeight;
                 try
                 {
-                    int i = pc.GetCount(currentCates) - (int)(-info.RollingDis / containerHeight) /*- Containers.Count*/ - 1;
+                    int i = pc.GetCount(currentCate) - (int)(-info.RollingDis / containerHeight) /*- Containers.Count*/ - 1;
                     //go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i);
-                    go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i, currentCates));
+                    go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i, currentCate));
                 }
                 catch (System.Exception ex)
                 {
@@ -342,9 +348,9 @@ public class GreenCartController : MonoBehaviour
     /// </summary>
     /// <param name="name">prodcut name</param>
     /// <param name="pos">location where the product is scanned</param>
-    public void PCAdd(string name,string pos)
+    public void PCAdd(string name,string pos, Category type)
     {
-        pc.AddProduct(name,pos);
+        pc.AddProduct(name,pos,type);
     }
     /// <summary>
     /// * Reset the Container's Position every time user Open GreenDex
@@ -352,16 +358,16 @@ public class GreenCartController : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        ResetContainer(currentCates);
+        ResetContainer(currentCate);
     }
     /// <summary>
     /// update container content
     /// * reset container pos
     /// * update content
-    /// * When products in cates are less than container than disable the extra container
+    /// * When products in cate are less than container than disable the extra container
     /// </summary>
-    /// <param name="cates">current user selected Categorys</param>
-    public void ResetContainer(List<Category> cates)
+    /// <param name="cate">current user selected Categorys</param>
+    public void ResetContainer(Category cate)
     {
         totalDisRollingDis = 0;
         //var pos = -200;
@@ -377,17 +383,14 @@ public class GreenCartController : MonoBehaviour
             var offset = dashHolder.GetComponent<RectTransform>().rect.width / 2;
             Containers[i].GetComponent<RectTransform>().localPosition = new Vector3(offset, pos, 0);
             pos -= incre;
-            if (cates.Count != 0)
+            if (cate != Category.all)
             {
-                //dupe
-                foreach (Category cate in cates)
+                if (i > pc.CurDic.Count - 1)
                 {
-                    if (i > pc.CurDic.Count - 1)
-                    {
-                        Containers[i].SetActive(false);
-                    }
-                    else Containers[i].GetComponent<GreenDexContainer>().PIUpdate(pc.CurDic[pc.CurDic.Count - i - 1]);
+                    Containers[i].SetActive(false);
                 }
+                else Containers[i].GetComponent<GreenDexContainer>().PIUpdate(pc.CurDic[pc.CurDic.Count - i - 1]);
+                
             }
             else
             {
@@ -424,8 +427,9 @@ public class GreenCartController : MonoBehaviour
     /// * Call PC.PCSave() to save the products to user's locat file
     /// </summary>
     /// <param name="bcv"></param>
+    /// <param name="type"></param>
     /// <returns></returns>
-    public async Task RequesetAsync(string bcv)
+    public async Task RequestAsync(string bcv, Category type)
     {
         NetIndicator.SetActive(true);
         //start the locationservice here and give it some time to get the latitude and longitude info
@@ -440,7 +444,7 @@ public class GreenCartController : MonoBehaviour
                     i += Time.deltaTime;
                 }
             });
-            name += $"UPC: {bcv}";
+            //name += $"UPC: {bcv}";
         }
         //wait 1 second to give the location service more time to get latlng info
 #if !UNITY_EDITOR
@@ -460,7 +464,7 @@ public class GreenCartController : MonoBehaviour
         //change the info to an format google api support
         var info = $@"latlng={pos.latitude.ToString()},{pos.longitude.ToString()}";
         var realpos = await grequester.SendRequest(info);
-        PCAdd(name, realpos);
+        PCAdd(name, realpos, type);
         PC.PCSave();
         NetIndicator.SetActive(false);
     }

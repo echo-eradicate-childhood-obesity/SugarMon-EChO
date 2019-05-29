@@ -18,7 +18,7 @@ public class ProductionIcon :AnimButtonAction {
     /// * When click, add prouction informationt this container point at to the GreenCartController.Instance.CurSelectedPI When it is not in the list
     /// * Otherwise remove it from the list and change the icons to the based on current 
     /// </summary>
-    public override void ClickEventTrigger()
+/*    public override void ClickEventTrigger()
     {
         base.ClickEventTrigger();
         var pi = parentGo.GetComponent<GreenDexContainer>().PI;
@@ -36,7 +36,7 @@ public class ProductionIcon :AnimButtonAction {
             }
             pi.IsSelected = false;
         }
-    }
+    }*/
 
     protected override List<GameObject> GetGOs()
     {

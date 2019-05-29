@@ -40,23 +40,22 @@ public class ToDetailBtn : AnimButtonAction {
         string category="";
         switch (pi.Type)
         {
-            case Category.drink:
-                category = "Drink";
+            case Category.all:
+                category = "All";
                 break;
-            case Category.sauce:
-                category = "Sauce";
+            case Category.noaddedsugar:
+                category = "No Added Sugar";
                 break;
-            case Category.food:
-                category = "Food";
-                break;
-            case Category.snack:
-                category = "Snack";
+            case Category.addedsugar:
+                category = "Added Sugar";
                 break;
             default:
                 category = "Uncategorized";
                 break;
         }
         GreenCartController.Instance.DetailPage.GetComponentInChildren<Image>().sprite = pi.GetSprite();
-        GreenCartController.Instance.DetailPage.GetComponentInChildren<TextMeshProUGUI>().text = $"Product Name: {pi.Name}\nProduct Category: {category}\nScan Location: {pi.Location}";
+        GreenCartController.Instance.ProductName.GetComponentInChildren<TextMeshProUGUI>().text = $"{pi.GetName()}";
+        GreenCartController.Instance.ProductDate.GetComponentInChildren<TextMeshProUGUI>().text = $"{pi.displayFullDateTime()}";
+        GreenCartController.Instance.ProductLocation.GetComponentInChildren<TextMeshProUGUI>().text = $"{pi.GetLocation()}";
     }
 }

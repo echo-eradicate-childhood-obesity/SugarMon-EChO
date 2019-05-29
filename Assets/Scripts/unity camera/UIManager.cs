@@ -58,42 +58,46 @@ public class UIManager : MonoBehaviour {
         var cavRect = cav.GetComponent<RectTransform>().rect;
         var catebtnWidth = cavRect.width / (CateBtn.Count);
         var pos = -(catebtnWidth * CateBtn.Count / 2);
+        var colorA = new Color(0.292f, 0.340f, 0.310f, 1f);
+        var colorB = new Color(1f, 1f, 1f, 1f);
+        GreenCartController.Instance.CurrentCate = Category.all;
+        CateBtn[0].GetComponentInChildren<TextMeshProUGUI>().color = colorB; // set "all" button to white
         foreach (GameObject go in CateBtn)
         {
-            var colorA = new Color(0.292f,0.340f,0.310f,1f);
-            var colorB = new Color(1f,1f,1f,1f);
             System.Action<string> act = (aa) =>
             {
-                var cate = Converter.StringEnumConverter<Category, string>(aa);
+                var newCate = Converter.StringEnumConverter<Category, string>(aa);
                 //set cate when the target cate is not the same as current cate
                 //reset to default(all/uncate) when current cate is same as target cate
-                if (!GreenCartController.Instance.CurrentCates.Contains(cate))
-                {
-                    GreenCartController.Instance.CurrentCates.Add(cate);
+                if (GreenCartController.Instance.CurrentCate != newCate) {
+                    GreenCartController.Instance.CurrentCate = newCate;
                     GreenCartController.Instance.PC.CurDic = new List<ProductInfo>();
-                    foreach (ProductInfo pi in GreenCartController.Instance.PC.products) {
-                        foreach(Category ct in GreenCartController.Instance.CurrentCates)
-                        {
-                            if (pi.Type!=Category.uncate&&pi.Type == ct)
-                            {
+                    if (newCate == Category.all) {
+                        GreenCartController.Instance.PC.CurDic = GreenCartController.Instance.PC.products;
+                    }
+                    else {
+                        foreach (ProductInfo pi in GreenCartController.Instance.PC.products) {
+                            if (pi.Type == GreenCartController.Instance.CurrentCate)
                                 GreenCartController.Instance.PC.CurDic.Add(pi);
-                            }
+                            else
+                                GreenCartController.Instance.PC.CurDic.Remove(pi);
                         }
                     }
-                }
-                else if (GreenCartController.Instance.CurrentCates.Contains(cate))
-                {
-                    GreenCartController.Instance.CurrentCates.Remove(cate);
-                    foreach(ProductInfo pi in GreenCartController.Instance.PC.products.Where(item=>item.Type==cate))
-                    {
-                        GreenCartController.Instance.PC.CurDic.Remove(pi);
+                    // reset all buttons to black
+                    GreenCartController.Instance.ResetContainer(GreenCartController.Instance.CurrentCate);
+                    foreach (GameObject g in CateBtn) {
+                        g.GetComponentInChildren<TextMeshProUGUI>().color = colorA;
                     }
+                    // set selected buttom to white
+                    go.GetComponentInChildren<TextMeshProUGUI>().color = colorB;
                 }
-                GreenCartController.Instance.ResetContainer(GreenCartController.Instance.CurrentCates);
-                var tmpro = go.GetComponentInChildren<TextMeshProUGUI>();
-                tmpro.color = tmpro.color == colorB ? colorA : colorB;
             };
-            go.GetComponent<Button>().onClick.AddListener(() => act(go.name.ToLower()));
+            string name = "";
+            foreach (char c in go.name.ToLower()) {
+                if (c != ' ')
+                    name += c;
+            }
+            go.GetComponent<Button>().onClick.AddListener(() => act(name));
             var rect = go.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(catebtnWidth, rect.rect.height);
             rect.localPosition = new Vector3(pos, 0f);
@@ -129,7 +133,6 @@ public class UIManager : MonoBehaviour {
     public Sprite dextrose;
     private void IndicateControllerHelper(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
     {
-        Debug.Log("hi");
         foreach (TMP_Dropdown.OptionData go in list)
         {
       
