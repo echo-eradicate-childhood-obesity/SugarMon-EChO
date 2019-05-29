@@ -77,23 +77,33 @@ public class PopulateFamilyPanels : MonoBehaviour {
                 monster.sprite = Resources.Load<Sprite>("Images/Monsters/" + sugarName);
                 monster.color = Color.black;
                 GameObject diskNumber = newCell.transform.GetChild(0).GetChild(0).gameObject;
-                diskNumber.GetComponent<RectTransform>().anchoredPosition = new Vector2(74, 114);
+                diskNumber.GetComponent<RectTransform>().anchoredPosition = new Vector2(46, 60);
                 numberCircle = (GameObject)Instantiate(NumberCircle, newCell.transform.GetChild(0));
-                numberCircle.GetComponent<RectTransform>().anchoredPosition = new Vector2(74, 136);
+                numberCircle.GetComponent<RectTransform>().anchoredPosition = new Vector2(46, 75);
+                numberCircle.GetComponent<RectTransform>().sizeDelta = new Vector2(30f, 30f);
                 numberCircle.GetComponent<RectTransform>().SetAsFirstSibling();
 
                 diskNumber.GetComponent<Text>().text = newCell.name;
                 if ( cell < 99)
                 {
-                    diskNumber.GetComponent<Text>().fontSize = 30;
+                    diskNumber.GetComponent<Text>().fontSize = 20;
                 } else
                 {
-                    diskNumber.GetComponent<Text>().fontSize = 26;
+                    diskNumber.GetComponent<Text>().fontSize = 16;
                 }
                 
                 diskNumber.GetComponent<Text>().color = Color.black;
                 GameObject monsterName = newCell.transform.Find("Name").gameObject;
-                monsterName.GetComponent<Text>().text = "???";
+
+                monster.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
+                monster.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+                monster.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+                monster.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
+                monster.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
+                monster.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
+
+
+                monsterName.GetComponent<Text>().text = sugarName;
 
                 cell++;
             }
