@@ -77,18 +77,19 @@ public class PopulateFamilyPanels : MonoBehaviour {
                 monster.sprite = Resources.Load<Sprite>("Images/Monsters/" + sugarName);
                 monster.color = Color.black;
                 GameObject diskNumber = newCell.transform.GetChild(0).GetChild(0).gameObject;
-                diskNumber.GetComponent<RectTransform>().anchoredPosition = new Vector2(36, 78);
+                diskNumber.GetComponent<RectTransform>().anchoredPosition = new Vector2(46, 60);
                 numberCircle = (GameObject)Instantiate(NumberCircle, newCell.transform.GetChild(0));
-                numberCircle.GetComponent<RectTransform>().anchoredPosition = new Vector2(36, 100);
+                numberCircle.GetComponent<RectTransform>().anchoredPosition = new Vector2(46, 75);
+                numberCircle.GetComponent<RectTransform>().sizeDelta = new Vector2(30f, 30f);
                 numberCircle.GetComponent<RectTransform>().SetAsFirstSibling();
 
                 diskNumber.GetComponent<Text>().text = newCell.name;
                 if ( cell < 99)
                 {
-                    diskNumber.GetComponent<Text>().fontSize = 30;
+                    diskNumber.GetComponent<Text>().fontSize = 20;
                 } else
                 {
-                    diskNumber.GetComponent<Text>().fontSize = 26;
+                    diskNumber.GetComponent<Text>().fontSize = 16;
                 }
                 
                 diskNumber.GetComponent<Text>().color = Color.black;
