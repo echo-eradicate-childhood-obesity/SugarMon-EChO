@@ -354,7 +354,7 @@ public class FindAddedSugar : MonoBehaviour
             
 
             float animWaitCounter = 0f;
-            while (animWaitCounter < 2f && wasSkipped == false) // wait for 2 seconds
+            while (animWaitCounter < 3f && wasSkipped == false) // wait for 2 seconds
             {
                 if (sound && firstBadSound)
                 {
