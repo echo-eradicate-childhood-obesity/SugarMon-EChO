@@ -9,7 +9,7 @@ public enum Category
 {
     all,
     noaddedsugar,
-    addedsugar
+    containsaddedsugar
 }
 
 public struct NotifyInfo
@@ -58,6 +58,36 @@ public class ProductInfo
     {
         return Location;
     }
+    internal string GetDetailPageName() {
+        string displayName = "";
+        int i = 0;
+        int commaCount = 0;
+        while (i < Name.Length) {
+            displayName += Name[i];
+            if (Name[i] == ',' && commaCount == 0) {
+                commaCount++;
+                displayName += '\n';
+                i++;
+            }
+            i++;
+        }
+        return displayName;
+    }
+    internal string GetDetailPageLocation() {
+        string displayLocation = "";
+        int i = 0;
+        int commaCount = 0;
+        while (i < Location.Length) {
+            displayLocation += Location[i];
+            if (Location[i] == ',' && commaCount != 1) {
+                commaCount++;
+                displayLocation += '\n';
+                i++;
+            }
+            i++;
+        }
+        return displayLocation;
+    }
     internal Category GetType() {
         return Type;
     }
@@ -81,23 +111,20 @@ public class ProductInfo
     internal static DateTime getScanDateTimeFromString(string date) {
         return DateTime.ParseExact(date, "yyyyMMddHHmmss", /*CultureInfo.InvariantCulture*/null);
     }
-    //dring-food-snack-default-sauce, selectedimg is CateImg[5]
     internal Sprite GetSprite()
     {
-        if (IsSelected)
+        if (GreenCartController.Instance.editMode == true)
         {
-            return GreenCartController.Instance.CateImg[3];
+            return GreenCartController.Instance.CateImg[0]; // edit mode indicator
         }
         switch (type)
         {
-            case Category.all:
-                return GreenCartController.Instance.CateImg[5];
-            case Category.addedsugar:
-                return GreenCartController.Instance.CateImg[1];
+            case Category.containsaddedsugar:
+                return GreenCartController.Instance.CateImg[1]; // exclamation
             case Category.noaddedsugar:
-                return GreenCartController.Instance.CateImg[2];
-            default:
-                return GreenCartController.Instance.CateImg[4];
+                return GreenCartController.Instance.CateImg[2]; // check
+            default: // should never get here
+                return GreenCartController.Instance.CateImg[3];
         }
     }
 

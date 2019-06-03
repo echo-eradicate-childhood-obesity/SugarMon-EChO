@@ -20,6 +20,7 @@ public class GreenCartController : MonoBehaviour
     public GameObject ProductDate;
     public GameObject ProductLocation;
 
+    public List<Sprite> Outlines;
 
     public GameObject NetIndicator;
     [SerializeField]
@@ -49,6 +50,7 @@ public class GreenCartController : MonoBehaviour
     TextAsset text;
     [SerializeField]
     char delimiter;
+    public bool editMode = false;
     bool down;
     //variable be used to fast scrolling. function not implemented yet, so variable not in use
     //float downTimer;
@@ -348,9 +350,17 @@ public class GreenCartController : MonoBehaviour
     /// </summary>
     /// <param name="name">prodcut name</param>
     /// <param name="pos">location where the product is scanned</param>
-    public void PCAdd(string name,string pos, Category type)
+    public void PCAdd(string name, string pos, Category type)
     {
-        pc.AddProduct(name,pos,type);
+        pc.AddProduct(name, pos, type);
+    }
+    /// <summary>
+    /// * Remove Scanned product from PC(Product Collection)
+    /// </summary>
+    /// <param name="pi">product to remove</param>
+    public void PCRemove(ProductInfo pi) {
+        pc.RemoveProduct(pi);
+        ResetContainer(currentCate);
     }
     /// <summary>
     /// * Reset the Container's Position every time user Open GreenDex

@@ -328,7 +328,7 @@ public class FindAddedSugar : MonoBehaviour
             //Include added sugar
             else
             {
-                GreenCartController.Instance.RequestAsync(bcv, Converter.StringEnumConverter<Category, string>("addedsugar"));
+                GreenCartController.Instance.RequestAsync(bcv, Converter.StringEnumConverter<Category, string>("containsaddedsugar"));
                 scanFrame.SetActive(false);
                 CreateSugarMonster(scannedAddedSugars[currentNumMonster]);
             }

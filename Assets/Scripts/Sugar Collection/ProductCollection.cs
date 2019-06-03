@@ -26,24 +26,31 @@ public class ProductCollection
         products.Add(prod);
 
     }
-/*    /// <summary>
-    /// * Get Count of products in each category
+    /// <summary>
+    /// * Removes a product from the collection
     /// </summary>
-    /// <param name="cate">the Category want to count</param>
-    /// <returns></returns>
-    public int GetCount(List<Category> cates)
-    {
-        if (cates.Count > 0)
+    /// <param name="pi">Product to remove</param>
+    public void RemoveProduct(ProductInfo pi) {
+        products.Remove(pi);
+    }
+    /*    /// <summary>
+        /// * Get Count of products in each category
+        /// </summary>
+        /// <param name="cate">the Category want to count</param>
+        /// <returns></returns>
+        public int GetCount(List<Category> cates)
         {
-            var output = 0;
-            for (int i = 0; i < cates.Count; i++)
+            if (cates.Count > 0)
             {
-                output += GetCount(cates[i]);
+                var output = 0;
+                for (int i = 0; i < cates.Count; i++)
+                {
+                    output += GetCount(cates[i]);
+                }
+                return output;
             }
-            return output;
-        }
-        else { return GetCount(); }
-    }*/
+            else { return GetCount(); }
+        }*/
     /// <summary>
     /// * Get count of product of that category
     /// * When the not parameter is passed, then use default uncate and return all product count
@@ -138,6 +145,18 @@ public class ProductCollection
         return products;
     }
 
+    public List<ProductInfo> Reload() {
+        string line = "";
+        using (StreamReader reader = new StreamReader(Application.persistentDataPath + "/test.txt")) {
+            products = new List<ProductInfo>();
+            while ((line = reader.ReadLine()) != null) {
+                var arr = line.Split(';');
+                var prod = new ProductInfo(arr[0], arr[1], ProductInfo.getScanDateTimeFromString(arr[2]), Converter.StringEnumConverter<Category, string>(arr[3]));
+                products.Add(prod);
+            }
+        }
+        return products;
+    }
     /// <summary>
     /// Return information about the product in products
     /// </summary>

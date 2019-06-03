@@ -19,16 +19,23 @@ public class ToDetailBtn : AnimButtonAction {
        // DetailPage = GameObject.Find("CartDetailCanvas");
         this.Action(this.gameObject);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
+    // Update is called once per frame
+    void Update() {
+        if (GreenCartController.Instance.editMode) {
+            this.gameObject.GetComponent<Image>().color = new Color(255,255,255,0);
+        }
+        else {
+            this.gameObject.GetComponent<Image>().color = new Color(255,255,255,255);
+        }
+    }
     public override void ClickEventTrigger()
     {
         base.ClickEventTrigger();
-        ApplyDetail();
+        // stops user from clicking on hidden button
+        if (GreenCartController.Instance.editMode == false) {
+            ApplyDetail();
+        }
     }
     /// <summary>
     /// * Change the content of detail page
@@ -37,25 +44,9 @@ public class ToDetailBtn : AnimButtonAction {
     {
         GreenCartController.Instance.rollable = false;
         var pi = transform.GetComponentInParent<GreenDexContainer>().GetPI();
-        string category="";
-        switch (pi.Type)
-        {
-            case Category.all:
-                category = "All";
-                break;
-            case Category.noaddedsugar:
-                category = "No Added Sugar";
-                break;
-            case Category.addedsugar:
-                category = "Added Sugar";
-                break;
-            default:
-                category = "Uncategorized";
-                break;
-        }
         GreenCartController.Instance.DetailPage.GetComponentInChildren<Image>().sprite = pi.GetSprite();
-        GreenCartController.Instance.ProductName.GetComponentInChildren<TextMeshProUGUI>().text = $"{pi.GetName()}";
+        GreenCartController.Instance.ProductName.GetComponentInChildren<TextMeshProUGUI>().text = $"{pi.GetDetailPageName()}";
         GreenCartController.Instance.ProductDate.GetComponentInChildren<TextMeshProUGUI>().text = $"{pi.displayFullDateTime()}";
-        GreenCartController.Instance.ProductLocation.GetComponentInChildren<TextMeshProUGUI>().text = $"{pi.GetLocation()}";
+        GreenCartController.Instance.ProductLocation.GetComponentInChildren<TextMeshProUGUI>().text = $"{pi.GetDetailPageLocation()}";
     }
 }

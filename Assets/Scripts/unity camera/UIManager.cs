@@ -30,14 +30,27 @@ public class UIManager : MonoBehaviour {
         get { return _instance; }
         private set { _instance = value; }
     }
-    public List<GameObject> CateBtn;
+    public Button All;
+    public Button NoAddedSugar;
+    public Button ContainsAddedSugar;
+
+    [SerializeField]
+    public List<Sprite> Backgrounds; //0 blue, 1 green, 2 red
+    public GameObject background;
+
+    [SerializeField]
+    public List<Sprite> Buttons;
+
+    public GameObject EditBtn; // Button that allows you to edit the FoodDex
+    public GameObject LeftBtn; // Button that exits the FoodDex
 
     private SimpleDemo simpleDemo;
+    private Color colorA = new Color(0.292f, 0.340f, 0.310f, 1f);
+    private Color colorB = new Color(1f, 1f, 1f, 1f);
     [SerializeField]
     List<GameObject> familyUIList;
     // Use this for initialization
-    void Awake ()
-    {
+    void Awake () {
         if (_instance == null)
         {
             _instance = this;
@@ -48,63 +61,88 @@ public class UIManager : MonoBehaviour {
 
     private void Start()
     {
-        InitCateBtn();
+        InitCategoryBtns();
+        EditBtn.GetComponent<Button>().onClick.AddListener(() => OnEditClick());
+        LeftBtn.GetComponent<Button>().onClick.AddListener(() => OnLeftBtnClick());
         simpleDemo = GameObject.Find("Main Camera").GetComponent<SimpleDemo>();
     }
-
-    private void InitCateBtn()
-    {
-        var cav = GameObject.Find("GreenCartBack");
-        var cavRect = cav.GetComponent<RectTransform>().rect;
-        var catebtnWidth = cavRect.width / (CateBtn.Count);
-        var pos = -(catebtnWidth * CateBtn.Count / 2);
-        var colorA = new Color(0.292f, 0.340f, 0.310f, 1f);
-        var colorB = new Color(1f, 1f, 1f, 1f);
-        GreenCartController.Instance.CurrentCate = Category.all;
-        CateBtn[0].GetComponentInChildren<TextMeshProUGUI>().color = colorB; // set "all" button to white
-        foreach (GameObject go in CateBtn)
-        {
-            System.Action<string> act = (aa) =>
-            {
-                var newCate = Converter.StringEnumConverter<Category, string>(aa);
-                //set cate when the target cate is not the same as current cate
-                //reset to default(all/uncate) when current cate is same as target cate
-                if (GreenCartController.Instance.CurrentCate != newCate) {
-                    GreenCartController.Instance.CurrentCate = newCate;
-                    GreenCartController.Instance.PC.CurDic = new List<ProductInfo>();
-                    if (newCate == Category.all) {
-                        GreenCartController.Instance.PC.CurDic = GreenCartController.Instance.PC.products;
-                    }
-                    else {
-                        foreach (ProductInfo pi in GreenCartController.Instance.PC.products) {
-                            if (pi.Type == GreenCartController.Instance.CurrentCate)
-                                GreenCartController.Instance.PC.CurDic.Add(pi);
-                            else
-                                GreenCartController.Instance.PC.CurDic.Remove(pi);
-                        }
-                    }
-                    // reset all buttons to black
-                    GreenCartController.Instance.ResetContainer(GreenCartController.Instance.CurrentCate);
-                    foreach (GameObject g in CateBtn) {
-                        g.GetComponentInChildren<TextMeshProUGUI>().color = colorA;
-                    }
-                    // set selected buttom to white
-                    go.GetComponentInChildren<TextMeshProUGUI>().color = colorB;
-                }
-            };
-            string name = "";
-            foreach (char c in go.name.ToLower()) {
-                if (c != ' ')
-                    name += c;
-            }
-            go.GetComponent<Button>().onClick.AddListener(() => act(name));
-            var rect = go.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(catebtnWidth, rect.rect.height);
-            rect.localPosition = new Vector3(pos, 0f);
-            pos += catebtnWidth;
+    private void Update() {
+        if (GreenCartController.Instance.editMode) {
+            EditBtn.GetComponentInChildren<TextMeshProUGUI>().color = colorA;
+            EditBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Save";
+        }
+        else {
+            EditBtn.GetComponentInChildren<TextMeshProUGUI>().color = colorB;
+            EditBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Edit";
         }
     }
+    private void OnLeftBtnClick() {
+        GreenCartController.Instance.PC.Reload();
+        GreenCartController.Instance.editMode = false;
+    }
+    private void OnEditClick() {
+        if (GreenCartController.Instance.editMode == false) {
+            GreenCartController.Instance.editMode = true;
+        }
+        else {
+            GreenCartController.Instance.PC.PCSave();
+            GreenCartController.Instance.editMode = false;
+        }
+    }
+    private void InitCategoryBtns() {
 
+        GreenCartController.Instance.CurrentCate = Category.all; //set the initial category to "all"
+        SetHighlights("all");
+
+        System.Action<string> act = (aa) =>
+        {
+            var newCate = Converter.StringEnumConverter<Category, string>(aa);
+            //set cate when the target cate is not the same as current cate
+            //reset to default(all/uncate) when current cate is same as target cate
+            if (GreenCartController.Instance.CurrentCate != newCate) {
+                GreenCartController.Instance.CurrentCate = newCate;
+                GreenCartController.Instance.PC.CurDic = new List<ProductInfo>();
+                if (newCate == Category.all) {
+                    GreenCartController.Instance.PC.CurDic = GreenCartController.Instance.PC.products;
+                }
+                else {
+                    foreach (ProductInfo pi in GreenCartController.Instance.PC.products) {
+                        if (pi.Type == GreenCartController.Instance.CurrentCate)
+                            GreenCartController.Instance.PC.CurDic.Add(pi);
+                    }
+                }
+                SetHighlights(aa);
+            }
+        };
+        All.GetComponent<Button>().onClick.AddListener(() => act("all"));
+        NoAddedSugar.GetComponent<Button>().onClick.AddListener(() => act("noaddedsugar"));
+        ContainsAddedSugar.GetComponent<Button>().onClick.AddListener(() => act("containsaddedsugar"));
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="name">Button selected to be highlighted</param>
+    private void SetHighlights(string name) {
+        GreenCartController.Instance.ResetContainer(GreenCartController.Instance.CurrentCate);
+        if (name == "all") {
+            background.GetComponentInChildren<Image>().sprite = Backgrounds[0];
+            All.GetComponentInChildren<Image>().sprite = Buttons[3]; // set "all" button to selected
+            NoAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[1];
+            ContainsAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[2];
+        }
+        else if (name == "noaddedsugar") {
+            background.GetComponentInChildren<Image>().sprite = Backgrounds[1];
+            All.GetComponentInChildren<Image>().sprite = Buttons[0];
+            NoAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[4]; // set "No Sugar Added" to selected
+            ContainsAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[2];
+        }
+        else {
+            background.GetComponentInChildren<Image>().sprite = Backgrounds[2];
+            All.GetComponentInChildren<Image>().sprite = Buttons[0]; 
+            NoAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[1];
+            ContainsAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[5]; // set "Contains Sugar Added" to selected
+        }
+    }
     //have info passed here, active the target gameobject in with in the info parent  
     
     public void IndicateController(Info info,string targetName)

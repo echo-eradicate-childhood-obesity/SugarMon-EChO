@@ -12,31 +12,17 @@ public class ProductionIcon :AnimButtonAction {
         parentGo = transform.parent.gameObject;
         Action(this.gameObject);
 	}
-
     /// <summary>
     /// * Inaddition to the based Class
-    /// * When click, add prouction informationt this container point at to the GreenCartController.Instance.CurSelectedPI When it is not in the list
-    /// * Otherwise remove it from the list and change the icons to the based on current 
+    /// * When clicked, check if in edit mode, and if so, delete the given item
     /// </summary>
-/*    public override void ClickEventTrigger()
+    public override void ClickEventTrigger()
     {
-        base.ClickEventTrigger();
-        var pi = parentGo.GetComponent<GreenDexContainer>().PI;
-        if (!GreenCartController.Instance.CurSelectedPI.Contains(pi))
-        {
-            GreenCartController.Instance.CurSelectedPI.Add(pi);
-            pi.IsSelected = true;
+        if(GreenCartController.Instance.editMode == true) {
+            ProductInfo pi = parentGo.GetComponent<GreenDexContainer>().PI;
+            GreenCartController.Instance.PCRemove(pi);
         }
-        else
-        {
-            GreenCartController.Instance.CurSelectedPI.Remove(pi);
-            if (GreenCartController.Instance.CurSelectedPI.Count == 0)
-            {
-                DeselectAction();
-            }
-            pi.IsSelected = false;
-        }
-    }*/
+    }
 
     protected override List<GameObject> GetGOs()
     {
