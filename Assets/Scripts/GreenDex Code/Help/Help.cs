@@ -92,13 +92,16 @@ public class ProductInfo
     internal Category GetType() {
         return Type;
     }
+
     internal DateTime GetScanDateTime() 
     {
         return ScanDateTime;
     }
+
     internal string getScanDateTimeAsString() {
         return ScanDateTime.ToString("yyyyMMddHHmmss");
     }
+
     internal string displayDateTime() {
         TimeSpan since = DateTime.Now.Subtract(ScanDateTime);
         if (since.Days > 6)
@@ -106,6 +109,7 @@ public class ProductInfo
         else
             return ScanDateTime.ToString("dddd, h:mm tt");
     }
+
     internal string displayFullDateTime() {
         return ScanDateTime.ToString("M/d/yy - h:mm tt");
     }
