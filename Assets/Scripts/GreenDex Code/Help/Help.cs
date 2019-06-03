@@ -62,7 +62,8 @@ public class ProductInfo
         string displayName = "";
         int i = 0;
         int commaCount = 0;
-        while (i < Name.Length) {
+        bool isUPC = false;
+        while (i < Name.IndexOf(", Upc: ")) {
             displayName += Name[i];
             if (Name[i] == ',' && commaCount == 0) {
                 commaCount++;
@@ -106,7 +107,7 @@ public class ProductInfo
             return ScanDateTime.ToString("dddd, h:mm tt");
     }
     internal string displayFullDateTime() {
-        return ScanDateTime.ToString("M/dd/yy - h:mm tt");
+        return ScanDateTime.ToString("M/d/yy - h:mm tt");
     }
     internal static DateTime getScanDateTimeFromString(string date) {
         return DateTime.ParseExact(date, "yyyyMMddHHmmss", /*CultureInfo.InvariantCulture*/null);
