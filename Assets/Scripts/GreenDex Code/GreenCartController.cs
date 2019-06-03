@@ -394,25 +394,10 @@ public class GreenCartController : MonoBehaviour
             var offset = dashHolder.GetComponent<RectTransform>().rect.width / 2;
             Containers[i].GetComponent<RectTransform>().localPosition = new Vector3(offset, pos, 0);
             pos -= incre;
-            if (cate != Category.all)
-            {
-                if (i > pc.CurDic.Count - 1)
-                {
-                    Containers[i].SetActive(false);
-                }
-                else Containers[i].GetComponent<GreenDexContainer>().PIUpdate(pc.CurDic[pc.CurDic.Count - i - 1]);
-                
-            }
+            if (i > pc.CurDic.Count - 1)
+                Containers[i].SetActive(false);
             else
-            {
-                if (i > pc.products.Count - 1)
-                {
-
-                    Containers[i].SetActive(false);
-                }
-                else Containers[i].GetComponent<GreenDexContainer>().PIUpdate(pc.products[pc.products.Count - 1 - i]);
-            }
-
+                Containers[i].GetComponent<GreenDexContainer>().PIUpdate(pc.CurDic[pc.CurDic.Count - i - 1]);
         }
     }
     /// <summary>

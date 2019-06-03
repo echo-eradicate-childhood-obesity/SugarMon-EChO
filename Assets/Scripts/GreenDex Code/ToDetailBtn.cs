@@ -53,9 +53,6 @@ public class ToDetailBtn : AnimButtonAction {
     {
         GreenCartController.Instance.rollable = false;
         var pi = transform.GetComponentInParent<GreenDexContainer>().GetPI();
-        GreenCartController.Instance.DetailPage.GetComponentInChildren<Image>().sprite = pi.GetSprite();
-        GreenCartController.Instance.ProductName.GetComponentInChildren<TextMeshProUGUI>().text = $"{pi.GetDetailPageName()}";
-        GreenCartController.Instance.ProductDate.GetComponentInChildren<TextMeshProUGUI>().text = $"{pi.displayFullDateTime()}";
-        GreenCartController.Instance.ProductLocation.GetComponentInChildren<TextMeshProUGUI>().text = $"{pi.GetDetailPageLocation()}";
+        DetailPageController.Instance.PI = pi;
     }
 }

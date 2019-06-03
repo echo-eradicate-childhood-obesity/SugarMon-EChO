@@ -13,19 +13,27 @@ public class GreenDexContainer : MonoBehaviour {
     GameObject pIcon;
     [SerializeField]
     GameObject pTimeDate;
+    [SerializeField]
+    GameObject pFrame;
 
     TextMeshProUGUI pText;
     TextMeshProUGUI pTimeDateDisplay;
+    Button pFrameButton;
     Image pImage;
 
     public ProductInfo PI { get { return pi; } }
 	void Start () {
         pImage = pIcon.GetComponent<Image>();
+        pFrameButton = pFrame.GetComponent<Button>();
         pText = pName.GetComponent<TextMeshProUGUI>();
         pTimeDateDisplay = pTimeDate.GetComponent<TextMeshProUGUI>();
-	}
-	
-	void Update () {
+        pFrameButton.onClick.AddListener(() => ClearEdit());
+    }
+    private void ClearEdit() {
+        GreenCartController.Instance.editMode = false;
+    }
+
+    void Update () {
         pText.text = pi.GetDisplayName();
         pImage.sprite = pi.GetSprite();
         pTimeDateDisplay.text = pi.displayDateTime();

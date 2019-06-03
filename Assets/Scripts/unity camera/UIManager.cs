@@ -79,11 +79,13 @@ public class UIManager : MonoBehaviour {
     private void OnEditClick() {
         GreenCartController.Instance.editMode = !GreenCartController.Instance.editMode;
     }
-    private void InitCategoryBtns() {
-
+    public void ResetCategory() {
         GreenCartController.Instance.CurrentCate = Category.all; //set the initial category to "all"
         SetHighlights("all");
-
+        GreenCartController.Instance.PC.CurDic = GreenCartController.Instance.PC.products;
+    }
+    private void InitCategoryBtns() {
+        ResetCategory();
         System.Action<string> act = (aa) =>
         {
             var newCate = Converter.StringEnumConverter<Category, string>(aa);
@@ -135,7 +137,7 @@ public class UIManager : MonoBehaviour {
     }
     //have info passed here, active the target gameobject in with in the info parent  
     
-    public void IndicateController(Info info,string targetName)
+    public void IndicateController(Info info, string targetName)
     {
         foreach (GameObject go in familyUIList)
         {
@@ -154,8 +156,7 @@ public class UIManager : MonoBehaviour {
             }
         }
     }
-    public void IndicateController(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
-    {
+    public void IndicateController(Info info, string targetName, List<TMP_Dropdown.OptionData> list) {
         IndicateControllerHelper(info, targetName, list);
     }
     public Sprite dextrose;
@@ -233,8 +234,6 @@ public class UIManager : MonoBehaviour {
             else return;
         }
     }
-
-
 
     public void DisableUI(GameObject go)
     {
