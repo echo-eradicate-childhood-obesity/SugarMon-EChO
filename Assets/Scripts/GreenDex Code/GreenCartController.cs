@@ -20,7 +20,7 @@ public class GreenCartController : MonoBehaviour
     public GameObject ProductDate;
     public GameObject ProductLocation;
 
-    public List<Sprite> Outlines;
+    public List<Sprite> RightButtons;
 
     public GameObject NetIndicator;
     [SerializeField]
@@ -32,7 +32,7 @@ public class GreenCartController : MonoBehaviour
     List<GameObject> Containers;
     public List<GameObject> CONTAINERS { get { return Containers; } }
     [SerializeField]
-    List<Sprite> cateImg;//0:food,1:drink,2:snack,3:uncate,4:sauce,5:not cate but a check mark
+    List<Sprite> cateImg;//0:uncate,1:redButton,2:greenButton
     public List<Sprite> CateImg { get { return cateImg; } }
     [SerializeField]
     float containerHeight;
@@ -359,8 +359,9 @@ public class GreenCartController : MonoBehaviour
     /// </summary>
     /// <param name="pi">product to remove</param>
     public void PCRemove(ProductInfo pi) {
-        pc.RemoveProduct(pi);
-        ResetContainer(currentCate);
+        pc.RemoveProduct(pi); // removes item from local storage
+        ResetContainer(currentCate); // reloads current view of items from local storage removing the item from view
+        GreenCartController.Instance.PC.PCSave(); // sets txt file storage to local sorage removing the item from txt file storage
     }
     /// <summary>
     /// * Reset the Container's Position every time user Open GreenDex

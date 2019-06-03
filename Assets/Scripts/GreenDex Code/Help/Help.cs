@@ -118,18 +118,14 @@ public class ProductInfo
     }
     internal Sprite GetSprite()
     {
-        if (GreenCartController.Instance.editMode == true)
-        {
-            return GreenCartController.Instance.CateImg[0]; // edit mode indicator
-        }
         switch (type)
         {
             case Category.containsaddedsugar:
                 return GreenCartController.Instance.CateImg[1]; // exclamation
             case Category.noaddedsugar:
                 return GreenCartController.Instance.CateImg[2]; // check
-            default: // should never get here
-                return GreenCartController.Instance.CateImg[3];
+            default: // should never get here 
+                return GreenCartController.Instance.CateImg[0];
         }
     }
 

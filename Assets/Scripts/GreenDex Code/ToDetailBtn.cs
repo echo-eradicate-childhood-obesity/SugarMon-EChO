@@ -23,19 +23,28 @@ public class ToDetailBtn : AnimButtonAction {
     // Update is called once per frame
     void Update() {
         if (GreenCartController.Instance.editMode) {
-            this.gameObject.GetComponent<Image>().color = new Color(255,255,255,0);
+            this.gameObject.GetComponent<Image>().sprite = GreenCartController.Instance.RightButtons[1];
+            this.gameObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(194, 100); // proportions of remove button
         }
         else {
-            this.gameObject.GetComponent<Image>().color = new Color(255,255,255,255);
+            this.gameObject.GetComponent<Image>().sprite = GreenCartController.Instance.RightButtons[0];
+            this.gameObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(100, 100); // proportions of to detail button
         }
     }
     public override void ClickEventTrigger()
     {
-        base.ClickEventTrigger();
-        // stops user from clicking on hidden button
+        // when this is the to detail right button
         if (GreenCartController.Instance.editMode == false) {
+            base.ClickEventTrigger();
             ApplyDetail();
         }
+        // otherwise is the remove button
+        else {
+            ProductInfo pi = transform.GetComponentInParent<GreenDexContainer>().GetPI();
+            GreenCartController.Instance.PCRemove(pi);
+            if (GreenCartController.Instance.PC.products.Count == 0)
+                GreenCartController.Instance.editMode = false;
+        } 
     }
     /// <summary>
     /// * Change the content of detail page

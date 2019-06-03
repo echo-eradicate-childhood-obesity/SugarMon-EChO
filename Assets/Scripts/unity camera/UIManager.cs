@@ -67,27 +67,17 @@ public class UIManager : MonoBehaviour {
         simpleDemo = GameObject.Find("Main Camera").GetComponent<SimpleDemo>();
     }
     private void Update() {
-        if (GreenCartController.Instance.editMode) {
+        if (GreenCartController.Instance.editMode)
             EditBtn.GetComponentInChildren<TextMeshProUGUI>().color = colorA;
-            EditBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Save";
-        }
-        else {
+        else
             EditBtn.GetComponentInChildren<TextMeshProUGUI>().color = colorB;
-            EditBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Edit";
-        }
     }
     private void OnLeftBtnClick() {
         GreenCartController.Instance.PC.Reload();
         GreenCartController.Instance.editMode = false;
     }
     private void OnEditClick() {
-        if (GreenCartController.Instance.editMode == false) {
-            GreenCartController.Instance.editMode = true;
-        }
-        else {
-            GreenCartController.Instance.PC.PCSave();
-            GreenCartController.Instance.editMode = false;
-        }
+        GreenCartController.Instance.editMode = !GreenCartController.Instance.editMode;
     }
     private void InitCategoryBtns() {
 
@@ -98,7 +88,7 @@ public class UIManager : MonoBehaviour {
         {
             var newCate = Converter.StringEnumConverter<Category, string>(aa);
             //set cate when the target cate is not the same as current cate
-            //reset to default(all/uncate) when current cate is same as target cate
+            //if current category is same as target category do nothing
             if (GreenCartController.Instance.CurrentCate != newCate) {
                 GreenCartController.Instance.CurrentCate = newCate;
                 GreenCartController.Instance.PC.CurDic = new List<ProductInfo>();
@@ -119,7 +109,7 @@ public class UIManager : MonoBehaviour {
         ContainsAddedSugar.GetComponent<Button>().onClick.AddListener(() => act("containsaddedsugar"));
     }
     /// <summary>
-    /// 
+    /// Highlights the selected category and resets other categories
     /// </summary>
     /// <param name="name">Button selected to be highlighted</param>
     private void SetHighlights(string name) {
