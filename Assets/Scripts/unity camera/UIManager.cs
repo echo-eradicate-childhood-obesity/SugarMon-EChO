@@ -81,14 +81,14 @@ public class UIManager : MonoBehaviour {
     }
     public void ResetCategory() {
         GreenCartController.Instance.CurrentCate = Category.all; //set the initial category to "all"
-        SetHighlights("all");
+        SetHighlights(Category.all);
         GreenCartController.Instance.PC.CurDic = GreenCartController.Instance.PC.products;
+        GreenCartController.Instance.ResetContainer(Category.all);
     }
     private void InitCategoryBtns() {
         ResetCategory();
-        System.Action<string> act = (aa) =>
+        System.Action<Category> act = (newCate) =>
         {
-            var newCate = Converter.StringEnumConverter<Category, string>(aa);
             //set cate when the target cate is not the same as current cate
             //if current category is same as target category do nothing
             if (GreenCartController.Instance.CurrentCate != newCate) {
@@ -103,26 +103,27 @@ public class UIManager : MonoBehaviour {
                             GreenCartController.Instance.PC.CurDic.Add(pi);
                     }
                 }
-                SetHighlights(aa);
+                SetHighlights(newCate);
             }
         };
-        All.GetComponent<Button>().onClick.AddListener(() => act("all"));
-        NoAddedSugar.GetComponent<Button>().onClick.AddListener(() => act("noaddedsugar"));
-        ContainsAddedSugar.GetComponent<Button>().onClick.AddListener(() => act("containsaddedsugar"));
+        All.GetComponent<Button>().onClick.AddListener(() => act(Category.all));
+        NoAddedSugar.GetComponent<Button>().onClick.AddListener(() => act(Category.noaddedsugar));
+        ContainsAddedSugar.GetComponent<Button>().onClick.AddListener(() => act(Category.containsaddedsugar));
     }
     /// <summary>
     /// Highlights the selected category and resets other categories
     /// </summary>
     /// <param name="name">Button selected to be highlighted</param>
-    private void SetHighlights(string name) {
-        GreenCartController.Instance.ResetContainer(GreenCartController.Instance.CurrentCate);
-        if (name == "all") {
+    private void SetHighlights(Category cate) {
+        GreenCartController.Instance.CurrentCate = cate;
+        GreenCartController.Instance.ResetContainer(cate);
+        if (cate == Category.all) {
             background.GetComponentInChildren<Image>().sprite = Backgrounds[0];
             All.GetComponentInChildren<Image>().sprite = Buttons[3]; // set "all" button to selected
             NoAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[1];
             ContainsAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[2];
         }
-        else if (name == "noaddedsugar") {
+        else if (cate == Category.noaddedsugar) {
             background.GetComponentInChildren<Image>().sprite = Backgrounds[1];
             All.GetComponentInChildren<Image>().sprite = Buttons[0];
             NoAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[4]; // set "No Sugar Added" to selected
