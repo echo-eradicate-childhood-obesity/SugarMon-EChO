@@ -59,7 +59,6 @@ public class ProductInfo
         return Location;
     }
     internal string GetUPC() {
-        Debug.Log(Name.Substring(Name.Length - 12));
         return Name.Substring(Name.Length - 12);
     }
     internal string GetDetailPageName() {

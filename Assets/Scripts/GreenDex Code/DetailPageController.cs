@@ -32,6 +32,10 @@ public class DetailPageController : MonoBehaviour {
     public GameObject ProductLocation;
     [SerializeField]
     public GameObject ProductDate;
+    [SerializeField]
+    public GameObject UPC; // universal product number (number of bar code)
+    [SerializeField]
+    public GameObject UPCLabel;
 
     public Color32 HeaderColor;
     public Color32 BodyColor = Color.white;
@@ -67,6 +71,7 @@ public class DetailPageController : MonoBehaviour {
         ProductName.GetComponent<TextMeshProUGUI>().text = $"{pi.GetDetailPageName()}";
         ProductLocation.GetComponent<TextMeshProUGUI>().text = $"{pi.GetDetailPageLocation()}";
         ProductDate.GetComponent<TextMeshProUGUI>().text = $"{pi.displayFullDateTime()}";
+        UPC.GetComponent<TextMeshProUGUI>().text = $"{pi.GetUPC()}";
     }
     private void InitColorsAndImages() {
         ProductIcon.GetComponent<Image>().sprite = pi.GetSprite();
@@ -80,12 +85,17 @@ public class DetailPageController : MonoBehaviour {
             CategoryLabel.GetComponent<Image>().sprite = UIManager.Instance.Buttons[4];
             HeaderColor = GreenHeader;
         }
-        LocationLabel.GetComponent<TextMeshProUGUI>().color = HeaderColor;
-        SugarsLabel.GetComponent<TextMeshProUGUI>().color = HeaderColor;
         ProductName.GetComponent<TextMeshProUGUI>().color = HeaderColor;
+
+        SugarsLabel.GetComponent<TextMeshProUGUI>().color = HeaderColor;
         ProductSugars.GetComponent<TextMeshProUGUI>().color = BodyColor;
 
+        UPCLabel.GetComponent<TextMeshProUGUI>().color = HeaderColor;
+        UPC.GetComponent<TextMeshProUGUI>().color = BodyColor;
+
+        LocationLabel.GetComponent<TextMeshProUGUI>().color = HeaderColor;
         ProductLocation.GetComponent<TextMeshProUGUI>().color = BodyColor;
+
         ProductDate.GetComponent<TextMeshProUGUI>().color = BodyColor;
     }
     public void PIUpdate(ProductInfo pi) {
