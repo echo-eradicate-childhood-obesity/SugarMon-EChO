@@ -164,7 +164,16 @@ public class SimpleDemo : MonoBehaviour
         });
 
     }
-
+    /// <summary>
+    /// Given a barcode return a list of all the names of the sugars within that product
+    /// </summary>
+    /// <param name="bcv">Bar Code Value within our database to get the sugars from</param>
+    /// <returns>Names of sugars within the barcode given</returns>
+    public static List<string> GetSugarsFromBCV(string bcv) {
+        var i = SearchController.BinarySearch(dbProductList, long.Parse(bcv), dbProductList.Count - 1, 0);
+        return dbProductList[i].Substring(12).Split(new string[]{ ", " }, System.StringSplitOptions.RemoveEmptyEntries).ToList().Distinct().ToList();
+        // remove duplicates
+    }
     /// <summary>
     /// This coroutine is used because of a bug with unity (http://forum.unity3d.com/threads/closing-scene-with-active-webcamtexture-crashes-on-android-solved.363566/)
     /// Trying to stop the camera in OnDestroy provoke random crash on Android

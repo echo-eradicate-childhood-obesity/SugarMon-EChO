@@ -252,7 +252,6 @@ public class FindAddedSugar : MonoBehaviour
             onSound.Play();
         }
     }
-    
     public void AllTypeOfSugars(string ingredientFromDB, string bcv)
     {
 

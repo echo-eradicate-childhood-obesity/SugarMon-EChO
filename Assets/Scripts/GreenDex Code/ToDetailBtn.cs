@@ -49,10 +49,9 @@ public class ToDetailBtn : AnimButtonAction {
     /// <summary>
     /// * Change the content of detail page
     /// </summary>
-    private void ApplyDetail()
-    {
+    private void ApplyDetail() {
         GreenCartController.Instance.rollable = false;
-        var pi = transform.GetComponentInParent<GreenDexContainer>().GetPI();
-        DetailPageController.Instance.PI = pi;
+        ProductInfo pi = transform.GetComponentInParent<GreenDexContainer>().GetPI();
+        DetailPageController.Instance.PIUpdate(pi);
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Linq;
 /// <summary>
 /// * This Class Controls overall behavior of CartDetailCanvas
 /// * This is a singleton
@@ -32,44 +33,71 @@ public class DetailPageController : MonoBehaviour {
     [SerializeField]
     public GameObject ProductDate;
 
-    public Color HeaderColor;
-    public Color BodyColor;
+    public Color32 HeaderColor;
+    public Color32 BodyColor = Color.white;
 
-    private Color GreenHeader = new Color(68,111,76,255);
-    private Color RedHeader = new Color(111, 68, 76, 255);
-    private Color GreenBody = new Color(2, 64, 14, 255);
-    private Color RedBody = new Color(64, 2, 14, 255);
+    private Color32 GreenHeader = new Color32(68,111,76,255);
+    private Color32 RedHeader = new Color32(111, 38, 46, 255);
 
-    // Use this for initialization
-    void Start () {
-        ProductIcon.GetComponent<Image>().sprite = pi.GetSprite();
-        InitText();
-        InitColors();
+    public void Awake() {
+        if (instance != null) {
+            Destroy(this);
+        }
+        else instance = this;
+    }
+
+    public void UpdateDisplay() {
+        if (pi != null) {
+            InitText();
+            InitColorsAndImages();
+        }
+        else {
+            Debug.Log("No Product Given");
+        }
     }
     private void InitText() {
-        ProductSugars.GetComponent<TextMeshProUGUI>().text = "";
+        if (pi.Type == Category.containsaddedsugar) {
+            SugarsLabel.GetComponent<TextMeshProUGUI>().text = "Added Sugars:";
+            ProductSugars.GetComponent<TextMeshProUGUI>().text = FormattedSugars();
+        }
+        else {
+            ProductSugars.GetComponent<TextMeshProUGUI>().text = "";
+            SugarsLabel.GetComponent<TextMeshProUGUI>().text = "";
+        }
         ProductName.GetComponent<TextMeshProUGUI>().text = $"{pi.GetDetailPageName()}";
         ProductLocation.GetComponent<TextMeshProUGUI>().text = $"{pi.GetDetailPageLocation()}";
         ProductDate.GetComponent<TextMeshProUGUI>().text = $"{pi.displayFullDateTime()}";
     }
-    private void InitColors() {
+    private void InitColorsAndImages() {
+        ProductIcon.GetComponent<Image>().sprite = pi.GetSprite();
         if (pi.Type == Category.containsaddedsugar) {
             UIManager.Instance.background.GetComponentInChildren<Image>().sprite = UIManager.Instance.Backgrounds[2];
+            CategoryLabel.GetComponent<Image>().sprite = UIManager.Instance.Buttons[5];
             HeaderColor = RedHeader;
-            BodyColor = RedBody;
         }
         else {
             UIManager.Instance.background.GetComponentInChildren<Image>().sprite = UIManager.Instance.Backgrounds[1];
+            CategoryLabel.GetComponent<Image>().sprite = UIManager.Instance.Buttons[4];
             HeaderColor = GreenHeader;
-            BodyColor = GreenBody;
         }
-        CategoryLabel.GetComponent<TextMeshProUGUI>().color = HeaderColor;
         LocationLabel.GetComponent<TextMeshProUGUI>().color = HeaderColor;
         SugarsLabel.GetComponent<TextMeshProUGUI>().color = HeaderColor;
-
+        ProductName.GetComponent<TextMeshProUGUI>().color = HeaderColor;
         ProductSugars.GetComponent<TextMeshProUGUI>().color = BodyColor;
-        ProductName.GetComponent<TextMeshProUGUI>().color = BodyColor;
+
         ProductLocation.GetComponent<TextMeshProUGUI>().color = BodyColor;
         ProductDate.GetComponent<TextMeshProUGUI>().color = BodyColor;
+    }
+    public void PIUpdate(ProductInfo pi) {
+        this.pi = pi;
+        UpdateDisplay();
+    }
+    private string FormattedSugars() {
+        string formatted = "";
+        List<string> sugars = SimpleDemo.GetSugarsFromBCV(pi.GetUPC());
+        if(sugars.Count <= 10)
+            return String.Join("\n", sugars.ToArray());
+        else
+            return String.Join(", ", sugars.ToArray());
     }
 }
