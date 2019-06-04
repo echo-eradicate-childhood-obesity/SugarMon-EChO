@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -105,9 +106,16 @@ public class DetailPageController : MonoBehaviour {
     private string FormattedSugars() {
         string formatted = "";
         List<string> sugars = SimpleDemo.GetSugarsFromBCV(pi.GetUPC());
-        if(sugars.Count <= 10)
-            return String.Join("\n", sugars.ToArray());
+
+        // capitalize the first letter of every word
+        List<string> TitleCaseSugars = new List<string>();
+        TextInfo ti = new CultureInfo("en-US", false).TextInfo;
+        foreach (string s in sugars) {
+            TitleCaseSugars.Add(ti.ToTitleCase(s));
+        }
+        if(sugars.Count <= 10) // only 10 fit in list format
+            return String.Join("\n", TitleCaseSugars.ToArray());
         else
-            return String.Join(", ", sugars.ToArray());
+            return String.Join(", ", TitleCaseSugars.ToArray());
     }
 }

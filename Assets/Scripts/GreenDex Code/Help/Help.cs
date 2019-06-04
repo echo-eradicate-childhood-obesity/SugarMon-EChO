@@ -70,14 +70,14 @@ public class ProductInfo
     internal string GetDetailPageName() {
         string displayName = "";
         int i = 0;
-        int commaCount = 0;
+        bool firstComma = true;
         bool isUPC = false;
         while (i < Name.IndexOf(", Upc: ")) {
             displayName += Name[i];
-            if (Name[i] == ',' && commaCount == 0) {
-                commaCount++;
+            if (Name[i] == ',' && firstComma == true) {
+                firstComma = false;
                 displayName += '\n';
-                i++;
+                i++; // skip comma
             }
             i++;
         }
