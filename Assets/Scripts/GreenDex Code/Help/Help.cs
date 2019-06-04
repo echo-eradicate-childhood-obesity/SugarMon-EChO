@@ -59,7 +59,13 @@ public class ProductInfo
         return Location;
     }
     internal string GetUPC() {
-        return Name.Substring(Name.Length - 12);
+        string UPC = "";
+        int i = Name.Length - 2;
+        while (Name[i] != ' ' && i > 0) {
+            UPC = Name[i] + UPC;
+            i--;
+        }
+        return UPC;
     }
     internal string GetDetailPageName() {
         string displayName = "";

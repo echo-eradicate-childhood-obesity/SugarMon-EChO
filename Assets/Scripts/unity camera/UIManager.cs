@@ -35,6 +35,9 @@ public class UIManager : MonoBehaviour {
     public Button ContainsAddedSugar;
 
     [SerializeField]
+    public List<Sprite> EditButtonSprites;
+
+    [SerializeField]
     public List<Sprite> Backgrounds; //0 blue, 1 green, 2 red
     public GameObject background;
 
@@ -68,9 +71,9 @@ public class UIManager : MonoBehaviour {
     }
     private void Update() {
         if (GreenCartController.Instance.editMode)
-            EditBtn.GetComponentInChildren<TextMeshProUGUI>().color = colorA;
+            EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[1]; // highlighted
         else
-            EditBtn.GetComponentInChildren<TextMeshProUGUI>().color = colorB;
+            EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[0]; // unhighlighted
     }
     private void OnLeftBtnClick() {
         GreenCartController.Instance.PC.Reload();
