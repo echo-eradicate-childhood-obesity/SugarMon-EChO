@@ -17,26 +17,18 @@ public class DetailPageController : MonoBehaviour {
     ProductInfo pi;
     public ProductInfo PI { get { return pi; } set { pi = value; } }
 
-    [SerializeField]
-    public GameObject CategoryLabel;
-    [SerializeField]
-    public GameObject ProductIcon;
-    [SerializeField]
-    public GameObject LocationLabel;
-    [SerializeField]
-    public GameObject SugarsLabel;
-    [SerializeField]
-    public GameObject ProductSugars;
-    [SerializeField]
-    public GameObject ProductName;
-    [SerializeField]
-    public GameObject ProductLocation;
-    [SerializeField]
-    public GameObject ProductDate;
-    [SerializeField]
+    public GameObject CategoryLabel; // Contains Added Sugar / No Added Sugar images
+    public GameObject ProductIcon;   // Green Check / Red Exclamation images
+
+    public GameObject LocationLabel; // "Location:" TextMeshProUGUI
+    public GameObject SugarsLabel;   // "Added Sugars:" TextMeshProUGUI
+    public GameObject UPCLabel;      // "UPC:" TextMeshProUGUI
+
+    public GameObject ProductSugars; // sugars within the product
+    public GameObject ProductName; // name of the product
+    public GameObject ProductLocation; // address where it was scanned
+    public GameObject ProductDate; // time and date when scanned
     public GameObject UPC; // universal product number (number of bar code)
-    [SerializeField]
-    public GameObject UPCLabel;
 
     public Color32 HeaderColor;
     public Color32 BodyColor = Color.white;
@@ -45,12 +37,13 @@ public class DetailPageController : MonoBehaviour {
     private Color32 RedHeader = new Color32(111, 38, 46, 255);
 
     public void Awake() {
-        if (instance != null) {
-            Destroy(this);
-        }
+        if (instance != null) Destroy(this);
         else instance = this;
     }
 
+    /// <summary>
+    /// Updates GameObjects to display the current product info
+    /// </summary>
     public void UpdateDisplay() {
         if (pi != null) {
             InitText();
@@ -60,6 +53,10 @@ public class DetailPageController : MonoBehaviour {
             Debug.Log("No Product Given");
         }
     }
+
+    /// <summary>
+    /// Changes the text of every TextMeshProUGUI to display the current product info
+    /// </summary>
     private void InitText() {
         if (pi.Type == Category.containsaddedsugar) {
             SugarsLabel.GetComponent<TextMeshProUGUI>().text = "Added Sugars:";
@@ -74,6 +71,10 @@ public class DetailPageController : MonoBehaviour {
         ProductDate.GetComponent<TextMeshProUGUI>().text = $"{pi.displayFullDateTime()}";
         UPC.GetComponent<TextMeshProUGUI>().text = $"{pi.GetUPC()}";
     }
+
+    /// <summary>
+    /// Changes the colors sceme of the display screen to match Green / Red for No Added Sugar / Contains Added Sugar products
+    /// </summary>
     private void InitColorsAndImages() {
         ProductIcon.GetComponent<Image>().sprite = pi.GetSprite();
         if (pi.Type == Category.containsaddedsugar) {
@@ -99,12 +100,21 @@ public class DetailPageController : MonoBehaviour {
 
         ProductDate.GetComponent<TextMeshProUGUI>().color = BodyColor;
     }
+
+    /// <summary>
+    /// Changed the product to be displayed
+    /// </summary>
+    /// <param name="pi">New product to be displayed</param>
     public void PIUpdate(ProductInfo pi) {
         this.pi = pi;
         UpdateDisplay();
     }
+
+    /// <summary>
+    /// For displaying a list of sugars that fits within the text box
+    /// </summary>
+    /// <returns>A formatted list of sugars within the product</returns>
     private string FormattedSugars() {
-        string formatted = "";
         List<string> sugars = SimpleDemo.GetSugarsFromBCV(pi.GetUPC());
 
         // capitalize the first letter of every word

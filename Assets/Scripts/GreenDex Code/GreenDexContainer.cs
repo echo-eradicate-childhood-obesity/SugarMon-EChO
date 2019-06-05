@@ -6,31 +6,25 @@ using TMPro;
 /// </summary>
 public class GreenDexContainer : MonoBehaviour {
 
-    ProductInfo pi;
-    [SerializeField]
-    GameObject pName;
-    [SerializeField]
-    GameObject pIcon;
-    [SerializeField]
-    GameObject pTimeDate;
-    [SerializeField]
-    GameObject pFrame;
+    ProductInfo pi; // Object to be displayed
+    public ProductInfo PI { get { return pi; } }
+
+    public GameObject pName; // name of the food scanned
+    public GameObject pIcon; // green check / red exclamation
+    public GameObject pTimeDate; // time and date when scaned
+    public GameObject pFrame; // outline around each item in list
 
     TextMeshProUGUI pText;
     TextMeshProUGUI pTimeDateDisplay;
     Button pFrameButton;
     Image pImage;
 
-    public ProductInfo PI { get { return pi; } }
 	void Start () {
         pImage = pIcon.GetComponent<Image>();
         pFrameButton = pFrame.GetComponent<Button>();
         pText = pName.GetComponent<TextMeshProUGUI>();
         pTimeDateDisplay = pTimeDate.GetComponent<TextMeshProUGUI>();
-        pFrameButton.onClick.AddListener(() => ClearEdit());
-    }
-    private void ClearEdit() {
-        GreenCartController.Instance.editMode = false;
+        pFrameButton.onClick.AddListener(() => ClearEdit()); // If anywhere on the screen is clicked close edit mode
     }
 
     void Update () {
@@ -38,19 +32,20 @@ public class GreenDexContainer : MonoBehaviour {
         pImage.sprite = pi.GetSprite();
         pTimeDateDisplay.text = pi.displayDateTime();
     }
-    private void SetPi(Category cate)
-    {
-        //change the value in pi
-        pi.Type=cate;
+
+    private void ClearEdit() {
+        GreenCartController.Instance.editMode = false;
     }
 
-    public void PIUpdate(ProductInfo pi)
-    {
+    private void SetPi(Category cate) {
+        pi.Type = cate;
+    }
+
+    public void PIUpdate(ProductInfo pi) {
         this.pi = pi;
     }
 
-    public ProductInfo GetPI()
-    {
+    public ProductInfo GetPI() {
         return pi;
     }
 }
