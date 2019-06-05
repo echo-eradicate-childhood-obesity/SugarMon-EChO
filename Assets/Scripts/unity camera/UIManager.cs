@@ -79,7 +79,7 @@ public class UIManager : MonoBehaviour {
         GreenCartController.Instance.PC.Reload();
         GreenCartController.Instance.editMode = false;
     }
-    private void OnEditClick() {
+    public void OnEditClick() {
         GreenCartController.Instance.editMode = !GreenCartController.Instance.editMode;
     }
     public void ResetCategory() {
