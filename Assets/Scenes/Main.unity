@@ -1756,7 +1756,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -2005,7 +2005,7 @@ Prefab:
     - target: {fileID: 224063639535777628, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224223269462194350, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
@@ -2015,7 +2015,7 @@ Prefab:
     - target: {fileID: 224916130651671370, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114584863784208408, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
@@ -2554,7 +2554,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -2933,7 +2933,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -0.09503174, y: -570.4}
+  m_AnchoredPosition: {x: -0.0949707, y: -570.4}
   m_SizeDelta: {x: -250, y: 51.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &347237232
@@ -3032,7 +3032,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -3387,12 +3387,12 @@ Prefab:
     - target: {fileID: 224063639535777628, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224916130651671370, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 224656261069820778, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
@@ -3645,7 +3645,7 @@ Prefab:
     - target: {fileID: 224063639535777628, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224223269462194350, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
@@ -3660,7 +3660,7 @@ Prefab:
     - target: {fileID: 224916130651671370, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114584863784208408, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
@@ -4023,7 +4023,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -4348,7 +4348,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -4785,7 +4785,7 @@ MonoBehaviour:
     lineCount: 2
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -5028,7 +5028,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &545924520
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6205,7 +6205,7 @@ MonoBehaviour:
     lineCount: 2
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -6454,7 +6454,7 @@ Prefab:
     - target: {fileID: 224063639535777628, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224223269462194350, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
@@ -6464,7 +6464,7 @@ Prefab:
     - target: {fileID: 224916130651671370, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114584863784208408, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
@@ -6689,7 +6689,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -7057,8 +7057,8 @@ RectTransform:
   - {fileID: 1405739487}
   - {fileID: 1423323127}
   - {fileID: 474457266}
-  - {fileID: 699834888}
   - {fileID: 1838033353}
+  - {fileID: 699834888}
   m_Father: {fileID: 1041624630}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8770,7 +8770,7 @@ MonoBehaviour:
     lineCount: 10
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -9011,7 +9011,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -9648,12 +9648,12 @@ Prefab:
     - target: {fileID: 224916130651671370, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 224063639535777628, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114584863784208408, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
@@ -11802,7 +11802,7 @@ Prefab:
     - target: {fileID: 224063639535777628, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224223269462194350, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
@@ -11812,7 +11812,7 @@ Prefab:
     - target: {fileID: 224916130651671370, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114584863784208408, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
@@ -13821,7 +13821,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -13908,7 +13908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1633522406
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13925,7 +13925,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 700.46155, y: -145.62634}
+  m_SizeDelta: {x: 700.46155, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1633522407
 MonoBehaviour:
@@ -14446,7 +14446,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -15272,7 +15272,7 @@ RectTransform:
   - {fileID: 118956060}
   - {fileID: 785270563}
   m_Father: {fileID: 858824560}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -15657,7 +15657,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -16437,7 +16437,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -17130,12 +17130,12 @@ Prefab:
     - target: {fileID: 224063639535777628, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224916130651671370, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114584863784208408, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
