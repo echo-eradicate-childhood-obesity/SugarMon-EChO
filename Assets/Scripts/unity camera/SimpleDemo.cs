@@ -140,10 +140,10 @@ public class SimpleDemo : MonoBehaviour
         BarcodeScanner.Scan((barCodeType, barCodeValue) => {
             BarcodeScanner.Stop();
             
-            if (this.GetComponent<TestController>().test) GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
+            if (this.GetComponent<TestController>().test)
+                GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
             
-            if (excludedCodeType.Any(barCodeType.Contains))
-            {
+            if (excludedCodeType.Any(barCodeType.Contains)) {
                 Invoke("ClickStart", 1f);
             }
             else
@@ -170,8 +170,16 @@ public class SimpleDemo : MonoBehaviour
     /// <param name="bcv">Bar Code Value within our database to get the sugars from</param>
     /// <returns>Names of sugars within the barcode given</returns>
     public static List<string> GetSugarsFromBCV(string bcv) {
+        Debug.Log(bcv);
         var i = SearchController.BinarySearch(dbProductList, long.Parse(bcv), dbProductList.Count - 1, 0);
-        return dbProductList[i].Substring(12).Split(new string[]{ ", " }, System.StringSplitOptions.RemoveEmptyEntries).ToList().Distinct().ToList();
+        string UPC = "";
+        string Name = dbProductList[i];
+        int j = Name.Length - 2;
+        while (Name[j] != ' ' && j > 0) {
+            UPC = Name[j] + UPC;
+            j--;
+        }
+        return UPC.Split(new string[]{ ", " }, System.StringSplitOptions.RemoveEmptyEntries).ToList().Distinct().ToList();
         // remove duplicates
     }
     /// <summary>

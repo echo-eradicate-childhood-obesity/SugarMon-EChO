@@ -48,8 +48,6 @@ public class UIManager : MonoBehaviour {
     public GameObject LeftBtn; // Button that exits the FoodDex
 
     private SimpleDemo simpleDemo;
-    private Color colorA = new Color(0.292f, 0.340f, 0.310f, 1f);
-    private Color colorB = new Color(1f, 1f, 1f, 1f);
     [SerializeField]
     List<GameObject> familyUIList;
     // Use this for initialization
@@ -64,23 +62,19 @@ public class UIManager : MonoBehaviour {
 
     private void Start()
     {
-        InitCategoryBtns();
-        EditBtn.GetComponent<Button>().onClick.AddListener(() => OnEditClick());
-        LeftBtn.GetComponent<Button>().onClick.AddListener(() => OnLeftBtnClick());
+        InitBtns();
         simpleDemo = GameObject.Find("Main Camera").GetComponent<SimpleDemo>();
     }
-    private void Update() {
-        if (GreenCartController.Instance.editMode)
-            EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[1]; // highlighted
-        else
-            EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[0]; // unhighlighted
-    }
-    private void OnLeftBtnClick() {
+    public void OnLeftBtnClick() {
         GreenCartController.Instance.PC.Reload();
         GreenCartController.Instance.editMode = false;
     }
     public void OnEditClick() {
         GreenCartController.Instance.editMode = !GreenCartController.Instance.editMode;
+        if (GreenCartController.Instance.editMode)
+            EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[1]; // highlighted
+        else
+            EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[0]; // unhighlighted
     }
     public void ResetCategory() {
         GreenCartController.Instance.CurrentCate = Category.all; //set the initial category to "all"
@@ -88,8 +82,9 @@ public class UIManager : MonoBehaviour {
         GreenCartController.Instance.PC.CurDic = GreenCartController.Instance.PC.products;
         GreenCartController.Instance.ResetContainer(Category.all);
     }
-    private void InitCategoryBtns() {
+    private void InitBtns() {
         ResetCategory();
+        EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[0];
         System.Action<Category> act = (newCate) =>
         {
             //set cate when the target cate is not the same as current cate

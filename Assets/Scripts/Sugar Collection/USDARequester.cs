@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
@@ -21,10 +22,11 @@ public class USDARequester : IRequester
 
     private async Task<int> LookNDBAsync(string upc)
     {
-        Task<int> t = Task.Run(() =>
-        {
+        Task<int> t = Task.Run(() => {
             long val = long.Parse(upc);
             int result;
+            Debug.Log($"Count: {List.Count} TargetPos: {TargetPos}");
+            Debug.Log(List[0][0]);
             result = SearchController.BinarySearch(List, val, List.Count - 1, 0, TargetPos);
             return result;
         });
@@ -105,7 +107,7 @@ public class USDARequester : IRequester
         }
         else
         {
-            Debug.Log("upc incorrect");
+            Debug.Log($"UPC: {upc} does not match anything in USDA database");
             return upc;
         }
     }

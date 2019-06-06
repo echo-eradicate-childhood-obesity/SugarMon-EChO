@@ -132,9 +132,9 @@ public class ProductCollection
         using (StreamReader reader=new StreamReader(Application.persistentDataPath + "/test.txt"))
         {
             if (products == null)
-                {
-                    products = new List<ProductInfo>();
-                }
+            {
+                products = new List<ProductInfo>();
+            }
             while ((line = reader.ReadLine()) != null)
             {
                 var arr = line.Split(';');
