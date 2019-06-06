@@ -172,14 +172,7 @@ public class SimpleDemo : MonoBehaviour
     public static List<string> GetSugarsFromBCV(string bcv) {
         Debug.Log(bcv);
         var i = SearchController.BinarySearch(dbProductList, long.Parse(bcv), dbProductList.Count - 1, 0);
-        string UPC = "";
-        string Name = dbProductList[i];
-        int j = Name.Length - 2;
-        while (Name[j] != ' ' && j > 0) {
-            UPC = Name[j] + UPC;
-            j--;
-        }
-        return UPC.Split(new string[]{ ", " }, System.StringSplitOptions.RemoveEmptyEntries).ToList().Distinct().ToList();
+        return dbProductList[i].Substring(12).Split(new string[]{ ", " }, System.StringSplitOptions.RemoveEmptyEntries).ToList().Distinct().ToList();
         // remove duplicates
     }
     /// <summary>

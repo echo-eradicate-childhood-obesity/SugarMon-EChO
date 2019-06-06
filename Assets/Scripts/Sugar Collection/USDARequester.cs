@@ -26,7 +26,6 @@ public class USDARequester : IRequester
             long val = long.Parse(upc);
             int result;
             Debug.Log($"Count: {List.Count} TargetPos: {TargetPos}");
-            Debug.Log(List[0][0]);
             result = SearchController.BinarySearch(List, val, List.Count - 1, 0, TargetPos);
             return result;
         });
@@ -35,10 +34,11 @@ public class USDARequester : IRequester
 
     public async Task<string> SendRequest(string upc)
     {
-        var ndbno = await LookNDBAsync(upc);
-        if (ndbno != -1)
+        var usdaProductTableNum = await LookNDBAsync(upc); // 12 digit number on "USDA.csv"
+        Debug.Log($"upc: {upc} USDAProductTableNumber: {usdaProductTableNum}");
+        if (usdaProductTableNum != -1)
         {
-            string url = $@"https://api.nal.usda.gov/ndb/V2/reports?ndbno={ndbno}&format=json&api_key={Key}&location=Denver+CO";
+            string url = $@"https://api.nal.usda.gov/ndb/V2/reports?ndbno={usdaProductTableNum}&format=json&api_key={Key}&location=Denver+CO";
             #region foldthis
             //using (HttpClient client = new HttpClient(new HttpClientHandler { UseProxy = false }))
             //{
@@ -83,7 +83,7 @@ public class USDARequester : IRequester
                          * foods->list of food requested. as we only send one udbno here, so the first element in the list is what we want
                          * food is the object we are looking for. SelectToken("food")
                          * food obj will have {sr/type/desc/ing/nutrients/footnotes} and desc is the one we want
-                         * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
+                         * desc obj has {usdaProductTableNum/name/ds/manu/ru} and name is the one we want
                          */
                         string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
                         string output = "";
@@ -107,7 +107,7 @@ public class USDARequester : IRequester
         }
         else
         {
-            Debug.Log($"UPC: {upc} does not match anything in USDA database");
+            Debug.Log($"USDA Product Number: {upc} does not match any column 0 element in Barcodes to USDA Products.csv");
             return upc;
         }
     }

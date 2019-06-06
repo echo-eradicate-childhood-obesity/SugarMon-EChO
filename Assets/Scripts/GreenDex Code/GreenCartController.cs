@@ -235,16 +235,10 @@ public class GreenCartController : MonoBehaviour
             //Debug.Log($"#of:{pc.GetCount(currentCate)}");
             if ((pc.GetCount(currentCate) - Containers.Count-microAdjustVal) * containerHeight < -totalDisRollingDis && offSet < 0)
             {
-#if UNITY_EDITOR
-                Debug.Log("there is no more data");
-#endif
                 offSet = 0;
             }
             else if (totalDisRollingDis > /*containerHeight*/0f && offSet > 0)
             {
-#if UNITY_EDITOR
-                Debug.Log("this is the top of data");
-#endif
                 offSet = 0;
             }
         }
