@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Globalization;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -93,7 +94,8 @@ public class PopulateFamilyPanels : MonoBehaviour {
                 
                 diskNumber.GetComponent<Text>().color = Color.black;
                 GameObject monsterName = newCell.transform.Find("Name").gameObject;
-                monsterName.GetComponent<Text>().text = "???";
+                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                monsterName.GetComponent<Text>().text = textInfo.ToTitleCase(sugarRepo[cell]);
 
                 cell++;
             }
