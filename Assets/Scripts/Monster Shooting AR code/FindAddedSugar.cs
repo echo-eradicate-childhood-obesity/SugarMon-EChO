@@ -225,8 +225,7 @@ public class FindAddedSugar : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
 #if UNITY_ANDROID
         if (Input.GetKey(KeyCode.Escape) && sugarDex.GetComponent<SugarDisk>().sugarDexOpen == true)
         {
@@ -234,6 +233,7 @@ public class FindAddedSugar : MonoBehaviour
         }
     }
 #endif
+    }
 
     public void ToggleVibrate()
     {

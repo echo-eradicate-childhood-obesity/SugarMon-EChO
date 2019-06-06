@@ -9,7 +9,7 @@ public class TutorialDisplay : MonoBehaviour {
     private int tapCount = 0;
     private bool isPressed = false;
     private readonly string[] dialog = new string[] { "Start by aiming a food or beverage barcode at the center of the square.",
-                                                      "Click the checkmark to add the new Sugar Monster to your SugarDex!",
+                                                      "You will collect a Sugar Monster for each unique added sugar in the product!",
                                                       "Check out your collection of Sugar Monsters in the SugarDex!"};
 
     // Use this for initialization
