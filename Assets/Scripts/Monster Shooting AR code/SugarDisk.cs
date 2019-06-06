@@ -27,6 +27,9 @@ public class SugarDisk : MonoBehaviour {
     private int numCount;
     public List<string> scannedAddedSugars;
 
+    [HideInInspector]
+    public bool sugarDexOpen = false;
+
     //change to local
     //private Transform sci;
     // Use this for initialization
@@ -48,6 +51,7 @@ public class SugarDisk : MonoBehaviour {
 
     public void OpenSugarDisk()
     {
+        sugarDexOpen = true;
         UpdateDexData();
         //if Open from Summon System
         if (summonSystem.activeInHierarchy)
@@ -62,6 +66,7 @@ public class SugarDisk : MonoBehaviour {
     }
     public void CloseSugarDisk()
     {
+        sugarDexOpen = false;
         mainCam.GetComponent<SimpleDemo>().enabled = true;
         if (mainCam.GetComponent<SimpleDemo>().tutorialStage != 0) mainCam.GetComponent<SimpleDemo>().StartScan();
         GameObject.Find("SugarDisk").transform.Find("RedDot").gameObject.SetActive(false);
