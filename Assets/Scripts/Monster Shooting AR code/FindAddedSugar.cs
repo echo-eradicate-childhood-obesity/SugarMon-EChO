@@ -46,6 +46,7 @@ public class FindAddedSugar : MonoBehaviour
 
     public bool vibrate;
     public bool sound;
+    private bool soundInitialized = false;
     public AudioSource goodSound;
     public AudioSource badSound;
     public AudioSource unknownSound;
@@ -119,6 +120,7 @@ public class FindAddedSugar : MonoBehaviour
             SetSound();
         }
         firstBadSound = true;
+        soundInitialized = true;
     }
 
     void Start()
@@ -283,7 +285,10 @@ public class FindAddedSugar : MonoBehaviour
         PlayerPrefs.SetString("ToggleOption", toggleOption);
         sound = true;
         vibrate = true;
-        onSound.Play();
+        if (soundInitialized)
+        {
+            onSound.Play();
+        }
         toggleButton.GetComponent<Image>().sprite = Sound;
     }
 
@@ -294,7 +299,10 @@ public class FindAddedSugar : MonoBehaviour
         sound = false;
         vibrate = true;
 #if UNITY_ANDROID || UNITY_IOS
-        Handheld.Vibrate();
+        if (soundInitialized)
+        {
+            Handheld.Vibrate();
+        }
 #endif
         toggleButton.GetComponent<Image>().sprite = Vibrate;
     }
