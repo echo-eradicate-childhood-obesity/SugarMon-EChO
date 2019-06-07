@@ -34,10 +34,17 @@ public class FindAddedSugar : MonoBehaviour
     protected List<string> ingredients;
     public TextAsset sugarRepository;
 
-    public Image vibrateCancel;
-    public bool vibrate;
 
-    public Image soundCancel;
+
+
+    public string toggleOption;
+    public Button toggleButton;
+
+    public Sprite Sound;
+    public Sprite Vibrate;
+    public Sprite Mute;
+
+    public bool vibrate;
     public bool sound;
     public AudioSource goodSound;
     public AudioSource badSound;
@@ -88,15 +95,35 @@ public class FindAddedSugar : MonoBehaviour
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
 
-        vibrateCancel.enabled = false;
-        vibrate = true;
-        soundCancel.enabled = false;
-        sound = true;
+        Sound = Resources.Load<Sprite>("Images/Sound") as Sprite;
+        Vibrate = Resources.Load<Sprite>("Images/Vibrate") as Sprite;
+        Mute = Resources.Load<Sprite>("Images/Mute") as Sprite;
+
+        if (PlayerPrefs.HasKey("ToggleOption"))
+        {
+            toggleOption = PlayerPrefs.GetString("ToggleOption");
+            switch (toggleOption)
+            {
+                case "Sound":
+                    SetSound();
+                    break;
+                case "Vibrate":
+                    SetVibrate();
+                    break;
+                case "Mute":
+                    SetMute();
+                    break;
+            }
+        } else
+        {
+            SetSound();
+        }
         firstBadSound = true;
     }
 
     void Start()
     {
+
         greenCartGo.gameObject.SetActive(false);
 
         //get singleton ref
@@ -234,28 +261,53 @@ public class FindAddedSugar : MonoBehaviour
     }
 #endif
 
-    public void ToggleVibrate()
+    public void ToggleOption() 
     {
-        vibrate = !vibrate;
-        vibrateCancel.enabled = !vibrateCancel.enabled;
-#if UNITY_ANDROID || UNITY_IOS
-        if (vibrate)
+        switch (toggleOption)
         {
-            Handheld.Vibrate();
+            case "Sound":
+                SetVibrate();
+                break;
+            case "Vibrate":
+                SetMute();
+                break;
+            case "Mute":
+                SetSound();
+                break;
         }
-#endif
     }
 
-    public void ToggleSound()
+    public void SetSound()
     {
-        sound = !sound;
-        soundCancel.enabled = !soundCancel.enabled;
-   
-        if (sound)
-        {
-            onSound.Play();
-        }
+        toggleOption = "Sound";
+        PlayerPrefs.SetString("ToggleOption", toggleOption);
+        sound = true;
+        vibrate = true;
+        onSound.Play();
+        toggleButton.GetComponent<Image>().sprite = Sound;
     }
+
+    public void SetVibrate()
+    {
+        toggleOption = "Vibrate";
+        PlayerPrefs.SetString("ToggleOption", toggleOption);
+        sound = false;
+        vibrate = true;
+#if UNITY_ANDROID || UNITY_IOS
+        Handheld.Vibrate();
+#endif
+        toggleButton.GetComponent<Image>().sprite = Vibrate;
+    }
+
+    public void SetMute()
+    {
+        toggleOption = "Mute";
+        PlayerPrefs.SetString("ToggleOption", toggleOption);
+        sound = false;
+        vibrate = false;
+        toggleButton.GetComponent<Image>().sprite = Mute;
+    }
+
     public void AllTypeOfSugars(string ingredientFromDB, string bcv)
     {
 
