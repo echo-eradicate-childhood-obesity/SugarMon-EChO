@@ -233,7 +233,6 @@ public class FindAddedSugar : MonoBehaviour
         }
     }
 #endif
-    }
 
     public void ToggleVibrate()
     {
