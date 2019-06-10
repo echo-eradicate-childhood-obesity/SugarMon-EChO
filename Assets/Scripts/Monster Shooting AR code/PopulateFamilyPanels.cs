@@ -70,7 +70,6 @@ public class PopulateFamilyPanels : MonoBehaviour {
 
             for (int j = 0; j < fd[families[i]]; j++)
             {
-
                 newCell = (GameObject)Instantiate(Cell, GameObject.Find(families[i]).transform);
                 newCell.name = (cell + 1).ToString();
                 Image monster = newCell.transform.GetChild(0).gameObject.GetComponent<Image>();

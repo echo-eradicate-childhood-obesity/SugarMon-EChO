@@ -18,7 +18,6 @@ public class DetailPageController : MonoBehaviour {
     public ProductInfo PI { get { return pi; } set { pi = value; } }
 
     public GameObject CategoryLabel; // Contains Added Sugar / No Added Sugar images
-    public GameObject ProductIcon;   // Green Check / Red Exclamation images
 
     public GameObject LocationLabel; // "Location:" TextMeshProUGUI
     public GameObject SugarsLabel;   // "Added Sugars:" TextMeshProUGUI
@@ -29,6 +28,8 @@ public class DetailPageController : MonoBehaviour {
     public GameObject ProductLocation; // address where it was scanned
     public GameObject ProductDate; // time and date when scanned
     public GameObject UPC; // universal product number (number of bar code)
+
+    public List<Sprite> SugarInfoImage; // No sugar added/ sugar added icon on detail page
 
     public Color32 HeaderColor;
     public Color32 BodyColor = Color.white;
@@ -76,15 +77,14 @@ public class DetailPageController : MonoBehaviour {
     /// Changes the colors sceme of the display screen to match Green / Red for No Added Sugar / Contains Added Sugar products
     /// </summary>
     private void InitColorsAndImages() {
-        ProductIcon.GetComponent<Image>().sprite = pi.GetSprite();
         if (pi.Type == Category.containsaddedsugar) {
             UIManager.Instance.background.GetComponentInChildren<Image>().sprite = UIManager.Instance.Backgrounds[2];
-            CategoryLabel.GetComponent<Image>().sprite = UIManager.Instance.Buttons[5];
+            CategoryLabel.GetComponent<Image>().sprite = SugarInfoImage[0];
             HeaderColor = RedHeader;
         }
         else {
             UIManager.Instance.background.GetComponentInChildren<Image>().sprite = UIManager.Instance.Backgrounds[1];
-            CategoryLabel.GetComponent<Image>().sprite = UIManager.Instance.Buttons[4];
+            CategoryLabel.GetComponent<Image>().sprite = SugarInfoImage[1];
             HeaderColor = GreenHeader;
         }
         ProductName.GetComponent<TextMeshProUGUI>().color = HeaderColor;

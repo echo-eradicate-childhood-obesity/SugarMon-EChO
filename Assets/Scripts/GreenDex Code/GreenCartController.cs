@@ -300,51 +300,6 @@ public class GreenCartController : MonoBehaviour
         totalDisRollingDis += offSet;
     }
 
-    //private void Rolling(float offSet, NotifyInfo info)
-    //{
-    //    foreach (GameObject go in Containers)
-    //    {
-    //        var rectTrans = go.GetComponent<RectTransform>();
-    //        //var offSet = lastPos.y - currentPos.y;
-    //        var curPos = new Vector3(rectTrans.localPosition.x, rectTrans.localPosition.y, rectTrans.localPosition.z);
-    //        curPos.y -= offSet;
-    //        if (curPos.y > 0)
-    //        {
-    //            curPos.y -= containerHeight * Containers.Count;
-    //            //Debug.Log("Move to bottom");
-    //            //var text = go.transform.Find("ProductName").GetComponent<Text>();
-    //            try
-    //            {
-    //                int i = pc.GetCount(currentCate) + (int)(info.RollingDis / containerHeight) - Containers.Count - 1;
-
-    //                //go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i));
-    //                go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i, currentCate));
-    //            }
-    //            catch (System.Exception ex)
-    //            {
-    //                Debug.Log(totalDisRollingDis);
-    //                Debug.Log(ex.StackTrace);
-    //            }
-    //        }
-    //        if (curPos.y < -Containers.Count * containerHeight)
-    //        {
-    //            curPos.y += Containers.Count * containerHeight;
-    //            try
-    //            {
-    //                int i = pc.GetCount(currentCate) - (int)(-info.RollingDis / containerHeight) /*- Containers.Count*/ - 1;
-    //                //go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i);
-    //                go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i, currentCate));
-    //            }
-    //            catch (System.Exception ex)
-    //            {
-    //                Debug.Log(totalDisRollingDis);
-    //                Debug.Log(ex.StackTrace);
-    //            }
-    //        }
-    //        rectTrans.localPosition = curPos;
-    //    }
-    //}
-
     /// <summary>
     /// * Add Scanned product to PC(Product Collection)
     /// </summary>
