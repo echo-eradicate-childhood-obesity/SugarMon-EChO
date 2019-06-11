@@ -14,16 +14,15 @@ public class ToDetailBtn : AnimButtonAction {
     ////Potential fix: add reference to GreenCartContorller, then this script could get reference form there
     //public GameObject DetailPage;
     // Use this for initialization
-    Vector3 right;
-    Vector3 remove;
+    //Vector3 right;
+    //Vector3 remove;
     void Start () {
         //detailpage is in inspector, but this GO is an prefabe, inefficient to sign in incpector
        // DetailPage = GameObject.Find("CartDetailCanvas");
 
         this.Action(this.gameObject);
-        right = this.gameObject.GetComponent<Image>().transform.position;
-        remove = this.gameObject.GetComponent<Image>().transform.position;
-        remove.Set(right.x + 5f, right.y, right.z);
+        //right = this.gameObject.GetComponent<Image>().transform.position;
+        //remove = this.gameObject.GetComponent<Image>().transform.position;
     }
 
     // Update is called once per frame
@@ -31,12 +30,12 @@ public class ToDetailBtn : AnimButtonAction {
         if (GreenCartController.Instance.editMode) {
             this.gameObject.GetComponent<Image>().sprite = GreenCartController.Instance.RightButtons[1];
             this.gameObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(245, 127); // proportions of remove button
-            this.gameObject.GetComponent<Image>().transform.position = remove;
+            //this.gameObject.GetComponent<Image>().transform.position = remove;
         }
         else {
             this.gameObject.GetComponent<Image>().sprite = GreenCartController.Instance.RightButtons[0];
             this.gameObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(100, 100); // proportions of to detail button
-            this.gameObject.GetComponent<Image>().transform.position = right;
+            //this.gameObject.GetComponent<Image>().transform.position = right;
         }
     }
     public override void ClickEventTrigger()
