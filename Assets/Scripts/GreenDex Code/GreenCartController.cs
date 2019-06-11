@@ -308,6 +308,7 @@ public class GreenCartController : MonoBehaviour
     public void PCAdd(string name, string pos, Category type)
     {
         pc.AddProduct(name, pos, type);
+        ResetContainer(currentCate); // reloads current view of items from local storage removing the item from view
     }
     /// <summary>
     /// * Remove Scanned product from PC(Product Collection)
@@ -338,10 +339,10 @@ public class GreenCartController : MonoBehaviour
         totalDisRollingDis = 0;
         //var pos = -200;
         var pos = 0;
+        pc.ResetCurDic(cate);
         for (int i = 0; i < Containers.Count; i++)
         {
-            //as some container may have be disabled when there is not enough product in category
-            //so enable all container first.
+            // enable all containers 
             if (!Containers[i].activeSelf)
             {
                 Containers[i].SetActive(!Containers[i].activeSelf);

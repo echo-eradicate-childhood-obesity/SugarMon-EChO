@@ -49,6 +49,7 @@ public class ToDetailBtn : AnimButtonAction {
         // otherwise is the remove button
         else {
             ProductInfo pi = transform.GetComponentInParent<GreenDexContainer>().GetPI();
+            Debug.Log(pi.Name);
             GreenCartController.Instance.PCRemove(pi);
             if (GreenCartController.Instance.PC.products.Count == 0)
                 GreenCartController.Instance.editMode = false;

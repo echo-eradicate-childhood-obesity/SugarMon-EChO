@@ -33,6 +33,19 @@ public class ProductCollection
     public void RemoveProduct(ProductInfo pi) {
         products.Remove(pi);
     }
+    public void ResetCurDic(Category cate) {
+        curDic = new List<ProductInfo>();
+        if (cate == Category.all) {
+            curDic = products;
+        }
+        else {
+            int count = 0;
+            foreach (ProductInfo pi in products) {
+                if (pi.GetType() == cate) curDic.Add(pi);
+            }
+        }
+    }
+
     /*    /// <summary>
         /// * Get Count of products in each category
         /// </summary>
@@ -59,6 +72,8 @@ public class ProductCollection
     /// <returns></returns>
     public int GetCount(Category cate)
     {
+        if (cate == Category.all)
+            return products.Count;
         int count = 0;
         foreach (ProductInfo pi in products) {
             if (pi.GetType() == cate) count++;
@@ -194,10 +209,8 @@ public class ProductCollection
         }
     }
 
-    private ProductInfo GetProduct(int i, List<ProductInfo> prods)
-    {
-        if (i > 0 && i < prods.Count)
-        {
+    private ProductInfo GetProduct(int i, List<ProductInfo> prods) {
+        if (i > 0 && i < prods.Count) {
             return prods[i];
         }
         string str = "No More Product";
