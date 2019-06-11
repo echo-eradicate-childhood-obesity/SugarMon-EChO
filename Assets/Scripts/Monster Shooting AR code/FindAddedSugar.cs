@@ -260,8 +260,8 @@ public class FindAddedSugar : MonoBehaviour
         {
             sugarDex.GetComponent<SugarDisk>().CloseSugarDisk();
         }
-    }
 #endif
+    }
 
     public void ToggleOption() 
     {

@@ -19,7 +19,7 @@ public class TutorialController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || Input.GetKeyDown(KeyCode.A))
+        if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || Input.GetKeyDown(KeyCode.A)) // if screen pressed or 'A' clicked
         {
             //First stage of tutorial
             if (GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage == 0)
@@ -44,7 +44,7 @@ public class TutorialController : MonoBehaviour {
                     }
                     else if (tutorialStagePics[pic] == "0-3")
                     {
-                        tree.GetComponentInChildren<Text>().text = "Start by aiming a food or beverage barcode at the center of the square.";
+                        tree.GetComponentInChildren<Text>().text = TutorialDisplay.dialog[0];
 
                         //Modify mask position
                         this.GetComponent<RectTransform>().sizeDelta = new Vector2(1040, 2080);
@@ -72,11 +72,11 @@ public class TutorialController : MonoBehaviour {
                     this.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + tutorialStagePics[pic]);
                     if(GameObject.Find("No Added Sugar") != null || GameObject.Find("Not Found") != null)
                     {
-                        tree.GetComponentInChildren<Text>().text = "Click the checkmark to continue.";
+                        tree.GetComponentInChildren<Text>().text = TutorialDisplay.dialog[1];
                     }
                     else
                     {
-                        tree.GetComponentInChildren<Text>().text = "Click the checkmark to add it to your SugarDex!";
+                        tree.GetComponentInChildren<Text>().text = TutorialDisplay.dialog[2];
                     }
                     this.GetComponent<RectTransform>().sizeDelta = new Vector2(1000, 2071);
                     this.GetComponent<RectTransform>().localPosition = new Vector2(0, 60);
