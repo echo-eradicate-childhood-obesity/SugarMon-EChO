@@ -9,17 +9,10 @@ using UnityEngine.UI;
 /// * Attached to GreenDashCanvas RightIcon
 /// </summary>
 public class ToDetailBtn : AnimButtonAction {
-    //reference to the DetailPage
-    ////As the DetailPage is not an prefabe need drap/drop manually for each Container
-    ////Potential fix: add reference to GreenCartContorller, then this script could get reference form there
-    //public GameObject DetailPage;
-    // Use this for initialization
+
     //Vector3 right;
     //Vector3 remove;
     void Start () {
-        //detailpage is in inspector, but this GO is an prefabe, inefficient to sign in incpector
-       // DetailPage = GameObject.Find("CartDetailCanvas");
-
         this.Action(this.gameObject);
         //right = this.gameObject.GetComponent<Image>().transform.position;
         //remove = this.gameObject.GetComponent<Image>().transform.position;

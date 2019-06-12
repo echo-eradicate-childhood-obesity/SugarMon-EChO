@@ -238,7 +238,15 @@ public class UIManager : MonoBehaviour {
             else return;
         }
     }
-
+    public void OpenFoodDex() 
+    {
+        DisableUI(GreenCartController.Instance.gameObject);
+        GreenCartController.Instance.ResetContainer(Category.all);
+    }
+    public void CloseFoodDex() {
+        DisableUI(GreenCartController.Instance.gameObject);
+        GreenCartController.Instance.rollable = false;
+    }
     public void DisableUI(GameObject go)
     {
         simpleDemo.enabled = !simpleDemo.enabled;
