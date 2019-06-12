@@ -248,7 +248,7 @@ public class FindAddedSugar : MonoBehaviour
         totalCount.GetComponent<Text>().text = "Total: " + repository.Count;
         sugarDex.GetComponent<SugarDisk>().CloseSugarDisk();
 
-        CanvasScaler cs = canvas.GetComponent<CanvasScaler>();
+        // CanvasScaler cs = canvas.GetComponent<CanvasScaler>();
         //cs.referenceResolution = new Vector2 ()
     }
 
@@ -381,7 +381,7 @@ public class FindAddedSugar : MonoBehaviour
                 //add green cart code here
                 //GreenCartController.Instance.PCAdd(bcv);
                 //GreenCartController.Instance.PC.PCSave();
-                GreenCartController.Instance.RequestAsync(bcv, Converter.StringEnumConverter<Category, string>("noaddedsugar"));
+                await(GreenCartController.Instance.RequestAsync(bcv, Converter.StringEnumConverter<Category, string>("noaddedsugar")));
                 //Change image of monster
                 scannedAddedSugars.Add("No Added Sugar");
                 CreateSugarMonster(scannedAddedSugars[currentNumMonster]);

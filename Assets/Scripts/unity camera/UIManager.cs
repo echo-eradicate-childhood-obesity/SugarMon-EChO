@@ -48,8 +48,8 @@ public class UIManager : MonoBehaviour {
     public GameObject LeftBtn; // Button that exits the FoodDex
 
     private SimpleDemo simpleDemo;
-    private Color colorA = new Color(0.292f, 0.340f, 0.310f, 1f);
-    private Color colorB = new Color(1f, 1f, 1f, 1f);
+    //private Color colorA = new Color(0.292f, 0.340f, 0.310f, 1f);
+    //private Color colorB = new Color(1f, 1f, 1f, 1f);
     [SerializeField]
     List<GameObject> familyUIList;
     // Use this for initialization

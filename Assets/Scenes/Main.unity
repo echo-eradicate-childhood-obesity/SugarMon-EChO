@@ -252,7 +252,6 @@ GameObject:
   - component: {fileID: 34833219}
   - component: {fileID: 34833218}
   - component: {fileID: 34833217}
-  - component: {fileID: 34833216}
   m_Layer: 5
   m_Name: ProductIcon
   m_TagString: Untagged
@@ -279,17 +278,6 @@ RectTransform:
   m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &34833216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 34833214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &34833217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1161,7 +1149,6 @@ GameObject:
   - component: {fileID: 155110415}
   - component: {fileID: 155110414}
   - component: {fileID: 155110413}
-  - component: {fileID: 155110412}
   m_Layer: 5
   m_Name: ProductIcon
   m_TagString: Untagged
@@ -1188,17 +1175,6 @@ RectTransform:
   m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &155110412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 155110410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &155110413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2480,7 +2456,6 @@ GameObject:
   - component: {fileID: 294563539}
   - component: {fileID: 294563538}
   - component: {fileID: 294563537}
-  - component: {fileID: 294563536}
   m_Layer: 5
   m_Name: ProductIcon
   m_TagString: Untagged
@@ -2507,17 +2482,6 @@ RectTransform:
   m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &294563536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 294563534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &294563537
 MonoBehaviour:
   m_ObjectHideFlags: 0

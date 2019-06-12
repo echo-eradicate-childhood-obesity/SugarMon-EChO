@@ -75,7 +75,6 @@ public class ProductInfo {
         string displayName = "";
         int i = 0;
         bool firstComma = true;
-        bool isUPC = false;
         while (i < Name.IndexOf(", Upc: ")) {
             displayName += Name[i];
             if (Name[i] == ',' && firstComma == true) {
