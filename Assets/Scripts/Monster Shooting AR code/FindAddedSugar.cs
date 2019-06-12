@@ -381,7 +381,7 @@ public class FindAddedSugar : MonoBehaviour
                 //add green cart code here
                 //GreenCartController.Instance.PCAdd(bcv);
                 //GreenCartController.Instance.PC.PCSave();
-                await(GreenCartController.Instance.RequestAsync(bcv, Converter.StringEnumConverter<Category, string>("noaddedsugar")));
+                GreenCartController.Instance.RequestAsync(bcv, Converter.StringEnumConverter<Category, string>("noaddedsugar"));
                 //Change image of monster
                 scannedAddedSugars.Add("No Added Sugar");
                 CreateSugarMonster(scannedAddedSugars[currentNumMonster]);
