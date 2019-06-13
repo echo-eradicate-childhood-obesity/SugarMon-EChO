@@ -85,7 +85,6 @@ public class USDARequester : IRequester
                          */
                         string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
                         newStr = newStr.Substring(0, newStr.IndexOf(", UPC:"));
-                        Debug.Log(newStr);
                         string output = "";
                         var strs = newStr.Split(' ');
                         foreach (string s in strs)

@@ -70,7 +70,7 @@ public class DetailPageController : MonoBehaviour {
         ProductName.GetComponent<TextMeshProUGUI>().text = $"{pi.GetDetailPageName()}";
         ProductLocation.GetComponent<TextMeshProUGUI>().text = $"{pi.GetDetailPageLocation()}";
         ProductDate.GetComponent<TextMeshProUGUI>().text = $"{pi.displayFullDateTime()}";
-        UPC.GetComponent<TextMeshProUGUI>().text = $"{pi.GetUPC()}";
+        UPC.GetComponent<TextMeshProUGUI>().text = $"{pi.UPC}";
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ public class DetailPageController : MonoBehaviour {
     /// </summary>
     /// <returns>A formatted list of sugars within the product</returns>
     private string FormattedSugars() {
-        List<string> sugars = SimpleDemo.GetSugarsFromBCV(pi.GetUPC());
+        List<string> sugars = SimpleDemo.GetSugarsFromBCV(pi.UPC);
 
         // capitalize the first letter of every word
         List<string> TitleCaseSugars = new List<string>();

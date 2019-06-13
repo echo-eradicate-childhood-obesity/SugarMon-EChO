@@ -41,7 +41,7 @@ public class ProductCollection
         else {
             int count = 0;
             foreach (ProductInfo pi in products) {
-                if (pi.GetType() == cate) curDic.Add(pi);
+                if (pi.Type == cate) curDic.Add(pi);
             }
         }
     }
@@ -76,7 +76,7 @@ public class ProductCollection
             return products.Count;
         int count = 0;
         foreach (ProductInfo pi in products) {
-            if (pi.GetType() == cate) count++;
+            if (pi.Type == cate) count++;
         }
         return count;
     }
@@ -103,7 +103,7 @@ public class ProductCollection
                 writer.WriteLine($@"{pi.Name};{pi.UPC};{pi.Location};{pi.getScanDateTimeAsString()};{pi.Type}");
             }
         }
-        Debug.Log("save done");
+        Debug.Log("Item Saved Successfully");
     }
 
     /// <summary>
@@ -167,7 +167,7 @@ public class ProductCollection
     {
         if (products != null)
         {
-            return products[i].GetName();
+            return products[i].Name;
         }
         return "No Product";
     }
@@ -187,7 +187,7 @@ public class ProductCollection
         {
             List<ProductInfo> categoryList = new List<ProductInfo>();
             foreach(ProductInfo pi in products) {
-                if (pi.GetType() == cate) categoryList.Add(pi);
+                if (pi.Type == cate) categoryList.Add(pi);
             }
 
             return GetProduct(i, categoryList);

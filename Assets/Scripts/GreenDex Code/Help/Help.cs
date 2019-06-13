@@ -41,17 +41,6 @@ public class ProductInfo {
         this.scanDateTime = dt;
         this.IsSelected = false;
     }
-
-    internal string GetName() {
-        return $"{Name}";
-    }
-    /// <summary>
-    /// Returns a product's Universal Product Number (barcode number)
-    /// </summary>
-    /// <returns>The product's UPC</returns>
-    internal string GetUPC() {
-        return $"{UPC}";
-    }
     internal string GetDisplayName() {
         string displayName = "";
         int i = 0;
@@ -61,13 +50,6 @@ public class ProductInfo {
         }
         return displayName;
     }
-    internal string GetLocation() {
-        return Location;
-    }
-    /// <summary>
-    /// Returns the full name formatted for the detail page
-    /// </summary>
-    /// <returns>Name of the product</returns>
     internal string GetDetailPageName() {
         string displayName = "";
         int i = 0;
@@ -102,14 +84,6 @@ public class ProductInfo {
         }
         return displayLocation;
     }
-    internal Category GetType() {
-        return Type;
-    }
-
-    internal DateTime GetScanDateTime() {
-        return ScanDateTime;
-    }
-
     /// <summary>
     /// Used for storage of date and time in database
     /// </summary>
