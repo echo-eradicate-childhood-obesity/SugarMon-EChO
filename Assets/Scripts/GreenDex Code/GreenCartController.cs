@@ -299,9 +299,9 @@ public class GreenCartController : MonoBehaviour
     /// </summary>
     /// <param name="name">prodcut name</param>
     /// <param name="pos">location where the product is scanned</param>
-    public void PCAdd(string name, string pos, Category type)
+    public void PCAdd(string name, string upc, string pos, Category type)
     {
-        pc.AddProduct(name, pos, type);
+        pc.AddProduct(name, upc, pos, type);
         ResetContainer(currentCate); // reloads current view of items from local storage removing the item from view
     }
     /// <summary>
@@ -410,7 +410,7 @@ public class GreenCartController : MonoBehaviour
         //change the info to an format google api support
         var info = $@"latlng={pos.latitude.ToString()},{pos.longitude.ToString()}";
         var realpos = await grequester.SendRequest(info);
-        PCAdd(name, realpos, type);
+        PCAdd(name, bcv, realpos, type);
         PC.PCSave();
         NetIndicator.SetActive(false);
     }

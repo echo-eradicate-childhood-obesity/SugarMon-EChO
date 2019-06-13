@@ -19,10 +19,10 @@ public class ProductCollection
     /// <param name="name">name of product</param>
     /// <param name="pos">where product is scanned</param>
     /// <param name="type">whether or not it has sugar</param>
-    public void AddProduct(string name,string pos, Category type)
+    public void AddProduct(string name, string UPC, string pos, Category type)
     {
         if (products == null) products = new List<ProductInfo>();
-        var prod = new ProductInfo(name, pos, DateTime.Now, type);
+        var prod = new ProductInfo(name, UPC, pos, DateTime.Now, type);
         products.Add(prod);
 
     }
@@ -100,7 +100,7 @@ public class ProductCollection
         {
             foreach (ProductInfo pi in products)
             {
-                writer.WriteLine($@"{pi.Name};{pi.Location};{pi.getScanDateTimeAsString()};{pi.Type}");
+                writer.WriteLine($@"{pi.Name};{pi.UPC};{pi.Location};{pi.getScanDateTimeAsString()};{pi.Type}");
             }
         }
         Debug.Log("save done");
@@ -146,32 +146,17 @@ public class ProductCollection
         string line = "";
         using (StreamReader reader=new StreamReader(Application.persistentDataPath + "/test.txt"))
         {
-            if (products == null)
-                {
-                    products = new List<ProductInfo>();
-                }
+            products = new List<ProductInfo>();
             while ((line = reader.ReadLine()) != null)
             {
                 var arr = line.Split(';');
-                var prod = new ProductInfo(arr[0], arr[1], ProductInfo.getScanDateTimeFromString(arr[2]), Converter.StringEnumConverter<Category, string>(arr[3]));
+                var prod = new ProductInfo(arr[0], arr[1], arr[2], ProductInfo.getScanDateTimeFromString(arr[3]), Converter.StringEnumConverter<Category, string>(arr[4]));
                 products.Add(prod);
             }
         }
         return products;
     }
 
-    public List<ProductInfo> Reload() {
-        string line = "";
-        using (StreamReader reader = new StreamReader(Application.persistentDataPath + "/test.txt")) {
-            products = new List<ProductInfo>();
-            while ((line = reader.ReadLine()) != null) {
-                var arr = line.Split(';');
-                var prod = new ProductInfo(arr[0], arr[1], ProductInfo.getScanDateTimeFromString(arr[2]), Converter.StringEnumConverter<Category, string>(arr[3]));
-                products.Add(prod);
-            }
-        }
-        return products;
-    }
     /// <summary>
     /// Return information about the product in products
     /// </summary>
@@ -214,9 +199,10 @@ public class ProductCollection
             return prods[i];
         }
         string str = "No More Product";
+        string upc = "-1";
         string pos = "Unknown Location";
         Func<ProductInfo> returnNoProd = () => {
-            return new ProductInfo(str, pos, DateTime.Now, Category.all);
+            return new ProductInfo(str, upc, pos, DateTime.Now, Category.all);
         };
         return returnNoProd();
     }

@@ -84,6 +84,8 @@ public class USDARequester : IRequester
                          * desc obj has {ndbno/name/ds/manu/ru} and name is the one we want
                          */
                         string newStr = jjson.SelectToken("foods").First.SelectToken("food").SelectToken("desc").SelectToken("name").ToString();
+                        newStr = newStr.Substring(0, newStr.IndexOf(", UPC:"));
+                        Debug.Log(newStr);
                         string output = "";
                         var strs = newStr.Split(' ');
                         foreach (string s in strs)
@@ -106,7 +108,7 @@ public class USDARequester : IRequester
         else
         {
             Debug.Log("upc not in Barcode to USDA database");
-            return "Item Name Unknown, UPC: " + upc;
+            return "Item Name Unknown";
         }
     }
     private async Task<JObject> DeserializerObjectAsync<JObject>(string str)

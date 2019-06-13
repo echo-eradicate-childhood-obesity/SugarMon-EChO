@@ -76,7 +76,7 @@ public class UIManager : MonoBehaviour {
             EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[0]; // unhighlighted
     }
     private void OnLeftBtnClick() {
-        GreenCartController.Instance.PC.Reload();
+        GreenCartController.Instance.PC.Load();
         GreenCartController.Instance.editMode = false;
     }
     public void OnEditClick() {

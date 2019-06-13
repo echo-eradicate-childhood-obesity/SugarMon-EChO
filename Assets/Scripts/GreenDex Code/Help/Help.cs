@@ -22,6 +22,8 @@ public struct NotifyInfo
 public class ProductInfo {
     string name;
     public string Name { get => name; set => name = value; }
+    string upc;
+    public string UPC { get => upc; set => upc = value; } // universal product number (bar code number)
     string location;
     public string Location { get => location; set => name = value; }
     DateTime scanDateTime;
@@ -31,8 +33,9 @@ public class ProductInfo {
     Category type;
     public Category Type { get => type; set => type = value; }
     public bool IsSelected { get; set; }
-    public ProductInfo(string name,string location, DateTime dt, Category type) { 
+    public ProductInfo(string name, string upc, string location, DateTime dt, Category type) { 
         this.name = name;
+        this.UPC = upc;
         this.location = location;
         this.type = type;
         this.scanDateTime = dt;
@@ -41,6 +44,13 @@ public class ProductInfo {
 
     internal string GetName() {
         return $"{Name}";
+    }
+    /// <summary>
+    /// Returns a product's Universal Product Number (barcode number)
+    /// </summary>
+    /// <returns>The product's UPC</returns>
+    internal string GetUPC() {
+        return $"{UPC}";
     }
     internal string GetDisplayName() {
         string displayName = "";
@@ -55,19 +65,6 @@ public class ProductInfo {
         return Location;
     }
     /// <summary>
-    /// Returns a product's Universal Product Number (barcode number)
-    /// </summary>
-    /// <returns>The product's UPC</returns>
-    internal string GetUPC() {
-        string UPC = "";
-        int i = Name.Length - 2;
-        while (Name[i] != ' ' && i > 0) {
-            UPC = Name[i] + UPC;
-            i--;
-        }
-        return UPC;
-    }
-    /// <summary>
     /// Returns the full name formatted for the detail page
     /// </summary>
     /// <returns>Name of the product</returns>
@@ -75,7 +72,7 @@ public class ProductInfo {
         string displayName = "";
         int i = 0;
         bool firstComma = true;
-        while (i < Name.IndexOf(", Upc: ")) {
+        while (i < Name.Length) {
             displayName += Name[i];
             if (Name[i] == ',' && firstComma == true) {
                 firstComma = false;
