@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 public class USDARequester : IRequester
 {
-    public USDARequester(List<string[]> list,int targetpos,string key)
+    public USDARequester(List<string[]> list, int targetpos, string key)
     {
         this.List = list;
         this.TargetPos = targetpos;
@@ -105,8 +105,8 @@ public class USDARequester : IRequester
         }
         else
         {
-            Debug.Log("upc incorrect");
-            return upc;
+            Debug.Log("upc not in Barcode to USDA database");
+            return "Item Name Unknown";
         }
     }
     private async Task<JObject> DeserializerObjectAsync<JObject>(string str)

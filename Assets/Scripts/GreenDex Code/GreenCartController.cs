@@ -39,17 +39,14 @@ public class GreenCartController : MonoBehaviour
     int position;
     int incre;
 
-    [SerializeField]
-    string key;
-    [SerializeField]
-    string gkey;
+    public string key;
+    public string gkey;
     //where the request file/properity is here
     public IRequester requester;
     public IRequester grequester;
     [SerializeField]
-    TextAsset text;
-    [SerializeField]
-    char delimiter;
+    TextAsset text; // text from USDA to barcodes spreadsheet
+    public char delimiter; // what divides the two numbers in the database (;)
     public bool editMode = false;
     bool down;
     //variable be used to fast scrolling. function not implemented yet, so variable not in use
@@ -127,16 +124,15 @@ public class GreenCartController : MonoBehaviour
         await Task.Run(() =>
         {
             List<string[]> strList = new List<string[]>();
-            var textAssetArr = text.text.Split('\n');
-            foreach (var line in textAssetArr)
+            var textAssetArr = text.text.Split('\n'); // list of the items in Barcodes to USDA spreadsheet
+            foreach (var line in textAssetArr) // adds each number in the database individually to strList
             {
-                var contentArr = line.Split(delimiter);
-                strList.Add(contentArr);
+                var contentArr = line.Split(delimiter); // entries in the database are in format #####;##### so they are split by ;
+                strList.Add(contentArr); // the two element list created above is added to the larger list
             }
-            requester = new USDARequester(strList, 1,key);
+            requester = new USDARequester(strList, 1, key);
             grequester = new GoogleRequester(gkey);
         });
-        //await SendRequest("123");
     }
     /// <summary>
     /// * This function is same as StartAsync()
@@ -252,7 +248,6 @@ public class GreenCartController : MonoBehaviour
         var info = new NotifyInfo();
         info.Offset = offSet;
         info.RollingDis = totalDisRollingDis;
-        #region will repalce this in container update
         //rolling is the new method which have refatored
         foreach (GameObject go in Containers)
         {
@@ -296,7 +291,6 @@ public class GreenCartController : MonoBehaviour
             rectTrans.localPosition = curPos;
         }
         //Rolling(offSet, info);
-        #endregion
         totalDisRollingDis += offSet;
     }
 
@@ -387,6 +381,8 @@ public class GreenCartController : MonoBehaviour
         //start the locationservice here and give it some time to get the latitude and longitude info
         Input.location.Start();
         string name = await requester.SendRequest(bcv);
+        Debug.Log(bcv);
+        Debug.Log(name);
         if (name == bcv)
         {
             await Task.Run(() => {
