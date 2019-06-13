@@ -381,8 +381,6 @@ public class GreenCartController : MonoBehaviour
         //start the locationservice here and give it some time to get the latitude and longitude info
         Input.location.Start();
         string name = await requester.SendRequest(bcv);
-        Debug.Log(bcv);
-        Debug.Log(name);
         if (name == bcv)
         {
             await Task.Run(() => {

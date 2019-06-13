@@ -106,7 +106,7 @@ public class USDARequester : IRequester
         else
         {
             Debug.Log("upc not in Barcode to USDA database");
-            return "Item Name Unknown";
+            return "Item Name Unknown, UPC: " + upc;
         }
     }
     private async Task<JObject> DeserializerObjectAsync<JObject>(string str)
