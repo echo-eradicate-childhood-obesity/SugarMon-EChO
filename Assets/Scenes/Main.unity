@@ -7088,7 +7088,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00000018805056}
+  m_AnchoredPosition: {x: 0, y: 0.00011786273}
   m_SizeDelta: {x: 0, y: 1264.7}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &857211509
@@ -10640,7 +10640,7 @@ MonoBehaviour:
   Audio: {fileID: 1325306022}
   animController: {fileID: 9100000, guid: 9ffd609620bf8034d908515ddd926fd7, type: 2}
   superCode: 999999999993
-  sugarRepository: {fileID: 4900000, guid: d1630049469b0704290a66e952bab7a5, type: 3}
+  sugarRepository: {fileID: 4900000, guid: d6690ca031bbd724da8cb391b7e29ca2, type: 3}
   toggleOption: 
   toggleButton: {fileID: 1437401518}
   Sound: {fileID: 0}
@@ -13719,11 +13719,6 @@ MonoBehaviour:
   SugarNameText: {fileID: 455243300}
   DescriptionText: {fileID: 1384100345}
   WhereToFindText: {fileID: 635730169}
-  name: Glucose
-  description: Glucose is a simple sugar. Glucose is the most abundant monosaccharide,
-    a subcategory of carbohydrates. Glucose is mainly made by plants and most algae
-    during photosynthesis from water and carbon dioxide, using energy from sunlight.
-  whereToFind: In some Curry mixes
 --- !u!222 &1559439627
 CanvasRenderer:
   m_ObjectHideFlags: 0

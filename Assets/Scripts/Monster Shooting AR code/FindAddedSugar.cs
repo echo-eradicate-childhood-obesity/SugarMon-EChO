@@ -70,10 +70,12 @@ public class FindAddedSugar : MonoBehaviour
     public string sugarNameColumn = "Added Sugar List Name";
     public string numberInRepositoryColumn = "Number in Added Sugar Repository";
     public string monsterFamilyColumn = "MonstersFamily";
+    public string hiddenColumn = "Where it's hidden";
+    public string descriptionColumn = "Description";
 
 
     [HideInInspector]
-    public int familyIndex, deckNumIndex, nameIndex, repoNumIndex, familyNum;
+    public int familyIndex, deckNumIndex, nameIndex, repoNumIndex, familyNum, hiddenIndex, descriptionIndex;
 
     [HideInInspector]
     public List<string> sugarInWall, fms = new List<string>(), scannedAddedSugars = new List<string>(), allScanned = new List<string>();
@@ -155,7 +157,8 @@ public class FindAddedSugar : MonoBehaviour
         deckNumIndex = dbList[0].IndexOf(numberInAppColumn);
         nameIndex = dbList[0].IndexOf(sugarNameColumn);
         repoNumIndex = dbList[0].IndexOf(numberInRepositoryColumn);  //use only when you need the sugar index in sugar repository
-
+        hiddenIndex = dbList[0].IndexOf(hiddenColumn);
+        descriptionIndex = dbList[0].IndexOf(descriptionColumn);
         //Find out how many different families and how many type of sugar they contain 
         //Save in familyDictionary [family name, count]
         //Save all types of added sugar in the repository variable
@@ -662,10 +665,6 @@ public class FindAddedSugar : MonoBehaviour
     /// <returns>Sprite of the correct monster</returns>
     public Sprite GetMonsterDesign(string sugarName)
     {
-        var indexOfSugar = repository.IndexOf(sugarName.ToLower()) + 1;
-        var monsterFamily = dbList[indexOfSugar][familyIndex];
-        //if(monsterFamily == "Dextrin Monsters" || monsterFamily == "Cane Monsters") monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + monsterFamily + "/" + sugarName);
-        //else monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + monsterFamily);
         return Resources.Load<Sprite>("Images/Monsters/" + sugarName);
     }
 }

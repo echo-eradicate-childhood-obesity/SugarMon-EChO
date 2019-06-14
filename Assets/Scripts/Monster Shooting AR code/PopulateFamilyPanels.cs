@@ -23,20 +23,13 @@ public class PopulateFamilyPanels : MonoBehaviour {
     private List<GameObject> familyBtn;
     // Use this for initialization
 
-    void Start () {
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
     /// <summary>
     /// Shows the detail card for the monster given
     /// </summary>
-    /// <param name="MonsterName">The name of the monster to see the details of</param>
-    public void ShowDetail(string monsterName) {
+    /// <param name="monIndex">The index of the monster to see the details of</param>
+    public void ShowDetail(int monIndex) {
         SugarInfoCardGO.SetActive(true);
-        SugarInfoCardController.Instance.SetContent(monsterName);
+        SugarInfoCardController.Instance.SetContent(monIndex);
     }
     public void PopulateFamilies()
     {
@@ -90,20 +83,16 @@ public class PopulateFamilyPanels : MonoBehaviour {
                 numberCircle.GetComponent<RectTransform>().SetAsFirstSibling();
 
                 diskNumber.GetComponent<Text>().text = newCell.name;
-                if ( cell < 99)
-                {
+                if (cell < 99)
                     diskNumber.GetComponent<Text>().fontSize = 30;
-                } else
-                {
+                else
                     diskNumber.GetComponent<Text>().fontSize = 26;
-                }
                 
                 diskNumber.GetComponent<Text>().color = Color.black;
                 GameObject monsterName = newCell.transform.Find("Name").gameObject;
                 TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
                 monsterName.GetComponent<Text>().text = textInfo.ToTitleCase(sugarRepo[cell]);
-                newCell.AddComponent<Button>();
-                newCell.GetComponent<Button>().onClick.AddListener(delegate { ShowDetail(monsterName.GetComponent<Text>().text); });
+                newCell.AddComponent<Button>().onClick.AddListener(delegate { ShowDetail(sugarRepo.IndexOf(sugarName.ToLower()) + 1);});
 
                 cell++;
             }
