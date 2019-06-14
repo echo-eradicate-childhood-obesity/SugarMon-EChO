@@ -532,7 +532,7 @@ public class FindAddedSugar : MonoBehaviour
 
 #if UNITY_ANDROID || UNITY_IOS
                 if (vibrate) {
-                Handheld.Vibrate();
+                    Handheld.Vibrate();
                 }
 #endif
                 monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NewAddedSugar");
@@ -647,7 +647,19 @@ public class FindAddedSugar : MonoBehaviour
             DisplayMonsters();
         }
     }
-
+    /// <summary>
+    /// Checks if a monster has been found
+    /// </summary>
+    /// <param name="sugarName">Name of the monster to look for</param>
+    /// <returns>true if the monster has been found before</returns>
+    public bool MonsterFound(string sugarName) {
+        return sugarInWall.Contains(sugarName.ToLower());
+    }
+    /// <summary>
+    /// Returns the Sprite of a monster given the name (not including black shading as it's just the sprite not the image)
+    /// </summary>
+    /// <param name="sugarName">Name of the monster to find</param>
+    /// <returns>Sprite of the correct monster</returns>
     public Sprite GetMonsterDesign(string sugarName)
     {
         var indexOfSugar = repository.IndexOf(sugarName.ToLower()) + 1;
