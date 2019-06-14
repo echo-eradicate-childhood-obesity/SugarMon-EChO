@@ -10,10 +10,6 @@ using System.Linq;
 
 public class FamilyContentController : MonoBehaviour
 {
-
-    //for the dropdown version
-
-
     public GameObject familyContentObject;
     [SerializeField]
     private List<GameObject> familyNames = new List<GameObject>();
@@ -23,7 +19,6 @@ public class FamilyContentController : MonoBehaviour
     void Start()
     {
         familyRT = familyContentObject.GetComponent<RectTransform>();
-
     }
     public void FamilyContentPosition()
     {
@@ -92,10 +87,8 @@ public class FamilyContentController : MonoBehaviour
         }
     }
 
-    void Update()
-    {
+    void Update() {
         TitleControl();
         //Debug.Log(familyRT.localPosition.y);
     }
-
 }

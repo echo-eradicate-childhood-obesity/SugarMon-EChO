@@ -78,10 +78,7 @@ public class GreenCartController : MonoBehaviour
     private void Awake()
     {
 
-        if (instance != null)
-        {
-            Destroy(this);
-        }
+        if (instance != null) Destroy(this);
         else instance = this;
         position = 0;
         down = false;

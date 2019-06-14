@@ -12,7 +12,8 @@ public class FindAddedSugar : MonoBehaviour
 {
     //ref of singleton 
     UIManager um;
-
+    private static FindAddedSugar instance;
+    public static FindAddedSugar Instance { get { return instance; } }
     //private IScanner BarcodeScanner;
     public static List<string> repository = new List<string>();
     private static List<string> db = new List<string>();
@@ -33,9 +34,6 @@ public class FindAddedSugar : MonoBehaviour
     protected List<string> upcs;
     protected List<string> ingredients;
     public TextAsset sugarRepository;
-
-
-
 
     public string toggleOption;
     public Button toggleButton;
@@ -93,6 +91,9 @@ public class FindAddedSugar : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        if (instance != null) Destroy(this);
+        else instance = this;
+
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
 
@@ -545,7 +546,7 @@ public class FindAddedSugar : MonoBehaviour
 
             monster.name = scannedAddedSugars[currentNumMonster];
             canvas.transform.Find(scannedAddedSugars[currentNumMonster] + "/Sugar Name").GetComponent<Text>().text = scannedAddedSugars[currentNumMonster];
-            DisplayMonsterDesign(monster.name.ToLower());
+            monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = GetMonsterDesign(monster.name.ToLower());
 
             //Audio.Play();
             DisplayMonsters();
@@ -614,7 +615,7 @@ public class FindAddedSugar : MonoBehaviour
             else monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/CollectedAddedSugar");
             GameObject.Find("Canvas").transform.Find(sugarName + "/Sugar Name").GetComponent<Text>().text = sugarName;
 
-            DisplayMonsterDesign(sugarName);
+            monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = GetMonsterDesign(sugarName);
             
             if (!sugarInWall.Contains(sugarName.ToLower())) sugarInWall.Add(sugarName.ToLower());
 
@@ -647,12 +648,12 @@ public class FindAddedSugar : MonoBehaviour
         }
     }
 
-    public void DisplayMonsterDesign(string sugarName)
+    public Sprite GetMonsterDesign(string sugarName)
     {
         var indexOfSugar = repository.IndexOf(sugarName.ToLower()) + 1;
         var monsterFamily = dbList[indexOfSugar][familyIndex];
         //if(monsterFamily == "Dextrin Monsters" || monsterFamily == "Cane Monsters") monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + monsterFamily + "/" + sugarName);
         //else monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + monsterFamily);
-        monster.transform.Find("SugarDesign").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + sugarName);
+        return Resources.Load<Sprite>("Images/Monsters/" + sugarName);
     }
 }

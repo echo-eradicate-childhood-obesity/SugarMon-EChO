@@ -18,8 +18,6 @@ public class SugarDisk : MonoBehaviour {
     private Vector3 diskPosition;
     public GameObject canvas;
     private GameObject[] allTypesOfSugars;
-    public GameObject addButtonOnSugarCard;
-
 
     private List<string> sugarFromMain, newSugars;
     public List<string> allCollectedSugars;
@@ -60,7 +58,6 @@ public class SugarDisk : MonoBehaviour {
         if (mainCam.GetComponent<SimpleDemo>().tutorialStage != 0) mainCam.GetComponent<SimpleDemo>().StartScan();
         GameObject.Find("SugarDisk").transform.Find("RedDot").gameObject.SetActive(false);
         sugarDiskImage.gameObject.SetActive(false);
-        addButtonOnSugarCard.gameObject.SetActive(false);
 
         um.DisAllUp("Notification");
     }
@@ -99,7 +96,6 @@ public class SugarDisk : MonoBehaviour {
         PlayerPrefs.DeleteAll();
         sugarCardData.sugars.Clear();
     }
-
     public void UpdateSugarDex(List<List<string>> dbList, List<string> newSugars)
     {
         foreach (List<string> s in dbList)

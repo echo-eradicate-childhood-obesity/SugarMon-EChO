@@ -100,7 +100,12 @@ public class ProductCollection
         {
             foreach (ProductInfo pi in products)
             {
-                writer.WriteLine($@"{pi.Name};{pi.UPC};{pi.Location};{pi.getScanDateTimeAsString()};{pi.Type}");
+                // This block of code removes a \n from behind the UPC which is added to some products for an unknown reason
+                string upc = pi.UPC;
+                if (upc[upc.Length - 1] == '\n')
+                    upc = upc.Substring(0, upc.Length - 1); // trims off the unneeded new line character
+
+                writer.WriteLine($@"{pi.Name};{upc/*pi.UPC*/};{pi.Location};{pi.getScanDateTimeAsString()};{pi.Type}");
             }
         }
         Debug.Log("Item Saved Successfully");

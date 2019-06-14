@@ -13,7 +13,7 @@ public class PopulateFamilyPanels : MonoBehaviour {
         public string name;
         public string HexCode;
     }
-
+    public GameObject SugarInfoCardGO;
     public TitleColor[] colors;
 
     public List<string> titleColor;
@@ -30,7 +30,14 @@ public class PopulateFamilyPanels : MonoBehaviour {
 	void Update () {
 		
 	}
-
+    /// <summary>
+    /// Shows the detail card for the monster given
+    /// </summary>
+    /// <param name="MonsterName">The name of the monster to see the details of</param>
+    public void ShowDetail(string monsterName) {
+        SugarInfoCardGO.SetActive(true);
+        SugarInfoCardController.Instance.SetContent(monsterName);
+    }
     public void PopulateFamilies()
     {
         GameObject newCell, newPanel, newTitle, numberCircle;
@@ -95,6 +102,8 @@ public class PopulateFamilyPanels : MonoBehaviour {
                 GameObject monsterName = newCell.transform.Find("Name").gameObject;
                 TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
                 monsterName.GetComponent<Text>().text = textInfo.ToTitleCase(sugarRepo[cell]);
+                newCell.AddComponent<Button>();
+                newCell.GetComponent<Button>().onClick.AddListener(delegate { ShowDetail(monsterName.GetComponent<Text>().text); });
 
                 cell++;
             }
