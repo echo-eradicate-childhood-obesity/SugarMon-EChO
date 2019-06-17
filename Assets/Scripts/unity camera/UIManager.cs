@@ -163,7 +163,6 @@ public class UIManager : MonoBehaviour {
     public void IndicateController(Info info, string targetName, List<TMP_Dropdown.OptionData> list) {
         IndicateControllerHelper(info, targetName, list);
     }
-    public Sprite dextrose;
     private void IndicateControllerHelper(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
     {
         foreach (TMP_Dropdown.OptionData go in list)

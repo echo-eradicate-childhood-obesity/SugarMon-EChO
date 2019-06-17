@@ -25,8 +25,8 @@ public class SugarInfoCardController : MonoBehaviour {
     public GameObject SugarNameText; // Name of the sugar displayed above
     public GameObject DescriptionText; // Description of a Sugar taken from the SugarDescriptions database
     public GameObject WhereToFindText; // A sample food group to find any given sugar
-    public Vector3 ShownPosition;
-    public Vector3 HiddenPosition;
+    private Vector3 ShownPosition; // Position of the monster image when the monster is show
+    private Vector3 HiddenPosition; // Position of the monster image when the onster is hidden
 
     private void Awake() {
         if (instance != null) Destroy(this);

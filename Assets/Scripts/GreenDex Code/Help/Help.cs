@@ -28,7 +28,8 @@ public class ProductInfo {
     public string Location { get => location; set => name = value; }
     DateTime scanDateTime;
     public DateTime ScanDateTime { get => scanDateTime; set => scanDateTime = value; }
-
+    List<string> sugars;
+    public List<string> Sugars { get => sugars; set => sugars = value; }
     //string upc;
     Category type;
     public Category Type { get => type; set => type = value; }

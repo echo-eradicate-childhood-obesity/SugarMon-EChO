@@ -330,7 +330,7 @@ public class GreenCartController : MonoBehaviour
         totalDisRollingDis = 0;
         //var pos = -200;
         var pos = 0;
-        CurrentCate = Category.all;
+        CurrentCate = cate;
         pc.ResetCurDic(cate);
         for (int i = 0; i < Containers.Count; i++)
         {
