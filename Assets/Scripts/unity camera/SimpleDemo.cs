@@ -15,7 +15,7 @@ public class SimpleDemo : MonoBehaviour
 {
 
     public IScanner BarcodeScanner;
-    public RawImage Image;
+    public RawImage Camera;
     public TextAsset PerfactDatabase;
 
     private bool inDB;
@@ -69,11 +69,11 @@ public class SimpleDemo : MonoBehaviour
         // Display the camera texture through a RawImage
         BarcodeScanner.OnReady += (sender, arg) => {
             // Set Orientation & Texture
-            Image.transform.localEulerAngles = BarcodeScanner.Camera.GetEulerAngles();
-            Image.transform.localScale = BarcodeScanner.Camera.GetScale();
-            Image.texture = BarcodeScanner.Camera.Texture;
+            Camera.transform.localEulerAngles = BarcodeScanner.Camera.GetEulerAngles();
+            Camera.transform.localScale = BarcodeScanner.Camera.GetScale();
+            Camera.texture = BarcodeScanner.Camera.Texture;
             //Keep Image Aspect Ratio
-            //var rect = Image.GetComponent<RectTransform>();
+            //var rect = Camera.GetComponent<RectTransform>();
             //var newHeight = rect.sizeDelta.x * BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
             //rect.sizeDelta = new Vector2(rect.sizeDelta.x, newHeight);
             //rect.sizeDelta = new Vector2(Screen.width, Screen.height);
@@ -81,9 +81,9 @@ public class SimpleDemo : MonoBehaviour
         BarcodeScanner.StatusChanged += (sender, arg) =>
         {
 #if UNITY_EDITOR
-            Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
+            Camera.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
 #else
-            Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Width / BarcodeScanner.Camera.Height;
+            Camera.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Width / BarcodeScanner.Camera.Height;
 #endif
         };
         // Track status of the scanner
@@ -91,7 +91,7 @@ public class SimpleDemo : MonoBehaviour
         {
             float w = BarcodeScanner.Camera.Width;
             float h = BarcodeScanner.Camera.Height;
-            AspectRatioFitter a = Image.GetComponent<AspectRatioFitter>();
+            AspectRatioFitter a = Camera.GetComponent<AspectRatioFitter>();
             a.aspectRatio = w / h;
         };
 
@@ -183,7 +183,7 @@ public class SimpleDemo : MonoBehaviour
     public IEnumerator StopCamera(Action callback)
     {
         // Stop Scanning
-        Image = null;
+        Camera = null;
         BarcodeScanner.Destroy();
         BarcodeScanner = null;
 
