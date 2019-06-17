@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Globalization;
-
+using System.Linq;
+using System.Text.RegularExpressions;
 public enum Category
 {
     all,
@@ -46,7 +47,14 @@ public class ProductInfo {
         this.IsSelected = false;
     }
     internal string GetDisplaySugars() {
-        return sugars;
+        List<string> sugarList = sugars.Split(',').ToList();
+        for(int i = 0; i < sugarList.Count; i++)
+            if (sugarList[i][0] == ' ')
+                sugarList[i] = sugarList[i].Substring(1);
+        if (sugarList.Count > 10)
+            return String.Join(", ", sugarList.ToArray());
+        else
+            return String.Join("\n", sugarList.ToArray());
     }
     internal string GetDisplayName() {
         string displayName = "";

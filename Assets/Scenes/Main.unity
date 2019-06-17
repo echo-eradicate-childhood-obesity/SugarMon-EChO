@@ -5409,12 +5409,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b49e6d9091bc41a4292eea9bd85f9408, type: 3}
   background: {fileID: 545924519}
   Buttons:
-  - {fileID: 21300000, guid: 6f94d89dc3ed0dc43b3cebc24e5feadf, type: 3}
-  - {fileID: 21300000, guid: af5a25d7079fd524384c6028b11d9c8f, type: 3}
-  - {fileID: 21300000, guid: d2db9c5cddc0ec046b583d1d2aabf351, type: 3}
   - {fileID: 21300000, guid: 641a38c53237eea4ba0443a294418b37, type: 3}
   - {fileID: 21300000, guid: df470c4531c43874aabf901ccc51c8d1, type: 3}
   - {fileID: 21300000, guid: 070586ba377da314b888881e5c9e6258, type: 3}
+  - {fileID: 21300000, guid: 6f94d89dc3ed0dc43b3cebc24e5feadf, type: 3}
+  - {fileID: 21300000, guid: af5a25d7079fd524384c6028b11d9c8f, type: 3}
+  - {fileID: 21300000, guid: d2db9c5cddc0ec046b583d1d2aabf351, type: 3}
 --- !u!114 &545924522
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -341,12 +341,13 @@ public class FindAddedSugar : MonoBehaviour
             currentNumMonster = 0;
             scannedAddedSugars.Clear();
             
-            ingredientFromDB = Regex.Replace(ingredientFromDB, "[^a-zA-Z0-9_.,; ]+", "");
+            //ingredientFromDB = Regex.Replace(ingredientFromDB, "[^a-zA-Z0-9_.,; ]+", "");
             ingredientFromDB = ingredientFromDB.Replace('.', ',').Replace(';', ',');
             List<string> dbIngredientList = ingredientFromDB.Split(',').ToList();
             dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim());
             dbIngredientList.RemoveAt(0); // remove the upc/bcv number as we already have it
             string name = dbIngredientList[0]; // get the name of the product
+            name = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(name); // make the first letter of every word uppcase
             dbIngredientList.RemoveAt(0); // remove the name from the sugar list
             if (bcv == superCode) dbIngredientList = repository;
 
@@ -396,7 +397,9 @@ public class FindAddedSugar : MonoBehaviour
             //Include added sugar
             else
             {
-                um.simpleDemo.RequestAsync(bcv, name, String.Join(", ", scannedAddedSugars.ToArray()));
+                string sugars = String.Join(", ", scannedAddedSugars.ToArray());
+                sugars = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(sugars); // make the first letter of every word uppcase
+                um.simpleDemo.RequestAsync(bcv, name, sugars);
                 scanFrame.SetActive(false);
                 CreateSugarMonster(scannedAddedSugars[currentNumMonster]);
             }
