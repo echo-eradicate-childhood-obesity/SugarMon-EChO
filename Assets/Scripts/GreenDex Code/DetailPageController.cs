@@ -34,6 +34,8 @@ public class DetailPageController : MonoBehaviour {
     public Color32 HeaderColor;
     public Color32 BodyColor = Color.white;
 
+    [SerializeField]
+    private GameObject canvas;
     private Color32 GreenHeader = new Color32(68,111,76,255);
     private Color32 RedHeader = new Color32(111, 38, 46, 255);
 
@@ -115,8 +117,9 @@ public class DetailPageController : MonoBehaviour {
     /// </summary>
     /// <returns>A formatted list of sugars within the product</returns>
     private string FormattedSugars() {
-        List<string> sugars = SimpleDemo.GetSugarsFromBCV(pi.UPC);
-
+        //List<string> sugars = SimpleDemo.GetSugarsFromBCV(pi.UPC);
+        List<string> sugars = canvas.GetComponent<FindAddedSugar>().scannedAddedSugars;
+        sugars.Sort();
         // capitalize the first letter of every word
         List<string> TitleCaseSugars = new List<string>();
         TextInfo ti = new CultureInfo("en-US", false).TextInfo;
