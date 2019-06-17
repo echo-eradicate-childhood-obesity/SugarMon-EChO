@@ -240,6 +240,7 @@ public class UIManager : MonoBehaviour {
     }
     public void OpenFoodDex() 
     {
+        ResetCategory();
         DisableUI(GreenCartController.Instance.gameObject);
         GreenCartController.Instance.ResetContainer(Category.all);
     }
