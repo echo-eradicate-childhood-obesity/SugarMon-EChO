@@ -16,7 +16,12 @@ public class SimpleDemo : MonoBehaviour
 
     public IScanner BarcodeScanner;
     public RawImage Camera;
-    public TextAsset PerfactDatabase;
+    public TextAsset LabelInsightDatabase;
+
+    public string gkey;
+    public IRequester grequester;
+    public GameObject NetIndicator;
+    public char delimiter; // what divides the two numbers in the database (;)
 
     private bool inDB;
     private static List<string> dbProductList = new List<string>();
@@ -30,6 +35,7 @@ public class SimpleDemo : MonoBehaviour
     // Disable Screen Rotation on that screen
     void Awake()
     {
+        NetIndicator.SetActive(false);
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
         tutorialStage = PlayerPrefs.GetInt("TutorialStage");
@@ -49,14 +55,14 @@ public class SimpleDemo : MonoBehaviour
 
         //Read new USDA sorted Database
 #if UNITY_EDITOR
-        string encodedContent = Encoding.UTF7.GetString(PerfactDatabase.bytes);
+        string encodedContent = Encoding.UTF7.GetString(LabelInsightDatabase.bytes);
         dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
         dbProductList = dbProductList.ConvertAll(item => Regex.Replace(item, @",+", ","));
         dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim().Replace("\"*", "").Replace("[;.]", ",").TrimEnd(','));
 
 #else
         Task.Run(()=>{
-            string encodedContent = Encoding.UTF7.GetString(PerfactDatabase.bytes);
+            string encodedContent = Encoding.UTF7.GetString(LabelInsightDatabase.bytes);
             dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
             dbProductList = dbProductList.ConvertAll(item => Regex.Replace(item, @",+", ","));
             dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim().Replace("\"*", "").Replace("[;.]", ",").TrimEnd(','));
@@ -100,6 +106,14 @@ public class SimpleDemo : MonoBehaviour
 #if UNITY_ANDROID
             isAndroid = true;
 #endif
+        //create the requester. no need for await, use this for the build. it is faster 
+        //when in editor use this. but use Async method in build will be faster
+        //!not support Async load TextAsset in Editor
+#if UNITY_EDITOR
+        StartCoroutine("InitRequester");
+#else
+        StartAsync();
+#endif
     }
 
 
@@ -125,7 +139,61 @@ public class SimpleDemo : MonoBehaviour
         }
     }
 
-#region UI Buttons
+    /// <summary>
+    /// *Load UPC&NDB Lookup table into memory and sign to USDARequester
+    /// *requester is the used to send request to usda
+    /// *grequester is use to send request to Google using google map api.
+    /// *!Warnning: Seems like Unity do not support TextAsset streaming using Task. Do not use this in unity editor
+    /// </summary>
+    /// <returns></returns>
+    private async Task StartAsync() {
+        await Task.Run(() => {
+            grequester = new GoogleRequester(gkey);
+        });
+    }
+    /// <summary>
+    /// * This function is same as StartAsync()
+    /// * But used only in Editor
+    /// </summary>
+    System.Collections.IEnumerator InitRequester() {
+        grequester = new GoogleRequester(gkey);
+        yield return null;
+    }
+
+    /// <summary>
+    /// * Send Request To Google to get Information
+    /// * Using normal method will cause halt
+    /// * Set the NetIndicator to be Active to show the request is activeing, and set it to false when it ends
+    /// * The NetIndicator will cause bug when the first request is not end but another request is send. Need further test
+    /// </summary>
+    /// <param name="bcv"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public async Task RequestAsync(string bcv, string name, string sugars) {
+        NetIndicator.SetActive(true);
+
+        //wait 1 second to give the location service more time to get latlng info
+#if !UNITY_EDITOR
+        await Task.Run(() => {
+            float i = 0;
+            while (i < 2) {
+                i += Time.deltaTime;
+            }
+        });
+#endif
+        //stop the locationservice to save battery life. 
+        //hopefully, the time to get internet request will give the device enought to get the location info
+        Input.location.Stop();
+
+        var pos = Input.location.lastData;
+        //change the info to an format google api support
+        var info = $@"latlng={pos.latitude.ToString()},{pos.longitude.ToString()}";
+        var realpos = await grequester.SendRequest(info);
+        GreenCartController.Instance.PCAdd(name, bcv, realpos, sugars);
+        GreenCartController.Instance.PC.PCSave();
+        NetIndicator.SetActive(false);
+    }
+    #region UI Buttons
 
     public void ClickStart()
     {
@@ -149,7 +217,6 @@ public class SimpleDemo : MonoBehaviour
             else
             {
                 var i = SearchController.BinarySearch(dbProductList, long.Parse(barCodeValue), dbProductList.Count - 1, 0);
-
                 bool test = GameObject.Find("Main Camera").GetComponent<TestController>().test;
 
                 //test
@@ -157,22 +224,14 @@ public class SimpleDemo : MonoBehaviour
                 {
                     inDB = true;
                     GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(dbProductList[i].ToLower(), barCodeValue);
+
                 }
-                if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found", barCodeValue);
+                if (!inDB && GameObject.Find("Not Found") == null)
+                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found", barCodeValue);
             }
 
         });
 
-    }
-    /// <summary>
-    /// Given a barcode return a list of all the names of the sugars within that product
-    /// </summary>
-    /// <param name="bcv">Bar Code Value within our database to get the sugars from</param>
-    /// <returns>Names of sugars within the barcode given</returns>
-    public static List<string> GetSugarsFromBCV(string bcv) {
-        var i = SearchController.BinarySearch(dbProductList, long.Parse(bcv), dbProductList.Count - 1, 0);
-        return dbProductList[i].Substring(12).Split(new string[]{ ", " }, System.StringSplitOptions.RemoveEmptyEntries).ToList().Distinct().ToList();
-        // remove duplicates
     }
     /// <summary>
     /// This coroutine is used because of a bug with unity (http://forum.unity3d.com/threads/closing-scene-with-active-webcamtexture-crashes-on-android-solved.363566/)

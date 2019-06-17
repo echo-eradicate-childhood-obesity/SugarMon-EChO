@@ -63,7 +63,7 @@ public class DetailPageController : MonoBehaviour {
     private void InitText() {
         if (pi.Type == Category.containsaddedsugar) {
             SugarsLabel.GetComponent<TextMeshProUGUI>().text = "Added Sugars:";
-            ProductSugars.GetComponent<TextMeshProUGUI>().text = FormattedSugars();
+            ProductSugars.GetComponent<TextMeshProUGUI>().text = $"{pi.GetDisplaySugars()}";
         }
         else {
             ProductSugars.GetComponent<TextMeshProUGUI>().text = "";
@@ -80,12 +80,12 @@ public class DetailPageController : MonoBehaviour {
     /// </summary>
     private void InitColorsAndImages() {
         if (pi.Type == Category.containsaddedsugar) {
-            UIManager.Instance.background.GetComponentInChildren<Image>().sprite = UIManager.Instance.Backgrounds[2];
+            GreenCartController.Instance.background.GetComponentInChildren<Image>().sprite = GreenCartController.Instance.Backgrounds[2];
             CategoryLabel.GetComponent<Image>().sprite = SugarInfoImage[0];
             HeaderColor = RedHeader;
         }
         else {
-            UIManager.Instance.background.GetComponentInChildren<Image>().sprite = UIManager.Instance.Backgrounds[1];
+            GreenCartController.Instance.background.GetComponentInChildren<Image>().sprite = GreenCartController.Instance.Backgrounds[1];
             CategoryLabel.GetComponent<Image>().sprite = SugarInfoImage[1];
             HeaderColor = GreenHeader;
         }
@@ -110,25 +110,5 @@ public class DetailPageController : MonoBehaviour {
     public void PIUpdate(ProductInfo pi) {
         this.pi = pi;
         UpdateDisplay();
-    }
-
-    /// <summary>
-    /// For displaying a list of sugars that fits within the text box
-    /// </summary>
-    /// <returns>A formatted list of sugars within the product</returns>
-    private string FormattedSugars() {
-        //List<string> sugars = SimpleDemo.GetSugarsFromBCV(pi.UPC);
-        List<string> sugars = canvas.GetComponent<FindAddedSugar>().scannedAddedSugars;
-        sugars.Sort();
-        // capitalize the first letter of every word
-        List<string> TitleCaseSugars = new List<string>();
-        TextInfo ti = new CultureInfo("en-US", false).TextInfo;
-        foreach (string s in sugars) {
-            TitleCaseSugars.Add(ti.ToTitleCase(s));
-        }
-        if(sugars.Count <= 10) // only 10 fit in list format
-            return String.Join("\n", TitleCaseSugars.ToArray());
-        else
-            return String.Join(", ", TitleCaseSugars.ToArray());
     }
 }

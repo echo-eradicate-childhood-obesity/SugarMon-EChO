@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using UnityEngine.UI;
 using System.Text;
 using System.Threading.Tasks;
-
+using System;
 
 public class FindAddedSugar : MonoBehaviour
 {
@@ -322,7 +322,6 @@ public class FindAddedSugar : MonoBehaviour
 
     public void AllTypeOfSugars(string ingredientFromDB, string bcv)
     {
-
         sugarDex.GetComponent<Button>().enabled = false;
         greenCartBtn.GetComponent<Button>().enabled = false;
         mainCam.GetComponent<SimpleDemo>().enabled = false;
@@ -346,7 +345,9 @@ public class FindAddedSugar : MonoBehaviour
             ingredientFromDB = ingredientFromDB.Replace('.', ',').Replace(';', ',');
             List<string> dbIngredientList = ingredientFromDB.Split(',').ToList();
             dbIngredientList = dbIngredientList.ConvertAll(item => item.Trim());
-
+            dbIngredientList.RemoveAt(0); // remove the upc/bcv number as we already have it
+            string name = dbIngredientList[0]; // get the name of the product
+            dbIngredientList.RemoveAt(0); // remove the name from the sugar list
             if (bcv == superCode) dbIngredientList = repository;
 
             foreach (string r in repository)
@@ -385,7 +386,7 @@ public class FindAddedSugar : MonoBehaviour
                 //add green cart code here
                 //GreenCartController.Instance.PCAdd(bcv);
                 //GreenCartController.Instance.PC.PCSave();
-                GreenCartController.Instance.RequestAsync(bcv, Converter.StringEnumConverter<Category, string>("noaddedsugar"));
+                um.simpleDemo.RequestAsync(bcv, name, String.Join(", ", scannedAddedSugars.ToArray()));
                 //Change image of monster
                 scannedAddedSugars.Add("No Added Sugar");
                 CreateSugarMonster(scannedAddedSugars[currentNumMonster]);
@@ -395,7 +396,7 @@ public class FindAddedSugar : MonoBehaviour
             //Include added sugar
             else
             {
-                GreenCartController.Instance.RequestAsync(bcv, Converter.StringEnumConverter<Category, string>("containsaddedsugar"));
+                um.simpleDemo.RequestAsync(bcv, name, String.Join(", ", scannedAddedSugars.ToArray()));
                 scanFrame.SetActive(false);
                 CreateSugarMonster(scannedAddedSugars[currentNumMonster]);
             }

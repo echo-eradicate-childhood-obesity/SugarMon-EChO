@@ -28,19 +28,25 @@ public class ProductInfo {
     public string Location { get => location; set => name = value; }
     DateTime scanDateTime;
     public DateTime ScanDateTime { get => scanDateTime; set => scanDateTime = value; }
-    List<string> sugars;
-    public List<string> Sugars { get => sugars; set => sugars = value; }
+    string sugars;
+    public string Sugars { get => sugars; set => sugars = value; }
     //string upc;
     Category type;
     public Category Type { get => type; set => type = value; }
     public bool IsSelected { get; set; }
-    public ProductInfo(string name, string upc, string location, DateTime dt, Category type) { 
+    public ProductInfo(string name, string upc, string location, DateTime dt, string sugars) { 
         this.name = name;
         this.UPC = upc;
         this.location = location;
-        this.type = type;
+        this.type = Converter.StringEnumConverter<Category, string>("containsaddedsugar");
+        if (sugars == "")
+            this.type = Converter.StringEnumConverter<Category, string>("noaddedsugar");
         this.scanDateTime = dt;
+        this.sugars = sugars;
         this.IsSelected = false;
+    }
+    internal string GetDisplaySugars() {
+        return sugars;
     }
     internal string GetDisplayName() {
         string displayName = "";

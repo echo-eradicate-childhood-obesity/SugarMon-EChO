@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 /*info is boxed and send when scanner found an item
 * 
@@ -21,7 +24,6 @@ public struct Info{
 
 public class UIManager : MonoBehaviour {
     public List<Sprite> Sprites;
-
     //singleton attached to main camera
     private static UIManager _instance;
 
@@ -30,117 +32,26 @@ public class UIManager : MonoBehaviour {
         get { return _instance; }
         private set { _instance = value; }
     }
-    public Button All;
-    public Button NoAddedSugar;
-    public Button ContainsAddedSugar;
-
-    [SerializeField]
-    public List<Sprite> EditButtonSprites;
-
-    [SerializeField]
-    public List<Sprite> Backgrounds; //0 blue, 1 green, 2 red
-    public GameObject background;
-
-    [SerializeField]
-    public List<Sprite> Buttons;
-
-    public GameObject EditBtn; // Button that allows you to edit the FoodDex
-    public GameObject LeftBtn; // Button that exits the FoodDex
-
-    private SimpleDemo simpleDemo;
+    [HideInInspector]
+    public SimpleDemo simpleDemo;
     //private Color colorA = new Color(0.292f, 0.340f, 0.310f, 1f);
     //private Color colorB = new Color(1f, 1f, 1f, 1f);
     [SerializeField]
     List<GameObject> familyUIList;
     // Use this for initialization
-    void Awake () {
-        if (_instance == null)
-        {
+    void Awake() {
+        if (_instance == null) {
             _instance = this;
         }
         else { Destroy(this); }
         //init four catebtn
+
     }
 
     private void Start()
     {
-        InitCategoryBtns();
-        EditBtn.GetComponent<Button>().onClick.AddListener(() => OnEditClick());
-        LeftBtn.GetComponent<Button>().onClick.AddListener(() => OnLeftBtnClick());
         simpleDemo = GameObject.Find("Main Camera").GetComponent<SimpleDemo>();
     }
-    private void Update() {
-        if (GreenCartController.Instance.editMode)
-            EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[1]; // highlighted
-        else
-            EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[0]; // unhighlighted
-    }
-    private void OnLeftBtnClick() {
-        GreenCartController.Instance.PC.Load();
-        GreenCartController.Instance.editMode = false;
-    }
-    public void OnEditClick() {
-        GreenCartController.Instance.editMode = !GreenCartController.Instance.editMode;
-    }
-    public void ResetCategory() {
-        GreenCartController.Instance.CurrentCate = Category.all; //set the initial category to "all"
-        SetHighlights(Category.all);
-        GreenCartController.Instance.PC.CurDic = GreenCartController.Instance.PC.products;
-        GreenCartController.Instance.ResetContainer(Category.all);
-    }
-    private void InitCategoryBtns() {
-        ResetCategory();
-        System.Action<Category> act = (newCate) =>
-        {
-            //set cate when the target cate is not the same as current cate
-            //if current category is same as target category do nothing
-            if (GreenCartController.Instance.CurrentCate != newCate) {
-                GreenCartController.Instance.CurrentCate = newCate;
-                GreenCartController.Instance.PC.CurDic = new List<ProductInfo>();
-                if (newCate == Category.all) {
-                    GreenCartController.Instance.PC.CurDic = GreenCartController.Instance.PC.products;
-                }
-                else {
-                    foreach (ProductInfo pi in GreenCartController.Instance.PC.products) {
-                        if (pi.Type == GreenCartController.Instance.CurrentCate)
-                            GreenCartController.Instance.PC.CurDic.Add(pi);
-                    }
-                }
-                SetHighlights(newCate);
-            }
-        };
-        All.GetComponent<Button>().onClick.AddListener(() => act(Category.all));
-        NoAddedSugar.GetComponent<Button>().onClick.AddListener(() => act(Category.noaddedsugar));
-        ContainsAddedSugar.GetComponent<Button>().onClick.AddListener(() => act(Category.containsaddedsugar));
-    }
-    /// <summary>
-    /// Highlights the selected category and resets other categories
-    /// </summary>
-    /// <param name="name">Button selected to be highlighted</param>
-    private void SetHighlights(Category cate) {
-        GreenCartController.Instance.CurrentCate = cate;
-        GreenCartController.Instance.ResetContainer(cate);
-        if (cate == Category.all) {
-            background.GetComponentInChildren<Image>().sprite = Backgrounds[0];
-            All.GetComponentInChildren<Image>().sprite = Buttons[3]; // set "all" button to selected
-            NoAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[1];
-            ContainsAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[2];
-        }
-        else if (cate == Category.noaddedsugar) {
-            background.GetComponentInChildren<Image>().sprite = Backgrounds[1];
-            All.GetComponentInChildren<Image>().sprite = Buttons[0];
-            NoAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[4]; // set "No Sugar Added" to selected
-            ContainsAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[2];
-        }
-        else {
-            background.GetComponentInChildren<Image>().sprite = Backgrounds[2];
-            All.GetComponentInChildren<Image>().sprite = Buttons[0]; 
-            NoAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[1];
-            ContainsAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[5]; // set "Contains Sugar Added" to selected
-        }
-    }
-    //have info passed here, active the target gameobject in with in the info parent  
-    
     public void IndicateController(Info info, string targetName)
     {
         foreach (GameObject go in familyUIList)
@@ -239,15 +150,14 @@ public class UIManager : MonoBehaviour {
     }
     public void OpenFoodDex() 
     {
-        ResetCategory();
-        DisableUI(GreenCartController.Instance.gameObject);
-        GreenCartController.Instance.ResetContainer(Category.all);
+        GreenCartController.Instance.ResetCategory();
+        ToggleEnable(GreenCartController.Instance.gameObject);
     }
     public void CloseFoodDex() {
-        DisableUI(GreenCartController.Instance.gameObject);
+        ToggleEnable(GreenCartController.Instance.gameObject);
         GreenCartController.Instance.rollable = false;
     }
-    public void DisableUI(GameObject go)
+    public void ToggleEnable(GameObject go)
     {
         simpleDemo.enabled = !simpleDemo.enabled;
         go.SetActive(!go.activeSelf);

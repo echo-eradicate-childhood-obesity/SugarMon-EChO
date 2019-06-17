@@ -19,10 +19,10 @@ public class ProductCollection
     /// <param name="name">name of product</param>
     /// <param name="pos">where product is scanned</param>
     /// <param name="type">whether or not it has sugar</param>
-    public void AddProduct(string name, string UPC, string pos, Category type)
+    public void AddProduct(string name, string UPC, string pos, string sugars)
     {
         if (products == null) products = new List<ProductInfo>();
-        var prod = new ProductInfo(name, UPC, pos, DateTime.Now, type);
+        var prod = new ProductInfo(name, UPC, pos, DateTime.Now, sugars);
         products.Add(prod);
 
     }
@@ -105,7 +105,7 @@ public class ProductCollection
                 if (upc[upc.Length - 1] == '\n')
                     upc = upc.Substring(0, upc.Length - 1); // trims off the unneeded new line character
 
-                writer.WriteLine($@"{pi.Name};{upc/*pi.UPC*/};{pi.Location};{pi.getScanDateTimeAsString()};{pi.Type}");
+                writer.WriteLine($@"{pi.Name};{upc/*pi.UPC*/};{pi.Location};{pi.getScanDateTimeAsString()};{pi.Sugars}");
             }
         }
         Debug.Log("Item Saved Successfully");
@@ -155,7 +155,7 @@ public class ProductCollection
             while ((line = reader.ReadLine()) != null)
             {
                 var arr = line.Split(';');
-                var prod = new ProductInfo(arr[0], arr[1], arr[2], ProductInfo.getScanDateTimeFromString(arr[3]), Converter.StringEnumConverter<Category, string>(arr[4]));
+                var prod = new ProductInfo(arr[0], arr[1], arr[2], ProductInfo.getScanDateTimeFromString(arr[3]), arr[4]);
                 products.Add(prod);
             }
         }
@@ -207,7 +207,7 @@ public class ProductCollection
         string upc = "-1";
         string pos = "Unknown Location";
         Func<ProductInfo> returnNoProd = () => {
-            return new ProductInfo(str, upc, pos, DateTime.Now, Category.all);
+            return new ProductInfo(str, upc, pos, DateTime.Now, "");
         };
         return returnNoProd();
     }

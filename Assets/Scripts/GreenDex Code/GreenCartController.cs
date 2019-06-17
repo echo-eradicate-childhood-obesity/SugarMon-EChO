@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using UnityEngine;
+using UnityEngine.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
@@ -19,10 +20,14 @@ public class GreenCartController : MonoBehaviour
     public GameObject ProductName;
     public GameObject ProductDate;
     public GameObject ProductLocation;
+    public Button All;
+    public Button NoAddedSugar;
+    public Button ContainsAddedSugar;
+    public GameObject EditBtn; // Button that allows you to edit the FoodDex
+    public GameObject LeftBtn; // Button that exits the FoodDex
 
     public List<Sprite> RightButtons;
 
-    public GameObject NetIndicator;
     [SerializeField]
     ProductCollection pc = new ProductCollection();
     public ProductCollection PC { get { return pc; } }
@@ -39,14 +44,6 @@ public class GreenCartController : MonoBehaviour
     int position;
     int incre;
 
-    public string key;
-    public string gkey;
-    //where the request file/properity is here
-    public IRequester requester;
-    public IRequester grequester;
-    [SerializeField]
-    TextAsset text; // text from USDA to barcodes spreadsheet
-    public char delimiter; // what divides the two numbers in the database (;)
     public bool editMode = false;
     bool down;
     //variable be used to fast scrolling. function not implemented yet, so variable not in use
@@ -64,6 +61,15 @@ public class GreenCartController : MonoBehaviour
 #endif
     float totalDisRollingDis;
 
+    [SerializeField]
+    public List<Sprite> EditButtonSprites;
+
+    [SerializeField]
+    public List<Sprite> Backgrounds; //0 blue, 1 green, 2 red
+    public GameObject background;
+
+    [SerializeField]
+    public List<Sprite> Buttons;
 
     private Category currentCate = new Category();
     public Category CurrentCate { get { return currentCate; } set { currentCate = value; } }
@@ -77,6 +83,9 @@ public class GreenCartController : MonoBehaviour
     float microAdjustVal;
     private void Awake()
     {
+        InitCategoryBtns();
+        EditBtn.GetComponent<Button>().onClick.AddListener(() => OnEditClick());
+        LeftBtn.GetComponent<Button>().onClick.AddListener(() => OnLeftBtnClick());
 
         if (instance != null) Destroy(this);
         else instance = this;
@@ -98,56 +107,7 @@ public class GreenCartController : MonoBehaviour
             Debug.Log(ex.Message);
             Debug.Log(ex.StackTrace);
         }
-        NetIndicator.SetActive(false);
-        //creat the requester. no need for await, use this for the build. it is faster 
-        //when in editor use this. but use Async method in build will be faster
-        //!not support Async load TextAsset in Editor
-#if UNITY_EDITOR
-        StartCoroutine("InitRequester");
-#else
-        StartAsync(); 
-#endif
         microAdjustVal = 0.5f;
-    }
-    /// <summary>
-    /// *Load UPC&NDB Lookup table into memory and sign to USDARequester
-    /// *requester is the used to send request to usda
-    /// *grequester is use to send request to Google using google map api.
-    /// *!Warnning: Seems like Unity do not support TextAsset streaming using Task. Do not use this in unity editor
-    /// </summary>
-    /// <returns></returns>
-    private async Task StartAsync()
-    {
-        await Task.Run(() =>
-        {
-            List<string[]> strList = new List<string[]>();
-            var textAssetArr = text.text.Split('\n'); // list of the items in Barcodes to USDA spreadsheet
-            foreach (var line in textAssetArr) // adds each number in the database individually to strList
-            {
-                var contentArr = line.Split(delimiter); // entries in the database are in format #####;##### so they are split by ;
-                strList.Add(contentArr); // the two element list created above is added to the larger list
-            }
-            requester = new USDARequester(strList, 1, key);
-            grequester = new GoogleRequester(gkey);
-        });
-    }
-    /// <summary>
-    /// * This function is same as StartAsync()
-    /// * But used only in Editor
-    /// </summary>
-    System.Collections.IEnumerator InitRequester()
-    {
-
-        List<string[]> strList = new List<string[]>();
-        var textAssetArr = text.text.Split('\n');
-        foreach (var line in textAssetArr)
-        {
-            var contentArr = line.Split(delimiter);
-            strList.Add(contentArr);
-        }
-        requester = new USDARequester(strList, 1,key);
-        grequester = new GoogleRequester(gkey);
-        yield return null;
     }
 
 
@@ -290,15 +250,83 @@ public class GreenCartController : MonoBehaviour
         //Rolling(offSet, info);
         totalDisRollingDis += offSet;
     }
+    private void OnLeftBtnClick() {
+        PC.Load();
+        editMode = false;
+    }
+    public void OnEditClick() {
+        editMode = !editMode;
+        if (editMode)
+            EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[1]; // highlighted
+        else
+            EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[0]; // unhighlighted
+    }
+    public void ResetCategory() {
+        CurrentCate = Category.all; //set the initial category to "all"
+        SetHighlights(Category.all);
+        PC.CurDic = PC.products;
+        ResetContainer(Category.all);
+    }
+    private void InitCategoryBtns() {
+        ResetCategory();
+        System.Action<Category> act = (newCate) => {
+            //set cate when the target cate is not the same as current cate
+            //if current category is same as target category do nothing
+            if (CurrentCate != newCate) {
+                CurrentCate = newCate;
+                PC.CurDic = new List<ProductInfo>();
+                if (newCate == Category.all) {
+                    PC.CurDic = PC.products;
+                }
+                else {
+                    foreach (ProductInfo pi in PC.products) {
+                        if (pi.Type == CurrentCate)
+                            PC.CurDic.Add(pi);
+                    }
+                }
+                SetHighlights(newCate);
+            }
+        };
+        All.GetComponent<Button>().onClick.AddListener(() => act(Category.all));
+        NoAddedSugar.GetComponent<Button>().onClick.AddListener(() => act(Category.noaddedsugar));
+        ContainsAddedSugar.GetComponent<Button>().onClick.AddListener(() => act(Category.containsaddedsugar));
+    }
+    //have info passed here, active the target gameobject in with in the info parent  
 
+    /// <summary>
+    /// Highlights the selected category and resets other categories
+    /// </summary>
+    /// <param name="name">Button selected to be highlighted</param>
+    private void SetHighlights(Category cate) {
+        CurrentCate = cate;
+        ResetContainer(cate);
+        if (cate == Category.all) {
+            background.GetComponentInChildren<Image>().sprite = Backgrounds[0];
+            All.GetComponentInChildren<Image>().sprite = Buttons[3]; // set "all" button to selected
+            NoAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[1];
+            ContainsAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[2];
+        }
+        else if (cate == Category.noaddedsugar) {
+            background.GetComponentInChildren<Image>().sprite = Backgrounds[1];
+            All.GetComponentInChildren<Image>().sprite = Buttons[0];
+            NoAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[4]; // set "No Sugar Added" to selected
+            ContainsAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[2];
+        }
+        else {
+            background.GetComponentInChildren<Image>().sprite = Backgrounds[2];
+            All.GetComponentInChildren<Image>().sprite = Buttons[0];
+            NoAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[1];
+            ContainsAddedSugar.GetComponentInChildren<Image>().sprite = Buttons[5]; // set "Contains Sugar Added" to selected
+        }
+    }
     /// <summary>
     /// * Add Scanned product to PC(Product Collection)
     /// </summary>
     /// <param name="name">prodcut name</param>
     /// <param name="pos">location where the product is scanned</param>
-    public void PCAdd(string name, string upc, string pos, Category type)
+    public void PCAdd(string name, string upc, string pos, string sugars)
     {
-        pc.AddProduct(name, upc, pos, type);
+        pc.AddProduct(name, upc, pos, sugars);
         ResetContainer(currentCate); // reloads current view of items from local storage removing the item from view
     }
     /// <summary>
@@ -308,7 +336,7 @@ public class GreenCartController : MonoBehaviour
     public void PCRemove(ProductInfo pi) {
         pc.RemoveProduct(pi); // removes item from local storage
         ResetContainer(currentCate); // reloads current view of items from local storage removing the item from view
-        GreenCartController.Instance.PC.PCSave(); // sets txt file storage to local sorage removing the item from txt file storage
+        PC.PCSave(); // sets txt file storage to local sorage removing the item from txt file storage
     }
     /// <summary>
     /// * Reset the Container's Position every time user Open GreenDex
@@ -362,54 +390,4 @@ public class GreenCartController : MonoBehaviour
         curSelectedPI = new List<ProductInfo>();
     }
 
-    /// <summary>
-    /// * Send Request To USDA and Google to get Information
-    /// * Using normal method will cause halt
-    /// * Set the NetIndicator to be Active to show the request is activeing, and set it to false when it ends
-    /// * The NetIndicator will cause bug when the first request is not end but another request is send. Need further test
-    /// * Call the PCAdd(string,string) to Add product to collection
-    /// * Call PC.PCSave() to save the products to user's locat file
-    /// </summary>
-    /// <param name="bcv"></param>
-    /// <param name="type"></param>
-    /// <returns></returns>
-    public async Task RequestAsync(string bcv, Category type)
-    {
-        NetIndicator.SetActive(true);
-        //start the locationservice here and give it some time to get the latitude and longitude info
-        Input.location.Start();
-        string name = await requester.SendRequest(bcv);
-        if (name == bcv)
-        {
-            await Task.Run(() => {
-                float i = 0;
-                while (i < 1)
-                {
-                    i += Time.deltaTime;
-                }
-            });
-            //name += $"UPC: {bcv}";
-        }
-        //wait 1 second to give the location service more time to get latlng info
-#if !UNITY_EDITOR
-        await Task.Run(() => {
-            float i = 0;
-            while (i < 2)
-            {
-                i += Time.deltaTime;
-            }
-        });
-#endif
-        //stop the locationservice to save battery life. 
-        //hopefully, the time to get internet request will give the device enought to get the location info
-        Input.location.Stop();
-
-        var pos = Input.location.lastData;
-        //change the info to an format google api support
-        var info = $@"latlng={pos.latitude.ToString()},{pos.longitude.ToString()}";
-        var realpos = await grequester.SendRequest(info);
-        PCAdd(name, bcv, realpos, type);
-        PC.PCSave();
-        NetIndicator.SetActive(false);
-    }
 }
