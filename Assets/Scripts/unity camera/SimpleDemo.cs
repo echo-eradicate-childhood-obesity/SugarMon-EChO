@@ -53,7 +53,7 @@ public class SimpleDemo : MonoBehaviour
             tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
         }
 
-        //Read new USDA sorted Database
+        //Read Label Insight Database
 #if UNITY_EDITOR
         string encodedContent = Encoding.UTF7.GetString(LabelInsightDatabase.bytes);
         dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
