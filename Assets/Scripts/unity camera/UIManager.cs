@@ -23,7 +23,9 @@ public struct Info{
 }
 
 public class UIManager : MonoBehaviour {
+
     public List<Sprite> Sprites;
+    public List<Sprite> NewSprites;
     //singleton attached to main camera
     private static UIManager _instance;
 
@@ -101,31 +103,31 @@ public class UIManager : MonoBehaviour {
                 {
                     if (go.text.Equals("Dextrin"))
                     {
-                        go.image = Sprites[0];
+                        go.image = NewSprites[0];
                     }
                     if (go.text.Equals("OSE"))
                     {
-                        go.image = Sprites[1];
+                        go.image = NewSprites[1];
                     }
                     if (go.text.Equals("Cane"))
                     {
-                        go.image = Sprites[2];
+                        go.image = NewSprites[2];
                     }
                     if (go.text.Equals("Syrup"))
                     {
-                        go.image = Sprites[3];
+                        go.image = NewSprites[3];
                     }
                     if (go.text.Equals("Concentrate"))
                     {
-                        go.image = Sprites[4];
+                        go.image = NewSprites[4];
                     }
                     if (go.text.Equals("Obvious"))
                     {
-                        go.image = Sprites[5];
+                        go.image = NewSprites[5];
                     }
                     if (go.text.Equals("Strange"))
                     {
-                        go.image = Sprites[6];
+                        go.image = NewSprites[6];
                     }
                     go.text += " (1 new!)";
                 }

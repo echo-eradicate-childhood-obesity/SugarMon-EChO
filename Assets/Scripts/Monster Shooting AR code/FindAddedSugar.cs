@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using System.Text;
 using System.Threading.Tasks;
 using System;
+using TMPro;
+
 
 public class FindAddedSugar : MonoBehaviour
 {
@@ -56,6 +58,7 @@ public class FindAddedSugar : MonoBehaviour
     public GameObject summonSystem;
     public GameObject greenCartGo;
     public GameObject greenCartBtn;
+    public GameObject dropdownMenu;
 
     private int numCount;
     public GameObject sugarDex, redDot, canvas, familyBackground, mainCam;
@@ -369,7 +372,7 @@ public class FindAddedSugar : MonoBehaviour
                             if (sl[nameIndex].ToLower() == r.ToLower())
                             {
                                 Info info = new Info(sl[familyIndex]);
-                                um.IndicateController(info,"Notification");
+                                um.IndicateController(info,"Notification", dropdownMenu.GetComponent<TMP_Dropdown>().options);
                             }
                         }
 
