@@ -31,18 +31,15 @@ public class GreenCartController : MonoBehaviour
     [SerializeField]
     ProductCollection pc = new ProductCollection();
     public ProductCollection PC { get { return pc; } }
-    [SerializeField]
-    GameObject dashHolder;
-    [SerializeField]
-    List<GameObject> Containers;
+    public GameObject ContentBox;
+    public GameObject dashHolder;
+    public List<GameObject> Containers;
     public List<GameObject> CONTAINERS { get { return Containers; } }
-    [SerializeField]
-    List<Sprite> cateImg;//0:uncate,1:redButton,2:greenButton
+    public List<Sprite> cateImg;//0:uncate,1:redButton,2:greenButton
     public List<Sprite> CateImg { get { return cateImg; } }
-    [SerializeField]
-    float containerHeight;
-    int position;
-    int incre;
+    public float containerHeight;
+    private int position;
+    private int incre;
 
     public bool editMode = false;
     bool down;
@@ -55,7 +52,6 @@ public class GreenCartController : MonoBehaviour
 
     Vector3 lastTouchPos;
 
-    public GameObject testtextbox;
 #if UNITY_EDITOR
     int[] ints = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
 #endif
@@ -86,6 +82,7 @@ public class GreenCartController : MonoBehaviour
         InitCategoryBtns();
         EditBtn.GetComponent<Button>().onClick.AddListener(() => OnEditClick());
         LeftBtn.GetComponent<Button>().onClick.AddListener(() => OnLeftBtnClick());
+        ContentBox = GameObject.Find("Content");
 
         if (instance != null) Destroy(this);
         else instance = this;
@@ -113,6 +110,11 @@ public class GreenCartController : MonoBehaviour
 
     public void Update()
     {
+        RectTransform rt = ContentBox.GetComponent<RectTransform>();
+        if(PC.CurDic.Count > Containers.Count)
+            rt.sizeDelta = new Vector2(rt.sizeDelta.x, Containers.Count * containerHeight);
+        else
+            rt.sizeDelta = new Vector2(rt.sizeDelta.x, PC.CurDic.Count * containerHeight);
         //when roolable, rolling
         //disable ro
         if (rollable)
@@ -183,7 +185,7 @@ public class GreenCartController : MonoBehaviour
             //when the rolling distance is more than the totaly data user have
             //then set offSet value to 0 to prevent furthe rolling
             //pc.GetCount(currentCate) is the total number of products in current selected category
-            //Containers.Count is the container number in editor(number is 10 when writing this) 
+            //Containers.Count is the container number in editor(number is 15 when writing this) 
             //containerHeight is height of each container
             //Debug.Log($"#of:{pc.GetCount(currentCate)}");
             if ((pc.GetCount(currentCate) - Containers.Count-microAdjustVal) * containerHeight < -totalDisRollingDis && offSet < 0)
