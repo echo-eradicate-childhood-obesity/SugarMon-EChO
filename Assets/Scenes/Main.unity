@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.3587269, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2529,6 +2529,11 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1 &252971326 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1684243939184714, guid: 122b2d1bf0c8dbc4b91afb7a8635e89b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1968336218}
 --- !u!1001 &261055833
 Prefab:
   m_ObjectHideFlags: 0
@@ -7919,7 +7924,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 851.50006}
+  m_AnchoredPosition: {x: 0, y: 850.84607}
   m_SizeDelta: {x: 0, y: 2116.3}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &857211509
@@ -9460,7 +9465,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63987e7ea17a604aa8116486d5541e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprites: []
+  Sprites:
+  - {fileID: 21300000, guid: 3b892915656711e49b7669af0eb5772a, type: 3}
+  - {fileID: 21300000, guid: b11072640b31f2548b098258a6dbafb0, type: 3}
+  - {fileID: 21300000, guid: 736ac6177e9c858439a38d0c1e57b006, type: 3}
+  - {fileID: 21300000, guid: faeeab4915d62aa469f3c714704fd40e, type: 3}
+  - {fileID: 21300000, guid: b6e6abd679fa4b449b4e2b3e8e36e9cf, type: 3}
+  - {fileID: 21300000, guid: f2c5600bbc673934c9881a27b5e77149, type: 3}
+  - {fileID: 21300000, guid: c34ab8549dfea884ea7139391d5b376c, type: 3}
+  NewSprites:
+  - {fileID: 21300000, guid: df50a66be48b4441bb5e9b360d3a95a9, type: 3}
+  - {fileID: 21300000, guid: 03093ad45f5024a06811b70c2407778c, type: 3}
+  - {fileID: 21300000, guid: 6c53d54b4ba5842fcb57fc1813e7b041, type: 3}
+  - {fileID: 21300000, guid: bf5b4a0e6845f4213b7574985cbb1685, type: 3}
+  - {fileID: 21300000, guid: 11a464c69978e42e18748c9c4e917d98, type: 3}
+  - {fileID: 21300000, guid: ce500556dfd2c4380977be0f7294a666, type: 3}
+  - {fileID: 21300000, guid: 616fd6fcabfd7450d842828119b59156, type: 3}
   simpleDemo: {fileID: 0}
   familyUIList:
   - {fileID: 1564541859}
@@ -9546,7 +9566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927066d69e945534d9e418957eac82fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 1
+  test: 0
   upcNumText: {fileID: 690513164}
   resetButton: {fileID: 474457265}
 --- !u!224 &1051750657
@@ -9848,7 +9868,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1489339443}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.5976422
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11970,6 +11990,7 @@ MonoBehaviour:
   summonSystem: {fileID: 1464098044}
   greenCartGo: {fileID: 545924519}
   greenCartBtn: {fileID: 1769160887}
+  dropdownMenu: {fileID: 252971326}
   sugarDex: {fileID: 156339748}
   redDot: {fileID: 1168159290}
   canvas: {fileID: 1325306016}
@@ -12589,7 +12610,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.00013922233}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1337665287
@@ -13412,12 +13433,12 @@ Prefab:
     - target: {fileID: 224826669155144058, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 224916130651671370, guid: 3210c2d7dab454c4e909a936fd2a71b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1481772701036564, guid: 3210c2d7dab454c4e909a936fd2a71b3, type: 2}
       propertyPath: m_Name
@@ -19602,7 +19623,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1701523630653876, guid: 6f8b0589775c7f04182bc947e20a7efc, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1555718120295862, guid: 6f8b0589775c7f04182bc947e20a7efc, type: 2}
       propertyPath: m_StaticEditorFlags
