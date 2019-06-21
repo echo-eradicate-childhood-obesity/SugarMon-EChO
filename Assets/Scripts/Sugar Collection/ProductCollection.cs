@@ -22,9 +22,8 @@ public class ProductCollection
     public void AddProduct(string name, string UPC, string pos, string sugars)
     {
         if (products == null) products = new List<ProductInfo>();
-        var prod = new ProductInfo(name, UPC, pos, DateTime.Now, sugars);
-        products.Add(prod);
-
+        products.Add(new ProductInfo(name, UPC, pos, DateTime.Now, sugars));
+        PCSave();
     }
     /// <summary>
     /// * Removes a product from the collection
@@ -32,6 +31,7 @@ public class ProductCollection
     /// <param name="pi">Product to remove</param>
     public void RemoveProduct(ProductInfo pi) {
         products.Remove(pi);
+        PCSave();
     }
     public void ResetCurDic(Category cate) {
         curDic = new List<ProductInfo>();
@@ -200,11 +200,11 @@ public class ProductCollection
     }
 
     private ProductInfo GetProduct(int i, List<ProductInfo> prods) {
-        if (i > 0 && i < prods.Count) {
+        if (i >= 0 && i < prods.Count) {
             return prods[i];
         }
-        string str = "No More Product";
-        string upc = "-1";
+        string str = i.ToString();
+        string upc = i.ToString();
         string pos = "Unknown Location";
         Func<ProductInfo> returnNoProd = () => {
             return new ProductInfo(str, upc, pos, DateTime.Now, "");

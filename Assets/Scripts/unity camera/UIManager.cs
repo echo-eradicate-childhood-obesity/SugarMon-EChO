@@ -152,7 +152,7 @@ public class UIManager : MonoBehaviour {
     }
     public void OpenFoodDex() 
     {
-        GreenCartController.Instance.ResetCategory();
+        GreenCartController.Instance.ResetContainer();
         GreenCartController.Instance.rollable = true;
         ToggleEnable(GreenCartController.Instance.gameObject);
     }

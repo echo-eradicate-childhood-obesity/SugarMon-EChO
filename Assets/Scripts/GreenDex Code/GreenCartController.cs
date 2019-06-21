@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 /// * This is a singleton
 /// * Attached to GreenCartBack
 /// </summary>
-public class GreenCartController : MonoBehaviour
-{
+public class GreenCartController : MonoBehaviour {
     public bool rollable { get; set; }
     private static GreenCartController instance;
     public static GreenCartController Instance { get { return instance; } }
@@ -25,6 +24,7 @@ public class GreenCartController : MonoBehaviour
     public Button ContainsAddedSugar;
     public GameObject EditBtn; // Button that allows you to edit the FoodDex
     public GameObject LeftBtn; // Button that exits the FoodDex
+    public GameObject CartDashCanvas;
 
     public List<Sprite> RightButtons;
 
@@ -32,22 +32,17 @@ public class GreenCartController : MonoBehaviour
     ProductCollection pc = new ProductCollection();
     public ProductCollection PC { get { return pc; } }
     public GameObject ContentBox;
-    public GameObject dashHolder;
     public List<GameObject> Containers;
     public List<GameObject> CONTAINERS { get { return Containers; } }
     public List<Sprite> cateImg;//0:uncate,1:redButton,2:greenButton
     public List<Sprite> CateImg { get { return cateImg; } }
+    [HideInInspector]
     public float containerHeight;
     private int position;
     private int incre;
-
+    private float offSet;
     public bool editMode = false;
     bool down;
-    //variable be used to fast scrolling. function not implemented yet, so variable not in use
-    //float downTimer;
-    //Vector3 downPos = new Vector3();
-    //Vector3 upPos = new Vector3();
-    //bool fastRool;
     Vector3 lastPos;
 
     Vector3 lastTouchPos;
@@ -77,8 +72,7 @@ public class GreenCartController : MonoBehaviour
     //this val is used to adjust the rooling
     //use this val to avoid rooling overflow
     float microAdjustVal;
-    private void Awake()
-    {
+    private void Awake() {
         InitCategoryBtns();
         EditBtn.GetComponent<Button>().onClick.AddListener(() => OnEditClick());
         LeftBtn.GetComponent<Button>().onClick.AddListener(() => OnLeftBtnClick());
@@ -94,32 +88,61 @@ public class GreenCartController : MonoBehaviour
         //so there should be only one value.
         incre = 150;
         containerHeight = 150f;
-        try
-        {
+        try {
             pc.products = pc.Load();
             ///*pc.products = */pc.BinaryLoader();
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             Debug.Log(ex.Message);
             Debug.Log(ex.StackTrace);
         }
         microAdjustVal = 0.5f;
+        PopulateContainers();
     }
 
-
-    public void Update()
-    {
+    void PopulateContainers() {
+        // Makes sure there are the right amount of containers for the amount of ProductInfos in CurDic
+        if (Containers == null)
+            Containers = new List<GameObject>();
+        while (Containers.Count < PC.CurDic.Count) {
+            GameObject go = Instantiate(CartDashCanvas, ContentBox.transform) as GameObject;
+            Containers.Add(go);
+            go.transform.position = new Vector3(0, -containerHeight, 0);
+        }
+        int i = Containers.Count-1;
+        while (Containers.Count > PC.CurDic.Count) {
+            GameObject go = Containers[i];
+            Containers.RemoveAt(i);
+            Destroy(go);
+            i--;
+        }
+        // Create the first container at the default position
+        i = 0;
+        /*if (PC.CurDic.Count > i) {
+            Containers[i].name = PC.CurDic[i].Name;
+            Containers[i].GetComponent<GreenDexContainer>().PIUpdate(PC.CurDic[i]);
+            Containers[i].transform.position = new Vector3(0, 0, 0);
+        }
+        i++;*/
+        // Create subsequent containers lower on the list by the amount of containerHeight (150 when writing this)
+        while (PC.CurDic.Count > i) {
+            GameObject go = Containers[i];
+            go.name = PC.CurDic[i].Name;
+            go.GetComponent<GreenDexContainer>().PIUpdate(PC.CurDic[i]);
+            i++;
+        }
+        // Resize the content window to fit the length of the list
         RectTransform rt = ContentBox.GetComponent<RectTransform>();
-        if(PC.CurDic.Count > Containers.Count)
-            rt.sizeDelta = new Vector2(rt.sizeDelta.x, Containers.Count * containerHeight);
-        else
-            rt.sizeDelta = new Vector2(rt.sizeDelta.x, PC.CurDic.Count * containerHeight);
+        rt.sizeDelta = new Vector2(rt.sizeDelta.x, PC.CurDic.Count * containerHeight);
+    }
+    public void Update() {
         //when roolable, rolling
         //disable ro
-        if (rollable)
-        {
+        if (rollable) {
             RollingAction();
+        }
+        if (PC.CurDic.Count != Containers.Count) {
+            PopulateContainers();
         }
 
     }
@@ -129,25 +152,19 @@ public class GreenCartController : MonoBehaviour
     /// *lastTouchPos is the recorded last frame Touch postition
     /// *! Unity Editor do not support Touch, use mouse input in editor
     /// </summary>
-    private void RollingAction()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
+    private void RollingAction() {
+        if (Input.GetButtonDown("Fire1")) {
             down = true;
         }
-        if (Input.GetButtonUp("Fire1"))
-        {
+        if (Input.GetButtonUp("Fire1")) {
             down = false;
         }
-        if (Input.touchCount > 0)
-        {
+        if (Input.touchCount > 0) {
             Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
-            {
+            if (touch.phase == TouchPhase.Began) {
                 lastTouchPos = touch.position;
             }
-            else
-            {
+            else {
                 var currentTouch = touch.position;
                 NewRolling(currentTouch, lastTouchPos);
                 lastTouchPos = touch.position;
@@ -177,26 +194,22 @@ public class GreenCartController : MonoBehaviour
     /// </summary>
     /// <param name="currentPos">current user's Touch/mouse position</param>
     /// <param name="lastPos">Touch/mouse position of last frame</param>
-    private void NewRolling(Vector3 currentPos, Vector3 lastPos)
-    {
+    private void NewRolling(Vector3 currentPos, Vector3 lastPos) {
         var offSet = lastPos.y - currentPos.y;
-        try
-        {
+        try {
             //when the rolling distance is more than the totaly data user have
             //then set offSet value to 0 to prevent furthe rolling
             //pc.GetCount(currentCate) is the total number of products in current selected category
             //Containers.Count is the container number in editor(number is 15 when writing this) 
             //containerHeight is height of each container
             //Debug.Log($"#of:{pc.GetCount(currentCate)}");
-            if ((pc.GetCount(currentCate) - Containers.Count-microAdjustVal) * containerHeight < -totalDisRollingDis && offSet < 0)
-            {
+            if ((pc.GetCount(currentCate) - Containers.Count - microAdjustVal) * containerHeight < -totalDisRollingDis && offSet < 0) {
 #if UNITY_EDITOR
                 Debug.Log("there is no more data");
 #endif
                 offSet = 0;
             }
-            else if (totalDisRollingDis > /*containerHeight*/0f && offSet > 0)
-            {
+            else if (totalDisRollingDis > /*containerHeight*/0f && offSet > 0) {
 #if UNITY_EDITOR
                 Debug.Log("this is the top of data");
 #endif
@@ -208,45 +221,35 @@ public class GreenCartController : MonoBehaviour
         info.Offset = offSet;
         info.RollingDis = totalDisRollingDis;
         //rolling is the new method which have refatored
-        foreach (GameObject go in Containers)
-        {
+        foreach (GameObject go in Containers) {
             var rectTrans = go.GetComponent<RectTransform>();
             //var offSet = lastPos.y - currentPos.y;
             var curPos = new Vector3(rectTrans.localPosition.x, rectTrans.localPosition.y, rectTrans.localPosition.z);
             curPos.y -= offSet;
-            if (curPos.y > containerHeight)
-            {
+            /*if (curPos.y > containerHeight) {
                 curPos.y -= containerHeight * Containers.Count;
                 //Debug.Log("Move to bottom");
                 //var text = go.transform.Find("ProductName").GetComponent<Text>();
-                try
-                {
+                try {
                     int i = pc.GetCount(currentCate) + (int)(info.RollingDis / containerHeight) - Containers.Count - 1;
-
-                    //go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i));
                     go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i, currentCate));
                 }
-                catch (System.Exception ex)
-                {
+                catch (System.Exception ex) {
                     Debug.Log(totalDisRollingDis);
                     Debug.Log(ex.StackTrace);
                 }
             }
-            if (curPos.y < (-Containers.Count+microAdjustVal) * containerHeight)
-            {
+            /*if (curPos.y < (-Containers.Count + microAdjustVal) * containerHeight) {
                 curPos.y += Containers.Count * containerHeight;
-                try
-                {
-                    int i = pc.GetCount(currentCate) - (int)(-info.RollingDis / containerHeight) /*- Containers.Count*/ - 1;
-                    //go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i);
+                try {
+                    int i = pc.GetCount(currentCate) - (int)(-info.RollingDis / containerHeight) - 1;
                     go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i, currentCate));
                 }
-                catch (System.Exception ex)
-                {
+                catch (System.Exception ex) {
                     Debug.Log(totalDisRollingDis);
                     Debug.Log(ex.StackTrace);
                 }
-            }
+            }*/
             rectTrans.localPosition = curPos;
         }
         //Rolling(offSet, info);
@@ -263,14 +266,8 @@ public class GreenCartController : MonoBehaviour
         else
             EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[0]; // unhighlighted
     }
-    public void ResetCategory() {
-        CurrentCate = Category.all; //set the initial category to "all"
-        SetHighlights(Category.all);
-        PC.CurDic = PC.products;
-        ResetContainer(Category.all);
-    }
     private void InitCategoryBtns() {
-        ResetCategory();
+        ResetContainer();
         System.Action<Category> act = (newCate) => {
             //set cate when the target cate is not the same as current cate
             //if current category is same as target category do nothing
@@ -286,7 +283,7 @@ public class GreenCartController : MonoBehaviour
                             PC.CurDic.Add(pi);
                     }
                 }
-                SetHighlights(newCate);
+                ResetContainer(newCate);
             }
         };
         All.GetComponent<Button>().onClick.AddListener(() => act(Category.all));
@@ -296,12 +293,10 @@ public class GreenCartController : MonoBehaviour
     //have info passed here, active the target gameobject in with in the info parent  
 
     /// <summary>
-    /// Highlights the selected category and resets other categories
+    /// Highlights the selected category
     /// </summary>
     /// <param name="name">Button selected to be highlighted</param>
     private void SetHighlights(Category cate) {
-        CurrentCate = cate;
-        ResetContainer(cate);
         if (cate == Category.all) {
             background.GetComponentInChildren<Image>().sprite = Backgrounds[0];
             All.GetComponentInChildren<Image>().sprite = Buttons[3]; // set "all" button to selected
@@ -326,8 +321,7 @@ public class GreenCartController : MonoBehaviour
     /// </summary>
     /// <param name="name">prodcut name</param>
     /// <param name="pos">location where the product is scanned</param>
-    public void PCAdd(string name, string upc, string pos, string sugars)
-    {
+    public void PCAdd(string name, string upc, string pos, string sugars) {
         pc.AddProduct(name, upc, pos, sugars);
         ResetContainer(currentCate); // reloads current view of items from local storage removing the item from view
     }
@@ -337,16 +331,17 @@ public class GreenCartController : MonoBehaviour
     /// <param name="pi">product to remove</param>
     public void PCRemove(ProductInfo pi) {
         pc.RemoveProduct(pi); // removes item from local storage
-        ResetContainer(currentCate); // reloads current view of items from local storage removing the item from view
-        PC.PCSave(); // sets txt file storage to local sorage removing the item from txt file storage
+        ResetContainer(currentCate); // reloads current view of items from local storage removing the item from view    }
     }
     /// <summary>
     /// * Reset the Container's Position every time user Open GreenDex
     /// * Make it easier to control the container's UI position
     /// </summary>
-    private void OnEnable()
-    {
+    private void OnEnable() {
         ResetContainer(currentCate);
+    }
+    public void ResetContainer() {
+        ResetContainer(Category.all);
     }
     /// <summary>
     /// update container content
@@ -354,42 +349,15 @@ public class GreenCartController : MonoBehaviour
     /// * update content
     /// * When products in cate are less than container than disable the extra container
     /// </summary>
-    /// <param name="cate">current user selected Categorys</param>
-    public void ResetContainer(Category cate)
-    {
+    /// <param name="cate">current user selected Category</param>
+    public void ResetContainer(Category cate) {
         totalDisRollingDis = 0;
-        //var pos = -200;
-        var pos = 0;
+        position = 0;
+        down = false;
         CurrentCate = cate;
+        SetHighlights(cate);
         pc.ResetCurDic(cate);
-        for (int i = 0; i < Containers.Count; i++)
-        {
-            // enable all containers 
-            if (!Containers[i].activeSelf)
-            {
-                Containers[i].SetActive(!Containers[i].activeSelf);
-            }
-            var offset = dashHolder.GetComponent<RectTransform>().rect.width / 2;
-            Containers[i].GetComponent<RectTransform>().localPosition = new Vector3(offset, pos, 0);
-            pos -= incre;
-            if (i > pc.CurDic.Count - 1)
-                Containers[i].SetActive(false);
-            else
-                Containers[i].GetComponent<GreenDexContainer>().PIUpdate(pc.CurDic[pc.CurDic.Count - i - 1]);
-        }
-    }
-    /// <summary>
-    /// * IsSelected is recorded in pi(Prodcut Infomation)
-    /// * Set the value to false make sure it can be selected in later action
-    /// * Reset curSelelctedPI to en empty List.
-    /// </summary>
-    public void ClearCurSelectedPI()
-    {
-        foreach (ProductInfo pi in curSelectedPI)
-        {
-            pi.IsSelected = false;
-        };
-        curSelectedPI = new List<ProductInfo>();
+        PopulateContainers();
     }
 
 }

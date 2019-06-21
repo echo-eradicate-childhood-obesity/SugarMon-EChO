@@ -14,6 +14,6 @@ public class ReturnFromDetailBtn : AnimButtonAction {
     }
     public override void ClickEventTrigger() {
         base.ClickEventTrigger();
-        GreenCartController.Instance.ResetCategory();
+        GreenCartController.Instance.ResetContainer();
     }
 }
