@@ -326,7 +326,7 @@ public class FindAddedSugar : MonoBehaviour
     public void AllTypeOfSugars(string ingredientFromDB, string bcv)
     {
         sugarDex.GetComponent<Button>().enabled = false;
-        //greenCartBtn.GetComponent<Button>().enabled = false;
+        greenCartBtn.GetComponent<Button>().enabled = false;
         mainCam.GetComponent<SimpleDemo>().enabled = false;
         if(bcv == superCode)
         {
@@ -451,6 +451,7 @@ public class FindAddedSugar : MonoBehaviour
             if (currentNumMonster + 1 == scannedAddedSugars.Count) // if last card
             {
                 Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster])); // destroy stationary card
+                greenCartBtn.GetComponent<Button>().enabled = true; // active FoodDex button
                 wasSkipped = false; // reset wasSkipped for the next scan
             }
             else // if there are more cards
@@ -476,6 +477,7 @@ public class FindAddedSugar : MonoBehaviour
             anim.GetComponent<Animator>().Play("GreenCard");
             yield return new WaitForSeconds(1f);
             Destroy(anim);
+            greenCartBtn.GetComponent<Button>().enabled = true; // active FoodDex button
             ChangeNextCardText();
         }
         else if (s == "NotFound")
@@ -493,6 +495,7 @@ public class FindAddedSugar : MonoBehaviour
             yield return new WaitForSeconds(1f);
             scanFrame.SetActive(true);
             Destroy(anim);
+            greenCartBtn.GetComponent<Button>().enabled = true; // active FoodDex button
             ChangeNextCardText();
         }
         
@@ -529,7 +532,7 @@ public class FindAddedSugar : MonoBehaviour
             if (GameObject.Find("Magic Tree") == null && !greenCartGo.activeSelf)
             {
                 sugarDex.GetComponent<Button>().enabled = true;
-                greenCartBtn.GetComponent<Button>().enabled = true;
+                //greenCartBtn.GetComponent<Button>().enabled = true;
                 mainCam.GetComponent<SimpleDemo>().enabled = true;
                 mainCam.GetComponent<SimpleDemo>().Invoke("ClickStart", 3f); //wait for 3 seconds for next scan
             }

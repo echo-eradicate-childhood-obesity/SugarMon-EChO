@@ -67,7 +67,7 @@ public class TutorialController : MonoBehaviour {
                     Debug.Log("Destroy");
                     Destroy(gameObject);
                     Destroy(tree);
-                    greenCartBtn.GetComponent<Button>().enabled = true;
+                    //greenCartBtn.GetComponent<Button>().enabled = true;
                     GameObject.Find("Canvas").GetComponent<FindAddedSugar>().DisplayMonsters();
                 }
                 else
