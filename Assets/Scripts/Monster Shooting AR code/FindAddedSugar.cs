@@ -326,7 +326,7 @@ public class FindAddedSugar : MonoBehaviour
     public void AllTypeOfSugars(string ingredientFromDB, string bcv)
     {
         sugarDex.GetComponent<Button>().enabled = false;
-        greenCartBtn.GetComponent<Button>().enabled = false;
+        //greenCartBtn.GetComponent<Button>().enabled = false;
         mainCam.GetComponent<SimpleDemo>().enabled = false;
         if(bcv == superCode)
         {
