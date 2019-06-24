@@ -7,7 +7,7 @@ public class TestController : MonoBehaviour {
 
 
     public bool test;
-    public GameObject upcNumText, resetButton;
+    public GameObject upcNumText, resetButton, foodDexCounter;
 
     // Use this for initialization
     void Awake () {
@@ -18,5 +18,6 @@ public class TestController : MonoBehaviour {
     {
         upcNumText.SetActive(b);
         resetButton.SetActive(b);
+        foodDexCounter.SetActive(b);
     }
 }

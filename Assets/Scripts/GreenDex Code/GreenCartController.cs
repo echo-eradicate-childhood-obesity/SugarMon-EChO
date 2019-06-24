@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using TMPro;
 /// <summary>
 /// * This Class Controls overall behavior of GreenDex
 /// * This is a singleton
@@ -36,6 +37,8 @@ public class GreenCartController : MonoBehaviour {
     public List<GameObject> CONTAINERS { get { return Containers; } }
     public List<Sprite> cateImg;//0:uncate,1:redButton,2:greenButton
     public List<Sprite> CateImg { get { return cateImg; } }
+    public GameObject NumCarts;
+
     [HideInInspector]
     public float containerHeight;
     private int position;
@@ -134,6 +137,7 @@ public class GreenCartController : MonoBehaviour {
         // Resize the content window to fit the length of the list
         RectTransform rt = ContentBox.GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(rt.sizeDelta.x, PC.CurDic.Count * containerHeight);
+        NumCarts.GetComponent<TextMeshProUGUI>().text = PC.CurDic.Count.ToString();
     }
     public void Update() {
         //when roolable, rolling
