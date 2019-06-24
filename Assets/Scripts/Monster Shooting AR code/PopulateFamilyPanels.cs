@@ -92,7 +92,7 @@ public class PopulateFamilyPanels : MonoBehaviour {
                 GameObject monsterName = newCell.transform.Find("Name").gameObject;
                 TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
                 monsterName.GetComponent<Text>().text = textInfo.ToTitleCase(sugarRepo[cell]);
-                newCell.AddComponent<Button>().onClick.AddListener(delegate { ShowDetail(sugarRepo.IndexOf(sugarName.ToLower()) + 1);});
+                //newCell.AddComponent<Button>().onClick.AddListener(delegate { ShowDetail(sugarRepo.IndexOf(sugarName.ToLower()) + 1);});
 
                 cell++;
             }
