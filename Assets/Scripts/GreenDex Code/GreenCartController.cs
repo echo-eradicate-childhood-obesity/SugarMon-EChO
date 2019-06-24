@@ -33,6 +33,7 @@ public class GreenCartController : MonoBehaviour {
     ProductCollection pc = new ProductCollection();
     public ProductCollection PC { get { return pc; } }
     public GameObject ContentBox;
+    [HideInInspector]
     public List<GameObject> Containers;
     public List<GameObject> CONTAINERS { get { return Containers; } }
     public List<Sprite> cateImg;//0:uncate,1:redButton,2:greenButton
@@ -107,32 +108,39 @@ public class GreenCartController : MonoBehaviour {
         // Makes sure there are the right amount of containers for the amount of ProductInfos in CurDic
         if (Containers == null)
             Containers = new List<GameObject>();
-        while (Containers.Count < PC.CurDic.Count) {
-            GameObject go = Instantiate(CartDashCanvas, ContentBox.transform) as GameObject;
-            Containers.Add(go);
-            go.transform.position = new Vector3(0, -containerHeight, 0);
+        // if the old category was all, the new category has less objects so just remove the unneeded category
+        if (Containers.Count == PC.products.Count) {
+            Category remove;
+            if(CurrentCate == Category.noaddedsugar) remove = Category.containsaddedsugar;
+            else remove = Category.noaddedsugar;
+            for(int i = Containers.Count - 1; i > 0; i--) {
+                GameObject go = Containers[i];
+                if(go.GetComponent<GreenDexContainer>().PI.Type == remove) {
+                    Containers.Remove(go);
+                    Destroy(go);
+                }
+            }
         }
-        int i = Containers.Count-1;
-        while (Containers.Count > PC.CurDic.Count) {
-            GameObject go = Containers[i];
-            Containers.RemoveAt(i);
-            Destroy(go);
-            i--;
-        }
-        // Create the first container at the default position
-        i = 0;
-        /*if (PC.CurDic.Count > i) {
-            Containers[i].name = PC.CurDic[i].Name;
-            Containers[i].GetComponent<GreenDexContainer>().PIUpdate(PC.CurDic[i]);
-            Containers[i].transform.position = new Vector3(0, 0, 0);
-        }
-        i++;*/
-        // Create subsequent containers lower on the list by the amount of containerHeight (150 when writing this)
-        while (PC.CurDic.Count > i) {
-            GameObject go = Containers[i];
-            go.name = PC.CurDic[i].Name;
-            go.GetComponent<GreenDexContainer>().PIUpdate(PC.CurDic[i]);
-            i++;
+        else {
+            while (Containers.Count < PC.CurDic.Count) {
+                GameObject go = Instantiate(CartDashCanvas, ContentBox.transform) as GameObject;
+                Containers.Add(go);
+                go.transform.position = new Vector3(0, -containerHeight, 0);
+            }
+            int i = Containers.Count - 1;
+            while (Containers.Count > PC.CurDic.Count) {
+                GameObject go = Containers[i];
+                Containers.RemoveAt(i);
+                Destroy(go);
+                i--;
+            }
+            i = 0;
+            while (PC.CurDic.Count > i) {
+                GameObject go = Containers[i];
+                go.name = PC.CurDic[i].Name;
+                go.GetComponent<GreenDexContainer>().PIUpdate(PC.CurDic[i]);
+                i++;
+            }
         }
         // Resize the content window to fit the length of the list
         RectTransform rt = ContentBox.GetComponent<RectTransform>();
