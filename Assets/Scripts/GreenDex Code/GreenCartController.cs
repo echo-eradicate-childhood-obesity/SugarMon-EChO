@@ -258,10 +258,20 @@ public class GreenCartController : MonoBehaviour {
     }
     public void OnEditClick() {
         editMode = !editMode;
-        if (editMode)
+        if (editMode) {
             EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[1]; // highlighted
-        else
+            /*foreach (GameObject go in Containers) {
+                go.GetComponent<Image>().sprite = RightButtons[1];
+                go.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(245, 127); // proportions of remove button
+            }*/
+        }
+        else {
             EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[0]; // unhighlighted
+            /*foreach (GameObject go in Containers) {
+                go.GetComponent<Image>().sprite = RightButtons[0];
+                go.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(100, 100); // proportions of to detail button
+            }*/
+        }
     }
     private void InitCategoryBtns() {
         ResetContainer();
