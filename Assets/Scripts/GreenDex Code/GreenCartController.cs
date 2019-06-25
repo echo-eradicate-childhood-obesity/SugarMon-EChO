@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using TMPro;
 /// <summary>
 /// * This Class Controls overall behavior of GreenDex
 /// * This is a singleton
@@ -32,10 +33,13 @@ public class GreenCartController : MonoBehaviour {
     ProductCollection pc = new ProductCollection();
     public ProductCollection PC { get { return pc; } }
     public GameObject ContentBox;
+    [HideInInspector]
     public List<GameObject> Containers;
     public List<GameObject> CONTAINERS { get { return Containers; } }
     public List<Sprite> cateImg;//0:uncate,1:redButton,2:greenButton
     public List<Sprite> CateImg { get { return cateImg; } }
+    public GameObject NumCarts;
+
     [HideInInspector]
     public float containerHeight;
     private int position;
@@ -103,28 +107,20 @@ public class GreenCartController : MonoBehaviour {
     void PopulateContainers() {
         // Makes sure there are the right amount of containers for the amount of ProductInfos in CurDic
         if (Containers == null)
-            Containers = new List<GameObject>();
+        Containers = new List<GameObject>();
         while (Containers.Count < PC.CurDic.Count) {
             GameObject go = Instantiate(CartDashCanvas, ContentBox.transform) as GameObject;
             Containers.Add(go);
             go.transform.position = new Vector3(0, -containerHeight, 0);
         }
-        int i = Containers.Count-1;
+        int i = Containers.Count - 1;
         while (Containers.Count > PC.CurDic.Count) {
             GameObject go = Containers[i];
             Containers.RemoveAt(i);
             Destroy(go);
             i--;
         }
-        // Create the first container at the default position
         i = 0;
-        /*if (PC.CurDic.Count > i) {
-            Containers[i].name = PC.CurDic[i].Name;
-            Containers[i].GetComponent<GreenDexContainer>().PIUpdate(PC.CurDic[i]);
-            Containers[i].transform.position = new Vector3(0, 0, 0);
-        }
-        i++;*/
-        // Create subsequent containers lower on the list by the amount of containerHeight (150 when writing this)
         while (PC.CurDic.Count > i) {
             GameObject go = Containers[i];
             go.name = PC.CurDic[i].Name;
@@ -134,6 +130,7 @@ public class GreenCartController : MonoBehaviour {
         // Resize the content window to fit the length of the list
         RectTransform rt = ContentBox.GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(rt.sizeDelta.x, PC.CurDic.Count * containerHeight);
+        NumCarts.GetComponent<TextMeshProUGUI>().text = PC.CurDic.Count.ToString();
     }
     public void Update() {
         //when roolable, rolling
@@ -261,10 +258,20 @@ public class GreenCartController : MonoBehaviour {
     }
     public void OnEditClick() {
         editMode = !editMode;
-        if (editMode)
+        if (editMode) {
             EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[1]; // highlighted
-        else
+            /*foreach (GameObject go in Containers) {
+                go.GetComponent<Image>().sprite = RightButtons[1];
+                go.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(245, 127); // proportions of remove button
+            }*/
+        }
+        else {
             EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[0]; // unhighlighted
+            /*foreach (GameObject go in Containers) {
+                go.GetComponent<Image>().sprite = RightButtons[0];
+                go.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(100, 100); // proportions of to detail button
+            }*/
+        }
     }
     private void InitCategoryBtns() {
         ResetContainer();

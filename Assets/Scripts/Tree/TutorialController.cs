@@ -11,9 +11,11 @@ public class TutorialController : MonoBehaviour {
     public int pic;
     private GameObject tree;
     public GameObject sugarDex;
+    private GameObject greenCartBtn;
     // Use this for initialization
     void Start () {
         tree = GameObject.Find("Magic Tree");
+        greenCartBtn = GameObject.Find("FoodDexButton");
 	}
 	
 	// Update is called once per frame
@@ -40,7 +42,7 @@ public class TutorialController : MonoBehaviour {
                     this.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + tutorialStagePics[pic]);
                     if (tutorialStagePics[pic] == "0-2")
                     {
-                        tree.GetComponentInChildren<Text>().text = "Together, we can find all 247 Sugar Monsters!";
+                        tree.GetComponentInChildren<Text>().text = "Together, we can find all 263 Sugar Monsters!";
                     }
                     else if (tutorialStagePics[pic] == "0-3")
                     {
@@ -65,6 +67,7 @@ public class TutorialController : MonoBehaviour {
                     Debug.Log("Destroy");
                     Destroy(gameObject);
                     Destroy(tree);
+                    //greenCartBtn.GetComponent<Button>().enabled = true;
                     GameObject.Find("Canvas").GetComponent<FindAddedSugar>().DisplayMonsters();
                 }
                 else
@@ -98,6 +101,7 @@ public class TutorialController : MonoBehaviour {
                     Destroy(GameObject.Find("Tutorial Dex"));
                     Destroy(tree);
                     GameObject.Find("SugarDisk").GetComponent<Button>().enabled = true;
+                    greenCartBtn.GetComponent<Button>().enabled = true;
                     GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 1f);
                     //GameObject.Find("GreenCart").GetComponent<Button>().enabled = true;
                 }
