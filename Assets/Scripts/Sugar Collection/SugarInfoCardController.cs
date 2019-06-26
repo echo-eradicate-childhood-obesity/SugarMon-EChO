@@ -33,7 +33,7 @@ public class SugarInfoCardController : MonoBehaviour {
         else instance = this;
         fas = FindAddedSugar.Instance;
         ShownPosition = new Vector3(transform.position.x + 70f, transform.position.y - 90f, transform.position.z);
-        HiddenPosition = new Vector3(transform.position.x - 2f, transform.position.y + 60f, transform.position.z);
+        HiddenPosition = new Vector3(transform.position.x + 45f, transform.position.y - 70f, transform.position.z);
 }
     /// <summary>
     /// Sets the content for the monster name given by accessing the information from Sugar Repository.txt file 
