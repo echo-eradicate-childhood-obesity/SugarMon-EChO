@@ -120,11 +120,12 @@ public class GreenCartController : MonoBehaviour {
             Destroy(go);
             i--;
         }
+        // populate the containers with the correct products in CurDic
         i = 0;
         while (PC.CurDic.Count > i) {
             GameObject go = Containers[i];
-            go.name = PC.CurDic[i].Name;
-            go.GetComponent<GreenDexContainer>().PIUpdate(PC.CurDic[i]);
+            go.name = PC.CurDic[PC.CurDic.Count - i - 1].Name;
+            go.GetComponent<GreenDexContainer>().PIUpdate(PC.CurDic[PC.CurDic.Count - i - 1]);
             i++;
         }
         // Resize the content window to fit the length of the list
