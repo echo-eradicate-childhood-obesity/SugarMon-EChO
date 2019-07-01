@@ -330,7 +330,8 @@ public class FindAddedSugar : MonoBehaviour
         mainCam.GetComponent<SimpleDemo>().enabled = false;
         if(bcv == superCode)
         {
-            ingredientFromDB = "";
+            //Add super code exception
+            ingredientFromDB = superCode + ", super code";
         }
 
         //Barcode not in database
