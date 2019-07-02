@@ -39,7 +39,6 @@ public class ProductCollection
             curDic = products;
         }
         else {
-            int count = 0;
             foreach (ProductInfo pi in products) {
                 if (pi.Type == cate) curDic.Add(pi);
             }

@@ -23,7 +23,6 @@ public class SimpleDemo : MonoBehaviour
     public GameObject NetIndicator;
     public char delimiter; // what divides the two numbers in the database (;)
 
-    private bool inDB;
     private static List<string> dbProductList = new List<string>();
     [HideInInspector]
     public int tutorialStage;
@@ -197,40 +196,32 @@ public class SimpleDemo : MonoBehaviour
 
     public void ClickStart()
     {
-        inDB = false;
-        if (BarcodeScanner == null)
-        {
+        if (BarcodeScanner == null) {
             Log.Warning("No valid camera - Click Start");
-            return;
         }
+        else {
+            // Start Scanning
+            BarcodeScanner.Scan((barCodeType, barCodeValue) => {
+                BarcodeScanner.Stop();
 
-        // Start Scanning
-        BarcodeScanner.Scan((barCodeType, barCodeValue) => {
-            BarcodeScanner.Stop();
-            
-            if (this.GetComponent<TestController>().test) GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
-            
-            if (excludedCodeType.Any(barCodeType.Contains))
-            {
-                Invoke("ClickStart", 1f);
-            }
-            else
-            {
-                var i = SearchController.BinarySearch(dbProductList, long.Parse(barCodeValue), dbProductList.Count - 1, 0);
-                bool test = GameObject.Find("Main Camera").GetComponent<TestController>().test;
+                if (this.GetComponent<TestController>().test)
+                    GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
 
-                //test
-                if (i != -1)
-                {
-                    inDB = true;
-                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(dbProductList[i].ToLower(), barCodeValue);
+                if (excludedCodeType.Any(barCodeType.Contains))
+                    Invoke("ClickStart", 1f);
+                else {
+                    var i = SearchController.BinarySearch(dbProductList, long.Parse(barCodeValue), dbProductList.Count - 1, 0);
 
+                    string sugarName = "";
+                    if (i == -1)
+                        sugarName = "Not Found";
+                    else
+                        sugarName = dbProductList[i].ToLower();
+                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(sugarName, barCodeValue);
                 }
-                if (!inDB && GameObject.Find("Not Found") == null)
-                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found", barCodeValue);
-            }
 
-        });
+            });
+        }
 
     }
     /// <summary>
