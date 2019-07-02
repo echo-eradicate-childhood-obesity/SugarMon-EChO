@@ -326,13 +326,13 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 70.00344, w: 0}
+  m_margin: {x: 0, y: 0, z: 36.641476, w: 0}
   m_textInfo:
     textComponent: {fileID: 114060422488258786}
-    characterCount: 23
+    characterCount: 25
     spriteCount: 0
     spaceCount: 4
-    wordCount: 4
+    wordCount: 5
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -1009,7 +1009,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 130, y: 50}
+  m_AnchoredPosition: {x: 150, y: 50}
   m_SizeDelta: {x: 550, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!224 &224826669155144058
@@ -1063,6 +1063,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 130, y: -40}
+  m_AnchoredPosition: {x: 150, y: -40}
   m_SizeDelta: {x: 550, y: 50}
   m_Pivot: {x: 0, y: 0.5}
