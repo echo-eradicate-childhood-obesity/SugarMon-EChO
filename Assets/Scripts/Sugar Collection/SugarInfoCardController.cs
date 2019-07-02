@@ -24,7 +24,6 @@ public class SugarInfoCardController : MonoBehaviour {
     public GameObject CloseBtn; // button that closes the card
     public GameObject SugarNameText; // Name of the sugar displayed above
     public GameObject DescriptionText; // Description of a Sugar taken from the SugarDescriptions database
-    public GameObject WhereToFindText; // A sample food group to find any given sugar
     private Vector3 ShownPosition; // Position of the monster image when the monster is show
     private Vector3 HiddenPosition; // Position of the monster image when the onster is hidden
 
@@ -42,31 +41,17 @@ public class SugarInfoCardController : MonoBehaviour {
     /// <param monName="monIndex">The number of a monster (displayed in the top right in the sugar dex)</param>
     public void SetContent(int monIndex) {
         SugarNameText.GetComponent<TextMeshProUGUI>().text = fas.dbList[monIndex][fas.nameIndex];
-        WhereToFindText.GetComponent<TextMeshProUGUI>().text = fas.dbList[monIndex][fas.hiddenIndex];
 
         MonsterImg.GetComponent<Image>().sprite = fas.GetMonsterDesign(fas.dbList[monIndex][fas.nameIndex]);
         if (!fas.MonsterFound(fas.dbList[monIndex][fas.nameIndex])) { // if the monster has not yet been found
             MonsterImg.GetComponent<Image>().color = Color.black; // set the monster image to a silhouette
             DescriptionText.GetComponent<TextMeshProUGUI>().text = "";
-            MonsterImg.transform.position = HiddenPosition;
-            /**
-             * TODO:
-             * Move monster to the top middle of the screen
-             * Center&Move Where to Find Me? Label
-             * Center&Move WhereToFindText
-             */
-
+            //MonsterImg.transform.position = HiddenPosition;
         }
         else {
             MonsterImg.GetComponent<Image>().color = Color.white; // reset the image to having original colors
             DescriptionText.GetComponent<TextMeshProUGUI>().text = fas.dbList[monIndex][fas.descriptionIndex];
-            MonsterImg.transform.position = ShownPosition;
-            /**
-             * TODO:
-             * Move monster to original location
-             * Leftside text&Move Where to Find Me? Label
-             * Leftside text&Move WhereToFindText
-             */
+            //MonsterImg.transform.position = ShownPosition;
         }
     }
 }

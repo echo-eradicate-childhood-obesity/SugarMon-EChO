@@ -20,7 +20,6 @@ public class SimpleDemo : MonoBehaviour
 
     public string gkey;
     public IRequester grequester;
-    public GameObject NetIndicator;
     public char delimiter; // what divides the two numbers in the database (;)
 
     private static List<string> dbProductList = new List<string>();
@@ -34,7 +33,6 @@ public class SimpleDemo : MonoBehaviour
     // Disable Screen Rotation on that screen
     void Awake()
     {
-        NetIndicator.SetActive(false);
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
         tutorialStage = PlayerPrefs.GetInt("TutorialStage");
@@ -162,14 +160,11 @@ public class SimpleDemo : MonoBehaviour
     /// <summary>
     /// * Send Request To Google to get Information
     /// * Using normal method will cause halt
-    /// * Set the NetIndicator to be Active to show the request is activeing, and set it to false when it ends
-    /// * The NetIndicator will cause bug when the first request is not end but another request is send. Need further test
     /// </summary>
     /// <param name="bcv"></param>
     /// <param name="type"></param>
     /// <returns></returns>
     public async Task RequestAsync(string bcv, string name, string sugars) {
-        NetIndicator.SetActive(true);
 
         //wait 1 second to give the location service more time to get latlng info
 #if !UNITY_EDITOR
@@ -181,7 +176,7 @@ public class SimpleDemo : MonoBehaviour
         });
 #endif
         //stop the locationservice to save battery life. 
-        //hopefully, the time to get internet request will give the device enought to get the location info
+        //hopefully, the time to get internet request will give the device enough to get the location info
         Input.location.Stop();
 
         var pos = Input.location.lastData;
@@ -190,7 +185,6 @@ public class SimpleDemo : MonoBehaviour
         var realpos = await grequester.SendRequest(info);
         GreenCartController.Instance.PCAdd(name, bcv, realpos, sugars);
         GreenCartController.Instance.PC.PCSave();
-        NetIndicator.SetActive(false);
     }
     #region UI Buttons
 
