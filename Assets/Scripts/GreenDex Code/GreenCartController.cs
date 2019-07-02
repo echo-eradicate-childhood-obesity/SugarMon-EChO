@@ -39,6 +39,7 @@ public class GreenCartController : MonoBehaviour {
     public List<Sprite> cateImg;//0:uncate,1:redButton,2:greenButton
     public List<Sprite> CateImg { get { return cateImg; } }
     public GameObject NumCarts;
+    public GameObject CartDashHolder;
 
     [HideInInspector]
     public float containerHeight;
@@ -108,9 +109,13 @@ public class GreenCartController : MonoBehaviour {
         // Makes sure there are the right amount of containers for the amount of ProductInfos in CurDic
         if (Containers == null)
         Containers = new List<GameObject>();
+        RectTransform rt = ContentBox.GetComponent<RectTransform>();
         while (Containers.Count < PC.CurDic.Count) {
             GameObject go = Instantiate(CartDashCanvas, ContentBox.transform) as GameObject;
             Containers.Add(go);
+            // Resize the CartDashCanvas to fit the screen for different sized phones
+            go.GetComponent<RectTransform>().sizeDelta = new Vector2(-rt.sizeDelta.x, containerHeight);
+            // Move to the correct position within the list
             go.transform.position = new Vector3(0, -containerHeight, 0);
         }
         int i = Containers.Count - 1;
@@ -129,8 +134,7 @@ public class GreenCartController : MonoBehaviour {
             i++;
         }
         // Resize the content window to fit the length of the list
-        RectTransform rt = ContentBox.GetComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(rt.sizeDelta.x, PC.CurDic.Count * containerHeight);
+        rt.sizeDelta = new Vector2(CartDashHolder.GetComponent<RectTransform>().sizeDelta.x, PC.CurDic.Count * containerHeight);
         NumCarts.GetComponent<TextMeshProUGUI>().text = PC.CurDic.Count.ToString();
     }
     public void Update() {
