@@ -177,7 +177,7 @@ public class SimpleDemo : MonoBehaviour
 #endif
         //stop the locationservice to save battery life. 
         //hopefully, the time to get internet request will give the device enough to get the location info
-        Input.location.Stop();
+        //Input.location.Stop();
 
         var pos = Input.location.lastData;
         //change the info to an format google api support
