@@ -25,8 +25,7 @@ public class FamilyContentController : MonoBehaviour {
         var thisopts = test.options;
         var thisval = test.value;
         var thisname = thisopts[thisval].text.ToString();
-        //familyNames = GameObject.Find("Canvas").GetComponent<FindAddedSugar>().fms;
-        //GameObject tle = GameObject.Find(this.name + " Monsters Title");
+        
         test.options[thisval].text = (Regex.Replace(thisname, "(\\(.*\\))", "")).Trim();  //Remove "New" after the family name
         test.options[thisval].image = Sprites[thisval];  //Reset the family image
 
@@ -36,19 +35,12 @@ public class FamilyContentController : MonoBehaviour {
                 float titleHeight = tle.GetComponent<RectTransform>().rect.height;
                 Vector2 newPosition = new Vector2(familyContentObject.GetComponent<RectTransform>().localPosition.x, Math.Abs(tle.GetComponent<RectTransform>().localPosition.y) - titleHeight);
                 familyContentObject.GetComponent<RectTransform>().localPosition = newPosition;
-
-
             }
         }
     }
-    //GameObject tle = GameObject.Find(thisname + " Monsters Title");
-    //float titleHeight = tle.GetComponent<RectTransform>().rect.height;
-    //Vector2 newPosition = new Vector2(familyContentObject.GetComponent<RectTransform>().localPosition.x, Math.Abs(tle.GetComponent<RectTransform>().localPosition.y) - titleHeight);
-    //familyContentObject.GetComponent<RectTransform>().localPosition = newPosition;
-
+    
     private void TitleControl() {
-        // GameObject go in familyNames;
-        //if()
+       
         var dropdown = GameObject.Find("Dropdown").GetComponent<TMP_Dropdown>().options;
         var d = transform.GetComponent<TMP_Dropdown>();
         if (-7 <= familyRT.localPosition.y && 1070 >= familyRT.localPosition.y) {
@@ -96,9 +88,6 @@ public class FamilyContentController : MonoBehaviour {
             dropdown[6].image = Sprites[6];
         }
     }
-
-
-
     void Update() {
         TitleControl();
     }

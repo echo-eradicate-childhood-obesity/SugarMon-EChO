@@ -310,14 +310,18 @@ public class FindAddedSugar : MonoBehaviour
             string name = dbIngredientList[0]; // get the name of the product
             name = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(name); // make the first letter of every word uppcase
             dbIngredientList.RemoveAt(0); // remove the name from the sugar list
-            if (bcv == superCode && allScanned.Count == repository.Count)
+            if (bcv == superCode)
             {
-                GameObject.Find("SugarDisk").GetComponent<SugarDisk>().ResetData();
+                if (allScanned.Count == repository.Count)
+                {
+                    GameObject.Find("SugarDisk").GetComponent<SugarDisk>().ResetData();
+                }
+                else
+                {
+                    dbIngredientList = repository;
+                }       
             }
-            else
-            {
-                dbIngredientList = repository;
-            }
+            
             foreach (string r in repository)
             {
                 if (dbIngredientList.Contains(r.ToLower()))
@@ -357,8 +361,7 @@ public class FindAddedSugar : MonoBehaviour
                 //Change image of monster
                 scannedAddedSugars.Add("No Added Sugar");
                 CreateSugarMonster(scannedAddedSugars[currentNumMonster]);
-                scanFrame.SetActive(false);
-                
+                scanFrame.SetActive(false);              
             }
             //Include added sugar
             else

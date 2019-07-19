@@ -31,8 +31,7 @@ public class SugarInfoCardController : MonoBehaviour {
         if (instance != null) Destroy(this);
         else instance = this;
         fas = FindAddedSugar.Instance;
-        //ShownPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        //HiddenPosition = new Vector3(transform.position.x + 45f, transform.position.y - 70f, transform.position.z);
+        
 }
     /// <summary>
     /// Sets the content for the monster name given by accessing the information from Sugar Repository.txt file 
@@ -45,14 +44,17 @@ public class SugarInfoCardController : MonoBehaviour {
         MonsterImg.GetComponent<Image>().sprite = fas.GetMonsterDesign(fas.dbList[monIndex][fas.nameIndex]);
         if (!fas.MonsterFound(fas.dbList[monIndex][fas.nameIndex])) { // if the monster has not yet been found
             MonsterImg.GetComponent<Image>().color = Color.black; // set the monster image to a silhouette
-            //DescriptionText.GetComponent<TextMeshProUGUI>().text = "";
-            //MonsterImg.transform.position = HiddenPosition;
+            
         }
         else { // if monster is found
             MonsterImg.GetComponent<Image>().color = Color.white; // reset the image to having original colors
-            //DescriptionText.GetComponent<TextMeshProUGUI>().text = fas.dbList[monIndex][fas.descriptionIndex];
-            //MonsterImg.transform.position = ShownPosition;
+            
         }
         DescriptionText.GetComponent<TextMeshProUGUI>().text = fas.dbList[monIndex][fas.descriptionIndex];
+    }
+
+    public void CloseInfoCard()
+    {
+        this.gameObject.SetActive(false);
     }
 }
