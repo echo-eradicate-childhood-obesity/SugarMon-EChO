@@ -21,7 +21,6 @@ public class FindAddedSugar : MonoBehaviour
     private static List<string> db = new List<string>();
     public List<List<string>> dbList = new List<List<string>>();
     //public AudioClip newSugarSound, foundSugarSound, noSugarSound;
-    public NumbersOfEachSugar sugarCardData;
     public AudioSource Audio;
     public RuntimeAnimatorController animController;
     private SimpleDemo simpleDemo;
@@ -208,55 +207,13 @@ public class FindAddedSugar : MonoBehaviour
 
         //Update Family Background
         sugarDex.GetComponent<SugarDisk>().UpdateSugarDex(dbList, sugarDex.GetComponent<SugarDisk>().allCollectedSugars);
-        #region Old Update Family Backgound Func
-        //foreach (List<string> s in dbList)
-        //{
-        //    foreach (string ss in sugarDex.GetComponent<SugarDisk>().allCollectedSugars)
-        //    {
-        //        if (s[nameIndex].ToLower() == ss.ToLower())
-        //        {
-        //            var sc = GameObject.Find(s[deckNumIndex]);
-        //            if (sc != null)
-        //            {
-        //                sc.name = ss;
-        //                List<string> sugarWords = ss.Split(' ').ToList();
-        //                sc.transform.Find("Counter").GetComponent<Text>().text = "X" + sugarCardData.GetNumberOfSugar(ss).ToString();
-        //                if (sugarWords[0].ToCharArray().Count() > 12)
-        //                {
-        //                    string text = char.ToUpper(ss[0]) + ss.Substring(1);
-        //                    text = text.Insert(12, "- ");
-        //                    sc.transform.Find("Name").GetComponent<Text>().text = text;
-
-        //                }
-        //                else sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
-
-
-        //                var sci = sc.transform.Find("Image");
-        //                sci.GetComponentInChildren<Text>().text = "";
-        //                sci.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
-        //                sci.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
-        //                sci.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-        //                sci.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 40);
-        //                sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
-        //                sci.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
-
-        //                sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + sc.name);
-        //                //sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[familyIndex] + "/" + sc.name);
-        //                //sci.gameObject.AddComponent<Button>().onClick.AddListener(() => summonSystem.GetComponent<SummonSystem>().PopupSugarInfoCardInSugarDex(sc.name, s[familyIndex]));
-        //            }
-        //        }
-        //    }
-
-        //}
-        #endregion
+       
 
         GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars = sugarDex.GetComponent<SugarDisk>().allCollectedSugars.Distinct().ToList();
         foundCount.GetComponent<Text>().text = "Found: " + sugarDex.GetComponent<SugarDisk>().allCollectedSugars.Count;
         totalCount.GetComponent<Text>().text = "Total: " + repository.Count;
         sugarDex.GetComponent<SugarDisk>().CloseSugarDisk();
-
-        // CanvasScaler cs = canvas.GetComponent<CanvasScaler>();
-        //cs.referenceResolution = new Vector2 ()
+        
     }
 
 
@@ -353,14 +310,19 @@ public class FindAddedSugar : MonoBehaviour
             string name = dbIngredientList[0]; // get the name of the product
             name = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(name); // make the first letter of every word uppcase
             dbIngredientList.RemoveAt(0); // remove the name from the sugar list
-            if (bcv == superCode) dbIngredientList = repository;
-
+            if (bcv == superCode && allScanned.Count == repository.Count)
+            {
+                GameObject.Find("SugarDisk").GetComponent<SugarDisk>().ResetData();
+            }
+            else
+            {
+                dbIngredientList = repository;
+            }
             foreach (string r in repository)
             {
                 if (dbIngredientList.Contains(r.ToLower()))
                 {
                     dbIngredientList.IndexOf(r.ToLower());
-                    sugarCardData.GetSugar(r);
                     scannedAddedSugars.Add(char.ToUpper(r[0]) + r.Substring(1));
                     if (!allScanned.Contains(r.ToLower()))
                     {

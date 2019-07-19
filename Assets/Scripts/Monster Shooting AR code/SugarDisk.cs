@@ -12,7 +12,6 @@ public class SugarDisk : MonoBehaviour {
     [HideInInspector]
     public int foundMonsterNumber;
 
-    public NumbersOfEachSugar sugarCardData;
     public GameObject sugarDiskImage;
     public GameObject mainCam;
     private Vector3 diskPosition;
@@ -84,17 +83,10 @@ public class SugarDisk : MonoBehaviour {
         UpdateSugarDex(canvas.GetComponent<FindAddedSugar>().dbList, newSugars);
 
     }
-    public void UpdateCounterOfEachSugar()
-    {
-        foreach (string sugar in scannedAddedSugars.ConvertAll(item => item.ToLower()))
-        {
-            GameObject.Find(sugar).transform.Find("Counter").GetComponent<Text>().text = "X" + sugarCardData.GetNumberOfSugar(sugar).ToString();
-        }
-    }
+    
     public void ResetData()
     {
         PlayerPrefs.DeleteAll();
-        sugarCardData.sugars.Clear();
     }
     public void UpdateSugarDex(List<List<string>> dbList, List<string> newSugars)
     {
