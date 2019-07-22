@@ -41,6 +41,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7b80ef3f5684e219a6bd71d89c7aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mask: {fileID: 0}
+  tree: {fileID: 0}
+  canvas: {fileID: 0}
 --- !u!114 &114251934189648122
 MonoBehaviour:
   m_ObjectHideFlags: 1
