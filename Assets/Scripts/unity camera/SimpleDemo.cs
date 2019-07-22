@@ -183,8 +183,8 @@ public class SimpleDemo : MonoBehaviour
         //change the info to an format google api support
         var info = $@"latlng={pos.latitude.ToString()},{pos.longitude.ToString()}";
         var realpos = await grequester.SendRequest(info);
-        GreenCartController.Instance.PCAdd(name, bcv, realpos, sugars);
-        GreenCartController.Instance.PC.PCSave();
+        ScanHistoryController.Instance.PCAdd(name, bcv, realpos, sugars);
+        ScanHistoryController.Instance.PC.PCSave();
     }
     #region UI Buttons
 

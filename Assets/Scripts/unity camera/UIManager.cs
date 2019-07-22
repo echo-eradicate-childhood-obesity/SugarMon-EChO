@@ -152,13 +152,13 @@ public class UIManager : MonoBehaviour {
     }
     public void OpenFoodDex() 
     {
-        GreenCartController.Instance.ResetContainer();
-        GreenCartController.Instance.rollable = true;
-        ToggleEnable(GreenCartController.Instance.gameObject);
+        ScanHistoryController.Instance.ResetContainer();
+        ScanHistoryController.Instance.rollable = true;
+        ToggleEnable(ScanHistoryController.Instance.gameObject);
     }
     public void CloseFoodDex() {
-        ToggleEnable(GreenCartController.Instance.gameObject);
-        GreenCartController.Instance.rollable = false;
+        ToggleEnable(ScanHistoryController.Instance.gameObject);
+        ScanHistoryController.Instance.rollable = false;
     }
     public void ToggleEnable(GameObject go)
     {
