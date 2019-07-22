@@ -147,14 +147,19 @@ public class FindAddedSugar : MonoBehaviour
 
         //Read Database 
         //TextAsset sugarRepository = (TextAsset)Resources.Load("Database", typeof(TextAsset));
-        string dbContent = Encoding.UTF7.GetString(sugarRepository.bytes);
+        
+        string dbContent = Encoding.UTF8.GetString(sugarRepository.bytes);
         db = dbContent.Split(new char[] { '\n' }).ToList();
+
+        foreach(string s in db) Debug.Log(s);
+        
         //Save data in a list of lists
         for (int i = 0; i < db.Count; i++)
         {
             dbList.Add(db[i].Split(new char[] { '\t' }).ToList());
             dbList[i] = dbList[i].ConvertAll(item => item.Trim());
         }
+
         familyIndex = dbList[0].IndexOf(monsterFamilyColumn);
         deckNumIndex = dbList[0].IndexOf(numberInAppColumn);
         nameIndex = dbList[0].IndexOf(sugarNameColumn);
