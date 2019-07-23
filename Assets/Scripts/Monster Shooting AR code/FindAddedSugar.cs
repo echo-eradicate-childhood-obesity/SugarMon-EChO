@@ -151,7 +151,7 @@ public class FindAddedSugar : MonoBehaviour
         string dbContent = Encoding.UTF8.GetString(sugarRepository.bytes);
         db = dbContent.Split(new char[] { '\n' }).ToList();
 
-        foreach(string s in db) Debug.Log(s);
+        //foreach(string s in db) Debug.Log(s);
         
         //Save data in a list of lists
         for (int i = 0; i < db.Count; i++)
