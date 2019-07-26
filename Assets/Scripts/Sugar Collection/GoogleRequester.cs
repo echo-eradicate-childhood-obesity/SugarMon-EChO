@@ -23,7 +23,7 @@ public class GoogleRequester : IRequester
     /// <summary>
     /// * This is used only for geocode
     /// * change the url to make it work for other request
-    /// * When got the stree name, return street name otherwise return fail
+    /// * When got the street name, return street name otherwise return fail
     /// </summary>
     /// <param name="info">latlng combo</param>
     /// <returns>when work properly, return stree name</returns>
@@ -37,7 +37,7 @@ public class GoogleRequester : IRequester
             {
                 try
                 {
-                    string str =await client.GetStringAsync(url);
+                    string str = await client.GetStringAsync(url);
                     JObject json = JsonConvert.DeserializeObject<JObject>(str);
                     var output = json.SelectToken("results").First.SelectToken("formatted_address");
                     return output.ToString();

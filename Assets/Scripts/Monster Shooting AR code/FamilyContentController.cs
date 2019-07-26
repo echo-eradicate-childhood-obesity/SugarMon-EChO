@@ -21,13 +21,13 @@ public class FamilyContentController : MonoBehaviour {
     }
     public void FamilyContentPosition() {
 
-        var test = gameObject.GetComponent<TMP_Dropdown>();
-        var thisopts = test.options;
-        var thisval = test.value;
+        var dropdown = gameObject.GetComponent<TMP_Dropdown>();
+        var thisopts = dropdown.options;
+        var thisval = dropdown.value;
         var thisname = thisopts[thisval].text.ToString();
-        
-        test.options[thisval].text = (Regex.Replace(thisname, "(\\(.*\\))", "")).Trim();  //Remove "New" after the family name
-        test.options[thisval].image = Sprites[thisval];  //Reset the family image
+
+        dropdown.options[thisval].text = (Regex.Replace(thisname, "(\\(.*\\))", "")).Trim();  //Remove "New" after the family name
+        dropdown.options[thisval].image = Sprites[thisval];                                   //Reset the family image
 
         foreach (GameObject go in familyNames) {
             if (go.name.Substring(0, 2) == thisname.Substring(0, 2)) {
@@ -39,6 +39,9 @@ public class FamilyContentController : MonoBehaviour {
         }
     }
     
+    /// <summary>
+    /// Update the dropdown option displayed on dropdown menu based on family background position
+    /// </summary>
     private void TitleControl() {
        
         var dropdown = GameObject.Find("Dropdown").GetComponent<TMP_Dropdown>().options;

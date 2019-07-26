@@ -36,7 +36,7 @@ public class PopulateFamilyPanels : MonoBehaviour {
         GameObject newCell, newPanel, newTitle, numberCircle;
         List<string> families = GameObject.Find("Canvas").GetComponent<FindAddedSugar>().fms;
         Dictionary<string, int> fd = GameObject.Find("Canvas").GetComponent<FindAddedSugar>().familyDictionary;
-        List<string> sugarRepo = GameObject.Find("Canvas").GetComponent<FindAddedSugar>().repo;
+        List<string> sugarRepo = FindAddedSugar.repository;
         int cell = 0;
         Color col;
         if (colors[0] == null)
@@ -52,7 +52,7 @@ public class PopulateFamilyPanels : MonoBehaviour {
             }
         }
 
-
+        //Generate sugar dex content
         for (int i = 0; i < families.Count; i++)
         {
 

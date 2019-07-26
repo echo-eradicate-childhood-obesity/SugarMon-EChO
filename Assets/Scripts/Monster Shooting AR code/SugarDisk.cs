@@ -12,11 +12,10 @@ public class SugarDisk : MonoBehaviour {
     [HideInInspector]
     public int foundMonsterNumber;
 
-    public GameObject sugarDiskImage;
+    public GameObject sugarDiskImage;                //Sugar dex background
     public GameObject mainCam;
     private Vector3 diskPosition;
     public GameObject canvas;
-    private GameObject[] allTypesOfSugars;
 
     private List<string> sugarFromMain, newSugars;
     public List<string> allCollectedSugars;
@@ -25,11 +24,7 @@ public class SugarDisk : MonoBehaviour {
 
     [HideInInspector]
     public bool sugarDexOpen = false;
-
-    //change to local
-    //private Transform sci;
-    // Use this for initialization
-
+    
     void Start () {
 
         Transform sugarDiskImage = GameObject.Find("Canvas").transform.Find("FamilyBackground");
@@ -71,23 +66,34 @@ public class SugarDisk : MonoBehaviour {
 
         scannedAddedSugars = canvas.GetComponent<FindAddedSugar>().scannedAddedSugars;
         sugarFromMain = canvas.GetComponent<FindAddedSugar>().allScanned;
+
+        //Get new types of sugar in ingredient but sugar dex
         foreach (string ni in sugarFromMain)
         {
             if (!allCollectedSugars.Contains(ni) && ni.ToLower() != "no added sugar")
             {
                 newSugars.Add(ni);
                 allCollectedSugars.Add(ni.ToLower());
-
             }
         }
         UpdateSugarDex(canvas.GetComponent<FindAddedSugar>().dbList, newSugars);
 
     }
-    
+
+    /// <summary>
+    /// Reset all found types of sugar and tutorial stage for testing
+    /// </summary>
     public void ResetData()
     {
         PlayerPrefs.DeleteAll();
     }
+
+
+    /// <summary>
+    /// Change the image of found sugar in sugar dex
+    /// </summary>
+    /// <param name="dbList">the list of product list</param>
+    /// <param name="newSugars">types of sugar not in sugar dex</param>
     public void UpdateSugarDex(List<List<string>> dbList, List<string> newSugars)
     {
         foreach (List<string> s in dbList)
@@ -103,6 +109,8 @@ public class SugarDisk : MonoBehaviour {
                     {
                         sc.name = ss;
                         List<string> sugarWords = ss.Split(' ').ToList();
+
+                        //if the sugar name is too long, split to more words
                         if (sugarWords[0].ToCharArray().Count() > 12)
                         {
                             string text = char.ToUpper(ss[0]) + ss.Substring(1);
@@ -112,13 +120,10 @@ public class SugarDisk : MonoBehaviour {
                         }
                         else sc.transform.Find("Name").GetComponent<Text>().text = char.ToUpper(ss[0]) + ss.Substring(1);
 
-
-
                         sci.GetComponentInChildren<Text>().text = "";
                         sci.GetChild(0).gameObject.SetActive(false);
 
                         //placing and resizing the monster image in sugardex
-
                         sci.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
                         sci.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
                         sci.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
@@ -126,8 +131,6 @@ public class SugarDisk : MonoBehaviour {
                         sci.GetComponent<RectTransform>().sizeDelta = new Vector2(122, 150);
                         sci.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
 
-                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + s[canvas.GetComponent<FindAddedSugar>().familyIndex]);
-                        sci.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Monsters/" + sc.name);
                         sci.GetComponent<Image>().color = Color.white;
                     }
                 }

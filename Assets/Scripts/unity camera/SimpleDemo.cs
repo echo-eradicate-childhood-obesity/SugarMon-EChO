@@ -174,10 +174,7 @@ public class SimpleDemo : MonoBehaviour
                 i += Time.deltaTime;
             }
         });
-#endif
-        //stop the locationservice to save battery life. 
-        //hopefully, the time to get internet request will give the device enough to get the location info
-        //Input.location.Stop();
+#endif  
 
         var pos = Input.location.lastData;
         //change the info to an format google api support
@@ -188,6 +185,10 @@ public class SimpleDemo : MonoBehaviour
     }
     #region UI Buttons
 
+
+    /// <summary>
+    /// Start scanning
+    /// </summary>
     public void ClickStart()
     {
         if (BarcodeScanner == null) {
@@ -198,20 +199,27 @@ public class SimpleDemo : MonoBehaviour
             BarcodeScanner.Scan((barCodeType, barCodeValue) => {
                 BarcodeScanner.Stop();
 
+                //Check if in test mode
                 if (this.GetComponent<TestController>().test)
+                {
                     GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
-
+                }
+                    
+                //Check scanned code type
                 if (excludedCodeType.Any(barCodeType.Contains))
                     Invoke("ClickStart", 1f);
                 else {
+
+                    //Get the index of the product containing the scanned barcode
                     var i = SearchController.BinarySearch(dbProductList, long.Parse(barCodeValue), dbProductList.Count - 1, 0);
 
-                    string sugarName = "";
+                    string ingredient = "";
                     if (i == -1)
-                        sugarName = "Not Found";
+                        ingredient = "Not Found";
                     else
-                        sugarName = dbProductList[i].ToLower();
-                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(sugarName, barCodeValue);
+                        ingredient = dbProductList[i].ToLower();
+
+                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(ingredient, barCodeValue);
                 }
 
             });

@@ -19,16 +19,16 @@ public struct Info{
     {
         familyName = fname;
     }
-    public string FamilyName { get { return familyName; }set { familyName = value; } }
+    public string FamilyName { get { return familyName; } set { familyName = value; } }
 }
 
 public class UIManager : MonoBehaviour {
 
     public List<Sprite> Sprites;
     public List<Sprite> NewSprites;
+
     //singleton attached to main camera
     private static UIManager _instance;
-
     public static UIManager Instance
     {
         get { return _instance; }
@@ -36,8 +36,6 @@ public class UIManager : MonoBehaviour {
     }
     [HideInInspector]
     public SimpleDemo simpleDemo;
-    //private Color colorA = new Color(0.292f, 0.340f, 0.310f, 1f);
-    //private Color colorB = new Color(1f, 1f, 1f, 1f);
     [SerializeField]
     List<GameObject> familyUIList;
     // Use this for initialization
@@ -47,35 +45,23 @@ public class UIManager : MonoBehaviour {
         }
         else { Destroy(this); }
         //init four catebtn
-
     }
 
     private void Start()
     {
         simpleDemo = GameObject.Find("Main Camera").GetComponent<SimpleDemo>();
     }
-    public void IndicateController(Info info, string targetName)
-    {
-        foreach (GameObject go in familyUIList)
-        {
-            //"Monster" is the magic number here, change if later
-            if ((go.name + " Monsters") == info.FamilyName)
-            {
-                // testing it out here    
-                  
-                //end              
-                var targetGO = go.transform.Find(targetName).gameObject;
-                if (!targetGO.activeInHierarchy)
-                {
-                    targetGO.SetActive(true);
-                }
-                else return;
-            }
-        }
-    }
+
     public void IndicateController(Info info, string targetName, List<TMP_Dropdown.OptionData> list) {
         IndicateControllerHelper(info, targetName, list);
     }
+
+    /// <summary>
+    /// Add red dot indicator no the family image and change the text telling the number of found sugar in the family
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="targetName"></param>
+    /// <param name="list">dropdown menu option list</param>
     private void IndicateControllerHelper(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
     {
         foreach (TMP_Dropdown.OptionData go in list)
@@ -85,7 +71,6 @@ public class UIManager : MonoBehaviour {
             {
                 if (go.text.Contains(" ("))
                 {
-
                     int length = go.text.Length;
                     int x = 0;
                     var number = go.text.Substring(length - 7, 1);
@@ -96,7 +81,7 @@ public class UIManager : MonoBehaviour {
                     }
                     else if (Int32.TryParse(number, out x))
                     {
-                        go.text = go.text.Substring(0, go.text.Length - 7)+(x+1) + " new!)";
+                        go.text = go.text.Substring(0, go.text.Length - 7) + (x + 1) + " new!)";
                     }
                 }
                 else if(!go.text.Contains("("))
@@ -132,8 +117,7 @@ public class UIManager : MonoBehaviour {
                     go.text += " (1 new!)";
                 }
              
-            }
-          
+            }        
         }
     }
 
@@ -150,16 +134,19 @@ public class UIManager : MonoBehaviour {
             else return;
         }
     }
+
     public void OpenFoodDex() 
     {
         GreenCartController.Instance.ResetContainer();
         GreenCartController.Instance.rollable = true;
         ToggleEnable(GreenCartController.Instance.gameObject);
     }
+
     public void CloseFoodDex() {
         ToggleEnable(GreenCartController.Instance.gameObject);
         GreenCartController.Instance.rollable = false;
     }
+
     public void ToggleEnable(GameObject go)
     {
         simpleDemo.enabled = !simpleDemo.enabled;
