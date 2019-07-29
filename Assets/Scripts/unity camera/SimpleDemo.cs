@@ -42,14 +42,9 @@ public class SimpleDemo : MonoBehaviour
     {
         if (tutorialStage == 0)
         {
-            //first stage
-            TutorialController.initMask();
-            GameObject magicTree = GameObject.Find("Magic Tree"), tutorialMask = GameObject.Find("Tutorial Mask");
-            magicTree.GetComponentInChildren<Text>().text = "Hi friend, I am the Magic Tree. I am here to help you grow healthier.";
-            GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "0-1", "0-2", "0-3" };
-            tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
+            GameObject.Find("TutorialButton").GetComponent<TutorialDisplay>().DisplayTutorial(tutorialStage, null);
         }
-
+        
         //Read Label Insight Database
 #if UNITY_EDITOR
         string encodedContent = Encoding.UTF7.GetString(LabelInsightDatabase.bytes);
@@ -221,7 +216,6 @@ public class SimpleDemo : MonoBehaviour
 
                     GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(ingredient, barCodeValue);
                 }
-
             });
         }
 
@@ -244,9 +238,5 @@ public class SimpleDemo : MonoBehaviour
 
         callback.Invoke();
     }
-
-
-#endregion
-
-    
+#endregion  
 }

@@ -21,7 +21,7 @@ public class TutorialController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || Input.GetKeyDown(KeyCode.A)) // if screen pressed or 'A' clicked
+        if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || Input.GetButtonDown("Fire1"))
         {
             //First stage of tutorial
             if (GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage == 0)

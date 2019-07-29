@@ -476,20 +476,7 @@ public class FindAddedSugar : MonoBehaviour
                 //Third stage of tutorial
                 if (ts == 2 && !scannedAddedSugars.Contains("No Added Sugar"))
                 {
-                    TutorialController.initMask();
-                    GameObject magicTree = GameObject.Find("Magic Tree"), tutorialMask = GameObject.Find("Tutorial Mask");
-                    magicTree.GetComponentInChildren<Text>().text = "Check out your collection of Sugar Monsters in the SugarDex!";
-                    GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "2-1" };
-                    tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
-
-                    tutorialMask.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-                    tutorialMask.GetComponent<RectTransform>().anchorMax = new Vector2(1, 0);
-                    tutorialMask.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0);
-                    tutorialMask.GetComponent<RectTransform>().anchoredPosition = new Vector2(2, -15);
-                    tutorialMask.GetComponent<RectTransform>().sizeDelta = new Vector2(40, 2000);
-
-                    ts++;   //Increase the stage of tutorial
-                    PlayerPrefs.SetInt("TutorialStage", ts);
+                    GameObject.Find("TutorialButton").GetComponent<TutorialDisplay>().DisplayTutorial(ts, null);
                 }
             }
             GameObject.Destroy(GameObject.Find(scannedAddedSugars[currentNumMonster - 1]));
@@ -590,7 +577,7 @@ public class FindAddedSugar : MonoBehaviour
             {
 #if UNITY_ANDROID || UNITY_IOS
                 if (vibrate) {
-                Handheld.Vibrate();
+                    Handheld.Vibrate();
                 }
 #endif
                 monster.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/NewAddedSugar");
@@ -604,27 +591,11 @@ public class FindAddedSugar : MonoBehaviour
             if (!sugarInWall.Contains(sugarName.ToLower())) sugarInWall.Add(sugarName.ToLower());
 
         }
+
+
         if (ts == 1)
         {
-            TutorialController.initMask();
-            GameObject magicTree = GameObject.Find("Magic Tree"), tutorialMask = GameObject.Find("Tutorial Mask");
-            GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "1-1", "1-2" };
-            tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
-
-            if (sugarName == "No Added Sugar")
-            {
-                magicTree.GetComponentInChildren<Text>().text = "Yay! Looks like you found a healthy food with 0 Sugar Monsters!";
-            }
-            else if (sugarName == "Not Found")
-            {
-                magicTree.GetComponentInChildren<Text>().text = "I’m still growing so check back again in the future!";
-            }
-            else
-            {
-                magicTree.GetComponentInChildren<Text>().text = "Wow! Looks like you found a Sugar Monster!";
-            }
-            ts++;
-            PlayerPrefs.SetInt("TutorialStage", ts);
+            GameObject.Find("TutorialButton").GetComponent<TutorialDisplay>().DisplayTutorial(ts, sugarName);
         }
         else
         {
