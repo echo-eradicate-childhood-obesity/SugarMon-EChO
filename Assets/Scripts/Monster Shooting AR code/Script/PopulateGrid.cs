@@ -44,7 +44,6 @@ public class PopulateGrid : MonoBehaviour {
             diskNumber.GetComponent<Text>().text = newCell.name;
             GameObject monsterName = newCell.transform.GetChild(1).gameObject;
             monsterName.GetComponent<Text>().text = "Monster";
-            
         }
 
     }

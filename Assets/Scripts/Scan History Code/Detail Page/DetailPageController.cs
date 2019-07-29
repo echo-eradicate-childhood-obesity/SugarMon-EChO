@@ -17,7 +17,7 @@ public class DetailPageController : MonoBehaviour {
     ProductInfo pi;
     public ProductInfo PI { get { return pi; } set { pi = value; } }
 
-    public GameObject CategoryLabel; // Contains Added Sugar / No Added Sugar images
+    public GameObject CategoryLabel; // Contains Added Sugar / No Added Sugar TextMeshProUGUI
 
     public GameObject LocationLabel; // "Location:" TextMeshProUGUI
     public GameObject SugarsLabel;   // "Added Sugars:" TextMeshProUGUI
@@ -28,9 +28,6 @@ public class DetailPageController : MonoBehaviour {
     public GameObject ProductLocation; // address where it was scanned
     public GameObject ProductDate; // time and date when scanned
     public GameObject UPC; // universal product number (number of bar code)
-
-    public List<Sprite> SugarInfoImage; // No sugar added/ sugar added icon on detail page
-
     //public Color32 HeaderColor;
     //public Color32 BodyColor = new Color32(65, 151, 254, 255);
 
@@ -81,12 +78,12 @@ public class DetailPageController : MonoBehaviour {
     private void InitColorsAndImages() {
         if (pi.Type == Category.containsaddedsugar) {
             //GreenCartController.Instance.background.GetComponentInChildren<Image>().sprite = GreenCartController.Instance.Backgrounds[2];
-            CategoryLabel.GetComponent<Image>().sprite = SugarInfoImage[0];
+            CategoryLabel.GetComponent<TextMeshProUGUI>().text = "Contains Added Sugar";
             //HeaderColor = RedHeader;
         }
         else {
            // GreenCartController.Instance.background.GetComponentInChildren<Image>().sprite = GreenCartController.Instance.Backgrounds[1];
-            CategoryLabel.GetComponent<Image>().sprite = SugarInfoImage[1];
+            CategoryLabel.GetComponent<TextMeshProUGUI>().text = "No Added Sugar";
             //HeaderColor = GreenHeader;
         }
         /*ProductName.GetComponent<TextMeshProUGUI>().color = HeaderColor;
