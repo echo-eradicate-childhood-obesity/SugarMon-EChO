@@ -55,14 +55,13 @@ public class FindAddedSugar : MonoBehaviour
     private bool firstBadSound;
 
     public GameObject scanFrame;
-    public GameObject summonSystem;
     public GameObject greenCartGo;
     public GameObject greenCartBtn;
     public GameObject dropdownMenu;
 
     private int numCount;
     public GameObject sugarDex, redDot, canvas, familyBackground, mainCam;
-    public GameObject totalCount, foundCount;
+    public GameObject foundCount;
 
 
 
@@ -251,8 +250,7 @@ public class FindAddedSugar : MonoBehaviour
         #endregion
 
         GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars = sugarDex.GetComponent<SugarDisk>().allCollectedSugars.Distinct().ToList();
-        foundCount.GetComponent<Text>().text = "Found: " + sugarDex.GetComponent<SugarDisk>().allCollectedSugars.Count;
-        totalCount.GetComponent<Text>().text = "Total: " + repository.Count;
+        foundCount.GetComponent<TextMeshProUGUI>().text = "Found: " + sugarDex.GetComponent<SugarDisk>().allCollectedSugars.Count + "/" + repository.Count; ;
         sugarDex.GetComponent<SugarDisk>().CloseSugarDisk();
 
         // CanvasScaler cs = canvas.GetComponent<CanvasScaler>();
