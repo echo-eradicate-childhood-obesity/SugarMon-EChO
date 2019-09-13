@@ -7,15 +7,13 @@ using UnityEngine.UI;
 
 /// <summary>
 /// * Attached to GreenDashCanvas RightIcon
+/// * Allows the user to open up the product info for an item in their scan history
+/// * and delete entries in their scan history
 /// </summary>
 public class ToDetailBtn : AnimButtonAction {
-
-    //Vector3 right;
-    //Vector3 remove;
+    
     void Start () {
         this.Action(this.gameObject);
-        //right = this.gameObject.GetComponent<Image>().transform.position;
-        //remove = this.gameObject.GetComponent<Image>().transform.position;
     }
 
     // Update is called once per frame
@@ -24,11 +22,19 @@ public class ToDetailBtn : AnimButtonAction {
             this.gameObject.GetComponent<Image>().sprite = GreenCartController.Instance.RightButtons[1];
             this.gameObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(245, 129); // proportions of remove button
         }
+
         else {
             this.gameObject.GetComponent<Image>().sprite = GreenCartController.Instance.RightButtons[0];
             this.gameObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(100, 100); // proportions of to detail button
         }
     }
+
+    /// <summary>
+    /// * IF the Edit button has NOT been pressed (the button with a pencil) 
+    /// * AND the user selects a product, display the product's info
+    /// * ELSE the right-arrow buttons will be replaced with "remove" buttons
+    /// * now any selected product will be deleted
+    /// </summary>
     public override void ClickEventTrigger()
     {
         // when this is the to detail right button

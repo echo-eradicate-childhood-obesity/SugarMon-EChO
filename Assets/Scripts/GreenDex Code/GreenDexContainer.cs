@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 using TMPro;
 /// <summary>
-/// * This Script Controls each Container Attached to CartDashCanvas
+/// * Used to collect product info for GreenCartController 
+/// * Not attached to anything
 /// </summary>
 public class GreenDexContainer : MonoBehaviour {
 

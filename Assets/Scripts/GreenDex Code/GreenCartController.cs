@@ -8,9 +8,14 @@ using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using TMPro;
 /// <summary>
-/// * This Class Controls overall behavior of GreenDex
+/// * This Class Controls overall behavior of GreenDex (scanner history)
 /// * This is a singleton
-/// * Attached to GreenCartBack
+/// * Attached to the ScanHistoryCanvas game object
+/// * ******* KEY ********
+/// * PC = Product Collection
+/// * PI = Product Information
+/// * CurDic = Current Directory
+/// * Container = these are usually groups of buttons
 /// </summary>
 public class GreenCartController : MonoBehaviour {
     public bool rollable { get; set; }
@@ -23,7 +28,7 @@ public class GreenCartController : MonoBehaviour {
     public Button All;
     public Button NoAddedSugar;
     public Button ContainsAddedSugar;
-    public GameObject EditBtn; // Button that allows you to edit the FoodDex
+    public GameObject EditBtn; // Button that allows you to delete items in ScanHistory
     public GameObject LeftBtn; // Button that exits the FoodDex
     public GameObject CartDashCanvas;
 
@@ -36,10 +41,10 @@ public class GreenCartController : MonoBehaviour {
     [HideInInspector]
     public List<GameObject> Containers;
     public List<GameObject> CONTAINERS { get { return Containers; } }
-    public List<Sprite> cateImg;//0:uncate,1:redButton,2:greenButton
-    public List<Sprite> CateImg { get { return cateImg; } }
-    public GameObject NumCarts;
-    public GameObject CartDashHolder;
+    public List<Sprite> cateImg;//0:uncate,1:redButton,2:greenButton (3 buttons represent the 3 categories in images)
+    public List<Sprite> CateImg { get { return cateImg; } } // Getter for cateImg
+    public GameObject NumCarts;     // ?
+    public GameObject CartDashHolder; //?
 
     [HideInInspector]
     public float containerHeight;
@@ -106,7 +111,7 @@ public class GreenCartController : MonoBehaviour {
     }
 
     void PopulateContainers() {
-        // Makes sure there are the right amount of containers for the amount of ProductInfos in CurDic
+        // Makes sure there are the right amount of containers for the amount of ProductInfos in CurDic (Current Directory?)
         if (Containers == null)
         Containers = new List<GameObject>();
         RectTransform rt = ContentBox.GetComponent<RectTransform>();
@@ -148,6 +153,11 @@ public class GreenCartController : MonoBehaviour {
         }
 
     }
+
+    //**************************************************************************************//
+    // Scrolling action code                                                                //
+    //**************************************************************************************//
+
     /// <summary>
     /// *Simulate the Scrolling in Mobile
     /// *currentTouch record users Touch position at current frame
@@ -225,63 +235,40 @@ public class GreenCartController : MonoBehaviour {
         //rolling is the new method which have refatored
         foreach (GameObject go in Containers) {
             var rectTrans = go.GetComponent<RectTransform>();
-            //var offSet = lastPos.y - currentPos.y;
             var curPos = new Vector3(rectTrans.localPosition.x, rectTrans.localPosition.y, rectTrans.localPosition.z);
             curPos.y -= offSet;
-            /*if (curPos.y > containerHeight) {
-                curPos.y -= containerHeight * Containers.Count;
-                //Debug.Log("Move to bottom");
-                //var text = go.transform.Find("ProductName").GetComponent<Text>();
-                try {
-                    int i = pc.GetCount(currentCate) + (int)(info.RollingDis / containerHeight) - Containers.Count - 1;
-                    go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i, currentCate));
-                }
-                catch (System.Exception ex) {
-                    Debug.Log(totalDisRollingDis);
-                    Debug.Log(ex.StackTrace);
-                }
-            }
-            /*if (curPos.y < (-Containers.Count + microAdjustVal) * containerHeight) {
-                curPos.y += Containers.Count * containerHeight;
-                try {
-                    int i = pc.GetCount(currentCate) - (int)(-info.RollingDis / containerHeight) - 1;
-                    go.GetComponent<GreenDexContainer>().PIUpdate(pc.GetProduct(i, currentCate));
-                }
-                catch (System.Exception ex) {
-                    Debug.Log(totalDisRollingDis);
-                    Debug.Log(ex.StackTrace);
-                }
-            }*/
+          
             rectTrans.localPosition = curPos;
         }
         //Rolling(offSet, info);
         totalDisRollingDis += offSet;
     }
+
+    //**************************************************************************************//
+    // End scrolling action code                                                            //
+    //**************************************************************************************//   
+
+    // Return to main screen from ScreenHistory page
     private void OnLeftBtnClick() {
         PC.Load();
         editMode = false;
     }
+
+    // Toggle allows the user to delete items from their scan history
     public void OnEditClick() {
         editMode = !editMode;
         if (editMode) {
             EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[1]; // highlighted
-            /*foreach (GameObject go in Containers) {
-                go.GetComponent<Image>().sprite = RightButtons[1];
-                go.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(245, 127); // proportions of remove button
-            }*/
         }
         else {
             EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[0]; // unhighlighted
-            /*foreach (GameObject go in Containers) {
-                go.GetComponent<Image>().sprite = RightButtons[0];
-                go.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(100, 100); // proportions of to detail button
-            }*/
         }
     }
+    // Initialize the 3 categories
     private void InitCategoryBtns() {
         ResetContainer();
         System.Action<Category> act = (newCate) => {
-            //set cate when the target cate is not the same as current cate
+            //set category when the target category is not the same as current category
             //if current category is same as target category do nothing
             if (CurrentCate != newCate) {
                 CurrentCate = newCate;
