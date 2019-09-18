@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 
-public class SugarDisk : MonoBehaviour {
+public class SugarCollection : MonoBehaviour {
 
     //singleton ref
     UIManager um;
@@ -42,6 +42,7 @@ public class SugarDisk : MonoBehaviour {
 
     public void OpenSugarDisk()
     {
+
         sugarDexOpen = true;
         UpdateDexData();
     }
@@ -50,7 +51,7 @@ public class SugarDisk : MonoBehaviour {
         sugarDexOpen = false;
         mainCam.GetComponent<SimpleDemo>().enabled = true;
         if (mainCam.GetComponent<SimpleDemo>().tutorialStage != 0) mainCam.GetComponent<SimpleDemo>().StartScan();
-        GameObject.Find("SugarDisk").transform.Find("RedDot").gameObject.SetActive(false);
+        GameObject.Find("SugarCollection").transform.Find("RedDot").gameObject.SetActive(false);
         sugarDiskImage.gameObject.SetActive(false);
 
         um.DisAllUp("Notification");

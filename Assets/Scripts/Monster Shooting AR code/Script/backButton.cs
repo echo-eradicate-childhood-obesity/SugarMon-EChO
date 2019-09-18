@@ -21,6 +21,6 @@ public class backButton : MonoBehaviour {
     }
 
     public void GoToDex() {
-        SceneManager.LoadScene("SugarDisk");
+        SceneManager.LoadScene("SugarCollection");
     }
 }

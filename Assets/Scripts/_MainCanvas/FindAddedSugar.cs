@@ -185,7 +185,7 @@ public class FindAddedSugar : MonoBehaviour
         //Initiate sugar dex
         for (int i = 1; i <= PlayerPrefs.GetInt("count"); i++)
         {
-            sugarDex.GetComponent<SugarDisk>().allCollectedSugars.Add(PlayerPrefs.GetString("num_" + i));
+            sugarDex.GetComponent<SugarCollection>().allCollectedSugars.Add(PlayerPrefs.GetString("num_" + i));
             allScanned.Add(PlayerPrefs.GetString("num_" + i));
         }
 
@@ -196,13 +196,13 @@ public class FindAddedSugar : MonoBehaviour
         GameObject.Find("FamilyContent").GetComponent<PopulateFamilyPanels>().PopulateFamilies();
 
         //Update Family Background
-        sugarDex.GetComponent<SugarDisk>().UpdateSugarDex(dbList, sugarDex.GetComponent<SugarDisk>().allCollectedSugars);
+        sugarDex.GetComponent<SugarCollection>().UpdateSugarDex(dbList, sugarDex.GetComponent<SugarCollection>().allCollectedSugars);
        
 
-        GameObject.Find("SugarDisk").GetComponent<SugarDisk>().allCollectedSugars = sugarDex.GetComponent<SugarDisk>().allCollectedSugars.Distinct().ToList();
-        foundCount.GetComponent<Text>().text = "Found: " + sugarDex.GetComponent<SugarDisk>().allCollectedSugars.Count;
+        GameObject.Find("SugarCollection").GetComponent<SugarCollection>().allCollectedSugars = sugarDex.GetComponent<SugarCollection>().allCollectedSugars.Distinct().ToList();
+        foundCount.GetComponent<Text>().text = "Found: " + sugarDex.GetComponent<SugarCollection>().allCollectedSugars.Count;
         totalCount.GetComponent<Text>().text = "Total: " + repository.Count;
-        sugarDex.GetComponent<SugarDisk>().CloseSugarDisk();
+        sugarDex.GetComponent<SugarCollection>().CloseSugarDisk();
         
     }
 
@@ -304,7 +304,7 @@ public class FindAddedSugar : MonoBehaviour
             {
                 if (allScanned.Count == repository.Count)
                 {
-                    GameObject.Find("SugarDisk").GetComponent<SugarDisk>().ResetData();
+                    GameObject.Find("SugarCollection").GetComponent<SugarCollection>().ResetData();
                 }
                 else
                 {

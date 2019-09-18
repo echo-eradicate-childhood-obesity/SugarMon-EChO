@@ -100,7 +100,7 @@ public class TutorialController : MonoBehaviour {
                     Destroy(gameObject);
                     Destroy(GameObject.Find("Tutorial Dex"));
                     Destroy(tree);
-                    GameObject.Find("SugarDisk").GetComponent<Button>().enabled = true;
+                    GameObject.Find("SugarCollection").GetComponent<Button>().enabled = true;
                     greenCartBtn.GetComponent<Button>().enabled = true;
                     GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 1f);
                     //GameObject.Find("GreenCart").GetComponent<Button>().enabled = true;
