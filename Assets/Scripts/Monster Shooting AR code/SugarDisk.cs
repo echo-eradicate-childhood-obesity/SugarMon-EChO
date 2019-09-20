@@ -27,7 +27,7 @@ public class SugarDisk : MonoBehaviour {
     
     void Start () {
 
-        Transform sugarDiskImage = GameObject.Find("Canvas").transform.Find("CollectedSugarCanvas");
+        Transform sugarDiskImage = GameObject.Find("Canvas").transform.Find("FamilyBackground");
         diskPosition = sugarDiskImage.transform.localPosition;
         foundMonsterNumber = 0;
         newSugars = new List<string>();
@@ -61,8 +61,8 @@ public class SugarDisk : MonoBehaviour {
 
         newSugars.Clear();
         sugarDiskImage.transform.localPosition = diskPosition;
-        canvas.transform.Find("CollectedSugarCanvas").gameObject.SetActive(true);
-        GameObject.Find("CollectedSugarCanvas").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "Found: " + canvas.GetComponent<FindAddedSugar>().allScanned.Count;
+        canvas.transform.Find("FamilyBackground").gameObject.SetActive(true);
+        GameObject.Find("FamilyBackground").transform.Find("TopBar/Found Count").GetComponent<Text>().text = "Found: " + canvas.GetComponent<FindAddedSugar>().allScanned.Count;
 
         scannedAddedSugars = canvas.GetComponent<FindAddedSugar>().scannedAddedSugars;
         sugarFromMain = canvas.GetComponent<FindAddedSugar>().allScanned;
