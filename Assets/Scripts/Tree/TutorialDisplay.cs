@@ -8,7 +8,6 @@ public class TutorialDisplay : MonoBehaviour {
     public GameObject mask, tree, canvas;
     private int tapCount = 0;
     private bool isPressed = false;
-    private List<string> tutorialStagePics;
     public static readonly string[] dialog = new string[] { "Start by aiming a food or beverage barcode at the center of the square.",
                                                       "You will collect a Sugar Monster for each added sugar in the product!",
                                                       "Check out your collection of Sugar Monsters in the SugarDex!",
@@ -24,7 +23,7 @@ public class TutorialDisplay : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || 
-              Input.GetButtonDown("Fire1")) && isPressed)
+              Input.GetKeyDown(KeyCode.A)) && isPressed)
         {
             ButtonClick();
         }
@@ -83,63 +82,6 @@ public class TutorialDisplay : MonoBehaviour {
     {
         mask.gameObject.SetActive(b);
         tree.gameObject.SetActive(b);
-    }
-
-    /// <summary>
-    /// Display different tutorial based on the stage 
-    /// </summary>
-    /// <param name="stage"></param>
-    /// <param name="sugarName"></param>
-    public void DisplayTutorial(int stage, string sugarName)
-    {
-        TutorialController.initMask();
-        GameObject magicTree = GameObject.Find("Magic Tree"), tutorialMask = GameObject.Find("Tutorial Mask");
-        Debug.Log(stage);
-        //first stage
-        if (stage == 0)
-        {                    
-            magicTree.GetComponentInChildren<Text>().text = "Hi friend, I am the Magic Tree. I am here to help you grow healthier.";
-            GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "0-1", "0-2", "0-3" };
-            
-        }
-        //second stage
-        else if(stage == 1)
-        {
-            
-            GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "1-1", "1-2" };
-
-            if (sugarName == "No Added Sugar")
-            {
-                magicTree.GetComponentInChildren<Text>().text = "Yay! Looks like you found a healthy food with 0 Sugar Monsters!";
-            }
-            else if (sugarName == "Not Found")
-            {
-                magicTree.GetComponentInChildren<Text>().text = "I’m still growing so check back again in the future!";
-            }
-            else
-            {
-                magicTree.GetComponentInChildren<Text>().text = "Wow! Looks like you found a Sugar Monster!";
-            }
-            stage++;
-            PlayerPrefs.SetInt("TutorialStage", stage);
-        }
-
-        else if(stage == 2)
-        {
-           
-            magicTree.GetComponentInChildren<Text>().text = "Check out your collection of Sugar Monsters in the SugarDex!";
-            GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "2-1" };
-
-            tutorialMask.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-            tutorialMask.GetComponent<RectTransform>().anchorMax = new Vector2(1, 0);
-            tutorialMask.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0);
-            tutorialMask.GetComponent<RectTransform>().anchoredPosition = new Vector2(2, -15);
-            tutorialMask.GetComponent<RectTransform>().sizeDelta = new Vector2(40, 2000);
-
-            stage++;   //Increase the stage of tutorial
-            PlayerPrefs.SetInt("TutorialStage", stage);
-        }
-        tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
     }
 
 }
