@@ -17,7 +17,7 @@ public class TutorialDisplay : MonoBehaviour {
     void Start () {
         float canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
         tree.GetComponent<RectTransform>().localPosition = new Vector2(0, 0 - canvasHeight / 3 + canvasHeight / 10);
-        
+        tree.SetActive(false);
     }
 	
 	// Update is called once per frame

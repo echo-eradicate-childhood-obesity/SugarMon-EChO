@@ -14,7 +14,7 @@ public class TutorialController : MonoBehaviour {
     private GameObject greenCartBtn;
     // Use this for initialization
     void Start () {
-        tree = GameObject.Find("Magic Tree");
+        tree = GameObject.Find("Magic Tree 1");
         greenCartBtn = GameObject.Find("FoodDexButton");
 	}
 	
