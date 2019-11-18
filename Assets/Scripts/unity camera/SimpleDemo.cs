@@ -23,7 +23,7 @@ public class SimpleDemo : MonoBehaviour
     public char delimiter; // what divides the two numbers in the database (;)
 
     private static List<string> dbProductList = new List<string>();
-    //[HideInInspector]
+    [HideInInspector]
     public int tutorialStage;
 
     private bool isAndroid;
@@ -40,12 +40,11 @@ public class SimpleDemo : MonoBehaviour
 
     void Start()
     {
-        if (false)
+        if (tutorialStage == 0)
         {
             //first stage
             TutorialController.initMask();
-            GameObject magicTree = GameObject.Find("Tree Bundle 1"), tutorialMask = GameObject.Find("Tutorial Mask");
-            magicTree.SetActive(true);
+            GameObject magicTree = GameObject.Find("Magic Tree"), tutorialMask = GameObject.Find("Tutorial Mask");
             magicTree.GetComponentInChildren<Text>().text = "Hi friend, I am the Magic Tree. I am here to help you grow healthier.";
             GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "0-1", "0-2", "0-3" };
             tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
