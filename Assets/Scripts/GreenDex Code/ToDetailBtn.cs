@@ -14,7 +14,6 @@ public class ToDetailBtn : AnimButtonAction {
     //Vector3 remove;
     void Start () {
         this.Action(this.gameObject);
-
         //right = this.gameObject.GetComponent<Image>().transform.position;
         //remove = this.gameObject.GetComponent<Image>().transform.position;
     }
@@ -23,7 +22,7 @@ public class ToDetailBtn : AnimButtonAction {
     void Update() {
         if (GreenCartController.Instance.editMode) {
             this.gameObject.GetComponent<Image>().sprite = GreenCartController.Instance.RightButtons[1];
-            this.gameObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(100, 100); // proportions of remove button
+            this.gameObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(245, 129); // proportions of remove button
         }
         else {
             this.gameObject.GetComponent<Image>().sprite = GreenCartController.Instance.RightButtons[0];
