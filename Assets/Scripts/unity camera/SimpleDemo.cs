@@ -40,6 +40,7 @@ public class SimpleDemo : MonoBehaviour
 
     void Start()
     {
+        /*
         if (tutorialStage == 0)
         {
             //first stage
@@ -49,6 +50,7 @@ public class SimpleDemo : MonoBehaviour
             GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics = new List<string>() { "0-1", "0-2", "0-3" };
             tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
         }
+        */
 
         //Read Label Insight Database
 #if UNITY_EDITOR

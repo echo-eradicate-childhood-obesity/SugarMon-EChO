@@ -26,7 +26,7 @@ public class GreenCartController : MonoBehaviour {
     public GameObject EditBtn; // Button that allows you to edit the FoodDex
     public GameObject LeftBtn; // Button that exits the FoodDex
     public GameObject CartDashCanvas;
-
+   
     public List<Sprite> RightButtons;
 
     [SerializeField]
@@ -146,7 +146,6 @@ public class GreenCartController : MonoBehaviour {
         if (PC.CurDic.Count != Containers.Count) {
             PopulateContainers();
         }
-
     }
     /// <summary>
     /// *Simulate the Scrolling in Mobile
@@ -263,19 +262,13 @@ public class GreenCartController : MonoBehaviour {
     }
     public void OnEditClick() {
         editMode = !editMode;
-        if (editMode) {
+        if (editMode)
+        {
             EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[1]; // highlighted
-            /*foreach (GameObject go in Containers) {
-                go.GetComponent<Image>().sprite = RightButtons[1];
-                go.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(245, 127); // proportions of remove button
-            }*/
         }
-        else {
+        else
+        {
             EditBtn.GetComponentInChildren<Image>().sprite = EditButtonSprites[0]; // unhighlighted
-            /*foreach (GameObject go in Containers) {
-                go.GetComponent<Image>().sprite = RightButtons[0];
-                go.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(100, 100); // proportions of to detail button
-            }*/
         }
     }
     private void InitCategoryBtns() {
