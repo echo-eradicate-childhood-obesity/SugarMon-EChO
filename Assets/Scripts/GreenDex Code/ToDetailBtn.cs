@@ -18,21 +18,17 @@ public class ToDetailBtn : AnimButtonAction {
         //remove = this.gameObject.GetComponent<Image>().transform.position;
     }
 
-    void Update()
-    {
-        // delete buttons
-        if (GreenCartController.Instance.editMode)
-        {
+    // Update is called once per frame
+    void Update() {
+        if (GreenCartController.Instance.editMode) {
             this.gameObject.GetComponent<Image>().sprite = GreenCartController.Instance.RightButtons[1];
-            this.gameObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(100, 100); // proportions of remove button
+            this.gameObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(245, 129); // proportions of remove button
         }
-        else
-        {
+        else {
             this.gameObject.GetComponent<Image>().sprite = GreenCartController.Instance.RightButtons[0];
             this.gameObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(100, 100); // proportions of to detail button
         }
     }
-
     public override void ClickEventTrigger()
     {
         // when this is the to detail right button
