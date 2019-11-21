@@ -41,7 +41,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6401299, g: 0.990566, b: 0.6969551, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -69,6 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialStagePics: []
   pic: 0
+  sugarDex: {fileID: 0}
 --- !u!222 &222724954194819788
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -82,15 +83,15 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1266007103413094}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7856742, y: 0.7856742, z: 0.7856742}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.0047522}
-  m_SizeDelta: {x: 900, y: 2100}
+  m_AnchoredPosition: {x: 548, y: 1027}
+  m_SizeDelta: {x: 1979, y: 3319}
   m_Pivot: {x: 0.5, y: 0.5}

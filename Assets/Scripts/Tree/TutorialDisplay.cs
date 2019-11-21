@@ -16,8 +16,7 @@ public class TutorialDisplay : MonoBehaviour {
     // Use this for initialization
     void Start () {
         float canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
-        tree.GetComponent<RectTransform>().localPosition = new Vector2(0, 0 - canvasHeight / 3 + canvasHeight / 10);
-        
+        //tree.GetComponent<RectTransform>().localPosition = new Vector2(0, 0 - canvasHeight / 3 + canvasHeight / 10); 
     }
 	
 	// Update is called once per frame
@@ -29,7 +28,7 @@ public class TutorialDisplay : MonoBehaviour {
         }
 
     }
-   
+ 
     public void ButtonClick() {
         var tipText = tree.GetComponentInChildren<Text>().text;
         switch (tapCount)

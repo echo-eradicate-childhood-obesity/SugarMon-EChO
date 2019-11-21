@@ -114,8 +114,9 @@ public class TutorialController : MonoBehaviour {
         GameObject tutorialMask = Instantiate(Resources.Load("Prefabs/TutorialMask"), GameObject.Find("Canvas").transform) as GameObject;
         GameObject magicTree = Instantiate(Resources.Load("Prefabs/Magic Tree"), GameObject.Find("Canvas").transform) as GameObject;
         tutorialMask.name = "Tutorial Mask";
+        tutorialMask.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
         magicTree.name = "Magic Tree";
         GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().pic = 1;
-        magicTree.GetComponent<RectTransform>().localPosition = new Vector2(0, 0 - GameObject.Find("Canvas").GetComponent<RectTransform>().rect.height / 4);
+        magicTree.GetComponent<RectTransform>().localPosition = new Vector2(0, GameObject.Find("Canvas").GetComponent<RectTransform>().rect.height * 0.25f);
     } 
 }
