@@ -6,43 +6,38 @@ using TMPro;
 /// </summary>
 public class GreenDexContainer : MonoBehaviour {
 
-    ProductInfo pi;
-    [SerializeField]
-    GameObject pName;
-    [SerializeField]
-    GameObject pIcon;
-    [SerializeField]
-    GameObject pLocation;
-    TextMeshProUGUI pText;
-    TextMeshProUGUI pLocationText;
-    Image pImage;
+    ProductInfo pi; // Object to be displayed
     public ProductInfo PI { get { return pi; } }
+
+    public GameObject pName; // name of the food scanned
+    public GameObject pIcon; // green check / red exclamation
+    public GameObject pTimeDate; // time and date when scaned
+
+    TextMeshProUGUI pText;
+    TextMeshProUGUI pTimeDateDisplay;
+    Image pImage;
+
 	void Start () {
         pImage = pIcon.GetComponent<Image>();
         pText = pName.GetComponent<TextMeshProUGUI>();
-        pLocationText = pLocation.GetComponent<TextMeshProUGUI>();
-	}
-	
-	
-	void Update () {
-        pText.text = pi.PrintInfo();
-        pImage.sprite = pi.GetSprite();
-        pLocationText.text = pi.GetLocation();
-	}
-
-    private void SetPi(Category cate)
-    {
-        //change the value in pi
-        pi.Type=cate;
+        pTimeDateDisplay = pTimeDate.GetComponent<TextMeshProUGUI>();
     }
 
-    public void PIUpdate(ProductInfo pi)
-    {
+    void Update () {
+        pText.text = pi.GetDisplayName();
+        pImage.sprite = pi.GetSprite();
+        pTimeDateDisplay.text = pi.displayDateTime();
+    }
+
+    private void SetPi(Category cate) {
+        pi.Type = cate;
+    }
+
+    public void PIUpdate(ProductInfo pi) {
         this.pi = pi;
     }
 
-    public ProductInfo GetPI()
-    {
+    public ProductInfo GetPI() {
         return pi;
     }
 }

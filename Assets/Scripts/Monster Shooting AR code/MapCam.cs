@@ -31,7 +31,7 @@ namespace ARMon
         // Start is called before the first frame update
         void Start()
         {
-            targetGo = GameManager.Instance.deviceGO;
+            targetGo = GameManager.Instance.camera;
         }
 
         // Update is called once per frame

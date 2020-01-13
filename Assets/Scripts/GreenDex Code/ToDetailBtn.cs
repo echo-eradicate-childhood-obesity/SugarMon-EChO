@@ -9,54 +9,48 @@ using UnityEngine.UI;
 /// * Attached to GreenDashCanvas RightIcon
 /// </summary>
 public class ToDetailBtn : AnimButtonAction {
-    //reference to the DetailPage
-    ////As the DetailPage is not an prefabe need drap/drop manually for each Container
-    ////Potential fix: add reference to GreenCartContorller, then this script could get reference form there
-    //public GameObject DetailPage;
-	// Use this for initialization
-	void Start () {
-        //detailpage is in inspector, but this GO is an prefabe, inefficient to sign in incpector
-       // DetailPage = GameObject.Find("CartDetailCanvas");
-        this.Action(this.gameObject);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
+    //Vector3 right;
+    //Vector3 remove;
+    void Start () {
+        this.Action(this.gameObject);
+        //right = this.gameObject.GetComponent<Image>().transform.position;
+        //remove = this.gameObject.GetComponent<Image>().transform.position;
+    }
+
+    // Update is called once per frame
+    void Update() {
+        if (GreenCartController.Instance.editMode) {
+            this.gameObject.GetComponent<Image>().sprite = GreenCartController.Instance.RightButtons[1];
+            this.gameObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(245, 129); // proportions of remove button
+        }
+        else {
+            this.gameObject.GetComponent<Image>().sprite = GreenCartController.Instance.RightButtons[0];
+            this.gameObject.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(100, 100); // proportions of to detail button
+        }
+    }
     public override void ClickEventTrigger()
     {
-        base.ClickEventTrigger();
-        ApplyDetail();
+        // when this is the to detail right button
+        if (GreenCartController.Instance.editMode == false) {
+            base.ClickEventTrigger();
+            ApplyDetail();
+        }
+        // otherwise is the remove button
+        else {
+            ProductInfo pi = transform.GetComponentInParent<GreenDexContainer>().GetPI();
+            Debug.Log(pi.Name);
+            GreenCartController.Instance.PCRemove(pi);
+            if (GreenCartController.Instance.PC.products.Count == 0)
+                GreenCartController.Instance.editMode = false;
+        } 
     }
     /// <summary>
     /// * Change the content of detail page
     /// </summary>
-    private void ApplyDetail()
-    {
+    private void ApplyDetail() {
         GreenCartController.Instance.rollable = false;
-        var pi = transform.GetComponentInParent<GreenDexContainer>().GetPI();
-        string category="";
-        switch (pi.Type)
-        {
-            case Category.drink:
-                category = "Drink";
-                break;
-            case Category.sauce:
-                category = "Sauce";
-                break;
-            case Category.food:
-                category = "Food";
-                break;
-            case Category.snack:
-                category = "Snack";
-                break;
-            default:
-                category = "Uncategorized";
-                break;
-        }
-        GreenCartController.Instance.DetailPage.GetComponentInChildren<Image>().sprite = pi.GetSprite();
-        GreenCartController.Instance.DetailPage.GetComponentInChildren<TextMeshProUGUI>().text = $"Product Name: {pi.Name}\nProduct Category: {category}\nScan Location: {pi.Location}";
+        ProductInfo pi = transform.GetComponentInParent<GreenDexContainer>().GetPI();
+        DetailPageController.Instance.PIUpdate(pi);
     }
 }

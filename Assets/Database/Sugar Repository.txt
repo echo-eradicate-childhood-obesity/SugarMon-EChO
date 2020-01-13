@@ -1,264 +1,263 @@
-Number in the App	Added Sugar List Name	Number in Added Sugar Repository	MonstersFamily
-1	Corn Dextrin	46	Dextrin Monsters
-2	Corn Maltodextrin	47	Dextrin Monsters
-3	Dextrin	63	Dextrin Monsters
-4	Maltodextrin	129	Dextrin Monsters
-5	Organic Maltodextrin	190	Dextrin Monsters
-6	Organic Rice Maltodextrin	202	Dextrin Monsters
-7	Organic Tapioca Maltodextrin	208	Dextrin Monsters
-8	Rice Maltodextrin	234	Dextrin Monsters
-9	Tapioca Dextrin	246	Dextrin Monsters
-10	Tapioca Maltodextrin	247	Dextrin Monsters
-11	Wheat Dextrin	256	Dextrin Monsters
-12	Anhydrous Dextrose	3	OSE Monsters
-13	Crystalline Fructose	53	OSE Monsters
-14	Dextrose	64	OSE Monsters
-15	Dextrose Anhydrous Glucose	65	OSE Monsters
-16	Dextrose Sugar	66	OSE Monsters
-17	Dried Glucose Syrup	75	OSE Monsters
-18	Fructose	89	OSE Monsters
-19	Fructose Syrup	90	OSE Monsters
-20	Glucose	93	OSE Monsters
-21	Glucose Fructose Syrup	94	OSE Monsters
-22	Glucose Solids	95	OSE Monsters
-23	Glucose Syrup	96	OSE Monsters
-24	Glucose Syrup Solids	97	OSE Monsters
-25	High Fructose Corn Syrup	106	OSE Monsters
-26	High Maltose Corn Syrup Solids	107	OSE Monsters
-27	Lactose	121	OSE Monsters
-28	Maltose	131	OSE Monsters
-29	Organic Dextrose	168	OSE Monsters
-30	Organic Glucose Syrup	178	OSE Monsters
-31	Organic Lactose	187	OSE Monsters
-32	Saccharose	237	OSE Monsters
-33	Sucrose	240	OSE Monsters
-34	Trehalose	252	OSE Monsters
-35	Wheat Glucose Syrup	257	OSE Monsters
-36	Brown Cane Sugar	18	Cane Monsters
-37	Cane Crystals	23	Cane Monsters
-38	Cane Juice	24	Cane Monsters
-39	Cane Juice Crystals	25	Cane Monsters
-40	Cane Molasses	26	Cane Monsters
-41	Cane Refinery Syrup	27	Cane Monsters
-42	Cane Sugar	28	Cane Monsters
-43	Cane Syrup	29	Cane Monsters
-44	Dark Brown Cane Sugar	54	Cane Monsters
-45	Dehydrated Cane Juice	60	Cane Monsters
-46	Dehydrated Cane Sugar	61	Cane Monsters
-47	Dried Cane Sugar	70	Cane Monsters
-48	Dried Cane Syrup	71	Cane Monsters
-49	Evaporated Cane Crystals	78	Cane Monsters
-50	Evaporated Cane Juice	79	Cane Monsters
-51	Evaporated Cane Juice Invert Syrup	80	Cane Monsters
-52	Evaporated Cane Juice Syrup	81	Cane Monsters
-53	Evaporated Cane Sugar	82	Cane Monsters
-54	Evaporated Cane Syrup	83	Cane Monsters
-55	Fair Trade Unrefined Cane Sugar	85	Cane Monsters
-56	Invert Cane Sugar	112	Cane Monsters
-57	Invert Cane Syrup	113	Cane Monsters
-58	Light Brown Cane Sugar	123	Cane Monsters
-59	Milled Cane Sugar	136	Cane Monsters
-60	Organic Cane Crystals	153	Cane Monsters
-61	Organic Cane Sugar	154	Cane Monsters
-62	Organic Cane Syrup	155	Cane Monsters
-63	Organic Dried Cane Sugar	169	Cane Monsters
-64	Organic Dried Cane Syrup	170	Cane Monsters
-65	Organic Evaporated Cane Juice	173	Cane Monsters
-66	Organic Evaporated Cane Juice Syrup	174	Cane Monsters
-67	Organic Fair Trade Unrefined Cane Sugar	176	Cane Monsters
-68	Organic Invert Cane Sugar	181	Cane Monsters
-69	Organic Invert Cane Syrup	182	Cane Monsters
-70	Organic Milled Cane Sugar	192	Cane Monsters
-71	Pure Cane Golden Brown Sugar	222	Cane Monsters
-72	Pure Cane Sugar	223	Cane Monsters
-73	Raw Cane Sugar	229	Cane Monsters
-74	Agave Syrup	2	Syrup Monsters
-75	Barley Malt Syrup	7	Syrup Monsters
-76	Beet Syrup	10	Syrup Monsters
-77	Brown Rice Syrup	19	Syrup Monsters
-78	Brown Rice Syrup Solids	20	Syrup Monsters
-79	Corn Barley Malt Syrup	45	Syrup Monsters
-80	Corn Syrup	49	Syrup Monsters
-81	Corn Syrup Butter	50	Syrup Monsters
-82	Corn Syrup Solids	51	Syrup Monsters
-83	Date Syrup	58	Syrup Monsters
-84	Dried Brown Rice Syrup	69	Syrup Monsters
-85	Dried Corn Syrup	73	Syrup Monsters
-86	Golden Syrup	101	Syrup Monsters
-87	Invert Syrup	117	Syrup Monsters
-88	Malt Syrup	128	Syrup Monsters
-89	Maple Syrup	134	Syrup Monsters
-90	Oat Syrup Solids	144	Syrup Monsters
-91	Organic Agave Syrup	147	Syrup Monsters
-92	Organic Barley Malt Syrup	149	Syrup Monsters
-93	Organic Brown Rice Syrup	151	Syrup Monsters
-94	Organic Caramel Syrup	156	Syrup Monsters
-95	Organic Coconut Syrup	163	Syrup Monsters
-96	Organic Corn Syrup Solids	164	Syrup Monsters
-97	Organic Date Syrup	167	Syrup Monsters
-98	Organic Invert Syrup	186	Syrup Monsters
-99	Organic Maple Syrup	191	Syrup Monsters
-100	Organic Raw Dark Agave Syrup	200	Syrup Monsters
-101	Organic Rice Syrup	203	Syrup Monsters
-102	Organic Rice Syrup Solids	204	Syrup Monsters
-103	Organic Tapioca Syrup	209	Syrup Monsters
-104	Organic Tapioca Syrup Solids	210	Syrup Monsters
-105	Pear Syrup	216	Syrup Monsters
-106	Pineapple Syrup	218	Syrup Monsters
-107	Pure Maple Syrup	225	Syrup Monsters
-108	Refiner's Syrup	232	Syrup Monsters
-109	Refinery Syrup	233	Syrup Monsters
-110	Rice Syrup	235	Syrup Monsters
-111	Rice Syrup Solids	236	Syrup Monsters
-112	Sorghum Syrup	238	Syrup Monsters
-113	Syrup	245	Syrup Monsters
-114	Tapioca Syrup	248	Syrup Monsters
-115	Tapioca Syrup Solids	249	Syrup Monsters
-116	Apple Juice Concentrate	4	Concentrate Monsters
-117	Beet Juice Concentrate	8	Concentrate Monsters
-118	Black Currant Juice Concentrate	11	Concentrate Monsters
-119	Blackberry Juice Concentrate	12	Concentrate Monsters
-120	Blackcurrant Juice Concentrate	13	Concentrate Monsters
-121	Blood Orange Juice Concentrate	15	Concentrate Monsters
-122	Blueberry Juice Concentrate	16	Concentrate Monsters
-123	Boysenberry Juice Concentrate	17	Concentrate Monsters
-124	Caramelized Pear Juice Concentrate	30	Concentrate Monsters
-125	Carrot Juice Concentrate	33	Concentrate Monsters
-126	Cherry Juice Concentrate	34	Concentrate Monsters
-127	Clarified Guava Juice Concentrate	35	Concentrate Monsters
-128	Clarified Lime Juice Concentrate	36	Concentrate Monsters
-129	Concentrated Melon Juice	44	Concentrate Monsters
-130	Cranberry Juice Concentrate	52	Concentrate Monsters
-131	Date Juice Concentrate	57	Concentrate Monsters
-132	Dried Cherry Juice Concentrate	72	Concentrate Monsters
-133	Dried Cranberry Juice Concentrate	74	Concentrate Monsters
-134	Elderberry Juice Concentrate	76	Concentrate Monsters
-135	Fruit Juice Concentrate	91	Concentrate Monsters
-136	Goji Berry Juice Concentrate	98	Concentrate Monsters
-137	Grape Juice Concentrate	103	Concentrate Monsters
-138	Grapefruit Juice Concentrate	105	Concentrate Monsters
-139	Honeydew Juice Concentrate	110	Concentrate Monsters
-140	Key Lime Juice Concentrate	119	Concentrate Monsters
-141	Kiwi Juice Concentrate	120	Concentrate Monsters
-142	Lemon Juice Concentrate	122	Concentrate Monsters
-143	Loganberry Juice Concentrate	126	Concentrate Monsters
-144	Mango Juice Concentrate	132	Concentrate Monsters
-145	Melon Juice Concentrate	135	Concentrate Monsters
-146	Monk Fruit Juice Concentrate	140	Concentrate Monsters
-147	Monk Juice Concentrate	141	Concentrate Monsters
-148	Orange Juice Concentrate	145	Concentrate Monsters
-149	Organic Apple Juice Concentrate	148	Concentrate Monsters
-150	Organic Blueberry Juice Concentrate	150	Concentrate Monsters
-151	Organic Cherry Juice Concentrate	157	Concentrate Monsters
-152	Organic Dried Cherry Juice Concentrate	171	Concentrate Monsters
-153	Organic Dried Cranberry Juice Concentrate	172	Concentrate Monsters
-154	Organic Fruit Juice Concentrate	177	Concentrate Monsters
-155	Organic Grape Juice Concentrate	179	Concentrate Monsters
-156	Organic Lemon Juice Concentrate	188	Concentrate Monsters
-157	Organic Pineapple Juice Concentrate	197	Concentrate Monsters
-158	Organic Raisin Juice Concentrate	199	Concentrate Monsters
-159	Organic Strawberry Juice Concentrate	205	Concentrate Monsters
-160	Organic White Grape Juice Concentrate	211	Concentrate Monsters
-161	Passion Fruit Juice Concentrate	213	Concentrate Monsters
-162	Peach Juice Concentrate	214	Concentrate Monsters
-163	Pear Juice Concentrate	215	Concentrate Monsters
-164	Pineapple Juice Concentrate	217	Concentrate Monsters
-165	Plum Juice Concentrate	219	Concentrate Monsters
-166	Pomegranate Juice Concentrate	220	Concentrate Monsters
-167	Raisin Juice Concentrate	226	Concentrate Monsters
-168	Raspberry Juice Concentrate	228	Concentrate Monsters
-169	Strawberry Juice Concentrate	239	Concentrate Monsters
-170	Tart Cherry Juice Concentrate	250	Concentrate Monsters
-171	Watermelon Juice Concentrate	255	Concentrate Monsters
-172	White Grape Juice Concentrate	260	Concentrate Monsters
-173	Beet Sugar	9	Obvious Monsters
-174	Brown Sugar	21	Obvious Monsters
-175	Brown Sugar Syrup	22	Obvious Monsters
-176	Caramelized Sugar	31	Obvious Monsters
-177	Caramelized Sugar Syrup	32	Obvious Monsters
-178	Coconut Blossom Sugar	38	Obvious Monsters
-179	Coconut Palm Sugar	41	Obvious Monsters
-180	Coconut Sugar	42	Obvious Monsters
-181	Coconut Sugar Crystals	43	Obvious Monsters
-182	Dark Brown Sugar	55	Obvious Monsters
-183	Decorative Sugars	59	Obvious Monsters
-184	Demerara Sugar	62	Obvious Monsters
-185	Fondant Sugar	86	Obvious Monsters
-186	Golden Brown Sugar	99	Obvious Monsters
-187	Golden Sugar	100	Obvious Monsters
-188	Granulated Sugar	102	Obvious Monsters
-189	Grape Sugar	104	Obvious Monsters
-190	Icing Sugar	111	Obvious Monsters
-191	Invert Sugar	114	Obvious Monsters
-192	Invert Sugar Cane Syrup	115	Obvious Monsters
-193	Invert Sugar Syrup	116	Obvious Monsters
-194	Light Brown Sugar	124	Obvious Monsters
-195	Liquid Sugar	125	Obvious Monsters
-196	Maple Sugar	133	Obvious Monsters
-197	Organic Brown Sugar	152	Obvious Monsters
-198	Organic Coconut Palm Sugar	161	Obvious Monsters
-199	Organic Coconut Sugar	162	Obvious Monsters
-200	Organic Date Sugar	166	Obvious Monsters
-201	Organic Invert Sugar	183	Obvious Monsters
-202	Organic Invert Sugar Cane Syrup	184	Obvious Monsters
-203	Organic Invert Sugar Syrup	185	Obvious Monsters
-204	Organic Light Brown Sugar	189	Obvious Monsters
-205	Organic Panela Sugar	196	Obvious Monsters
-206	Organic Powdered Sugar	198	Obvious Monsters
-207	Organic Sugar	206	Obvious Monsters
-208	Organic Sugar Cane Syrup	207	Obvious Monsters
-209	Palm Sugar	212	Obvious Monsters
-210	Powdered Sugar	221	Obvious Monsters
-211	Raw Sugar	231	Obvious Monsters
-212	Sugar	241	Obvious Monsters
-213	Sugar Beet Syrup	242	Obvious Monsters
-214	Sugar Cane Syrup	243	Obvious Monsters
-215	Turbinado Sugar	253	Obvious Monsters
-216	White Granulated Sugar	259	Obvious Monsters
-217	White Sugar	261	Obvious Monsters
-218	Yellow Sugar	263	Obvious Monsters
-219	Agave Nectar	1	Strange Monsters
-220	Barley Malt	5	Strange Monsters
-221	Barley Malt Extract	6	Strange Monsters
-222	Blackstrap Molasses	14	Strange Monsters
-223	Clover Honey	37	Strange Monsters
-224	Coconut Nectar	39	Strange Monsters
-225	Coconut Palm Nectar	40	Strange Monsters
-226	Corn Sweetener	48	Strange Monsters
-227	Date Crystals	56	Strange Monsters
-228	Diastatic Malt	67	Strange Monsters
-229	Diastatic Malt Powder	68	Strange Monsters
-230	Ethyl Maltol	77	Strange Monsters
-231	Evaporated Coconut Palm Nectar	84	Strange Monsters
-232	Fructan	87	Strange Monsters
-233	Fructooligosaccharides	88	Strange Monsters
-234	Galactooligosaccharides	92	Strange Monsters
-235	Honey	108	Strange Monsters
-236	Honey Powder	109	Strange Monsters
-237	Isomalto-Oligosaccharide	118	Strange Monsters
-238	Malt Extract	127	Strange Monsters
-239	Maltol	130	Strange Monsters
-240	Molasses	137	Strange Monsters
-241	Molasses Granules	138	Strange Monsters
-242	Molasses Powder	139	Strange Monsters
-243	Muscovado	142	Strange Monsters
-244	Non Gmo Honey	143	Strange Monsters
-245	Organic Agave Nectar	146	Strange Monsters
-246	Organic Coconut Blossom Nectar	158	Strange Monsters
-247	Organic Coconut Nectar	159	Strange Monsters
-248	Organic Coconut Palm Nectar	160	Strange Monsters
-249	Organic Date Nectar	165	Strange Monsters
-250	Organic Evaporated Coconut Palm Nectar	175	Strange Monsters
-251	Organic Honey	180	Strange Monsters
-252	Organic Molasses	193	Strange Monsters
-253	Organic Molasses Granules	194	Strange Monsters
-254	Organic Non-Gmo Honey	195	Strange Monsters
-255	Organic Raw Honey	201	Strange Monsters
-256	Pure Local Sorghum Molasses	224	Strange Monsters
-257	Raisin Nectar	227	Strange Monsters
-258	Raw Honey	230	Strange Monsters
-259	Sugarcane Molasses	244	Strange Monsters
-260	Treacle	251	Strange Monsters
-261	Unsulfured Molasses	254	Strange Monsters
-262	White Grain Sorghum Extract	258	Strange Monsters
-263	Wildflower Honey	262	Strange Monsters
+Number in the App	Added Sugar List Name	Number in Added Sugar Repository	MonstersFamily	Description
+1	Corn Dextrin	46	Dextrin Monsters	Corn Dextrins are a type of Dextrin but only extracted from corns.
+2	Corn Maltodextrin	47	Dextrin Monsters	Corn Maltodextrin is a white powder made from corn, rice, potato starch, or wheat. Even though it comes from plants, it's highly processed. To make it, first the starches are cooked, and then acids or enzymes such as heat-stable bacterial alpha-amylase are added to break it down further.
+3	Dextrin	63	Dextrin Monsters	"Dextrins are a group of low-molecular-weight carbohydrates produced by the hydrolysis of starch or glycogen. Dextrins are white, yellow, or brown powders that are partially or fully water-soluble, yielding optically active solutions of low viscosity. Most of them can be detected with iodine solution, giving a red coloration; one distinguishes erythrodextrin (dextrin that colors red) and achrodextrin (giving no color)"
+4	Maltodextrin	129	Dextrin Monsters	Maltodextrin is usually only present in food in small amounts, but Maltodextrin is high on the glycemic index (GI), meaning that it can cause a spike in one's blood sugar.
+5	Organic Maltodextrin	189	Dextrin Monsters	Organic maltodextrin is usually only present in food in small amounts, but organic maltodextrin is high on the glycemic index (GI), meaning that it can cause a spike in one's blood sugar.
+6	Organic Rice Maltodextrin	201	Dextrin Monsters	Maltodextrin is a sweet-to-taste, hygroscopic powder that is generally creamy white in color. The partial hydrolysis of starch results in the creation of the rice maltodextrin. Most of the companies that are engaged in the manufacturing of rice maltodextrin use rice that contains some amylopectin.
+7	Organic Tapioca Maltodextrin	207	Dextrin Monsters	Tapioca maltodextrin is a food grade dextrose made from tapioca. Tapioca is essentially a flavorless, starchy ingredient that is processed from dried cassava roots and is used for cooking.
+8	Rice Maltodextrin	233	Dextrin Monsters	Maltodextrin is a sweet-to-taste, hygroscopic powder that is generally creamy white in color. The partial hydrolysis of starch results in the creation of the rice maltodextrin. Most of the companies that are engaged in the manufacturing of rice maltodextrin use rice that contains some amylopectin.
+9	Tapioca Dextrin	245	Dextrin Monsters	Tapioca dextrin is a sugar that is extracted from the cassava plant.
+10	Tapioca Maltodextrin	246	Dextrin Monsters	Tapioca maltodextrin is derived from tapioca starch using a natural enzymatic process, and is often used as a stabilizer. It's smooth texture and neutral flavor makes tapioca maltodextrin an ideal fat replacer in desserts, cheese products, dressings, and sauces.
+11	Wheat Dextrin	255	Dextrin Monsters	Extracted from wheat starch, and widely used to add fiber in processed foods.
+12	Anhydrous Dextrose	3	OSE Monsters	"Anhydrous dextrose is a simple carbohydrate that is directly absorbed into the blood. It has a glycemic index of 100%. It is a colorless, odorless white powder that is less sweet than cane sugar; soluble in water and partially soluble in alcohol."
+13	Crystalline Fructose	53	OSE Monsters	"Crystalline fructose is derived from corn just like high fructose corn syrup. Crystalline fructose is sweeter than table sugar and HFCS; it is a valuable sweetener for low calorie, sugar-free foods and beverages since less can be used to achieve the same sweetness"
+14	Dextrose	64	OSE Monsters	Dextrose is the name of a simple sugar that is made from corn and is chemically identical to glucose, or blood sugar. Dextrose is often used in baking products as a sweetener, and can be commonly found in items such as processed foods and corn syrup.
+15	Dextrose Anhydrous Glucose	65	OSE Monsters	Dextrose anhydrous glucose is not a common table sugar. It is crystallized D-glucose compounds. It has no water molecule in its chemical structure and is a monosaccharide, a simpler sugar than the fructose cane sugar. This means that it is a dry sugar.
+16	Dextrose Sugar	66	OSE Monsters	Dextrose is the name of a simple sugar that is made from corn and is chemically identical to glucose, or blood sugar. Dextrose is often used in baking products as a sweetener and can be commonly found in items such as processed foods and corn syrup.
+17	Dried Glucose Syrup	75	OSE Monsters	Dried glucose syrups are carbohydrate powders with a slightly sweet taste that are used as sweeteners, nutritive components, or texturizing agents.
+18	Fructose	89	OSE Monsters	Fructose, or fruit sugar, is a simple ketonic monosaccharide found in many plants, where it is often bonded to glucose to form the disaccharide sucrose, and absorbed directly into blood during digestion.
+19	Fructose Syrup	90	OSE Monsters	A sweetener made from cornstarch.
+20	Glucose	93	OSE Monsters	Glucose is a simple sugar. It is the most abundant monosaccharide, a subcategory of carbohydrates. Glucose is mainly made by plants and algae during photosynthesis from water and carbon dioxide, using energy from sunlight.
+21	Glucose Fructose Syrup	94	OSE Monsters	Glucose fructose syrup is a sweet liquid made of glucose and fructose. Unlike sucrose, where 50% of glucose and 50% of fructose are linked together, GFS can have a varying ratio of the two simple sugars, meaning that some extra, unbound glucose or fructose molecules are present. The fructose content in GFS can range from 5% to over 50%.
+22	Glucose Solids	95	OSE Monsters	Glucose solids are easy-to-digest simple carbohydrates, most often made from corn, rice, wheat, or potato starch. To obtain glucose solids, a starch is cooked and then broken down into smaller glucose molecules.
+23	Glucose Syrup	96	OSE Monsters	"Glucose syrup, also known as confectioner's glucose, is a syrup made from the hydrolysis of starch. ... Maize (corn) is commonly used as the source of the starch in the US, in which case the syrup is called ""corn syrup"", but glucose syrup is also made from potatoes and wheat, and less often from barley, rice and cassava."
+24	Glucose Syrup Solids	97	OSE Monsters	Glucose syrup solids are easy-to-digest simple carbohydrates, most often made from corn, rice, wheat, or potato starch. To obtain glucose syrup solids, a starch is cooked and then broken down into smaller glucose molecules.
+25	High Fructose Corn Syrup	106	OSE Monsters	High-fructose corn syrup, also known as glucose-fructose, isoglucose and glucose-fructose syrup, is a sweetener made from corn starch. As in the production of conventional corn syrup, the starch is broken down into glucose by enzymes.
+26	High Maltose Corn Syrup Solids	107	OSE Monsters	"High-maltose corn syrup is a food additive used as a sweetener and preservative. The majority sugar is maltose. It is less sweet than high-fructose corn syrup and contains little to no fructose.To be given the label ""high"", the syrup must contain at least 50% maltose."
+27	Lactose	121	OSE Monsters	"Lactose is a disaccharide; a sugar composed of galactose and glucose. Lactose makes up around 2 - 8% of milk. The name comes from lac, the Latin word for milk, plus the suffix -ose used to name sugars."
+28	Maltose	131	OSE Monsters	Maltose, also known as maltobiose or malt sugar, is a disaccharide formed from two units of glucose. In the isomer, isomaltose, the two glucose molecules are joined with an Alpha bond. Maltose is the two-unit member of the amylose homologous series, the key structural motif of starch.
+29	Organic Dextrose	167	OSE Monsters	Organic Dextrose is a sweetener that's derived from genetically engineered corn and has a long, complicated manufacturing process, just like erythritol.
+30	Organic Glucose Syrup	177	OSE Monsters	Our organic glucose syrup is produced like glucose by enzymatic decomposition from starch. Depending on the crop the starch is made from, it is also referred to as rice syrup, corn syrup, or wheat syrup. Most glucose syrup is liquid, but it can also be dried and packaged as a powder.
+31	Organic Lactose	186	OSE Monsters	"Organic Lactose is a disaccharide; a sugar composed of galactose and glucose. Organic lactose makes up around 2 - 8% of milk."
+32	Saccharose	236	OSE Monsters	Saccharose is another term for sucrose, or sugar.
+33	Sucrose	239	OSE Monsters	Sucrose is common table sugar. It is a disaccharide, a molecule composed of two monosaccharides: glucose and fructose. Sucrose is produced naturally in plants, from which table sugar is refined.
+34	Trehalose	251	OSE Monsters	Trehalose is a sugar consisting of two molecules of glucose. It is also known as mycose or tremalose.
+35	Wheat Glucose Syrup	256	OSE Monsters	Wheat glucose syrup is a gluten-free sweetener made most frequently from corn, but also from tapioca, potato, and sorghum or wheat starch. It is such a highly processed and purified ingredient that the source of the starch does not matter and can be considered gluten-free.
+36	Brown Cane Sugar	18	Cane Monsters	Brown cane sugar is extracted from the sugarcane plant and not refined, sometimes in the form of cane juice, this raw form of sugar still retains some of the molasses and moisture from the plant, with brown color due to the presence of molasses.
+37	Cane Crystals	23	Cane Monsters	"A sugar company that makes evaporated cane juice, Florida Crystals, describes it as a natural sweetener with ""dark golden hues"" and a ""sweet sugarcane flavor."" But another sugar company that doesn't make the product says it's just another name for sugar."
+38	Cane Juice	24	Cane Monsters	"The US Food and Drug Administration (FDA) defines cane juice as any sweetener derived from sugarcane syrup. The US FDA considers the term ""cane juice"" to be misleading because the term incorrectly suggests that it is a juice, when it is sugar syrup."
+39	Cane Juice Crystals	25	Cane Monsters	"A sugar company that makes Cane juice crystals, Florida Crystals, describes it as a natural sweetener with ""dark golden hues"" and a ""sweet sugarcane flavor."" But another sugar company that doesn't make the product says it's just another name for sugar."
+40	Cane Molasses	26	Cane Monsters	Cane molasses is an ingredient used in baking and cooking. It was popular in the Americas prior to the 20th century, when it was a common sweetener. To make molasses, sugar cane is harvested and stripped of leaves. Its juice is extracted, usually by cutting, crushing, or mashing. The juice is boiled to concentrate it, promoting sugar crystallization. The result of this first boiling is called first syrup, and it has the highest sugar content.
+41	Cane Refinery Syrup	27	Cane Monsters	Cane refinery syrup is a pleasant tasting thick syrup with a rich unique flavor. It is a byproduct of the refining of cane sugar.
+42	Cane Sugar	28	Cane Monsters	Cane sugar is extracted from the sugarcane plant and not refined, sometimes in the form of cane juice, this raw form of sugar still retains some of the molasses and moisture from the plant.
+43	Cane Syrup	29	Cane Monsters	"Cane syrup is a traditional American sweetener made by the simple concentration of cane juice through long cooking in open kettles. The result is a dark, ""caramel - flavored, burnt gold - colored syrup"", ""deep and slightly sulfurous"" with a ""lightly bitter backlash""."
+44	Dark Brown Cane Sugar	54	Cane Monsters	Dark brown cane sugar is extracted from the sugarcane plant and not refined, sometimes in the form of cane juice, this raw form of sugar still retains some of the molasses and moisture from the plant, with brown color due to the presence of molasses.
+45	Dehydrated Cane Juice	60	Cane Monsters	"The US Food and Drug Administration (FDA) defines Dehydrated cane juice as any sweetener derived from sugarcane syrup. The US FDA considers the term ""Dehydrated cane juice"" to be misleading because the term incorrectly suggests that it is a juice, when it is sugar syrup."
+46	Dehydrated Cane Sugar	61	Cane Monsters	Dehydrated cane sugar is a evaporated natural sweetener made from sugar cane.
+47	Dried Cane Sugar	70	Cane Monsters	Dried cane sugar is a dehydrated natural sweetener made from sugar cane.
+48	Dried Cane Syrup	71	Cane Monsters	Dried cane syrup is  -  essentially  -  white sugar. The difference is that it has undergone significantly less processing, which results in a khaki-colored, large grain sugar that can be used in place of white sugar.
+49	Evaporated Cane Crystals	78	Cane Monsters	"A sugar company that makes evaporated cane juice, Florida Crystals, describes it as a natural sweetener with ""dark golden hues"" and a ""sweet sugarcane flavor."" But another sugar company that doesn't make the product says it's just another name for sugar."
+50	Evaporated Cane Juice	79	Cane Monsters	"The US Food and Drug Administration (FDA) defines evaporated cane juice as any sweetener derived from sugarcane syrup. The US FDA considers the term ""evaporated cane juice"" to be misleading because the term incorrectly suggests that it is a juice, when it is sugar."
+51	Evaporated Cane Juice Invert Syrup	80	Cane Monsters	Evaporated cane juice invert syrup is an amber colored, natural liquid sweetener manufactured by dissolving evaporated cane juice in water and inverting a percentage of the sucrose. The end product is a highly soluble sweetener with a long shelf life.
+52	Evaporated Cane Juice Syrup	81	Cane Monsters	"The US Food and Drug Administration (FDA) defines evaporated cane juice as any sweetener derived from sugarcane syrup. The US FDA considers the term ""evaporated cane juice"" to be misleading because the term incorrectly suggests that it is a juice, when it is sugar."
+53	Evaporated Cane Sugar	82	Cane Monsters	Evaporated cane sugar is a dehydrated natural sweetener made from sugar cane.
+54	Evaporated Cane Syrup	83	Cane Monsters	Evaporated cane juice is a completely natural sweetener made from sugar cane. Because it is not processed as much as table sugar, evaporated cane juice retains more of the nutrients from the sugar cane.
+55	Fair Trade Unrefined Cane Sugar	85	Cane Monsters	Organic fair trade unrefined cane sugar are cane sugars that are a dark brown color, retain most or all of the original cane molasses, and have strong molasses flavor. Fair trade standards require safe working conditions for farmers, and prohibit child labor.
+56	Invert Cane Sugar	112	Cane Monsters	Inverted cane sugar is an edible mixture of two simple sugars¡Xglucose and fructose¡Xthat is made by heating cane sugar with water.
+57	Invert Cane Syrup	113	Cane Monsters	Invert cane syrup is an edible mixture of two simple sugars¡Xglucose and fructose¡Xthat is made by heating sucrose with water. It is thought to be sweeter than table sugar, and foods that contain it retain moisture and crystallize less easily.
+58	Light Brown Cane Sugar	123	Cane Monsters	Light brown cane sugar is extracted from the sugarcane plant and not refined, sometimes in the form of cane juice, this raw form of sugar still retains some of the molasses and moisture from the plant, with brown color due to the presence of molasses.
+59	Milled Cane Sugar	136	Cane Monsters	Milled sugar uses the sugar crystals from the first milled juice of sugar cane plants. Milled sugar still contains the natural vitamins and minerals, which are in the molasses in the natural juice.
+60	Organic Cane Crystals	153	Cane Monsters	"A sugar company that makes Organic cane juice, Florida Crystals, describes it as a natural sweetener with ""dark golden hues"" and a ""sweet sugarcane flavor."" But another sugar company that doesn't make the product says it's just another name for sugar."
+61	Organic Cane Sugar	154	Cane Monsters	Cane sugar is extracted from the sugarcane plant and not refined, sometimes in the form of cane juice, this raw form of sugar still retains some of the molasses and moisture from the plant.
+62	Organic Cane Syrup	155	Cane Monsters	"Organic cane syrup is a traditional American sweetener made by the simple concentration of cane juice through long cooking in open kettles. The result is a dark, ""caramel - flavored, burnt syrup"", ""deep and slightly sulfurous"" with a ""lightly bitter backlash""."
+63	Organic Dried Cane Sugar	168	Cane Monsters	Dried cane sugar is a dehydrated natural sweetener made from sugar cane.
+64	Organic Dried Cane Syrup	169	Cane Monsters	Organic dried cane syrup is a less processed variety of the sweet, white, crystalline sucrose most often used as an additive to foods to sweeten or add texture.
+65	Organic Evaporated Cane Juice	172	Cane Monsters	Organic evaporated cane juice is a relatively unrefined sweetener made from the stalks of the sugar cane plant.
+66	Organic Evaporated Cane Juice Syrup	173	Cane Monsters	Organic evaporated cane juice syrup is a completely natural sweetener made from sugar cane. Because it is not processed as much as table sugar, evaporated cane juice retains more of the nutrients from the sugar cane.
+67	Organic Fair Trade Unrefined Cane Sugar	175	Cane Monsters	Organic fair trade unrefined cane sugar are cane sugars that are a dark brown color, retain most or all of the original cane molasses, and have strong molasses flavor. Fair trade standards require safe working conditions for farmers, and prohibit child labor.
+68	Organic Invert Cane Sugar	180	Cane Monsters	Inverted cane sugar is an edible mixture of two simple sugars¡Xglucose and fructose¡Xthat is made by heating cane sugar with water.
+69	Organic Invert Cane Syrup	181	Cane Monsters	Organic invert cane syrup is an edible mixture of two simple sugars¡Xglucose and fructose¡Xthat is made by heating sucrose with water. It is thought to be sweeter than table sugar, and foods that contain it retain moisture and crystallize less easily.
+70	Organic Milled Cane Sugar	191	Cane Monsters	Milled sugar uses sugar crystals from the first milled juice of sugar cane plants. It still contains the natural vitamins and minerals, which are in the molasses in the natural juice.
+71	Pure Cane Golden Brown Sugar	221	Cane Monsters	Golden brown sugar is made by mixing pure cane sugar and molasses.
+72	Pure Cane Sugar	222	Cane Monsters	Pure cane sugar comes from the sugarcane plant without any genetic modification.
+73	Raw Cane Sugar	228	Cane Monsters	Raw (cane) sugar, or turbinado (brown) sugar, is made from the juice of the sugar cane plant with its brown coloring due to the presence of molasses, a byproduct of refining sugarcane.
+74	Agave Syrup	2	Syrup Monsters	Date syrup is a whole food sweetener that contains plenty of fiber, minerals, and antioxidants. Date syrup is a significant source of simple carbohydrates and calorie.
+75	Barley Malt Syrup	7	Syrup Monsters	Barley malt syrup is an unrefined sweetener processed by extraction from sprouted, i.e., malted, barley, containing approximately 65% maltose, 30% complex carbohydrate, 3% protein. Malt syrup is dark brown, thick, and sticky.
+76	Beet Syrup	10	Syrup Monsters	Beet syrup is made from the juice of harvested beets, cooked and concentrated.
+77	Brown Rice Syrup	19	Syrup Monsters	"Brown rice syrup is a sweetener that has replaced high fructose corn syrup in many so-called ""healthy"" or ""natural"" foods. It is made by cooking whole-grain rice, and then using enzymes to break down the starch into the sugars maltose, maltotriose, and a small amount of glucose."
+78	Brown Rice Syrup Solids	20	Syrup Monsters	"Brown rice syrup solids is a sweetener that has replaced high fructose corn syrup in many so-called ""healthy"" or ""natural"" foods. It is made by cooking whole-grain rice, then using enzymes to break down the starch into the sugars maltose, maltotriose and a small amount of glucose."
+79	Corn Barley Malt Syrup	45	Syrup Monsters	Corn barley malt syrup is an unrefined sweetener processed by extraction from sprouted, i.e., malted, barley, containing approximately 65% maltose, 30% complex carbohydrate, 3% protein. Malt syrup is dark brown, thick, and sticky.
+80	Corn Syrup	49	Syrup Monsters	Corn syrup is a food syrup which is made from the starch of corn and contains varying amounts of maltose and higher oligosaccharides, depending on the grade. Corn syrup, also known as glucose syrup to confectioners, is used in foods to soften texture, add volume, prevent crystallization of sugar, and enhance flavor.
+81	Corn Syrup Butter	50	Syrup Monsters	Corn syrup butter is a food syrup which is made from the starch of corn and contains varying amounts of maltose and higher oligosaccharides, depending on the grade.
+82	Corn Syrup Solids	51	Syrup Monsters	Corn syrup solids provide energy for babies. Plus, they are easily digested even if the baby is sensitive to lactose or sucrose. Corn syrup solids are NOT the same as high-fructose corn syrup. High-fructose corn syrup has been processed such that some of the glucose has been converted to fructose.
+83	Date Syrup	58	Syrup Monsters	Date syrup is a whole food sweetener that contains plenty of fiber, minerals, and antioxidants. Date syrup is a significant source of simple carbohydrates and calories, so it should be used with caution.
+84	Dried Brown Rice Syrup	69	Syrup Monsters	"Brown rice syrup is a sweetener that has replaced high fructose corn syrup in many so-called ""natural"" foods. It is made by cooking whole-grain rice, and then using enzymes to break down the starch into the sugars maltose, maltotriose, and a small amount of glucose."
+85	Dried Corn Syrup	73	Syrup Monsters	Dried corn syrup is 100% glucose, the smallest form of sugar. To make corn syrup solids, food manufacturers dehydrate the syrup until it's only 10% water. They use the dried product in powdered coffee creamers, drink mixes and baby formula.
+86	Golden Syrup	101	Syrup Monsters	Golden syrup or light treacle is a thick, amber-colored form of inverted sugar syrup made form the process of refining sugar cane or sugar beet juice into sugar, or by treatment of a sugar solution with acid.
+87	Invert Syrup	117	Syrup Monsters	Invert syrup is an edible mixture of two simple sugars¡Xglucose and fructose¡Xthat is made by heating sucrose (table sugar) with water
+88	Malt Syrup	128	Syrup Monsters	Malt syrup is an unrefined sweetener processed by extraction from sprouted, i.e., malted, barley, containing approximately 65% maltose, 30% complex carbohydrate, 3% protein. Malt syrup is dark brown, thick, and sticky.
+89	Maple Syrup	134	Syrup Monsters	"Maple syrup is a syrup usually made from the xylem sap of sugar maple, red maple, or black maple trees; although, it can also be made from other maple species."
+90	Oat Syrup Solids	144	Syrup Monsters	Organic oat syrup solids are a high-solids concentrate from the natural sugaring process of oats and water. It is high in fiber and is used as an alternative sweetener for sugar.
+91	Organic Agave Syrup	147	Syrup Monsters	Organic agave syrup is a sweetener commercially produced from several species of agave, including agave tequilana and agave salmiana. Agave syrup contains fructose as a carbohydrate providing sweetening properties.
+92	Organic Barley Malt Syrup	149	Syrup Monsters	Organic barley malt syrup  -  20 oz. grain is transformed into wholesome sweetness through the process of traditional malting. This is a superior, traditionally malted, organically grown and produced sweetener.
+93	Organic Brown Rice Syrup	151	Syrup Monsters	"Organic brown rice syrup is a sweetener that has replaced high fructose corn syrup in many so-called ""healthy"" or ""natural"" foods. It is made by cooking whole-grain rice, then using enzymes to break down the starch into the sugars maltose, maltotriose, and a small amount of glucose."
+94	Organic Coconut Syrup	162	Syrup Monsters	"Organic coconut syrup is a low-glycemic, organic sweetener crafted in small artisan batches from coconut flower blossom nectar. When the coconut tree is tapped, it produces a nutrient-rich ""sap"" exuding from the coconut blossoms."
+95	Organic Corn Syrup Solids	163	Syrup Monsters	Organic corn syrup solids provide energy for babies. Plus, they are easily digested even if the baby is sensitive to lactose or sucrose. Organic Corn syrup solids are NOT the same as high-fructose corn syrup.
+96	Organic Date Syrup	166	Syrup Monsters	Organic date syrup is a whole food sweetener that contains plenty of fiber, minerals, and antioxidants. Organic date syrup is a significant source of simple carbohydrates and calories, so it should be used with caution.
+97	Organic Invert Syrup	185	Syrup Monsters	Organic invert syrup is an edible mixture of two simple sugars¡Xglucose and fructose¡Xthat is made by heating sucrose with water. It is thought to be sweeter than table sugar, and foods that contain it retain moisture and crystallize less easily.
+98	Organic Maple Syrup	190	Syrup Monsters	Maple syrup is a syrup usually made from the xylem sap of sugar maple, red maple, or black maple trees, although it can also be made from other maple species.
+99	Organic Raw Dark Agave Syrup	199	Syrup Monsters	A sweetener comparable to honey and maple syrup. It is derived from the same succulent plant that is use in making tequila.
+100	Organic Rice Syrup	202	Syrup Monsters	Rice syrup is derived from cultured cooked rice starch with saccharifying enzymes to break down the starches, followed by straining off the liquid and reducing it by evaporative heating until the desired consistency is reached.
+101	Organic Rice Syrup Solids	203	Syrup Monsters	Organic rice syrup solids are made from non-GMO rice. Organic rice syrup solids are produced by process of agglomeration, which increases particle size and lowers bulk density compared to standard products.
+102	Organic Tapioca Syrup	208	Syrup Monsters	Produced from tapioca starch using a natural fermentation process, tapioca syrup is a gluten-free and non-GMO alternative to corn syrup, sugar, honey, maple syrup and molasses.
+103	Organic Tapioca Syrup Solids	209	Syrup Monsters	Tapioca syrup solids are slightly sweet, white or off-white colored powder that are often used for bulking through balancing of water activity and solid adjustments.
+104	Pear Syrup	215	Syrup Monsters	"Pear syrup has been mislabeled as an ingredient by food makers. According to the FDA rules, it should have been labeled instead as: ""Pear, water, sugar"" (or any form of sugar recognized as such on the Added Sugar Repository)"
+105	Pineapple Syrup	217	Syrup Monsters	"Pineapple syrup has been mislabeled as an ingredient by food makers. According to the FDA rules, it should have been labeled instead as: ""Pineapple, water, sugar"" (or any form of sugar recognized as such on the Added Sugar Repository)"
+106	Pure Maple Syrup	224	Syrup Monsters	The basic ingredient in maple syrup is the sap from the xylem of sugar maple or various other species of maple trees. It consists primarily of sucrose and water, with small amounts of the monosaccharides glucose and fructose from the invert sugar created in the boiling process.
+107	Refiner's Syrup	231	Syrup Monsters	"Refiner's syrup (also called ""golden syrup"") is made at a sugar refinery, not at the sugar mill which is where molasses is produced."
+108	Refinery Syrup	232	Syrup Monsters	Refinery syrup is made at a sugar refinery, not at the sugar mill which is where molasses is produced.
+109	Rice Syrup	234	Syrup Monsters	Rice syrup is derived from cultured cooked rice starch with saccharifying enzymes to break down the starches, followed by straining off the liquid and reducing it by evaporative heating until the desired consistency is reached.
+110	Rice Syrup Solids	235	Syrup Monsters	Rice syrup solids are sweet granulated powder additives.
+111	Sorghum Syrup	237	Syrup Monsters	Sorghum syrup is made from a type of grass grown in tall stalks which are harvested, juiced, and boiled until enough moisture has evaporated to leave behind a thick, dark syrup.
+112	Syrup	244	Syrup Monsters	In cooking terms, a syrup is a condiment that is a thick, viscous liquid consisting primarily of a solution of sugar in water. It contains a large amount of dissolved sugars but shows little tendency to deposit crystals.
+113	Tapioca Syrup	247	Syrup Monsters	Tapioca syrup is produced from tapioca starch using a natural fermentation process. Tapioca syrup is a gluten-free and non-GMO alternative to corn syrup, sugar, honey, maple syrup and molasses.
+114	Tapioca Syrup Solids	248	Syrup Monsters	The tapioca syrup solids are produced from tapioca starch that is obtained using a natural enzymatic process.
+115	Apple Juice Concentrate	4	Concentrate Monsters	Apple juice concentrate is made by squeezing juice from the apple and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+116	Beet Juice Concentrate	8	Concentrate Monsters	Made by squeezing juice from the beet and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+117	Black Currant Juice Concentrate	11	Concentrate Monsters	Made by squeezing juice from black currants and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+118	Blackberry Juice Concentrate	12	Concentrate Monsters	Made by squeezing juice from the blackberry and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+119	Blackcurrant Juice Concentrate	13	Concentrate Monsters	Made by squeezing juice from blackcurrants and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+120	Blood Orange Juice Concentrate	15	Concentrate Monsters	Made by squeezing juice from the blood orange and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+121	Blueberry Juice Concentrate	16	Concentrate Monsters	Made by squeezing juice from the blueberry and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+122	Boysenberry Juice Concentrate	17	Concentrate Monsters	Made by squeezing juice from the boysenberry and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+123	Caramelized Pear Juice Concentrate	30	Concentrate Monsters	Caramelization is the oxidation of sugar that creates a browning reaction and delicious flavor. After squeezing juice from the pear and removing a large percentage of the water, usually by heat, it is then pasteurized.
+124	Carrot Juice Concentrate	33	Concentrate Monsters	Made by squeezing juice from the carrot and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh. Concentrated carrot juice
+125	Cherry Juice Concentrate	34	Concentrate Monsters	Made by squeezing juice from the cherry and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+126	Clarified Guava Juice Concentrate	35	Concentrate Monsters	Clarified Guava Juice Concentrate is made by squeezing juice from the guava and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh. This product is Clarified, meaning much if not all of the pulp is removed.
+127	Clarified Lime Juice Concentrate	36	Concentrate Monsters	Clarified Lime Juice Concentrate is made by squeezing juice from the lime and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh. This product is Clarified, meaning much if not all of the pulp is removed.
+128	Concentrated Melon Juice	44	Concentrate Monsters	Made by squeezing juice from the melon and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+129	Cranberry Juice Concentrate	52	Concentrate Monsters	Made by squeezing juice from the cranberry and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+130	Date Juice Concentrate	57	Concentrate Monsters	Made by obtaining juice from the date and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+131	Dried Cherry Juice Concentrate	72	Concentrate Monsters	Cherry juice is a fruit juice consisting of the juice of cherries. It is then dried and concentrated, removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+132	Dried Cranberry Juice Concentrate	74	Concentrate Monsters	Cranberry juice is a fruit juice consisting of the juice of cranberries. It is then dried and concentrated, removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+133	Elderberry Juice Concentrate	76	Concentrate Monsters	Made by squeezing juice from the Elderberry and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+134	Fruit Juice Concentrate	91	Concentrate Monsters	Made by squeezing juice from fruit and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+135	Goji Berry Juice Concentrate	98	Concentrate Monsters	Made by squeezing juice from the goji berry and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+136	Grape Juice Concentrate	103	Concentrate Monsters	Made by squeezing juice from the grape and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+137	Grapefruit Juice Concentrate	105	Concentrate Monsters	Made by squeezing juice from the grapefruit and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+138	Honeydew Juice Concentrate	110	Concentrate Monsters	Made by squeezing juice from the honeydew and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+139	Key Lime Juice Concentrate	119	Concentrate Monsters	Made by squeezing juice from the key lime and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+140	Kiwi Juice Concentrate	120	Concentrate Monsters	Made by squeezing juice from the kiwi and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+141	Lemon Juice Concentrate	122	Concentrate Monsters	Made by squeezing juice from the lemon and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+142	Loganberry Juice Concentrate	126	Concentrate Monsters	Made by squeezing juice from the loganberry and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+143	Mango Juice Concentrate	132	Concentrate Monsters	Made by squeezing juice from the mango and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+144	Melon Juice Concentrate	135	Concentrate Monsters	Made by squeezing juice from the melon and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+145	Monk Fruit Juice Concentrate	140	Concentrate Monsters	Made by squeezing juice from the monk fruit and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+146	Monk Juice Concentrate	141	Concentrate Monsters	Made by squeezing juice from the monk fruit and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+147	Orange Juice Concentrate	145	Concentrate Monsters	Made by squeezing juice from the orange and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+148	Organic Apple Juice Concentrate	148	Concentrate Monsters	Made by squeezing juice from the apple and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+149	Organic Blueberry Juice Concentrate	150	Concentrate Monsters	Made by squeezing juice from the blueberry and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+150	Organic Cherry Juice Concentrate	156	Concentrate Monsters	Made by squeezing juice from the cherry and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+151	Organic Dried Cherry Juice Concentrate	170	Concentrate Monsters	Cherry juice is a fruit juice consisting of the juice of cherries. It is then dried and concentrated, removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+152	Organic Dried Cranberry Juice Concentrate	171	Concentrate Monsters	Cranberry juice is a fruit juice consisting of the juice of cranberries. It is then dried and concentrated, removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+153	Organic Fruit Juice Concentrate	176	Concentrate Monsters	Made by squeezing juice from fruit and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+154	Organic Grape Juice Concentrate	178	Concentrate Monsters	Made by squeezing juice from the grape and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+155	Organic Lemon Juice Concentrate	187	Concentrate Monsters	Made by squeezing juice from the lemon and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+156	Organic Pineapple Juice Concentrate	196	Concentrate Monsters	Pineapple juice concentrate is made by squeezing juice from the pineapple and removing a large percentage of the water, usually by heat. It is then pasteurized to ensure that it stays fresh.
+157	Organic Raisin Juice Concentrate	198	Concentrate Monsters	Made by obtaining juice from the raisin and removing a large percentage of the water, usually by heat. It is then pasteurized to ensure that it stays fresh.
+158	Organic Strawberry Juice Concentrate	204	Concentrate Monsters	Strawberry juice concentrate is made by squeezing juice from the strawberry and removing a large percentage of the water, usually by heat. It is then pasteurized to ensure that it stays fresh.
+159	Organic White Grape Juice Concentrate	210	Concentrate Monsters	White grape juice concenrate is made by squeezing juice from the white grape and removing a large percentage of the water, usually by heat. It is then pasteurized to ensure that it stays fresh.
+160	Passion Fruit Juice Concentrate	212	Concentrate Monsters	Passion fruit juice concentrate is made by squeezing juice from the passion fruit and removing a large percentage of the water, usually by heat. It is then pasteurized to ensure that it stays fresh.
+161	Peach Juice Concentrate	213	Concentrate Monsters	Peach juice concentrate is made by squeezing juice from the peach and removing a large percentage of the water, usually by heat. It is then pasteurized to ensure that it stays fresh.
+162	Pear Juice Concentrate	214	Concentrate Monsters	Pear juice concentrate is made by squeezing juice from the pear and removing a large percentage of the water, usually by heat. It is then pasteurized to ensure that it stays fresh.
+163	Pineapple Juice Concentrate	216	Concentrate Monsters	Pineapple juice concentrate is made by squeezing juice from the pineapple and removing a large percentage of the water, usually by heat. It is then pasteurized to ensure that it stays fresh.
+164	Plum Juice Concentrate	218	Concentrate Monsters	Plum juice concentrate is made by squeezing juice from the plum and removing a large percentage of the water, usually by heat. It is then pasteurized to ensure that it stays fresh.
+165	Pomegranate Juice Concentrate	219	Concentrate Monsters	Pomegranate juice concentrate is made by squeezing juice from the pomegrate and removing a large percentage of the water, usually by heat. It is then pasteurized to ensure that it stays fresh.
+166	Raisin Juice Concentrate	225	Concentrate Monsters	Raisin juice concentrate is made by obtaining juice from the raisin and removing a large percentage of the water, usually by heat. It is then pasteurized to ensure that it stays fresh.
+167	Raspberry Juice Concentrate	227	Concentrate Monsters	Raspberry juice concentrate is made by squeezing juice from the raspberry and removing a large percentage of the water, usually by heat. It is then pasteurized to ensure that it stays fresh.
+168	Strawberry Juice Concentrate	238	Concentrate Monsters	Strawberry juice concentrate is made by squeezing juice from the strawberry and removing a large percentage of the water, usually by heat. It is then pasteurized to ensure that it stays fresh.
+169	Tart Cherry Juice Concentrate	249	Concentrate Monsters	Tart cherry juice concentrate is made by squeezing juice from the tart cherry and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+170	Watermelon Juice Concentrate	254	Concentrate Monsters	Made by squeezing juice from the watermelon and removing a large percentage of the water, usually by heat, it is then pasteurized to ensure that it stays fresh.
+171	White Grape Juice Concentrate	259	Concentrate Monsters	White grape juice concentrate is made by squeezing juice from the white grape and removing a large percentage of the water, usually by heat. It is then pasteurized to ensure that it stays fresh.
+172	Beet Sugar	9	Obvious Monsters	The sugar beet has a white, fleshy root (a taproot) with a flat crown. Sugar is formed by photosynthesis in the leaves and is then stored in the root.
+173	Brown Sugar	21	Obvious Monsters	Brown sugar is a sucrose sugar product with brown color due to the presence of molasses.
+174	Brown Sugar Syrup	22	Obvious Monsters	"Brown sugar syrup adds a molasses-like richness to juices; it is made by heating brown sugar and water together."
+175	Caramelized Sugar	31	Obvious Monsters	Caramelized sugar is simply a mixture of sugar and water cooked until it becomes syrup and darkens.
+176	Caramelized Sugar Syrup	32	Obvious Monsters	Caramelized sugar syrup is a term most often applied to melting sugar until it becomes a caramel color liquid. Caramelized sugar syrup is simply a mixture of sugar and water cooked until it becomes syrupy and darkens, and reaches a temperature from 340 to 350 degrees F.
+177	Coconut Blossom Sugar	38	Obvious Monsters	Coconut blossom sugar is the dehydrated sap of the coconut palm containing small amounts of minerals, antioxidants and fiber.
+178	Coconut Palm Sugar	41	Obvious Monsters	Coconut palm sugar is produced from the sap of the flower bud stem of the coconut palm.
+179	Coconut Sugar	42	Obvious Monsters	Coconut sugar is the dehydrated sap of the coconut palm containing small amounts of minerals, antioxidants, and fiber.
+180	Coconut Sugar Crystals	43	Obvious Monsters	Coconut crystals are made from dried coconut sap nectar which hardens into brown coconut sugar.
+181	Dark Brown Sugar	55	Obvious Monsters	Brown sugar is a sucrose sugar product with brown color due to the presence of molasses. Dark brown sugar is approximately 6.5% molasses based on total volume.
+182	Decorative Sugars	59	Obvious Monsters	Decorative sugar is the generic name for sweet-tasting, soluble carbohydrates, designed and crafted to add visual appeal and sweetness to baked goods.
+183	Demerara Sugar	62	Obvious Monsters	Demerara sugar, or raw (cane) sugar, is made from the juice of the sugar cane plant with brown coloring due to the presence of molasses, a byproduct of refining sugarcane that contains a number of essential minerals and vitamins.
+184	Fondant Sugar	86	Obvious Monsters	Fondant Sugar is up to 100 times finer than standard confectioners sugar and is specifically used for the making of fondant, a smooth sugar coating or filling. Fondant is typically used on wedding cakes, pastries, marshmallows, and candy.
+185	Golden Brown Sugar	99	Obvious Monsters	Golden brown sugar is made by mixing white sugar and molasses.
+186	Golden Sugar	100	Obvious Monsters	Golden sugar is made from pure can sugar with the addition of molasses.
+187	Granulated Sugar	102	Obvious Monsters	Granulated sugar or regular sugar, is the sugar commonly used in North America and Europe, made either of beet sugar or cane sugar, which has undergone a refining process.
+188	Grape Sugar	104	Obvious Monsters	Grape sugar is dextrose obtained from grapes.
+189	Icing Sugar	111	Obvious Monsters	Icing sugar is finely ground sugar produced by milling granulated sugar into a powdered state
+190	Invert Sugar	114	Obvious Monsters	Invert sugar is produced when crystalized sugar is brown down into fructose and glucose.
+191	Invert Sugar Cane Syrup	115	Obvious Monsters	Invert sugar cane syrup is an edible mixture of two simple sugars¡Xglucose and fructose¡Xthat is made by heating sugar cane with water.
+192	Invert Sugar Syrup	116	Obvious Monsters	Invert sugar syrup is an edible mixture of two simple sugars¡Xglucose and fructose¡Xthat is made by heating sucrose with water. It is thought to be sweeter than table sugar, and foods that contain it retain moisture and crystallize less easily.
+193	Light Brown Sugar	124	Obvious Monsters	Brown sugar is a sucrose sugar product with brown color due to the presence of molasses. Light brown sugar is approximately 3.5% molasses based on total volume.
+194	Liquid Sugar	125	Obvious Monsters	Liquid sugar is crystalized sugar that has been dissolved in water.
+195	Maple Sugar	133	Obvious Monsters	Maple sugar is what remains after the sap of the sugar maple is boiled for longer than is needed to create maple syrup or maple taffy
+196	Organic Brown Sugar	152	Obvious Monsters	Brown sugar is a sucrose sugar product with brown color due to the presence of molasses.
+197	Organic Coconut Palm Sugar	160	Obvious Monsters	Coconut palm sugar is produced from the sap of the flower bud stem of the coconut palm.
+198	Organic Coconut Sugar	161	Obvious Monsters	Coconut sugar is the dehydrated sap of the coconut palm containing small amounts of minerals, antioxidants, and fiber.
+199	Organic Date Sugar	165	Obvious Monsters	Organic Date Sugar is made with dehydrated dates that are ground to resemble granulated sugar.
+200	Organic Invert Sugar	182	Obvious Monsters	Invert sugar is produced when crystalized sugar (sucrose) is broken down into varying ratios of fructose and glucose.
+201	Organic Invert Sugar Cane Syrup	183	Obvious Monsters	Organic invert sugar cane syrup is an edible mixture of two simple sugars¡Xglucose and fructose¡Xthat is made by heating sucrose with water. It is thought to be sweeter than table sugar, and foods that contain it retain moisture and crystallize less easily.
+202	Organic Invert Sugar Syrup	184	Obvious Monsters	Organic invert sugar syrup is an edible mixture of two simple sugars¡Xglucose and fructose¡Xthat is made by heating sucrose with water. It is thought to be sweeter than table sugar, and foods that contain it retain moisture and crystallize less easily.
+203	Organic Light Brown Sugar	188	Obvious Monsters	Brown sugar is a sucrose sugar product with brown color due to the presence of molasses. Light brown sugar is approximately 3.5% molasses based on total volume.
+204	Organic Panela Sugar	195	Obvious Monsters	Panela is unrefined whole cane sugar which is a solid form of sucrose derived from the boiling and evaporation of sugarcane juice
+205	Organic Powdered Sugar	197	Obvious Monsters	Powdered sugar, also called confectioners' sugar, is a finely ground sugar produced by milling granulated sugar into a powdered state.
+206	Organic Sugar	205	Obvious Monsters	Sugar is the generic name for sweet-tasting, soluble carbohydrates. Various types of sugar are derived from different sources.
+207	Organic Sugar Cane Syrup	206	Obvious Monsters	Organic sugar cane syrup is made by evaporating sugar cane juice. Usually, organic sugar cane juice is boiled for several hours, so as to yield a thick syrup that is sweeter than sugar. During the boiling process, baking soda and lemon juice are also added to the juice.
+208	Palm Sugar	211	Obvious Monsters	Palm sugar is a sweetener that is made from the sap present in the flower buds of the coconut palm tree. It is known as natural sugar because it involves minimum processing.
+209	Powdered Sugar	220	Obvious Monsters	Powdered sugar, also called confectioners' sugar, is a finely ground sugar produced by milling granulated sugar into a powdered state. It usually contains a small amount of anti-caking agent to prevent clumping and improve flow.
+210	Raw Sugar	230	Obvious Monsters	Raw (cane) sugar, or turbinado (brown) sugar, is made from the juice of the sugar cane plant with its brown coloring due to the presence of molasses, a byproduct of refining sugarcane.
+211	Sugar	240	Obvious Monsters	Sugar is the generic name for sweet-tasting, soluble carbohydrates. Various types of sugar are derived from different sources. Simple sugars are called monosaccharides and include glucose, fructose, and galactose.
+212	Sugar Beet Syrup	241	Obvious Monsters	Sugar beet syrup is made from the juice of harvested sugar beets. It is then cooked and concentrated.
+213	Sugar Cane Syrup	242	Obvious Monsters	Sugar cane syrup is made by evaporating sugar cane juice. Usually, sugar cane juice is boiled for several hours, so as to yield a thick syrup that is sweeter than sugar. During the boiling process, baking soda and lemon juice are also added to the juice.
+214	Turbinado Sugar	252	Obvious Monsters	"Turbinado sugar is made from the juice of the sugar cane plant; it is a byproduct of refined sugarcane that contains a number of essential minerals and vitamins."
+215	White Granulated Sugar	258	Obvious Monsters	White granulated sugar is pure cane sugar that has been stripped of any molasses.
+216	White Sugar	260	Obvious Monsters	White sugar is made either of beet sugar or cane sugar, which has undergone a refining process which completely removes the molasses and transforms the white sugar into sucrose.
+217	Yellow Sugar	262	Obvious Monsters	Yellow sugar is a light brown sugar with a slight taste of molasses.
+218	Agave Nectar	1	Strange Monsters	Agave nectar is produced from the agave plant, juice is extracted from the core, filtered, and heated to break the complex components into simple sugars.
+219	Barley Malt	5	Strange Monsters	Barley malt is barley that has been allowed to germinate by soaking the grain in water. This prepares the starches to be converted into fermentable sugars.
+220	Barley Malt Extract	6	Strange Monsters	Barley malt extract is barley that has been allowed to germinate by soaking the grain in water. This prepares the starches to be converted into fermentable sugars. Insoluble fiber is removed and the resulting sugary liquid is concentrated to make a viscous, stable liquid sweetener or is dried to make a powder.
+221	Blackstrap Molasses	14	Strange Monsters	The triple boiling and sugar extraction process results in Blackstrap molasses containing vitamins and minerals in a more concentrated form, along with antioxidant compounds, which may help prevent cell damage from free radicals.
+222	Clover Honey	37	Strange Monsters	Clover honey is honey that has been harvested from bees that have gathered nectar from a majority of clovers.
+223	Coconut Nectar	39	Strange Monsters	Coconut nectar is made when the coconut tree is tapped and produces a nutrient-rich sap.
+224	Coconut Palm Nectar	40	Strange Monsters	Coconut Palm Nectar comes from sweet sap after tapping stalks or stems of flowering coconut blossoms. This watery sap is further evaporated at low temperatures, forming a pourable syrup.
+225	Corn Sweetener	48	Strange Monsters	Corn sweetener is made from the starch of corn and contains varying amounts of maltose and higher oligosaccharides, depending on the grade.
+226	Date Crystals	56	Strange Monsters	Date Crystals are small, dehydrated date pieces that can be used dry as a sweetener or rehydrated to add both sweetness and a little texture.
+227	Diastatic Malt	67	Strange Monsters	Diastatic malt is a grain which has been sprouted, dried, and grounded into a powder. By sprouting the grain (often wheat or barley) and letting the grain grow into a small sprout, it activates the enzymes inside the grain.
+228	Diastatic Malt Powder	68	Strange Monsters	Diastatic malt powder is a grain that has been sprouted, dried and grounded into a powder. It is used in many baked good to improve texture and rise of the product.
+229	Ethyl Maltol	77	Strange Monsters	Ethyl maltol is an organic compound that is a common flavorant in some confectioneries. It is a white solid with a sweet smell that can be described as caramelized sugar and cooked fruit.
+230	Evaporated Coconut Palm Nectar	84	Strange Monsters	Evaporated coconut palm nectar is a produced from fresh sap after cutting flower buds of the coconut palm
+231	Fructan	87	Strange Monsters	A fructan is a polymer of fructose molecules normally with a sucrose unit. Fructans occur in foods such as agave, artichokes, asparagus, leeks, garlic, onions, yac?n, j?cama, and wheat.
+232	Fructooligosaccharides	88	Strange Monsters	Fructooligosaccharides are forms of oligosaccharides, a saccharide polymer, and come from natural sources. It is a carbohydrate, but usually listed under fibers. It is also used as a sweetener.
+233	Galactooligosaccharides	92	Strange Monsters	Galactooligosaccharides belong to the group of prebiotics. Prebiotics are defined as non-digestible food ingredients that beneficially affect the host by stimulating the growth and or activity of beneficial bacteria in the colon.
+234	Honey	108	Strange Monsters	Honey is a sweet food substance produced by bees and some related insects. Bees produce honey from the sugary secretions of plants (floral nectar) or from secretions of other insects.
+235	Honey Powder	109	Strange Monsters	Honey powder can be used as a sweetener or flavoring. In powder form, the consistency is much easier to maintain, making it usable for dry rubs, cake, cookies, or bread mixes.
+236	Isomalto-Oligosaccharide	118	Strange Monsters	Isomalto-oligosaccharide is a mixture of short-chain carbohydrates which has a digestion-resistant property. IMO is found naturally in some foods, as well as being manufactured commercially
+237	Malt Extract	127	Strange Monsters	Malt extract is a sweet, sticky substance obtained from an infusion of malt and water.
+238	Maltol	130	Strange Monsters	A naturally occurring organic compound used primarily as a flavor enhancer, found in the bark of larch tree, pine needles, and roasted malt. It is a white crystalline powder that is soluble in hot water.
+239	Molasses	137	Strange Monsters	Sugar cane or sugar beets are crushed and the juice is extracted, and then boiled down to form sugar crystals which are removed from the liquid. Molasses is the thick, brown syrup left after the sugar has been removed from the juice.
+240	Molasses Granules	138	Strange Monsters	Minimally processed and maintains many of the natural vitamins and minerals found in sugar cane.
+241	Molasses Powder	139	Strange Monsters	Molasses is the dark, sweet syrup created in the sugar cane extraction process containing particularly large components of calcium, magnesium and potassium.
+242	Muscovado	142	Strange Monsters	Muscovado is a type of partially refined to unrefined sugar with a strong molasses content and flavor.
+243	Non Gmo Honey	143	Strange Monsters	Non-GMO honey is honey in its natural state as it has been produced from the nectar of plants and is never exposed to artificial manipulation.
+244	Organic Agave Nectar	146	Strange Monsters	To produce agave nectar from the agave plant, juice is extracted from the core of the agave, filtered, and then heated to break the complex components into simple sugars.
+245	Organic Coconut Blossom Nectar	157	Strange Monsters	Coconut blossom nectar is sap of the coconut palm containing small amounts of minerals, antioxidants and fiber.
+246	Organic Coconut Nectar	158	Strange Monsters	Coconut nectar is made when the coconut tree is tapped and produces a nutrient-rich sap.
+247	Organic Coconut Palm Nectar	159	Strange Monsters	Coconut palm nectar comes from sap produced from tapping the stalks or stems of flowering coconut blossoms.
+248	Organic Date Nectar	164	Strange Monsters	Date nectar is a whole food sweetener that contains plenty of fiber, minerals, and antioxidants. Date nectar is a significant source of simple carbohydrates and calories, so it should used with caution.
+249	Organic Evaporated Coconut Palm Nectar	174	Strange Monsters	Evaporated coconut palm nectar is a produced from fresh sap after cutting flower buds of the coconut palm.
+250	Organic Honey	179	Strange Monsters	Honey is a sweet substance produced by bees and some related insects. Bees produce honey from the sugary secretions of plants or from secretions of other insects.
+251	Organic Molasses	192	Strange Monsters	Sugar cane or sugar beets are crushed and the juice is extracted and boiled to form sugar crystals which are removed from the liquid. Molasses is the thick, brown syrup left after the sugar has been removed from the juice.
+252	Organic Molasses Granules	193	Strange Monsters	Organic molasses granules are a dark, sweet, grainy sugar containing particularly large components of calcium, magnesium and potassium.
+253	Organic Non-Gmo Honey	194	Strange Monsters	Non-GMO honey is honey in its natural state as it has been produced from the nectar of plants, and it is never exposed to artificial manipulation.
+254	Organic Raw Honey	200	Strange Monsters	Raw honey is the natural honey bees produce directly in a hive without additional processing or filtration.
+255	Pure Local Sorghum Molasses	223	Strange Monsters	Sorghum cane is harvested during September and October and the juice is extracted from the freshly cut plants in the field.
+256	Raisin Nectar	226	Strange Monsters	Raisin nectar is juice from a raisin often diluted (to a degree limited by regulations) with water and contain additives besides raisin juice, including natural and artificial sweeteners, and preservatives.
+257	Raw Honey	229	Strange Monsters	Raw honey is made by extracting honey from the honeycombs of the hive and straining it over a mesh or nylon cloth to separate the honey from impurities.
+258	Sugarcane Molasses	243	Strange Monsters	Sugarcane molasses is the liquid produced after evaporating sugarcane juice and removinng all or any part of the crystallizable sugar.
+259	Treacle	250	Strange Monsters	Treacle is any uncrystallized syrup made during the refining of sugar. The most common forms of treacle are golden syrup, a pale variety, and a darker variety known as black treacle.
+260	Unsulfured Molasses	253	Strange Monsters	Unsulphured molasses is made from matured cane plants that have been allowed to ripen naturally in the field.
+261	White Grain Sorghum Extract	257	Strange Monsters	White grain sorghum extract is a binder and bodifying agent that provides viscosity for baking. It helps the final product retain moisture.
+262	Wildflower Honey	261	Strange Monsters	Wildflower honey is any honey that comes strictly from wildflowers.

@@ -20,7 +20,7 @@ public class SplashScreen : MonoBehaviour
     {
         //when locationserive is not enabled by use, ask for permission
 
-
+        
         SplashImage.canvasRenderer.SetAlpha(0.1f);
         SplashText.canvasRenderer.SetAlpha(0.1f);
         FadeIn();
@@ -29,8 +29,7 @@ public class SplashScreen : MonoBehaviour
         yield return new WaitForSeconds(TimeTillNextScene);
 
         Input.location.Start();
-        //yield return new WaitForSeconds(1f);
-        Input.location.Stop();
+
 
         yield return Application.RequestUserAuthorization(UserAuthorization.WebCam);
         //if (!Application.HasUserAuthorization(UserAuthorization.Microphone))

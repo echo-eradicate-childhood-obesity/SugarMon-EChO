@@ -8,9 +8,10 @@ public class TutorialDisplay : MonoBehaviour {
     public GameObject mask, tree, canvas;
     private int tapCount = 0;
     private bool isPressed = false;
-    private readonly string[] dialog = new string[] { "Start by aiming a food or beverage barcode at the center of the square.",
-                                                      "Click the checkmark to add the new Sugar Monster to your SugarDex!",
-                                                      "Check out your collection of Sugar Monsters in the SugarDex!"};
+    public static readonly string[] dialog = new string[] { "Start by aiming a food or beverage barcode at the center of the square.",
+                                                      "You will collect a Sugar Monster for each added sugar in the product!",
+                                                      "Check out your collection of Sugar Monsters in the SugarDex!",
+                                                      "All of the food you have scanned will be stored in the FoodDex!"};
 
     // Use this for initialization
     void Start () {
@@ -34,15 +35,18 @@ public class TutorialDisplay : MonoBehaviour {
         switch (tapCount)
         {
 
-            case 4:
+            case 5:
                 tapCount = -1;
                 tree.GetComponentInChildren<Text>().text = "";
                 ToggleTutorialObjects(false);
                 isPressed = false;
                 break;
-
+            case 4:
+                PositionTutorialMask(new Vector2(0, -205), new Vector2(20, 1820), "DexMask", dialog[3]);
+                ToggleTutorialObjects(true);
+                break;
             case 3:
-                PositionTutorialMask(new Vector2(0, -205), new Vector2(20, 1820), "DexMask", dialog[2]);
+                PositionTutorialMask(new Vector2(0, -205), new Vector2(20, 1820), "FoodMask", dialog[2]);
                 ToggleTutorialObjects(true);
                 break;
 

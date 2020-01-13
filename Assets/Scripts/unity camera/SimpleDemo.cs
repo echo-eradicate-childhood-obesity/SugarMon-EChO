@@ -15,10 +15,13 @@ public class SimpleDemo : MonoBehaviour
 {
 
     public IScanner BarcodeScanner;
-    public RawImage Image;
-    public TextAsset PerfactDatabase;
+    public RawImage Camera;
+    public TextAsset LabelInsightDatabase;
 
-    private bool inDB;
+    public string gkey;
+    public IRequester grequester;
+    public char delimiter; // what divides the two numbers in the database (;)
+
     private static List<string> dbProductList = new List<string>();
     [HideInInspector]
     public int tutorialStage;
@@ -47,16 +50,16 @@ public class SimpleDemo : MonoBehaviour
             tutorialMask.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + GameObject.Find("Tutorial Mask").GetComponent<TutorialController>().tutorialStagePics[0]);
         }
 
-        //Read new USDA sorted Database
+        //Read Label Insight Database
 #if UNITY_EDITOR
-        string encodedContent = Encoding.UTF7.GetString(PerfactDatabase.bytes);
+        string encodedContent = Encoding.UTF7.GetString(LabelInsightDatabase.bytes);
         dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
         dbProductList = dbProductList.ConvertAll(item => Regex.Replace(item, @",+", ","));
         dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim().Replace("\"*", "").Replace("[;.]", ",").TrimEnd(','));
 
 #else
         Task.Run(()=>{
-            string encodedContent = Encoding.UTF7.GetString(PerfactDatabase.bytes);
+            string encodedContent = Encoding.UTF7.GetString(LabelInsightDatabase.bytes);
             dbProductList = encodedContent.Split(new char[] { '\n' }).ToList();
             dbProductList = dbProductList.ConvertAll(item => Regex.Replace(item, @",+", ","));
             dbProductList = dbProductList.ConvertAll(item => item.ToLower().Trim().Replace("\"*", "").Replace("[;.]", ",").TrimEnd(','));
@@ -69,11 +72,11 @@ public class SimpleDemo : MonoBehaviour
         // Display the camera texture through a RawImage
         BarcodeScanner.OnReady += (sender, arg) => {
             // Set Orientation & Texture
-            Image.transform.localEulerAngles = BarcodeScanner.Camera.GetEulerAngles();
-            Image.transform.localScale = BarcodeScanner.Camera.GetScale();
-            Image.texture = BarcodeScanner.Camera.Texture;
+            Camera.transform.localEulerAngles = BarcodeScanner.Camera.GetEulerAngles();
+            Camera.transform.localScale = BarcodeScanner.Camera.GetScale();
+            Camera.texture = BarcodeScanner.Camera.Texture;
             //Keep Image Aspect Ratio
-            //var rect = Image.GetComponent<RectTransform>();
+            //var rect = Camera.GetComponent<RectTransform>();
             //var newHeight = rect.sizeDelta.x * BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
             //rect.sizeDelta = new Vector2(rect.sizeDelta.x, newHeight);
             //rect.sizeDelta = new Vector2(Screen.width, Screen.height);
@@ -81,20 +84,32 @@ public class SimpleDemo : MonoBehaviour
         BarcodeScanner.StatusChanged += (sender, arg) =>
         {
 #if UNITY_EDITOR
-            Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
+            Camera.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Height / BarcodeScanner.Camera.Width;
 #else
-            Image.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Width / BarcodeScanner.Camera.Height;
+            Camera.GetComponent<AspectRatioFitter>().aspectRatio = (float)BarcodeScanner.Camera.Width / BarcodeScanner.Camera.Height;
 #endif
         };
         // Track status of the scanner
-        //BarcodeScanner.StatusChanged += (sender, arg) => {
-        //  Debug.Log("Status: " + BarcodeScanner.Status);
-        //};
+        BarcodeScanner.StatusChanged += (sender, arg) =>
+        {
+            float w = BarcodeScanner.Camera.Width;
+            float h = BarcodeScanner.Camera.Height;
+            AspectRatioFitter a = Camera.GetComponent<AspectRatioFitter>();
+            a.aspectRatio = w / h;
+        };
 
         isAndroid = false;
         //When on Android platform
 #if UNITY_ANDROID
             isAndroid = true;
+#endif
+        //create the requester. no need for await, use this for the build. it is faster 
+        //when in editor use this. but use Async method in build will be faster
+        //!not support Async load TextAsset in Editor
+#if UNITY_EDITOR
+        StartCoroutine("InitRequester");
+#else
+        StartAsync();
 #endif
     }
 
@@ -121,46 +136,88 @@ public class SimpleDemo : MonoBehaviour
         }
     }
 
-#region UI Buttons
+    /// <summary>
+    /// *Load UPC&NDB Lookup table into memory and sign to USDARequester
+    /// *requester is the used to send request to usda
+    /// *grequester is use to send request to Google using google map api.
+    /// *!Warnning: Seems like Unity do not support TextAsset streaming using Task. Do not use this in unity editor
+    /// </summary>
+    /// <returns></returns>
+    private async Task StartAsync() {
+        await Task.Run(() => {
+            grequester = new GoogleRequester(gkey);
+        });
+    }
+    /// <summary>
+    /// * This function is same as StartAsync()
+    /// * But used only in Editor
+    /// </summary>
+    System.Collections.IEnumerator InitRequester() {
+        grequester = new GoogleRequester(gkey);
+        yield return null;
+    }
+
+    /// <summary>
+    /// * Send Request To Google to get Information
+    /// * Using normal method will cause halt
+    /// </summary>
+    /// <param name="bcv"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public async Task RequestAsync(string bcv, string name, string sugars) {
+
+        //wait 1 second to give the location service more time to get latlng info
+#if !UNITY_EDITOR
+        await Task.Run(() => {
+            float i = 0;
+            while (i < 2) {
+                i += Time.deltaTime;
+            }
+        });
+#endif
+        //stop the locationservice to save battery life. 
+        //hopefully, the time to get internet request will give the device enough to get the location info
+        //Input.location.Stop();
+
+        var pos = Input.location.lastData;
+        //change the info to an format google api support
+        var info = $@"latlng={pos.latitude.ToString()},{pos.longitude.ToString()}";
+        var realpos = await grequester.SendRequest(info);
+        GreenCartController.Instance.PCAdd(name, bcv, realpos, sugars);
+        GreenCartController.Instance.PC.PCSave();
+    }
+    #region UI Buttons
 
     public void ClickStart()
     {
-        inDB = false;
-        if (BarcodeScanner == null)
-        {
+        if (BarcodeScanner == null) {
             Log.Warning("No valid camera - Click Start");
-            return;
+        }
+        else {
+            // Start Scanning
+            BarcodeScanner.Scan((barCodeType, barCodeValue) => {
+                BarcodeScanner.Stop();
+
+                if (this.GetComponent<TestController>().test)
+                    GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
+
+                if (excludedCodeType.Any(barCodeType.Contains))
+                    Invoke("ClickStart", 1f);
+                else {
+                    var i = SearchController.BinarySearch(dbProductList, long.Parse(barCodeValue), dbProductList.Count - 1, 0);
+
+                    string sugarName = "";
+                    if (i == -1)
+                        sugarName = "Not Found";
+                    else
+                        sugarName = dbProductList[i].ToLower();
+                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(sugarName, barCodeValue);
+                }
+
+            });
         }
 
-        // Start Scanning
-        BarcodeScanner.Scan((barCodeType, barCodeValue) => {
-            BarcodeScanner.Stop();
-            
-            if (this.GetComponent<TestController>().test) GameObject.Find("UPCNumber").GetComponent<Text>().text = barCodeValue;
-            
-            if (excludedCodeType.Any(barCodeType.Contains))
-            {
-                Invoke("ClickStart", 1f);
-            }
-            else
-            {
-                var i = SearchController.BinarySearch(dbProductList, long.Parse(barCodeValue), dbProductList.Count - 1, 0);
-
-                bool test = GameObject.Find("Main Camera").GetComponent<TestController>().test;
-
-                //test
-                if (i != -1)
-                {
-                    inDB = true;
-                    GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars(dbProductList[i].ToLower(), barCodeValue);
-                }
-                if (!inDB && GameObject.Find("Not Found") == null) GameObject.Find("Canvas").GetComponent<FindAddedSugar>().AllTypeOfSugars("Not Found", barCodeValue);
-            }
-
-        });
-
     }
-
     /// <summary>
     /// This coroutine is used because of a bug with unity (http://forum.unity3d.com/threads/closing-scene-with-active-webcamtexture-crashes-on-android-solved.363566/)
     /// Trying to stop the camera in OnDestroy provoke random crash on Android
@@ -170,7 +227,7 @@ public class SimpleDemo : MonoBehaviour
     public IEnumerator StopCamera(Action callback)
     {
         // Stop Scanning
-        Image = null;
+        Camera = null;
         BarcodeScanner.Destroy();
         BarcodeScanner = null;
 

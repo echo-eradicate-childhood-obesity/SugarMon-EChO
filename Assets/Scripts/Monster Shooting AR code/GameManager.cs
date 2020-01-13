@@ -1,14 +1,24 @@
-﻿using System.Collections;
+﻿/*
+ * This file has been editted by Mark Botaish  
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using GoogleARCore;
 using System.Linq;
 using UnityEngine.SceneManagement;
+
 namespace ARMon
 {
     public class GameManager : MonoBehaviour
     {
+        [System.Serializable]
+        public struct AttackTypes {
+            public string name;
+            public Sprite sprite;
+        }
         private static GameManager instance;
 
         public static GameManager Instance
@@ -20,34 +30,41 @@ namespace ARMon
 
         public delegate void Move();
 
-
-        public GameObject textCamPos;
-
-        public GameObject camPosText;
-
-        public GameObject deviceGO;
-
+        public GameObject camera;
+        
         public float time;
         public float shotTimer;
         private bool buttonHit;
         bool shot;
 
-        public GameObject bulletGO;
-        public GameObject coin;
-        public GameObject monsterGo;
-        public GameObject canvas, arCoreDevice, planeDiscovery, backToMainButton;
-        [SerializeField]
-        private SpawngridConfig sconfig;
-
-        public SpawngridConfig Sconfig { get { return sconfig; } }
+        public GameObject backToMainButton;
 
         public SpawnspotHandler ssHandler = new SpawnspotHandler();
 
-        //detect radius of player where grid spawn
-        public float radius;
+        [Header("Attack Settings ----------------------------------")]
+        public GameObject _sparks;
+        public GameObject projectile;
+        public GameObject _rapidFireBullet;
+        public float _rapidSpeed;
+        public List<AttackTypes> _attacks;
+        private int _currentAttack = 0;
 
         private List<GameObject> monsters;
         public static event Move MoveHandler;
+        //-------------------------------------------------------------
+
+
+        [Header("Monster Spawn Settings ----------------------------------")]
+        public List<GameObject> monsterPrefabs;
+        public float minSpawnDistance = 2.0f;
+        public float maxSpawnDistance = 5.0f;
+
+        //Varaibles get set in the GameManagerEditor Assets/Editor/GameManagerEditor
+        [SerializeField, HideInInspector] public float commonDropRate;
+        [SerializeField, HideInInspector] public float uncommonDropRate;
+        [SerializeField, HideInInspector] public float rareDropRate;
+
+        //-------------------------------------------------------------
 
 
         //test field
@@ -74,22 +91,10 @@ namespace ARMon
             }
             else { Destroy(this.gameObject); }
 
-            var height = sconfig.height;
-            var width = sconfig.width;
-            var length = sconfig.length;
-            var gap = sconfig.gap;
-            radius = sconfig.radius;
             previousPos = Vector3.zero;
-            SpwanGridCreater(width, height, length, gap, radius);
             monsters = new List<GameObject>();
             //set currentscore to 0 for test
             CurrentScore = 0;
-            
-            foreach (SpawnGrid sg in ssHandler.Obersvers)
-            {
-                sg.SignNeighbor(ssHandler.Obersvers, sconfig.gap);
-            }
-
         }
 
         //create grid
@@ -106,7 +111,7 @@ namespace ARMon
                     while (CustomController.Less(localWidth, width))
                     {
                         var targetPos = new Vector3(localWidth, localHeight, localLength);
-                        if (CustomController.InRange(deviceGO.transform.position, targetPos, r))
+                        if (CustomController.InRange(camera.transform.position, targetPos, r))
                         {
                             var newGrid = new SpawnGrid(targetPos);
                             ssHandler.Subscribe(newGrid);
@@ -128,41 +133,21 @@ namespace ARMon
         }
         private void Update()
         {
-            Shoot(bulletGO);
+            Shoot();
         }
 
         
         private void LateUpdate()
         {
             MoveHandler?.Invoke();
-            //current scene score
-            textCamPos.GetComponent<Text>().text = CurrentScore.ToString();
-            
-            List<Direction> moveDir = CustomController.PositionCompair( previousPos,currentRoundPos, sconfig.gap);
-            foreach (Direction s in moveDir)
-            {
-                previousPos = currentRoundPos;
-                ObserverUpate(s);
-            }
         }
 
         public void Test()
         {
             monsters.Clear();
-        }
-        private void FixedUpdate()
-        {
-            if (!canvas.activeSelf && monsters.Count <= 0)
-            {
-                backToMainButton.gameObject.SetActive(true);
-            }
-        }
+        }    
 
-        //this is use for the touch/mouse event
-        
-
-
-        private void Shoot(GameObject bulletGO)
+        private void Shoot()
         {
             FireEvent();
             if (shot&&buttonHit)
@@ -170,13 +155,84 @@ namespace ARMon
                 shotTimer += Time.deltaTime;
             }
             else { shotTimer = 0f; }
+            switch (_currentAttack)
+            {
+                case 0:
+                    ShootProjectile();
+                    break;
+                case 1:
+                    ShootLaser();     
+                    break;
+                case 2:
+                    ShootRapidFire();
+                    break;
+                default:
+                    break;
+            }
+
+            
+        }
+
+        void ShootRapidFire()
+        {
+            if (buttonHit)
+            {
+                GameObject temp = Instantiate(_rapidFireBullet, camera.transform.position - camera.transform.up * 0.05f, Quaternion.identity);
+                temp.GetComponent<Rigidbody>().velocity = camera.transform.forward * 5f;
+                Destroy(temp, 3);
+            }
+        }
+
+        void ShootProjectile()
+        {
             if (shotTimer >= time)
             {
-                var bul = Instantiate(bulletGO, deviceGO.transform.position, Quaternion.identity);
-                bul.SendMessage("SetDir", deviceGO.transform.forward);
+
+
+                GameObject temp = Instantiate(projectile, camera.transform.position, camera.transform.rotation);
+                temp.GetComponent<ProjectileScript>().SetProjectile(camera.transform.forward);
+
+                //var bul = Instantiate(bulletGO, deviceGO.transform.position, Quaternion.identity);
+                //bul.SendMessage("SetDir", deviceGO.transform.forward);
                 shotTimer = 0f;
             }
         }
+
+        void ShootLaser()
+        {
+           
+
+            if (buttonHit)
+            {
+                RaycastHit hit;
+                // Does the ray intersect any objects excluding the player layer
+                if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, Mathf.Infinity))
+                {
+                    if (!_sparks.activeSelf)
+                        _sparks.SetActive(true);
+                    _sparks.transform.position = hit.point;
+                    camera.GetComponent<LineRenderer>().SetPosition(0, camera.transform.position - Vector3.up*0.2f);
+                    camera.GetComponent<LineRenderer>().SetPosition(1, hit.point);
+                }
+                else
+                {
+                    if (_sparks.activeSelf)
+                        _sparks.SetActive(false);
+                    camera.GetComponent<LineRenderer>().SetPosition(0, camera.transform.position - Vector3.up * 0.2f);
+                    camera.GetComponent<LineRenderer>().SetPosition(1, camera.transform.position + camera.transform.forward * 100);
+                }
+                camera.GetComponent<LineRenderer>().enabled = true;
+            }
+            else
+            {
+                if (_sparks.activeSelf)
+                    _sparks.SetActive(false);
+                camera.GetComponent<LineRenderer>().SetPosition(0, camera.transform.position);
+                camera.GetComponent<LineRenderer>().SetPosition(1, camera.transform.position);
+                camera.GetComponent<LineRenderer>().enabled = false;
+            }
+        }
+
         private void FireEvent()
         {
             if (Input.GetButtonDown("Fire1"))
@@ -188,7 +244,7 @@ namespace ARMon
                 //LayerMask layermask = 1 << 12 | 1 << 10;
                 //var touchPos = new Vector2(0.2f,0.2f) ;
                 //Ray ray = new Ray(deviceGO.transform.position, Camera.main.transform.forward);
-                Debug.DrawRay(deviceGO.transform.position, Camera.main.transform.forward, Color.red, 10f);
+                Debug.DrawRay(camera.transform.position, Camera.main.transform.forward, Color.red, 10f);
                 //textCamPos.GetComponent<Text>().text = "I shoot somthing";
                 //RaycastHit hit;
                 //if (Physics.Raycast(ray, out hit, Mathf.Infinity, layermask))
@@ -218,23 +274,63 @@ namespace ARMon
             buttonHit = true;
         }
 
-
-        
         public void Summon(string s)
         {
-            //GameObject deviceGO = GameManager.Instance.deviceGO;
-            //get a random pos from gird;
             try
             {
-                SpawnGrid sg = GetGrid(ssHandler.Obersvers);
-                Vector3 pos = sg.GetPos();
-                Vector3 offsetPos = deviceGO.transform.position;
-                //instantiate and set the value of bullet obj
-                var spawnGO = Instantiate(monsterGo, pos, Quaternion.identity);
-                spawnGO.transform.localScale = new Vector3(1, 1, 1);
-                spawnGO.SendMessage("OccupyGrid", sg);
-                monsters.Add(spawnGO);
+                if(monsterPrefabs.Count > 0)
+                {
+                    //Random position
+                    float x = Random.Range(-1.0f, 1.0f);
+                    float y = Random.Range(-1.0f, 1.0f);
+                    float z = Random.Range(-1.0f, 1.0f);
+
+                    //Random distance
+                    float dis = Random.Range(minSpawnDistance, maxSpawnDistance);
+
+                    //Random rarity 
+                    float rarity = Random.Range(0.0f, 100f);
+
+                    //Random monster
+                    int index = Random.Range(0, monsterPrefabs.Count);
+
+                    Color col = Color.white ;
+
+                    //Which rarity should spawn 
+                    if (rarity <= commonDropRate) col = Color.white;
+                    else if (rarity <= commonDropRate + uncommonDropRate) col = Color.blue;
+                    else col = Color.yellow;
+
+                    //Get the position around the player
+                    Vector3 pos = new Vector3(x, y, z).normalized * dis + camera.transform.position;
+
+                    //Get the monster
+                    GameObject monster = Instantiate(monsterPrefabs[index], pos, Quaternion.identity);
+
+                    //If the color is not white (a rarity other than common), change the color
+                    if(col != Color.white)
+                    {
+                        MeshRenderer[] matRends = monster.GetComponentsInChildren<MeshRenderer>();
+
+                        foreach (MeshRenderer matRend in matRends)
+                        {
+                            foreach (Material mat in matRend.materials)
+                            {
+                                mat.color = col;
+                            }
+                        }
+                    }                   
+                    
+                    //Monster looking at the player
+                    monster.transform.LookAt(camera.transform.position);
+                    monsters.Add(monster);
+                }
+                else
+                {
+                    Debug.LogError("NO MONSTERS IN LIST TO SPAWN");
+                }        
                 
+                                                             
             }
             catch (System.Exception e)
             {
@@ -242,31 +338,6 @@ namespace ARMon
             }
             
         }
-
-        
-        private SpawnGrid GetGrid(List<IObersver> list)
-        {
-            SpawnGrid output;
-            List<IObersver> coll = list.Where(l => !l.IsOccupy).ToList();
-            output = (SpawnGrid)coll[Random.Range(0, coll.Count())];
-            output.IsOccupy = true;
-            return output;
-        }
-
-        public void ObserverUpate(Direction dir)
-        {
-            ssHandler.Notfiy(currentRoundPos, dir, sconfig);
-        }
-
-        
-        public void ChangeMode()
-        {
-            bool canvasStatus = canvas.activeSelf;
-            canvas.gameObject.SetActive(!canvasStatus);
-            arCoreDevice.gameObject.SetActive(canvasStatus);
-            planeDiscovery.gameObject.SetActive(canvasStatus);
-        }
-            
 
         public void LoadTreeScene()
         {
@@ -279,6 +350,17 @@ namespace ARMon
         public void MonsterDie(GameObject go)
         {
             monsters.Remove(go);
+        }
+
+        public void ChangeWeapon(Image image)
+        {
+            _currentAttack = (_currentAttack + 1) % _attacks.Count;
+            image.sprite = _attacks[_currentAttack].sprite;
+        }
+
+        public void ReturnToMainMenu()
+        {
+            SceneManager.LoadScene("Menu");
         }
     }
 }

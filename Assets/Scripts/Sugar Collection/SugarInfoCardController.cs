@@ -1,0 +1,58 @@
+﻿/**
+ * SugarInfoCardController.cs is attached to the SugarInfoCard Game Object and is responsible for
+ * displaying the pop-up info card that appears when a sugar monster is clicked in the SugarDex.
+ * Created by Aidan Lee on 6/13/19
+ */
+using System;
+using System.Globalization;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using System.Linq;
+
+public class SugarInfoCardController : MonoBehaviour {
+
+    private static SugarInfoCardController instance;
+    public static SugarInfoCardController Instance { get { return instance; } }
+
+    private FindAddedSugar fas;
+
+    public GameObject CardImg; // image of the background of the card
+    public GameObject MonsterImg; // image of the monster being displayed
+    public GameObject CloseBtn; // button that closes the card
+    public GameObject SugarNameText; // Name of the sugar displayed above
+    public GameObject DescriptionText; // Description of a Sugar taken from the SugarDescriptions database
+    private Vector3 ShownPosition; // Position of the monster image when the monster is show
+    private Vector3 HiddenPosition; // Position of the monster image when the onster is hidden
+
+    private void Awake() {
+        if (instance != null) Destroy(this);
+        else instance = this;
+        fas = FindAddedSugar.Instance;
+        //ShownPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        //HiddenPosition = new Vector3(transform.position.x + 45f, transform.position.y - 70f, transform.position.z);
+}
+    /// <summary>
+    /// Sets the content for the monster name given by accessing the information from Sugar Repository.txt file 
+    /// stored in a 2D list in FindAddedSugar called dbList
+    /// </summary>
+    /// <param monName="monIndex">The number of a monster (displayed in the top right in the sugar dex)</param>
+    public void SetContent(int monIndex) {
+        SugarNameText.GetComponent<TextMeshProUGUI>().text = fas.dbList[monIndex][fas.nameIndex];
+
+        MonsterImg.GetComponent<Image>().sprite = fas.GetMonsterDesign(fas.dbList[monIndex][fas.nameIndex]);
+        if (!fas.MonsterFound(fas.dbList[monIndex][fas.nameIndex])) { // if the monster has not yet been found
+            MonsterImg.GetComponent<Image>().color = Color.black; // set the monster image to a silhouette
+            //DescriptionText.GetComponent<TextMeshProUGUI>().text = "";
+            //MonsterImg.transform.position = HiddenPosition;
+        }
+        else { // if monster is found
+            MonsterImg.GetComponent<Image>().color = Color.white; // reset the image to having original colors
+            //DescriptionText.GetComponent<TextMeshProUGUI>().text = fas.dbList[monIndex][fas.descriptionIndex];
+            //MonsterImg.transform.position = ShownPosition;
+        }
+        DescriptionText.GetComponent<TextMeshProUGUI>().text = fas.dbList[monIndex][fas.descriptionIndex];
+    }
+}

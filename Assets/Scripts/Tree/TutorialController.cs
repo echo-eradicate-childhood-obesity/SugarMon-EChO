@@ -11,15 +11,17 @@ public class TutorialController : MonoBehaviour {
     public int pic;
     private GameObject tree;
     public GameObject sugarDex;
+    private GameObject greenCartBtn;
     // Use this for initialization
     void Start () {
         tree = GameObject.Find("Magic Tree");
+        greenCartBtn = GameObject.Find("FoodDexButton");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || Input.GetKeyDown(KeyCode.A))
+        if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || Input.GetKeyDown(KeyCode.A)) // if screen pressed or 'A' clicked
         {
             //First stage of tutorial
             if (GameObject.Find("Main Camera").GetComponent<SimpleDemo>().tutorialStage == 0)
@@ -40,11 +42,11 @@ public class TutorialController : MonoBehaviour {
                     this.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + tutorialStagePics[pic]);
                     if (tutorialStagePics[pic] == "0-2")
                     {
-                        tree.GetComponentInChildren<Text>().text = "Together, we can find all 247 Sugar Monsters!";
+                        tree.GetComponentInChildren<Text>().text = "Together, we can find all 263 Sugar Monsters!";
                     }
                     else if (tutorialStagePics[pic] == "0-3")
                     {
-                        tree.GetComponentInChildren<Text>().text = "Start by aiming a food or beverage barcode at the center of the square.";
+                        tree.GetComponentInChildren<Text>().text = TutorialDisplay.dialog[0];
 
                         //Modify mask position
                         this.GetComponent<RectTransform>().sizeDelta = new Vector2(1040, 2080);
@@ -65,6 +67,7 @@ public class TutorialController : MonoBehaviour {
                     Debug.Log("Destroy");
                     Destroy(gameObject);
                     Destroy(tree);
+                    //greenCartBtn.GetComponent<Button>().enabled = true;
                     GameObject.Find("Canvas").GetComponent<FindAddedSugar>().DisplayMonsters();
                 }
                 else
@@ -72,11 +75,11 @@ public class TutorialController : MonoBehaviour {
                     this.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Tutorial Masks/" + tutorialStagePics[pic]);
                     if(GameObject.Find("No Added Sugar") != null || GameObject.Find("Not Found") != null)
                     {
-                        tree.GetComponentInChildren<Text>().text = "Click the checkmark to continue.";
+                        tree.GetComponentInChildren<Text>().text = TutorialDisplay.dialog[1];
                     }
                     else
                     {
-                        tree.GetComponentInChildren<Text>().text = "Click the checkmark to add it to your SugarDex!";
+                        tree.GetComponentInChildren<Text>().text = TutorialDisplay.dialog[2];
                     }
                     this.GetComponent<RectTransform>().sizeDelta = new Vector2(1000, 2071);
                     this.GetComponent<RectTransform>().localPosition = new Vector2(0, 60);
@@ -98,8 +101,9 @@ public class TutorialController : MonoBehaviour {
                     Destroy(GameObject.Find("Tutorial Dex"));
                     Destroy(tree);
                     GameObject.Find("SugarDisk").GetComponent<Button>().enabled = true;
+                    greenCartBtn.GetComponent<Button>().enabled = true;
                     GameObject.Find("Main Camera").GetComponent<SimpleDemo>().Invoke("ClickStart", 1f);
-                    GameObject.Find("GreenCart").GetComponent<Button>().enabled = true;
+                    //GameObject.Find("GreenCart").GetComponent<Button>().enabled = true;
                 }
             }
         }

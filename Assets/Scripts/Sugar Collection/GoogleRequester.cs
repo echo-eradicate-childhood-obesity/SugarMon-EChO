@@ -44,7 +44,7 @@ public class GoogleRequester : IRequester
                 }
                 catch { }
             }
-                return "Fail To Get Location Information";
+                return "Location Unavailable";
         });
     }
 }

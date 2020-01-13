@@ -17,7 +17,7 @@ namespace BarcodeScanner.Scanner
 	/// </summary>
 	public class Scanner : IScanner
 	{
-		//
+		
 		public event EventHandler OnReady;
 		public event EventHandler StatusChanged;
 

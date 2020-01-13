@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 /*info is boxed and send when scanner found an item
 * 
@@ -20,8 +23,9 @@ public struct Info{
 }
 
 public class UIManager : MonoBehaviour {
-    public List<Sprite> Sprites;
 
+    public List<Sprite> Sprites;
+    public List<Sprite> NewSprites;
     //singleton attached to main camera
     private static UIManager _instance;
 
@@ -30,80 +34,27 @@ public class UIManager : MonoBehaviour {
         get { return _instance; }
         private set { _instance = value; }
     }
-    public List<GameObject> CateBtn;
-
-    private SimpleDemo simpleDemo;
+    [HideInInspector]
+    public SimpleDemo simpleDemo;
+    //private Color colorA = new Color(0.292f, 0.340f, 0.310f, 1f);
+    //private Color colorB = new Color(1f, 1f, 1f, 1f);
     [SerializeField]
     List<GameObject> familyUIList;
     // Use this for initialization
-    void Awake ()
-    {
-        if (_instance == null)
-        {
+    void Awake() {
+        if (_instance == null) {
             _instance = this;
         }
         else { Destroy(this); }
         //init four catebtn
+
     }
 
     private void Start()
     {
-        InitCateBtn();
         simpleDemo = GameObject.Find("Main Camera").GetComponent<SimpleDemo>();
     }
-
-    private void InitCateBtn()
-    {
-        var cav = GameObject.Find("GreenCartBack");
-        var cavRect = cav.GetComponent<RectTransform>().rect;
-        var catebtnWidth = cavRect.width / (CateBtn.Count);
-        var pos = -(catebtnWidth * CateBtn.Count / 2);
-        foreach (GameObject go in CateBtn)
-        {
-            var colorA = new Color(0.292f,0.340f,0.310f,1f);
-            var colorB = new Color(1f,1f,1f,1f);
-            System.Action<string> act = (aa) =>
-            {
-                var cate = Converter.StringEnumConverter<Category, string>(aa);
-                //set cate when the target cate is not the same as current cate
-                //reset to default(all/uncate) when current cate is same as target cate
-                if (!GreenCartController.Instance.CurrentCates.Contains(cate))
-                {
-                    GreenCartController.Instance.CurrentCates.Add(cate);
-                    GreenCartController.Instance.PC.CurDic = new List<ProductInfo>();
-                    foreach (ProductInfo pi in GreenCartController.Instance.PC.products) {
-                        foreach(Category ct in GreenCartController.Instance.CurrentCates)
-                        {
-                            if (pi.Type!=Category.uncate&&pi.Type == ct)
-                            {
-                                GreenCartController.Instance.PC.CurDic.Add(pi);
-                            }
-                        }
-                    }
-                }
-                else if (GreenCartController.Instance.CurrentCates.Contains(cate))
-                {
-                    GreenCartController.Instance.CurrentCates.Remove(cate);
-                    foreach(ProductInfo pi in GreenCartController.Instance.PC.products.Where(item=>item.Type==cate))
-                    {
-                        GreenCartController.Instance.PC.CurDic.Remove(pi);
-                    }
-                }
-                GreenCartController.Instance.ResetContainer(GreenCartController.Instance.CurrentCates);
-                var tmpro = go.GetComponentInChildren<TextMeshProUGUI>();
-                tmpro.color = tmpro.color == colorB ? colorA : colorB;
-            };
-            go.GetComponent<Button>().onClick.AddListener(() => act(go.name.ToLower()));
-            var rect = go.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(catebtnWidth, rect.rect.height);
-            rect.localPosition = new Vector3(pos, 0f);
-            pos += catebtnWidth;
-        }
-    }
-
-    //have info passed here, active the target gameobject in with in the info parent  
-    
-    public void IndicateController(Info info,string targetName)
+    public void IndicateController(Info info, string targetName)
     {
         foreach (GameObject go in familyUIList)
         {
@@ -122,14 +73,11 @@ public class UIManager : MonoBehaviour {
             }
         }
     }
-    public void IndicateController(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
-    {
+    public void IndicateController(Info info, string targetName, List<TMP_Dropdown.OptionData> list) {
         IndicateControllerHelper(info, targetName, list);
     }
-    public Sprite dextrose;
     private void IndicateControllerHelper(Info info, string targetName, List<TMP_Dropdown.OptionData> list)
     {
-        Debug.Log("hi");
         foreach (TMP_Dropdown.OptionData go in list)
         {
       
@@ -155,31 +103,31 @@ public class UIManager : MonoBehaviour {
                 {
                     if (go.text.Equals("Dextrin"))
                     {
-                        go.image = Sprites[0];
+                        go.image = NewSprites[0];
                     }
                     if (go.text.Equals("OSE"))
                     {
-                        go.image = Sprites[1];
+                        go.image = NewSprites[1];
                     }
                     if (go.text.Equals("Cane"))
                     {
-                        go.image = Sprites[2];
+                        go.image = NewSprites[2];
                     }
                     if (go.text.Equals("Syrup"))
                     {
-                        go.image = Sprites[3];
+                        go.image = NewSprites[3];
                     }
                     if (go.text.Equals("Concentrate"))
                     {
-                        go.image = Sprites[4];
+                        go.image = NewSprites[4];
                     }
                     if (go.text.Equals("Obvious"))
                     {
-                        go.image = Sprites[5];
+                        go.image = NewSprites[5];
                     }
                     if (go.text.Equals("Strange"))
                     {
-                        go.image = Sprites[6];
+                        go.image = NewSprites[6];
                     }
                     go.text += " (1 new!)";
                 }
@@ -202,10 +150,17 @@ public class UIManager : MonoBehaviour {
             else return;
         }
     }
-
-
-
-    public void DisableUI(GameObject go)
+    public void OpenFoodDex() 
+    {
+        GreenCartController.Instance.ResetContainer();
+        GreenCartController.Instance.rollable = true;
+        ToggleEnable(GreenCartController.Instance.gameObject);
+    }
+    public void CloseFoodDex() {
+        ToggleEnable(GreenCartController.Instance.gameObject);
+        GreenCartController.Instance.rollable = false;
+    }
+    public void ToggleEnable(GameObject go)
     {
         simpleDemo.enabled = !simpleDemo.enabled;
         go.SetActive(!go.activeSelf);

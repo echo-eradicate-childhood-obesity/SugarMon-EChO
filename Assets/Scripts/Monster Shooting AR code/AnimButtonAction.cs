@@ -22,7 +22,7 @@ public class AnimButtonAction : MonoBehaviour,IButtonAction {
         List<GameObject> gos = new List<GameObject>();
         foreach (string str in Gos)
         {
-            var go = transform.Find(str)!=null?transform.Find(str).gameObject:GameObject.Find(str);
+            var go = transform.Find(str) != null?transform.Find(str).gameObject:GameObject.Find(str);
             gos.Add(go); 
         }
         for (int i = 0; i < gos.Count; i++)
